@@ -1,0 +1,1022 @@
+import { useLanguage } from '../contexts/LanguageContext';
+import { Card, CardContent } from '../components/ui/card';
+import { Badge } from '../components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
+import { Building2, User, GraduationCap, Mail, Award, Target } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
+import { useState } from 'react';
+
+// Import profile images
+import erikaAlegriaImg from "figma:asset/3e4d676df1e0c0b2f8fad10ba1c0d258f1036b17.png";
+import frederickOppongImg from "figma:asset/b32291fe73e7b1c05a02de213dc4e2a0df92a803.png";
+import dianeFarmerImg from "figma:asset/32627da26e09b9d3161271077350a5b2704ea170.png";
+import rebeccaRabyImg from "figma:asset/55aa99e07815047fd4b4490c0ad3a45a417b84e6.png";
+import christineTardifWilliamsImg from "figma:asset/e431960ffadd78f74ce0ddb7b7075b5b30eccb44.png";
+import dawnTrussellImg from "figma:asset/a6fefc3f45134fecdba853ee0584e343388cccdd.png";
+import elisabethZimmermannImg from "figma:asset/f77b38ccb928df2aa4887124053ea912681a53eb.png";
+import jeanNtakirutimanaImg from "figma:asset/a4bced4acbd5814bb109a187b7f1325cde395ea7.png";
+import livianaTossuttiImg from "figma:asset/438f2f96ee4c30da348ebf5afdbb45ab22a5947b.png";
+
+export function MemberBios() {
+  const { language } = useLanguage();
+  const [selectedHub, setSelectedHub] = useState<string>('All');
+
+  // Hub translation mapping
+  const getHubLabel = (hubName: string) => {
+    const hubTranslations: Record<string, { en: string; fr: string }> = {
+      'All': { en: 'All Members', fr: 'Tous les membres' },
+      'Childhood and Growing Up Hub': { 
+        en: 'Childhood and Growing Up Hub', 
+        fr: 'Pôle Enfance et croissance' 
+      },
+      'Health Literacy Hub': { 
+        en: 'Health Literacy Hub', 
+        fr: 'Pôle Littératie en santé' 
+      },
+      'Identity, Connections and Belonging Hub': { 
+        en: 'Identity, Connections and Belonging Hub', 
+        fr: 'Pôle Identité, connexions et appartenance' 
+      },
+    };
+    
+    return language === 'en' 
+      ? hubTranslations[hubName]?.en || hubName
+      : hubTranslations[hubName]?.fr || hubName;
+  };
+
+  const members = [
+    // Faculty Members - Childhood and Growing Up Hub
+    {
+      name: 'Dr. Christine Tardif-Williams',
+      role: 'Professor',
+      roleFr: 'Professeure',
+      hub: 'Childhood and Growing Up Hub',
+      hubFr: 'Pôle Enfance et croissance',
+      institution: 'Brock University',
+      institutionFr: 'Université Brock',
+      email: 'ctardifwilliams@brocku.ca',
+      type: 'faculty',
+      image: christineTardifWilliamsImg,
+      bio: 'Dr. Tardif-Williams is a Professor at Brock University whose research focuses on childhood development, particularly in newcomer and racialized communities. Her work examines how children navigate housing, education, and social spaces.',
+      bioFr: 'Dre Tardif-Williams est professeure à l\'Université Brock dont la recherche se concentre sur le développement de l\'enfance, particulièrement dans les communautés nouvelles arrivantes et racialisées. Son travail examine comment les enfants naviguent le logement, l\'éducation et les espaces sociaux.',
+    },
+    {
+      name: 'Dr. Rebecca Raby',
+      role: 'Professor, Hub Leader',
+      roleFr: 'Professeure, Responsable du pôle',
+      hub: 'Childhood and Growing Up Hub',
+      hubFr: 'Pôle Enfance et croissance',
+      institution: 'Brock University',
+      institutionFr: 'Université Brock',
+      email: 'rraby@brocku.ca',
+      type: 'faculty',
+      isHubLeader: true,
+      image: rebeccaRabyImg,
+      bio: 'Dr. Raby is a Professor and Hub Leader at Brock University specializing in youth studies and the sociology of childhood. Her research focuses on how newcomer children experience housing insecurity, leisure, sport, and education.',
+      bioFr: 'Dre Raby est professeure et responsable du pôle à l\'Université Brock, spécialisée dans les études sur la jeunesse et la sociologie de l\'enfance. Ses recherches se concentrent sur la façon dont les enfants nouveaux arrivants vivent l\'insécurité du logement, les loisirs, le sport et l\'éducation.',
+    },
+    {
+      name: 'Dr. Dawn Trussell',
+      role: 'Professor',
+      roleFr: 'Professeure',
+      hub: 'Childhood and Growing Up Hub',
+      hubFr: 'Pôle Enfance et croissance',
+      institution: 'Brock University',
+      institutionFr: 'Université Brock',
+      email: 'dtrussell@brocku.ca',
+      type: 'faculty',
+      image: elisabethZimmermannImg,
+      bio: 'Dr. Trussell is a Professor at Brock University whose research explores leisure, recreation, and family dynamics. Her work examines how newcomer families access and engage with leisure opportunities in their communities.',
+      bioFr: 'Dre Trussell est professeure à l\'Université Brock dont la recherche explore les loisirs, la récréation et la dynamique familiale. Son travail examine comment les familles nouvelles arrivantes accèdent et s\'engagent avec les opportunités de loisirs dans leurs communautés.',
+    },
+    {
+      name: 'Dr. Diane Farmer',
+      role: 'Professor',
+      roleFr: 'Professeure',
+      hub: 'Childhood and Growing Up Hub',
+      hubFr: 'Pôle Enfance et croissance',
+      institution: 'University of Toronto',
+      institutionFr: 'Université de Toronto',
+      email: 'diane.farmer@utoronto.ca',
+      type: 'faculty',
+      image: dianeFarmerImg,
+      bio: 'Dr. Farmer is a Professor at the University of Toronto whose research focuses on francophone minority education, immigration, and bilingualism. Her work examines educational experiences of newcomer children in diverse linguistic contexts.',
+      bioFr: 'Dre Farmer est professeure à l\'Université de Toronto dont la recherche se concentre sur l\'éducation en milieu francophone minoritaire, l\'immigration et le bilinguisme. Son travail examine les expériences éducatives des enfants nouveaux arrivants dans des contextes linguistiques diversifiés.',
+    },
+
+    // Faculty Members - Health Literacy Hub
+    {
+      name: 'Dr. Livianna Tossutti',
+      role: 'Professor, Co-Director of Mobilizing Subjugated Knowledges for a Just and Inclusive Niagara and',
+      roleFr: 'Professeure, Codirectrice de Mobiliser les savoirs marginalisés pour un Niagara juste et inclusif et',
+      hub: 'Health Literacy Hub',
+      hubFr: 'Pôle Littératie en santé',
+      institution: 'Brock University',
+      institutionFr: 'Université Brock',
+      email: 'ltossutti@brocku.ca',
+      type: 'faculty',
+      isCoDirector: true,
+      image: livianaTossuttiImg,
+      bio: 'Co-Director Mobilizing Subjugated Knowledges for a Just and Inclusive Niagara, Associate Professor (retired) of Political Science, and Adjunct Professor at Brock University. Current research is focussed on: municipal policies for immigrant integration and cultural diversity in Canada and the U.S., resilient cities and neighbourhoods, and health literacy for immigrant and refugee populations. She has authored The Electoral Participation of Ethnocultural Communities and Canadian Politics Today: Democracy, Diversity and Good Government, and articles in: Urban Affairs Review, Journal of Urban Affairs, Canadian Journal of Political Science, Canadian Ethnic Studies, Party Politics, the Journal of Canadian Studies, West European Politics, Mediterranean Politics.',
+      bioFr: 'Codirectrice de Mobiliser les savoirs subjugués pour un Niagara juste et inclusif, professeure agrégée (retraitée) de science politique et professeure auxiliaire à l\'Université Brock. Ses recherches actuelles portent sur : les politiques municipales pour l\'intégration des immigrants et la diversité culturelle au Canada et aux États-Unis, les villes et quartiers résilients, et la littératie en santé pour les populations immigrantes et réfugiées. Elle est l\'auteure de The Electoral Participation of Ethnocultural Communities et Canadian Politics Today: Democracy, Diversity and Good Government, et d\'articles dans : Urban Affairs Review, Journal of Urban Affairs, Canadian Journal of Political Science, Canadian Ethnic Studies, West European Politics, Mediterranean Politics.',
+    },
+    {
+      name: 'Dr. Joanne Crawford',
+      role: 'Professor, Hub Co-Leader',
+      roleFr: 'Professeure, Coresponsable du pôle',
+      hub: 'Health Literacy Hub',
+      hubFr: 'Pôle Littératie en santé',
+      institution: 'Brock University',
+      institutionFr: 'Université Brock',
+      email: 'joanne.crawford@brocku.ca',
+      type: 'faculty',
+      isHubLeader: true,
+      bio: 'As a registered nurse with many years of clinical practice experience and community-based research, Joanne collaborates with key stakeholders and engaged in equity-deserving communities who experience structural barriers to access to health, health information and resources for living. Joanne has a public health background having worked with immigrant and refugee, low-income and Indigenous populations centered on health, health promotion and prevention, and social inclusion. Her work is grounded in health equity and social justice, and research methodologies reflect participatory and community engagement methods including conducting studies utilizing qualitative, quantitative, and mixed methods, as well as working with interdisciplinary teams on a different types of review studies.',
+      bioFr: 'En tant qu\'infirmière autorisée avec de nombreuses années d\'expérience en pratique clinique et en recherche communautaire, Joanne collabore avec des parties prenantes clés et s\'engage auprès de communautés méritant l\'équité qui rencontrent des obstacles structurels à l\'accès à la santé, à l\'information sur la santé et aux ressources pour vivre. Joanne a une formation en santé publique ayant travaillé avec des populations immigrantes et réfugiées, à faible revenu et autochtones, centrée sur la santé, la promotion et la prévention de la santé, et l\'inclusion sociale. Son travail est ancré dans l\'équité en santé et la justice sociale, et ses méthodologies de recherche reflètent des méthodes participatives et d\'engagement communautaire, y compris la réalisation d\'études utilisant des méthodes qualitatives, quantitatives et mixtes, ainsi que le travail avec des équipes interdisciplinaires sur différents types d\'études de revue.',
+    },
+    {
+      name: 'Dr. Farah Ahmad',
+      role: 'Professor',
+      roleFr: 'Professeure',
+      hub: 'Health Literacy Hub',
+      hubFr: 'Pôle Littératie en santé',
+      institution: 'York University',
+      institutionFr: 'Université York',
+      email: 'farahmad@yorku.ca',
+      type: 'faculty',
+      bio: 'Dr. Farah Ahmad is Full Professor at the School of Health Policy and Management, Faculty of Health, York University. Her training includes family medicine, public health sciences, and health services and policy research with critical approaches. She conducts community engaged mixed-method research to examine and address health inequities at the intersection of immigration/refugee status, gender, and race especially for the socially stigmatized issues including mental health and disability. She has published extensively on equity and access to health care, and enjoys mentoring students and research trainees.',
+      bioFr: 'Dre Farah Ahmad est professeure titulaire à l\'École de politique et de gestion de la santé, Faculté de santé, Université York. Sa formation comprend la médecine familiale, les sciences de la santé publique et la recherche sur les services et politiques de santé avec des approches critiques. Elle mène des recherches à méthodes mixtes engagées dans la communauté pour examiner et aborder les inégalités en santé à l\'intersection du statut d\'immigration/réfugié, du genre et de la race, en particulier pour les questions socialement stigmatisées, y compris la santé mentale et le handicap. Elle a publié abondamment sur l\'équité et l\'accès aux soins de santé, et aime encadrer les étudiants et les stagiaires en recherche.',
+    },
+    {
+      name: 'Dr. Wooksoo Kim',
+      role: 'Professor',
+      roleFr: 'Professeur',
+      hub: 'Health Literacy Hub',
+      hubFr: 'Pôle Littératie en santé',
+      institution: 'University at Buffalo',
+      institutionFr: 'Université de Buffalo',
+      email: 'wkim5@buffalo.edu',
+      type: 'faculty',
+      bio: 'Dr. Kim is a Professor at the University at Buffalo whose research focuses on health disparities, immigrant health, and community engagement strategies to promote health equity among marginalized populations.',
+      bioFr: 'Dr Kim est professeur à l\'Université de Buffalo dont la recherche se concentre sur les disparités en santé, la santé des immigrants et les stratégies d\'engagement communautaire pour promouvoir l\'équité en santé parmi les populations marginalisées.',
+    },
+
+    // Faculty Members - Identity, Connections and Belonging Hub
+    {
+      name: 'Dr. Jean Ntakirutimana',
+      role: 'Professor, Co-Director, Hub Leader',
+      roleFr: 'Professeur, Codirecteur, Responsable du pôle',
+      hub: 'Identity, Connections and Belonging Hub',
+      hubFr: 'Pôle Identité, connexions et appartenance',
+      institution: 'Brock University',
+      institutionFr: 'Université Brock',
+      email: 'jntakirutimana@brocku.ca',
+      type: 'faculty',
+      isCoDirector: true,
+      isHubLeader: true,
+      isProjectLeader: true,
+      projectLeaderTitle: 'Project #1 Leader',
+      projectLeaderTitleFr: 'Chef de projet #1',
+      image: jeanNtakirutimanaImg,
+      bio: 'Dr. Ntakirutimana is Co-Director of the MSK Partnership, Hub Leader, and Project Leader for Identity & Belonging within Afro Descendants research. His work focuses on identity formation, belonging, and community connections among African descendant populations in the Niagara region.',
+      bioFr: 'Dr Ntakirutimana est codirecteur du partenariat MSK, responsable du pôle et chef de projet pour la recherche Identité et appartenance parmi les Afro-descendants. Son travail se concentre sur la formation de l\'identité, l\'appartenance et les connexions communautaires parmi les populations d\'ascendance africaine dans la région de Niagara.',
+    },
+    {
+      name: 'Dr. Julie Ham',
+      role: 'Professor, Project Leader',
+      roleFr: 'Professeure, Chef de projet',
+      hub: 'Identity, Connections and Belonging Hub',
+      hubFr: 'Pôle Identité, connexions et appartenance',
+      institution: 'Brock University',
+      institutionFr: 'Université Brock',
+      email: 'jham@brocku.ca',
+      type: 'faculty',
+      isProjectLeader: true,
+      projectLeaderTitle: 'Project #2 Leader',
+      projectLeaderTitleFr: 'Chef de projet #2',
+      bio: 'Dr. Ham is a Professor at Brock University and Project Leader for Migrant Farmworkers in Community research. Her work examines the experiences of migrant farmworkers, labor conditions, and community integration in agricultural communities.',
+      bioFr: 'Dre Ham est professeure à l\'Université Brock et chef de projet pour la recherche sur les travailleurs agricoles migrants dans la communauté. Son travail examine les expériences des travailleurs agricoles migrants, les conditions de travail et l\'intégration communautaire dans les communautés agricoles.',
+    },
+    {
+      name: 'Dr. Dane Di Cesare',
+      role: 'Professor, Project Leader',
+      roleFr: 'Professeur, Chef de projet',
+      hub: 'Identity, Connections and Belonging Hub',
+      hubFr: 'Pôle Identité, connexions et appartenance',
+      institution: 'Brock University',
+      institutionFr: 'Université Brock',
+      email: 'ddicesare@brocku.ca',
+      type: 'faculty',
+      isProjectLeader: true,
+      projectLeaderTitle: 'Project #3 Leader',
+      projectLeaderTitleFr: 'Chef de projet #3',
+      bio: 'Dr. Di Cesare is a Professor at Brock University and Project Leader for ICT Use & SGD Newcomers research. His work explores how sexual and gender diverse newcomers utilize information and communication technologies for community building and support.',
+      bioFr: 'Dr Di Cesare est professeur à l\'Université Brock et chef de projet pour la recherche sur l\'utilisation des TIC et les nouveaux arrivants de diverses identités sexuelles et de genre. Son travail explore comment les nouveaux arrivants de diverses identités sexuelles et de genre utilisent les technologies de l\'information et de la communication pour construire des communautés et obtenir du soutien.',
+    },
+    {
+      name: 'Dr. Pascal Lupien',
+      role: 'Professor',
+      roleFr: 'Professeur',
+      hub: 'Identity, Connections and Belonging Hub',
+      hubFr: 'Pôle Identité, connexions et appartenance',
+      institution: 'Brock University',
+      institutionFr: 'Université Brock',
+      email: 'plupien@brocku.ca',
+      type: 'faculty',
+      bio: 'Dr. Lupien is a Professor at Brock University whose research focuses on political sociology, social movements, and identity politics, particularly among immigrant and newcomer communities.',
+      bioFr: 'Dr Lupien est professeur à l\'Université Brock dont la recherche se concentre sur la sociologie politique, les mouvements sociaux et la politique identitaire, en particulier parmi les communautés immigrantes et nouvelles arrivantes.',
+    },
+    {
+      name: 'Dr. Shelley Craig',
+      role: 'Professor',
+      roleFr: 'Professeure',
+      hub: 'Identity, Connections and Belonging Hub',
+      hubFr: 'Pôle Identité, connexions et appartenance',
+      institution: 'University of Toronto',
+      institutionFr: 'Université de Toronto',
+      email: 'shelley.craig@utoronto.ca',
+      type: 'faculty',
+      bio: 'Dr. Craig is a Professor at the University of Toronto whose research focuses on LGBTQ+ mental health, social work practice with sexual and gender diverse populations, and community-based interventions.',
+      bioFr: 'Dre Craig est professeure à l\'Université de Toronto dont la recherche se concentre sur la santé mentale LGBTQ+, la pratique du travail social avec les populations de diverses identités sexuelles et de genre, et les interventions communautaires.',
+    },
+    {
+      name: 'Dr. Kaschka Watson',
+      role: 'Professor',
+      roleFr: 'Professeure',
+      hub: 'Identity, Connections and Belonging Hub',
+      hubFr: 'Pôle Identité, connexions et appartenance',
+      institution: 'Brock University',
+      institutionFr: 'Université Brock',
+      email: 'kwatson@brocku.ca',
+      type: 'faculty',
+      bio: 'Dr. Watson is a Professor at Brock University whose research explores social inclusion, community development, and equity issues affecting marginalized populations.',
+      bioFr: 'Dre Watson est professeure à l\'Université Brock dont la recherche explore l\'inclusion sociale, le développement communautaire et les enjeux d\'équité affectant les populations marginalisées.',
+    },
+    {
+      name: 'Reverend Dr. Daniel Tatarnic',
+      role: 'Reverend Dr.',
+      roleFr: 'Révérend Dr',
+      hub: 'Identity, Connections and Belonging Hub',
+      hubFr: 'Pôle Identité, connexions et appartenance',
+      institution: 'Migrant Farm Workers Project, St. Alban\'s Anglican Church',
+      institutionFr: 'Projet pour les travailleurs agricoles migrants, Église anglicane St. Alban',
+      email: 'danieltatarnic@outlook.com',
+      type: 'faculty',
+      bio: 'Reverend Dr. Tatarnic leads the Migrant Farm Workers Project at St. Alban\'s Anglican Church, providing pastoral care, advocacy, and support services for migrant agricultural workers in the Niagara region.',
+      bioFr: 'Le révérend Dr Tatarnic dirige le Projet pour les travailleurs agricoles migrants à l\'Église anglicane St. Alban, fournissant des soins pastoraux, du plaidoyer et des services de soutien aux travailleurs agricoles migrants dans la région de Niagara.',
+    },
+    {
+      name: 'Dr. Jennifer Holzer',
+      role: 'Postdoctoral Fellow',
+      roleFr: 'Boursière postdoctorale',
+      hub: 'Identity, Connections and Belonging Hub',
+      hubFr: 'Pôle Identité, connexions et appartenance',
+      institution: 'Environmental Sustainability Research Centre (ESRC), Brock University',
+      institutionFr: 'Centre de recherche sur la durabilité environnementale (ESRC), Université Brock',
+      email: 'jholzer@brocku.ca',
+      type: 'faculty',
+      isPostDoc: true,
+      bio: 'Dr. Holzer is a Postdoctoral Fellow at Brock University\'s Environmental Sustainability Research Centre, conducting research on environmental justice, sustainability, and community engagement among diverse populations.',
+      bioFr: 'Dre Holzer est boursière postdoctorale au Centre de recherche sur la durabilité environnementale de l\'Université Brock, menant des recherches sur la justice environnementale, la durabilité et l\'engagement communautaire parmi diverses populations.',
+    },
+    {
+      name: 'Dr. Winston Benn',
+      role: 'Postdoctoral Fellow',
+      roleFr: 'Boursier postdoctoral',
+      hub: 'Identity, Connections and Belonging Hub',
+      hubFr: 'Pôle Identité, connexions et appartenance',
+      institution: 'CARICOM',
+      institutionFr: 'CARICOM',
+      email: 'bennwcnd@gmail.com',
+      type: 'faculty',
+      isPostDoc: true,
+      bio: 'Dr. Benn is an incoming Canada/CARICOM Postdoctoral Fellow whose research focuses on Caribbean diaspora communities, transnational identity, and migration experiences.',
+      bioFr: 'Dr Benn est un boursier postdoctoral Canada/CARICOM dont la recherche se concentre sur les communautés de la diaspora caribéenne, l\'identité transnationale et les expériences de migration.',
+    },
+
+    // Graduate Students - Childhood and Growing Up Hub
+    {
+      name: 'Erika Alegria',
+      role: 'PhD Student',
+      roleFr: 'Étudiante au doctorat',
+      hub: 'Childhood and Growing Up Hub',
+      hubFr: 'Pôle Enfance et croissance',
+      institution: 'Brock University',
+      institutionFr: 'Université Brock',
+      email: 'ea21pd@brocku.ca',
+      type: 'student',
+      image: erikaAlegriaImg,
+      bio: 'Erika Alegria is a PhD student at Brock University conducting research on childhood experiences and community engagement.',
+      bioFr: 'Erika Alegria est étudiante au doctorat à l\'Université Brock menant des recherches sur les expériences de l\'enfance et l\'engagement communautaire.',
+    },
+    {
+      name: 'Frederick Oppong',
+      role: 'PhD Student',
+      roleFr: 'Étudiant au doctorat',
+      hub: 'Childhood and Growing Up Hub',
+      hubFr: 'Pôle Enfance et croissance',
+      institution: 'Brock University',
+      institutionFr: 'Université Brock',
+      email: 'Zw23la@brocku.ca',
+      type: 'student',
+      image: frederickOppongImg,
+      bio: 'Frederick Oppong is a PhD student at Brock University exploring childhood development and social inclusion.',
+      bioFr: 'Frederick Oppong est étudiant au doctorat à l\'Université Brock explorant le développement de l\'enfance et l\'inclusion sociale.',
+    },
+
+    // Research Assistants - Health Literacy Hub
+    {
+      name: 'Karlie Janes',
+      role: 'Research Assistant',
+      roleFr: 'Assistante de recherche',
+      hub: 'Health Literacy Hub',
+      hubFr: 'Pôle Littératie en santé',
+      institution: 'Brock University',
+      institutionFr: 'Université Brock',
+      email: 'pi23le@brocku.ca',
+      type: 'student',
+      bio: 'Karlie Janes holds a BSc and MSc in Global Health and Development. Recently, she completed her Bachelors and Masters of Nursing, and will be pursuing her registered nurse (RN) certification. Her research interests and pursuits center around increasing access to health services for marginalized communities, public and global health policy development, and exploring strategies for creating health enabling communities. Outside of her professional pursuits, Karlie is an avid runner and competes in ultra-trail marathons. She additionally loves to read, and always keen to receive book recommendations.',
+      bioFr: 'Karlie Janes détient un BSc et une MSc en santé mondiale et développement. Récemment, elle a terminé son baccalauréat et sa maîtrise en sciences infirmières, et poursuivra sa certification d\'infirmière autorisée (IA). Ses intérêts et poursuites de recherche se concentrent sur l\'augmentation de l\'accès aux services de santé pour les communautés marginalisées, le développement de politiques de santé publique et mondiale, et l\'exploration de stratégies pour créer des communautés favorables à la santé. En dehors de ses activités professionnelles, Karlie est une coureuse passionnée et participe à des marathons ultra-trail. Elle aime également lire et est toujours ravie de recevoir des recommandations de livres.',
+    },
+    {
+      name: 'Cecilia Nambalirwa',
+      role: 'Research Assistant',
+      roleFr: 'Assistante de recherche',
+      hub: 'Health Literacy Hub',
+      hubFr: 'Pôle Littératie en santé',
+      institution: 'Community Member',
+      institutionFr: 'Membre de la communauté',
+      email: 'cecilianambalirwa@gmail.com',
+      type: 'student',
+      bio: 'Cecilia Nambalirwa is a community-based Research Assistant contributing to health literacy projects and community outreach efforts.',
+      bioFr: 'Cecilia Nambalirwa est assistante de recherche communautaire contribuant aux projets de littératie en santé et aux efforts de sensibilisation communautaire.',
+    },
+    {
+      name: 'Hurakhsh Hazheer',
+      role: 'Research Assistant',
+      roleFr: 'Assistant de recherche',
+      hub: 'Health Literacy Hub',
+      hubFr: 'Pôle Littératie en santé',
+      institution: 'Brock University',
+      institutionFr: 'Université Brock',
+      email: 'vd22bu@brocku.ca',
+      type: 'student',
+      bio: 'Hurakhsh Hazheer is a Research Assistant at Brock University working on health literacy and community health promotion initiatives.',
+      bioFr: 'Hurakhsh Hazheer est assistant de recherche à l\'Université Brock travaillant sur la littératie en santé et les initiatives de promotion de la santé communautaire.',
+    },
+
+    // Research Assistants - Identity, Connections and Belonging Hub
+    {
+      name: 'Justin Mafie',
+      role: 'Undergraduate Research Assistant, Webmaster',
+      roleFr: 'Assistant de recherche de premier cycle, Webmestre',
+      hub: 'Identity, Connections and Belonging Hub',
+      hubFr: 'Pôle Identité, connexions et appartenance',
+      institution: 'Brock University',
+      institutionFr: 'Université Brock',
+      email: 'jmafie@brocku.ca',
+      type: 'student',
+      bio: 'Justin Mafie is an Undergraduate Research Assistant and Webmaster at Brock University, supporting research initiatives and managing the web presence for the MSK Partnership.',
+      bioFr: 'Justin Mafie est assistant de recherche de premier cycle et webmestre à l\'Université Brock, soutenant les initiatives de recherche et gérant la présence web du partenariat MSK.',
+    },
+
+    // Community Partners - Childhood and Growing Up Hub
+    {
+      name: 'Elisabeth Zimmermann',
+      role: 'Executive Director',
+      roleFr: 'Directrice exécutive',
+      hub: 'Childhood and Growing Up Hub',
+      hubFr: 'Pôle Enfance et croissance',
+      institution: 'YWCA Niagara Region',
+      institutionFr: 'YWCA Région de Niagara',
+      email: 'ezimmermann@ywcaniagararegion.ca',
+      type: 'community',
+      image: dawnTrussellImg,
+      bio: 'Elisabeth Zimmermann has worked for the last 31 years in the non-profit sector, the last 20 as Executive Director of the YWCA Niagara Region. Elisabeth understands the need for community involvement and has been actively involved as a member of her local community in various initiatives including sitting at the table for the GNCC nonprofit council, the GNCC Governance, the Women\'s Homelessness Network, and the Women\'s Advisory Council. Putting her beliefs into action, Elisabeth works tirelessly to directly impact women and their families in the Niagara community.',
+      bioFr: 'Elisabeth Zimmermann travaille depuis 31 ans dans le secteur à but non lucratif, dont les 20 dernières années en tant que directrice exécutive de la YWCA Région de Niagara. Elisabeth comprend la nécessité de l\'engagement communautaire et a été activement impliquée en tant que membre de sa communauté locale dans diverses initiatives, notamment en siégeant à la table du conseil des organismes à but non lucratif du GNCC, de la gouvernance du GNCC, du Réseau sur l\'itinérance des femmes et du Conseil consultatif des femmes. Mettant ses convictions en action, Elisabeth travaille sans relâche pour avoir un impact direct sur les femmes et leurs familles dans la communauté de Niagara.',
+    },
+    {
+      name: 'Emmanuel Mompongo',
+      role: 'Project Coordinator',
+      roleFr: 'Coordonnateur de projet',
+      hub: 'Childhood and Growing Up Hub',
+      hubFr: 'Pôle Enfance et croissance',
+      institution: 'SOFIFRAN',
+      institutionFr: 'SOFIFRAN',
+      email: 'emmanuel@sofifran.org',
+      type: 'community',
+      bio: 'Emmanuel Mompongo is the Project Coordinator at SOFIFRAN (Société ontarienne des femmes immigrantes francophones), supporting francophone immigrant women and families in the Niagara region.',
+      bioFr: 'Emmanuel Mompongo est coordonnateur de projet à SOFIFRAN (Société ontarienne des femmes immigrantes francophones), soutenant les femmes et les familles immigrantes francophones dans la région de Niagara.',
+    },
+    {
+      name: 'Fété Ngira-Batware Kimpiobi',
+      role: 'Community Partner',
+      roleFr: 'Partenaire communautaire',
+      hub: 'Childhood and Growing Up Hub',
+      hubFr: 'Pôle Enfance et croissance',
+      institution: 'SOFIFRAN',
+      institutionFr: 'SOFIFRAN',
+      email: 'info@sofifran.org',
+      type: 'community',
+      bio: 'Fété Ngira-Batware Kimpiobi works with SOFIFRAN to support francophone immigrant communities in accessing services and building connections.',
+      bioFr: 'Fété Ngira-Batware Kimpiobi travaille avec SOFIFRAN pour soutenir les communautés immigrantes francophones dans l\'accès aux services et la construction de liens.',
+    },
+    {
+      name: 'Mary Wiley',
+      role: 'Director of Engagement',
+      roleFr: 'Directrice de l\'engagement',
+      hub: 'Childhood and Growing Up Hub',
+      hubFr: 'Pôle Enfance et croissance',
+      institution: 'Community Potential - Niagara Connects',
+      institutionFr: 'Community Potential - Niagara Connects',
+      email: 'mary.wiley@communitypotential.ca',
+      type: 'community',
+      bio: 'Mary Wiley is the Director of Engagement at Community Potential - Niagara Connects, working to strengthen community connections and support service coordination across the Niagara region.',
+      bioFr: 'Mary Wiley est directrice de l\'engagement à Community Potential - Niagara Connects, travaillant à renforcer les liens communautaires et à soutenir la coordination des services dans la région de Niagara.',
+    },
+
+    // Community Partners - Health Literacy Hub
+    {
+      name: 'Marie Mouradikian',
+      role: 'Executive Director/CEO',
+      roleFr: 'Directrice exécutive/PDG',
+      hub: 'Health Literacy Hub',
+      hubFr: 'Pôle Littératie en santé',
+      institution: 'Bridges Niagara',
+      institutionFr: 'Bridges Niagara',
+      email: 'mmouradikian@bridgesniagara.ca',
+      type: 'community',
+      bio: 'Marie is a strategic nonprofit leader with 15+ years of experience advancing immigrant settlement, multicultural programming, and community development. Now Interim Executive Director at Bridges Niagara, she leads organizational transition, strengthens governance, and champions equity-focused, trauma-informed initiatives. Marie developed and implemented the organization\'s EDIAR framework, embedding equity and anti-racism principles across operations. An immigrant herself, she brings lived experience and a deep commitment to inclusion, securing major funding, expanding programs, and building impactful partnerships. Fluent in four languages, Marie is dedicated to creating welcoming, culturally responsive services that foster lasting community impact.',
+      bioFr: 'Marie est une leader stratégique du secteur à but non lucratif avec plus de 15 ans d\'expérience dans l\'avancement de l\'établissement des immigrants, la programmation multiculturelle et le développement communautaire. Maintenant directrice exécutive intérimaire à Bridges Niagara, elle dirige la transition organisationnelle, renforce la gouvernance et défend des initiatives axées sur l\'équité et tenant compte des traumatismes. Marie a développé et mis en œuvre le cadre EDIAR de l\'organisation, intégrant les principes d\'équité et d\'antiracisme dans toutes les opérations. Immigrante elle-même, elle apporte une expérience vécue et un engagement profond envers l\'inclusion, obtenant des financements majeurs, élargissant les programmes et établissant des partenariats percutants. Parlant couramment quatre langues, Marie se consacre à créer des services accueillants et culturellement adaptés qui favorisent un impact communautaire durable.',
+    },
+    {
+      name: 'Ijeoma Michael',
+      role: 'Girls and Women\'s Projects Lead',
+      roleFr: 'Responsable des projets pour filles et femmes',
+      hub: 'Health Literacy Hub',
+      hubFr: 'Pôle Littératie en santé',
+      institution: 'Future Black Female',
+      institutionFr: 'Future Black Female',
+      email: 'ijeoma@futureblackfemale.com',
+      type: 'community',
+      bio: 'Ijeoma Michael leads girls and women\'s projects at Future Black Female, empowering young Black women and girls through mentorship, education, and leadership development programs.',
+      bioFr: 'Ijeoma Michael dirige les projets pour filles et femmes à Future Black Female, autonomisant les jeunes femmes et filles noires à travers des programmes de mentorat, d\'éducation et de développement du leadership.',
+    },
+    {
+      name: 'Mariam Khayinza',
+      role: 'Project Coordinator, Hub Co-Leader',
+      roleFr: 'Coordonnatrice de projet, Coresponsable du pôle',
+      hub: 'Health Literacy Hub',
+      hubFr: 'Pôle Littératie en santé',
+      institution: 'TOES Niagara',
+      institutionFr: 'TOES Niagara',
+      email: 'mariam@toesniagara.ca',
+      type: 'community',
+      isHubLeader: true,
+      bio: 'Mariam Khayinza is Project Coordinator and Hub Co-Leader at TOES Niagara (The Organization for Everyone in Society), coordinating health literacy initiatives and community engagement programs for newcomer populations.',
+      bioFr: 'Mariam Khayinza est coordonnatrice de projet et coresponsable du pôle à TOES Niagara (The Organization for Everyone in Society), coordonnant les initiatives de littératie en santé et les programmes d\'engagement communautaire pour les populations nouvelles arrivantes.',
+    },
+    {
+      name: 'Nyarai Kapisavanhu',
+      role: 'Executive Director',
+      roleFr: 'Directrice exécutive',
+      hub: 'Health Literacy Hub',
+      hubFr: 'Pôle Littératie en santé',
+      institution: 'TOES Niagara',
+      institutionFr: 'TOES Niagara',
+      email: 'nyarai@toesniagara.ca',
+      type: 'community',
+      bio: 'Nyarai Kapisavanhu is the Executive Director of TOES Niagara, leading organizational efforts to promote health equity, social inclusion, and community empowerment for diverse populations.',
+      bioFr: 'Nyarai Kapisavanhu est directrice exécutive de TOES Niagara, dirigeant les efforts organisationnels pour promouvoir l\'équité en santé, l\'inclusion sociale et l\'autonomisation communautaire pour des populations diversifiées.',
+    },
+    {
+      name: 'Shelby Cleveland',
+      role: 'Health Promoter',
+      roleFr: 'Promotrice de la santé',
+      hub: 'Health Literacy Hub',
+      hubFr: 'Pôle Littératie en santé',
+      institution: 'Niagara Falls Community Health Centre',
+      institutionFr: 'Centre de santé communautaire de Niagara Falls',
+      email: 'scleveland@nfchc.ca',
+      type: 'community',
+      bio: 'Shelby Cleveland is a Health Promoter at Niagara Falls Community Health Centre, developing and implementing health promotion programs to improve health outcomes for diverse community members.',
+      bioFr: 'Shelby Cleveland est promotrice de la santé au Centre de santé communautaire de Niagara Falls, développant et mettant en œuvre des programmes de promotion de la santé pour améliorer les résultats de santé pour des membres divers de la communauté.',
+    },
+    {
+      name: 'Ailish Westaway',
+      role: 'Health Promoter',
+      roleFr: 'Promotrice de la santé',
+      hub: 'Health Literacy Hub',
+      hubFr: 'Pôle Littératie en santé',
+      institution: 'QUEST Community Health Centre',
+      institutionFr: 'Centre de santé communautaire QUEST',
+      email: 'awestaway@questchc.ca',
+      type: 'community',
+      bio: 'Ailish Westaway is a Health Promoter at Quest Community Health Centre (Quest CHC), a non-profit registered charitable organization providing primary health care, health promotion, and community capacity building to residents of the St. Catharines area and Niagara Region. Quest CHC\'s staff is made up of a wide range of interdisciplinary health care providers working in a shared care team model. Their focus is on the delivery of client centred holistic health care that seeks to remove barriers to care as well as address the Social Determinants of Health.',
+      bioFr: 'Ailish Westaway est promotrice de la santé au Centre de santé communautaire Quest (Quest CHC), un organisme de bienfaisance enregistré à but non lucratif offrant des soins de santé primaires, la promotion de la santé et le renforcement des capacités communautaires aux résidents de la région de St. Catharines et de Niagara. Le personnel de Quest CHC est composé d\'un large éventail de professionnels de la santé interdisciplinaires travaillant dans un modèle d\'équipe de soins partagés. Leur objectif est la prestation de soins de santé holistiques centrés sur le client qui cherchent à éliminer les obstacles aux soins ainsi qu\'à aborder les déterminants sociaux de la santé.',
+    },
+    {
+      name: 'Zainab Awad',
+      role: 'Manager, Diversity, Equity and Inclusion',
+      roleFr: 'Gestionnaire, Diversité, équité et inclusion',
+      hub: 'Health Literacy Hub',
+      hubFr: 'Pôle Littératie en santé',
+      institution: 'Niagara Health',
+      institutionFr: 'Niagara Health',
+      email: 'zainab.awad@niagarahealth.on.ca',
+      type: 'community',
+      bio: 'Zainab Awad is the Manager of Diversity, Equity and Inclusion at Niagara Health, leading initiatives to create inclusive healthcare environments and improve health equity for diverse patient populations.',
+      bioFr: 'Zainab Awad est gestionnaire de la diversité, de l\'équité et de l\'inclusion à Niagara Health, dirigeant des initiatives pour créer des environnements de soins de santé inclusifs et améliorer l\'équité en santé pour des populations de patients diversifiées.',
+    },
+    {
+      name: 'Tara Wincott',
+      role: 'Manager of Health Promotion',
+      roleFr: 'Gestionnaire de la promotion de la santé',
+      hub: 'Health Literacy Hub',
+      hubFr: 'Pôle Littératie en santé',
+      institution: 'Niagara Public Health',
+      institutionFr: 'Santé publique de Niagara',
+      email: 'tara.wincott@niagararegion.ca',
+      type: 'community',
+      bio: 'Tara Wincott is the Manager of Health Promotion at Niagara Public Health, overseeing health promotion strategies and programs to improve population health across the Niagara region.',
+      bioFr: 'Tara Wincott est gestionnaire de la promotion de la santé à Santé publique de Niagara, supervisant les stratégies et programmes de promotion de la santé pour améliorer la santé de la population dans la région de Niagara.',
+    },
+    {
+      name: 'Donna Mills',
+      role: 'Team Lead, Health Promotion',
+      roleFr: 'Chef d\'équipe, Promotion de la santé',
+      hub: 'Health Literacy Hub',
+      hubFr: 'Pôle Littératie en santé',
+      institution: 'Niagara Public Health',
+      institutionFr: 'Santé publique de Niagara',
+      email: 'donna.mills@niagararegion.ca',
+      type: 'community',
+      bio: 'Donna Mills is the Team Lead for Health Promotion at Niagara Public Health, coordinating health promotion initiatives and supporting community-based health programming.',
+      bioFr: 'Donna Mills est chef d\'équipe pour la promotion de la santé à Santé publique de Niagara, coordonnant les initiatives de promotion de la santé et soutenant la programmation de santé communautaire.',
+    },
+    {
+      name: 'Karen Schmidt',
+      role: 'Service System & Performance Management Advisor',
+      roleFr: 'Conseillère en gestion du système de services et de la performance',
+      hub: 'Health Literacy Hub',
+      hubFr: 'Pôle Littératie en santé',
+      institution: 'Children\'s Services, Niagara Region',
+      institutionFr: 'Services à l\'enfance, Région de Niagara',
+      email: 'Karen.Schmidt@niagararegion.ca',
+      type: 'community',
+      bio: 'Karen Schmidt is a Service System & Performance Management Advisor for Children\'s Services at Niagara Region, working to improve service delivery and outcomes for children and families.',
+      bioFr: 'Karen Schmidt est conseillère en gestion du système de services et de la performance pour les Services à l\'enfance à la Région de Niagara, travaillant à améliorer la prestation de services et les résultats pour les enfants et les familles.',
+    },
+    {
+      name: 'Holly Jones',
+      role: 'Manager, Programming & Promotions',
+      roleFr: 'Gestionnaire, Programmation et promotions',
+      hub: 'Health Literacy Hub',
+      hubFr: 'Pôle Littératie en santé',
+      institution: 'St. Catharines Public Library',
+      institutionFr: 'Bibliothèque de St. Catharines',
+      email: 'hjones@myscpl.ca',
+      type: 'community',
+      bio: 'Holly Jones is the Manager of Programming & Promotions at St. Catharines Public Library, developing community programs and partnerships to promote literacy and community engagement.',
+      bioFr: 'Holly Jones est gestionnaire de la programmation et des promotions à la Bibliothèque de St. Catharines, développant des programmes communautaires et des partenariats pour promouvoir la littératie et l\'engagement communautaire.',
+    },
+    {
+      name: 'Melissa Broere',
+      role: 'Branch Librarian',
+      roleFr: 'Bibliothécaire de succursale',
+      hub: 'Health Literacy Hub',
+      hubFr: 'Pôle Littératie en santé',
+      institution: 'St. Catharines Public Library',
+      institutionFr: 'Bibliothèque de St. Catharines',
+      email: 'mbroere@myscpl.ca',
+      type: 'community',
+      bio: 'Melissa Broere is a Branch Librarian at St. Catharines Public Library, supporting community literacy initiatives and providing access to health information resources.',
+      bioFr: 'Melissa Broere est bibliothécaire de succursale à la Bibliothèque de St. Catharines, soutenant les initiatives de littératie communautaire et fournissant l\'accès aux ressources d\'information sur la santé.',
+    },
+
+    // Community Partners - Identity, Connections and Belonging Hub
+    {
+      name: 'Franklin Weledji',
+      role: 'Community Liaison Officer',
+      roleFr: 'Agent de liaison communautaire',
+      hub: 'Identity, Connections and Belonging Hub',
+      hubFr: 'Pôle Identité, connexions et appartenance',
+      institution: 'Centre canadien pour L\'unite de la famille (CCF), Conseil Scolaire Catholique MonAvenir',
+      institutionFr: 'Centre canadien pour l\'unité de la famille (CCF), Conseil Scolaire Catholique MonAvenir',
+      email: 'fleukam@cscmonavenir.ca',
+      type: 'community',
+      bio: 'Franklin Weledji is a Community Liaison Officer working to strengthen connections between francophone families and community services, supporting family unity and community integration.',
+      bioFr: 'Franklin Weledji est agent de liaison communautaire travaillant à renforcer les liens entre les familles francophones et les services communautaires, soutenant l\'unité familiale et l\'intégration communautaire.',
+    },
+    {
+      name: 'Janet Madume',
+      role: 'Executive Director',
+      roleFr: 'Directrice exécutive',
+      hub: 'Identity, Connections and Belonging Hub',
+      hubFr: 'Pôle Identité, connexions et appartenance',
+      institution: 'Welland Heritage Council & Multicultural Centre',
+      institutionFr: 'Conseil du patrimoine de Welland et Centre multiculturel',
+      email: 'jmadume@wellandheritagecouncil.com',
+      type: 'community',
+      bio: 'Janet Madume is the Executive Director of Welland Heritage Council & Multicultural Centre, promoting cultural diversity, settlement support, and community inclusion in the Niagara region.',
+      bioFr: 'Janet Madume est directrice exécutive du Conseil du patrimoine de Welland et Centre multiculturel, promouvant la diversité culturelle, le soutien à l\'établissement et l\'inclusion communautaire dans la région de Niagara.',
+    },
+    {
+      name: 'Lori Webster',
+      role: 'IEHP Hub Pilot/Labour Market Orientation',
+      roleFr: 'Pilote du pôle IEHP/Orientation du marché du travail',
+      hub: 'Identity, Connections and Belonging Hub',
+      hubFr: 'Pôle Identité, connexions et appartenance',
+      institution: 'Welland Heritage Council & Multicultural Centre',
+      institutionFr: 'Conseil du patrimoine de Welland et Centre multiculturel',
+      email: 'lwebster@wellandheritagecouncil.com',
+      type: 'community',
+      bio: 'Lori Webster leads the IEHP Hub Pilot and Labour Market Orientation programs, helping newcomers navigate the Canadian labor market and access employment opportunities.',
+      bioFr: 'Lori Webster dirige le pilote du pôle IEHP et les programmes d\'orientation du marché du travail, aidant les nouveaux arrivants à naviguer le marché du travail canadien et à accéder aux opportunités d\'emploi.',
+    },
+    {
+      name: 'Mikhaela Sullivan',
+      role: 'Project Officer',
+      roleFr: 'Agente de projet',
+      hub: 'Identity, Connections and Belonging Hub',
+      hubFr: 'Pôle Identité, connexions et appartenance',
+      institution: 'Le Réseau en Immigration Francophone du Centre-Sud-Ouest de l\'Ontario',
+      institutionFr: 'Le Réseau en Immigration Francophone du Centre-Sud-Ouest de l\'Ontario',
+      email: 'mikhaela.sullivan@cschn.ca',
+      type: 'community',
+      bio: 'Mikhaela Sullivan is a Project Officer with the Francophone Immigration Network, supporting francophone newcomer integration and community development initiatives across Central-Southwest Ontario.',
+      bioFr: 'Mikhaela Sullivan est agente de projet au Réseau en Immigration Francophone, soutenant l\'intégration des nouveaux arrivants francophones et les initiatives de développement communautaire dans le Centre-Sud-Ouest de l\'Ontario.',
+    },
+    {
+      name: 'Amy Andrews',
+      role: 'Research Analyst',
+      roleFr: 'Analyste de recherche',
+      hub: 'Identity, Connections and Belonging Hub',
+      hubFr: 'Pôle Identité, connexions et appartenance',
+      institution: 'Niagara Local Immigration Partnership',
+      institutionFr: 'Partenariat local d\'immigration de Niagara',
+      email: 'amy.andrews@niagararegion.ca',
+      type: 'community',
+      bio: 'Amy Andrews is a Research Analyst with the Niagara Local Immigration Partnership, conducting research and analysis to inform immigration policies and settlement services.',
+      bioFr: 'Amy Andrews est analyste de recherche au Partenariat local d\'immigration de Niagara, menant des recherches et des analyses pour informer les politiques d\'immigration et les services d\'établissement.',
+    },
+    {
+      name: 'Lisa Garlent',
+      role: 'Project Coordinator',
+      roleFr: 'Coordonnatrice de projet',
+      hub: 'Identity, Connections and Belonging Hub',
+      hubFr: 'Pôle Identité, connexions et appartenance',
+      institution: 'Niagara Local Immigration Partnership',
+      institutionFr: 'Partenariat local d\'immigration de Niagara',
+      email: 'lisa.garlent@niagararegion.ca',
+      type: 'community',
+      bio: 'Lisa Garlent is a Project Coordinator with the Niagara Local Immigration Partnership, coordinating settlement and integration initiatives for newcomers in the Niagara region.',
+      bioFr: 'Lisa Garlent est coordonnatrice de projet au Partenariat local d\'immigration de Niagara, coordonnant les initiatives d\'établissement et d\'intégration pour les nouveaux arrivants dans la région de Niagara.',
+    },
+  ];
+
+  const hubs = ['All', ...Array.from(new Set(members.map(m => m.hub)))];
+
+  const getMemberTypeLabel = (type: string) => {
+    const labels: Record<string, { en: string; fr: string }> = {
+      faculty: { en: 'Faculty', fr: 'Corps professoral' },
+      student: { en: 'Graduate Student', fr: 'Étudiant diplômé' },
+      community: { en: 'Community Partner', fr: 'Partenaire communautaire' },
+    };
+    return language === 'en' ? labels[type]?.en : labels[type]?.fr;
+  };
+
+  const getMemberTypeColor = (type: string) => {
+    switch (type) {
+      case 'faculty': return 'bg-dark-red text-white';
+      case 'student': return 'bg-primary text-white';
+      case 'community': return 'bg-dark-red/80 text-white';
+      default: return 'bg-gray-500 text-white';
+    }
+  };
+
+  const getMemberTypeIcon = (type: string) => {
+    switch (type) {
+      case 'faculty': return <GraduationCap className="w-4 h-4" />;
+      case 'student': return <User className="w-4 h-4" />;
+      case 'community': return <Building2 className="w-4 h-4" />;
+      default: return <User className="w-4 h-4" />;
+    }
+  };
+
+  const filteredMembers = selectedHub === 'All' 
+    ? members 
+    : members.filter(m => m.hub === selectedHub);
+
+  // Group members by type
+  const groupedMembers = {
+    faculty: filteredMembers.filter(m => m.type === 'faculty'),
+    student: filteredMembers.filter(m => m.type === 'student'),
+    community: filteredMembers.filter(m => m.type === 'community'),
+  };
+
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-[#8B0000] via-[#8B0000] to-[#6B0000] py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center">
+            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-8 shadow-lg">
+              <User className="w-4 h-4 text-white" />
+              <span className="text-sm text-white font-medium">
+                {language === 'en' ? '56 Team Members' : '56 Membres de l\'équipe'}
+              </span>
+            </div>
+            <h1 className="text-5xl md:text-7xl text-white mb-6 tracking-tight leading-tight">
+              {language === 'en' 
+                ? 'Mobilizing Subjugated Knowledges for a Just and Inclusive Niagara' 
+                : 'Mobiliser les savoirs subjugués pour un Niagara juste et inclusif'}
+            </h1>
+            <p className="text-xl md:text-2xl text-white max-w-4xl mx-auto leading-relaxed">
+              {language === 'en'
+                ? 'Meet the dedicated researchers, students, and community partners driving our collaborative research efforts across the Niagara region.'
+                : 'Rencontrez les chercheurs, étudiants et partenaires communautaires dévoués qui mènent nos efforts de recherche collaborative dans la région de Niagara.'}
+            </p>
+          </div>
+        </div>
+        
+        {/* Decorative wave */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+            <path d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white"/>
+          </svg>
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 -mt-16 pb-20 relative z-20">
+
+        {/* Tabs by Hub */}
+        <Tabs value={selectedHub} onValueChange={setSelectedHub} className="w-full">
+          <div className="flex justify-center mb-8 overflow-x-auto scrollbar-hide px-4">
+            <TabsList className="h-auto bg-white/95 sm:bg-white shadow-lg border-2 border-[#8B0000]/20 rounded-xl p-2 inline-flex gap-2 min-w-min transition-all backdrop-blur-sm">
+              {hubs.map((hub) => (
+                <TabsTrigger 
+                  key={hub} 
+                  value={hub}
+                  className="data-[state=active]:bg-[#8B0000] data-[state=active]:text-white data-[state=inactive]:text-[#0A0A0A] data-[state=inactive]:hover:bg-gray-100 transition-all rounded-lg px-4 sm:px-6 py-3 font-medium text-sm sm:text-base whitespace-nowrap"
+                >
+                  {getHubLabel(hub)}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
+
+          <TabsContent value={selectedHub} className="mt-0">
+            {/* Faculty Section */}
+            {groupedMembers.faculty.length > 0 && (
+              <div className="mb-12">
+                <h2 className="text-xl sm:text-2xl font-semibold text-primary mb-6 flex items-center gap-2">
+                  <GraduationCap className="w-6 h-6 sm:w-7 sm:h-7 text-dark-red flex-shrink-0" />
+                  <span>{language === 'en' ? 'Faculty Researchers' : 'Chercheurs du corps professoral'}</span>
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {groupedMembers.faculty.map((member, index) => (
+                    <Card 
+                      key={index} 
+                      className={`hover:shadow-xl transition-all duration-300 border-l-4 ${
+                        member.isHubLeader ? 'border-dark-red bg-gradient-to-br from-dark-red/5 to-white' : 'border-dark-red/60'
+                      } animate-fade-in-up`}
+                      style={{ animationDelay: `${index * 100}ms` }}
+                    >
+                      <CardContent className="p-4 sm:p-6">
+                        <div className="flex items-start gap-3 sm:gap-4 mb-4">
+                          <Avatar className="w-14 h-14 sm:w-16 sm:h-16 border-2 border-dark-red/20 flex-shrink-0">
+                            {member.image && <AvatarImage src={member.image} alt={member.name} />}
+                            <AvatarFallback className="text-base sm:text-lg bg-dark-red text-white font-semibold">
+                              {member.name.split(' ').map(n => n[0]).slice(0, 2).join('')}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="flex-1 min-w-0">
+                            <h3 className="text-lg sm:text-xl font-semibold text-primary mb-1 break-words">
+                              {member.name}
+                            </h3>
+                            
+                            {/* Position/Role Tags */}
+                            <div className="flex flex-wrap gap-2 mb-3">
+                              {/* Display ALL roles from the role field as separate badges */}
+                              {(language === 'en' ? member.role : member.roleFr).split(',').map((roleItem, idx) => (
+                                <Badge key={idx} className="bg-[#0A0A0A] text-white text-xs">
+                                  <span className="flex items-center gap-1">
+                                    {idx === 0 && getMemberTypeIcon(member.type)}
+                                    {roleItem.trim()}
+                                  </span>
+                                </Badge>
+                              ))}
+                              
+                              {/* Project Leader Badge */}
+                              {member.isProjectLeader && member.projectLeaderTitle && (
+                                <Badge className="bg-primary text-white text-xs">
+                                  <Target className="w-3 h-3 mr-1" />
+                                  {language === 'en' ? member.projectLeaderTitle : member.projectLeaderTitleFr}
+                                </Badge>
+                              )}
+                            </div>
+                            
+                            {/* Institution */}
+                            <p className="text-xs sm:text-sm text-primary/70 flex items-center gap-1 break-words">
+                              <Building2 className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                              <span>{language === 'en' ? member.institution : member.institutionFr}</span>
+                            </p>
+                          </div>
+                        </div>
+                        
+                        {/* Bio - Selectable Text */}
+                        <p className="text-sm sm:text-base text-primary/80 leading-relaxed select-text cursor-text mb-4">
+                          {language === 'en' ? member.bio : member.bioFr}
+                        </p>
+                        
+                        {/* Contact Button for Hub Leaders and Co-Directors */}
+                        {(member.isHubLeader || member.isCoDirector) && member.email && (
+                          <a
+                            href={`mailto:${member.email}`}
+                            className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-gradient-to-r from-[#8B0000] to-[#6B0000] text-white hover:from-[#A40000] hover:to-[#8B0000] rounded-lg transition-all duration-300 shadow-md hover:shadow-lg font-medium text-sm sm:text-base"
+                          >
+                            <Mail className="w-4 h-4" />
+                            <span>{language === 'en' ? 'Contact' : 'Contacter'}</span>
+                          </a>
+                        )}
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Graduate Students Section */}
+            {groupedMembers.student.length > 0 && (
+              <div className="mb-12">
+                <h2 className="text-xl sm:text-2xl font-semibold text-primary mb-6 flex items-center gap-2">
+                  <User className="w-6 h-6 sm:w-7 sm:h-7 text-primary flex-shrink-0" />
+                  <span>{language === 'en' ? 'Graduate Students' : 'Étudiants diplômés'}</span>
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {groupedMembers.student.map((member, index) => (
+                    <Card 
+                      key={index} 
+                      className="hover:shadow-xl transition-all duration-300 border-l-4 border-primary animate-fade-in-up"
+                      style={{ animationDelay: `${index * 100}ms` }}
+                    >
+                      <CardContent className="p-4 sm:p-6">
+                        <div className="flex items-start gap-3 sm:gap-4 mb-4">
+                          <Avatar className="w-14 h-14 sm:w-16 sm:h-16 border-2 border-primary/20 flex-shrink-0">
+                            {member.image && <AvatarImage src={member.image} alt={member.name} />}
+                            <AvatarFallback className="text-base sm:text-lg bg-primary text-white font-semibold">
+                              {member.name.split(' ').map(n => n[0]).slice(0, 2).join('')}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="flex-1 min-w-0">
+                            <h3 className="text-lg sm:text-xl font-semibold text-primary mb-1 break-words">
+                              {member.name}
+                            </h3>
+                            
+                            {/* Position/Role Tags */}
+                            <div className="flex flex-wrap gap-2 mb-3">
+                              {/* Display ALL roles from the role field as separate badges */}
+                              {(language === 'en' ? member.role : member.roleFr).split(',').map((roleItem, idx) => (
+                                <Badge key={idx} className="bg-[#0A0A0A] text-white text-xs">
+                                  <span className="flex items-center gap-1">
+                                    {idx === 0 && getMemberTypeIcon(member.type)}
+                                    {roleItem.trim()}
+                                  </span>
+                                </Badge>
+                              ))}
+                            </div>
+                            
+                            {/* Institution */}
+                            <p className="text-xs sm:text-sm text-primary/70 flex items-center gap-1 break-words">
+                              <Building2 className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                              <span>{language === 'en' ? member.institution : member.institutionFr}</span>
+                            </p>
+                          </div>
+                        </div>
+                        
+                        {/* Bio - Selectable Text */}
+                        <p className="text-sm sm:text-base text-primary/80 leading-relaxed select-text cursor-text">
+                          {language === 'en' ? member.bio : member.bioFr}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Community Partners Section */}
+            {groupedMembers.community.length > 0 && (
+              <div className="mb-12">
+                <h2 className="text-xl sm:text-2xl font-semibold text-primary mb-6 flex items-center gap-2">
+                  <Building2 className="w-6 h-6 sm:w-7 sm:h-7 text-dark-red/80 flex-shrink-0" />
+                  <span>{language === 'en' ? 'Community Partners' : 'Partenaires communautaires'}</span>
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {groupedMembers.community.map((member, index) => (
+                    <Card 
+                      key={index} 
+                      className="hover:shadow-xl transition-all duration-300 border-l-4 border-dark-red/80 animate-fade-in-up"
+                      style={{ animationDelay: `${index * 100}ms` }}
+                    >
+                      <CardContent className="p-4 sm:p-6">
+                        <div className="flex items-start gap-3 sm:gap-4 mb-4">
+                          <Avatar className="w-14 h-14 sm:w-16 sm:h-16 border-2 border-dark-red/20 flex-shrink-0">
+                            {member.image && <AvatarImage src={member.image} alt={member.name} />}
+                            <AvatarFallback className="text-base sm:text-lg bg-dark-red/80 text-white font-semibold">
+                              {member.name.split(' ').map(n => n[0]).slice(0, 2).join('')}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="flex-1 min-w-0">
+                            <h3 className="text-lg sm:text-xl font-semibold text-primary mb-1 break-words">
+                              {member.name}
+                            </h3>
+                            
+                            {/* Position/Role Tags */}
+                            <div className="flex flex-wrap gap-2 mb-3">
+                              {/* Display ALL roles from the role field as separate badges */}
+                              {(language === 'en' ? member.role : member.roleFr).split(',').map((roleItem, idx) => (
+                                <Badge key={idx} className="bg-[#0A0A0A] text-white text-xs">
+                                  <span className="flex items-center gap-1">
+                                    {idx === 0 && getMemberTypeIcon(member.type)}
+                                    {roleItem.trim()}
+                                  </span>
+                                </Badge>
+                              ))}
+                            </div>
+                            
+                            {/* Institution */}
+                            <p className="text-xs sm:text-sm text-primary/70 flex items-center gap-1 break-words">
+                              <Building2 className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                              <span>{language === 'en' ? member.institution : member.institutionFr}</span>
+                            </p>
+                          </div>
+                        </div>
+                        
+                        {/* Bio - Selectable Text */}
+                        <p className="text-sm sm:text-base text-primary/80 leading-relaxed select-text cursor-text mb-4">
+                          {language === 'en' ? member.bio : member.bioFr}
+                        </p>
+                        
+                        {/* Contact Button for Community Hub Leaders */}
+                        {member.isHubLeader && member.email && (
+                          <a
+                            href={`mailto:${member.email}`}
+                            className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-gradient-to-r from-[#8B0000] to-[#6B0000] text-white hover:from-[#A40000] hover:to-[#8B0000] rounded-lg transition-all duration-300 shadow-md hover:shadow-lg font-medium text-sm sm:text-base"
+                          >
+                            <Mail className="w-4 h-4" />
+                            <span>{language === 'en' ? 'Contact' : 'Contacter'}</span>
+                          </a>
+                        )}
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            )}
+          </TabsContent>
+        </Tabs>
+
+        {/* Stats Summary */}
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Card className="border-t-4 border-dark-red bg-gradient-to-br from-dark-red/5 to-white">
+            <CardContent className="p-6 text-center">
+              <GraduationCap className="w-12 h-12 text-dark-red mx-auto mb-3" />
+              <div className="text-3xl font-bold text-primary mb-2">
+                {groupedMembers.faculty.length}
+              </div>
+              <div className="text-primary/70 text-sm sm:text-base">
+                {language === 'en' ? 'Faculty Researchers' : 'Chercheurs du corps professoral'}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-t-4 border-primary bg-gradient-to-br from-primary/5 to-white">
+            <CardContent className="p-6 text-center">
+              <User className="w-12 h-12 text-primary mx-auto mb-3" />
+              <div className="text-3xl font-bold text-primary mb-2">
+                {groupedMembers.student.length}
+              </div>
+              <div className="text-primary/70 text-sm sm:text-base">
+                {language === 'en' ? 'Graduate Students' : 'Étudiants diplômés'}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-t-4 border-dark-red/80 bg-gradient-to-br from-dark-red/5 to-white">
+            <CardContent className="p-6 text-center">
+              <Building2 className="w-12 h-12 text-dark-red/80 mx-auto mb-3" />
+              <div className="text-3xl font-bold text-primary mb-2">
+                {groupedMembers.community.length}
+              </div>
+              <div className="text-primary/70 text-sm sm:text-base">
+                {language === 'en' ? 'Community Partners' : 'Partenaires communautaires'}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+}

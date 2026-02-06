@@ -1,0 +1,625 @@
+import { useLanguage } from '../contexts/LanguageContext';
+import { Badge } from '../components/ui/badge';
+import { Button } from '../components/ui/button';
+import { useState } from 'react';
+import { ExternalLink, Users, Calendar, Mail, TrendingUp, Heart, Zap, GraduationCap, HandHeart, Sprout, Network, Activity, Target, Search, ArrowRight, CheckCircle2, Clock, MapPin, Filter, X } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
+
+export function ResearchProjects() {
+  const { language } = useLanguage();
+  const [filterHub, setFilterHub] = useState<string>('all');
+  const [filterStatus, setFilterStatus] = useState<string>('all');
+  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+
+  const projects = [
+    {
+      title: 'Childhood and Growing Up',
+      titleFr: 'Enfance et croissance',
+      hub: 'Childhood and Growing Up Hub',
+      hubFr: 'Pôle Enfance et croissance',
+      hubShort: 'Childhood',
+      hubShortFr: 'Enfance',
+      status: 'active',
+      IconComponent: GraduationCap,
+      color: '#089EA5',
+      gradient: 'from-[#089EA5] to-[#12647F]',
+      description: 'We focus on talking to newcomer and racialized children to learn about their perspectives and experiences, particularly in relation to housing and home, leisure/sport, education, and children\'s engagements with companion and other animals, as well as the outside world, and especially how these are affected by being uprooted.',
+      descriptionFr: 'Nous nous concentrons sur les conversations avec les enfants nouveaux arrivants et racialisés pour connaître leurs perspectives et expériences, particulièrement en ce qui concerne le logement et le foyer, les loisirs/sports, l\'éducation, et les engagements des enfants avec les animaux de compagnie et autres, ainsi que le monde extérieur, et surtout comment ceux-ci sont affectés par le déracinement.',
+      participants: 'Ongoing recruitment',
+      participantsFr: 'Recrutement en cours',
+      timeline: '2024 - 2027',
+      contact: 'Dr. Rebecca Raby',
+      contactEmail: 'rraby@brocku.ca',
+      featured: true,
+      location: 'Niagara Region',
+      locationFr: 'Région de Niagara',
+      keyFocus: ['Housing experiences', 'Education integration', 'Leisure & recreation', 'Community connections'],
+      keyFocusFr: ['Expériences de logement', 'Intégration scolaire', 'Loisirs et récréation', 'Connexions communautaires'],
+    },
+    {
+      title: 'Identity & Belonging within Afro Descendants',
+      titleFr: 'Identité et appartenance afro-descendants',
+      hub: 'Identity, Connections and Belonging Hub',
+      hubFr: 'Pôle Identité, connexions et appartenance',
+      hubShort: 'Identity & Belonging',
+      hubShortFr: 'Identité',
+      status: 'active',
+      IconComponent: HandHeart,
+      color: '#6635B1',
+      gradient: 'from-[#6635B1] to-[#8B0000]',
+      description: 'This project explores the experiences of identity and belonging among Afro-descendant communities in the Niagara region, examining how individuals navigate cultural identity, community connections, and social belonging in the Canadian context.',
+      descriptionFr: 'Ce projet explore les expériences d\'identité et d\'appartenance parmi les communautés afro-descendantes dans la région de Niagara, examinant comment les individus naviguent l\'identité culturelle, les connexions communautaires et l\'appartenance sociale dans le contexte canadien.',
+      participants: 'Coming soon',
+      participantsFr: 'Prochainement',
+      timeline: '2024 - 2027',
+      contact: 'Dr. Jean Ntakirutimana',
+      contactEmail: 'jntakirutimana@brocku.ca',
+      featured: true,
+      location: 'Niagara Region',
+      locationFr: 'Région de Niagara',
+      keyFocus: ['Cultural identity', 'Community building', 'Social belonging', 'Diaspora connections'],
+      keyFocusFr: ['Identité culturelle', 'Construction communautaire', 'Appartenance sociale', 'Connexions diasporiques'],
+    },
+    {
+      title: 'Migrant Farmworkers in Community',
+      titleFr: 'Travailleurs agricoles migrants',
+      hub: 'Identity, Connections and Belonging Hub',
+      hubFr: 'Pôle Identité, connexions et appartenance',
+      hubShort: 'Identity & Belonging',
+      hubShortFr: 'Identité',
+      status: 'active',
+      IconComponent: Sprout,
+      color: '#FFC956',
+      gradient: 'from-[#FFC956] to-[#FF9A3C]',
+      description: 'This project explores the experiences of seasonal agricultural workers who provide integral support to Niagara\'s agriculture and tourism sectors. Working with the Migrant Farmworkers Project, we plan to develop community-based strategies that strengthen seasonal agricultural workers\' sense of belonging and dignity and create a digital repository of migrant workers\' experiences and history in Niagara through arts-based media.',
+      descriptionFr: 'Ce projet explore les expériences des travailleurs agricoles saisonniers qui fournissent un soutien essentiel aux secteurs agricole et touristique de Niagara. En travaillant avec le Migrant Farmworkers Project, nous prévoyons développer des stratégies communautaires qui renforcent le sentiment d\'appartenance et de dignité des travailleurs agricoles saisonniers et créer un référentiel numérique des expériences et de l\'histoire des travailleurs migrants à Niagara à travers des médias artistiques.',
+      participants: 'Active with community partners',
+      participantsFr: 'Actif avec des partenaires communautaires',
+      timeline: '2024 - 2027',
+      contact: 'Dr. Jean Ntakirutimana',
+      contactEmail: 'jntakirutimana@brocku.ca',
+      surveyLink: 'https://migrantfarmworkers.ca/',
+      location: 'Niagara Region',
+      locationFr: 'Région de Niagara',
+      keyFocus: ['Worker dignity', 'Community integration', 'Digital storytelling', 'Arts-based research'],
+      keyFocusFr: ['Dignité des travailleurs', 'Intégration communautaire', 'Narration numérique', 'Recherche artistique'],
+    },
+    {
+      title: 'ICT Use & SGD Newcomers',
+      titleFr: 'Utilisation TIC & nouveaux arrivants DSG',
+      hub: 'Identity, Connections and Belonging Hub',
+      hubFr: 'Pôle Identité, connexions et appartenance',
+      hubShort: 'Identity & Belonging',
+      hubShortFr: 'Identité',
+      status: 'recruiting',
+      IconComponent: Network,
+      color: '#8B0000',
+      gradient: 'from-[#8B0000] to-[#A40000]',
+      description: 'This project examines how sexual and gender diverse (SGD) newcomers in the Niagara region use information and communication technologies (ICT) to navigate settlement, build community connections, and maintain cultural and social ties while establishing their identities in a new context.',
+      descriptionFr: 'Ce projet examine comment les nouveaux arrivants de diverses identités sexuelles et de genre (DSG) dans la région de Niagara utilisent les technologies de l\'information et de la communication (TIC) pour naviguer l\'établissement, construire des connexions communautaires et maintenir des liens culturels et sociaux tout en établissant leurs identités dans un nouveau contexte.',
+      participants: 'Coming soon',
+      participantsFr: 'Prochainement',
+      timeline: '2024 - 2027',
+      contact: 'Dr. Jean Ntakirutimana',
+      contactEmail: 'jntakirutimana@brocku.ca',
+      location: 'Niagara Region',
+      locationFr: 'Région de Niagara',
+      keyFocus: ['Technology use', 'LGBTQ+ settlement', 'Community building', 'Identity navigation'],
+      keyFocusFr: ['Utilisation technologique', 'Établissement LGBTQ+', 'Construction communautaire', 'Navigation identitaire'],
+    },
+    {
+      title: 'Health Literacy',
+      titleFr: 'Littératie en santé',
+      hub: 'Health Literacy Hub',
+      hubFr: 'Pôle Littératie en santé',
+      hubShort: 'Health Literacy',
+      hubShortFr: 'Santé',
+      status: 'planning',
+      IconComponent: Activity,
+      color: '#12647F',
+      gradient: 'from-[#12647F] to-[#089EA5]',
+      description: 'This project focuses on understanding and improving health literacy among diverse populations in the Niagara region, with emphasis on developing accessible health information resources and community-based health education strategies.',
+      descriptionFr: 'Ce projet se concentre sur la compréhension et l\\\'amélioration de la littératie en santé parmi les populations diverses de la région de Niagara, en mettant l\\\'accent sur le développement de ressources d\\\'information sur la santé accessibles et de stratégies d\\\'éducation à la santé communautaire.',
+      participants: 'Coming soon',
+      participantsFr: 'Prochainement',
+      timeline: '2025 - 2028',
+      contact: 'Dr. Joanne Crawford',
+      contactEmail: 'jcrawford@brocku.ca',
+      location: 'Niagara Region',
+      locationFr: 'Région de Niagara',
+      keyFocus: ['Health education', 'Accessible resources', 'Community partnerships', 'Health equity'],
+      keyFocusFr: ['Éducation santé', 'Ressources accessibles', 'Partenariats communautaires', 'Équité santé'],
+    },
+  ];
+
+  const filteredProjects = projects.filter(project => {
+    const hubMatch = filterHub === 'all' || project.hub === filterHub;
+    const statusMatch = filterStatus === 'all' || project.status === filterStatus;
+    return hubMatch && statusMatch;
+  });
+
+  const getStatusBadge = (status: string) => {
+    const styles = {
+      recruiting: 'bg-[#FFC956] text-[#0A0A0A] border-[#FFC956]',
+      active: 'bg-[#089EA5] text-white border-[#089EA5]',
+      planning: 'bg-[#6635B1] text-white border-[#6635B1]',
+    };
+    const labels = {
+      recruiting: language === 'en' ? 'Recruiting' : 'Recrutement',
+      active: language === 'en' ? 'Active' : 'Actif',
+      planning: language === 'en' ? 'Planning' : 'Planification',
+    };
+    return { style: styles[status as keyof typeof styles], label: labels[status as keyof typeof labels] };
+  };
+
+  // Statistics
+  const stats = [
+    { 
+      label: language === 'en' ? 'Active Projects' : 'Projets actifs', 
+      value: '5',
+      icon: TrendingUp,
+      color: '#089EA5'
+    },
+    { 
+      label: language === 'en' ? 'Research Hubs' : 'Pôles de recherche', 
+      value: '3',
+      icon: Target,
+      color: '#6635B1'
+    },
+    { 
+      label: language === 'en' ? 'Team Members' : 'Membres d\'équipe', 
+      value: '56',
+      icon: Users,
+      color: '#FFC956'
+    },
+    { 
+      label: language === 'en' ? 'Community Partners' : 'Partenaires', 
+      value: '24',
+      icon: HandHeart,
+      color: '#8B0000'
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-white relative overflow-hidden">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-[#8B0000] via-[#8B0000] to-[#6B0000] py-20 md:py-24 pb-32">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center">
+            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-6 shadow-lg">
+              <span className="text-sm text-white font-medium">
+                {language === 'en' ? 'Community-Engaged Research' : 'Recherche communautaire'}
+              </span>
+            </div>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl text-white mb-6 tracking-tight font-bold">
+              {language === 'en' ? 'Research Projects' : 'Projets de recherche'}
+            </h1>
+            <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+              {language === 'en' 
+                ? 'Explore our community-engaged research projects addressing critical issues facing newcomer and marginalized communities in the Niagara region.'
+                : 'Explorez nos projets de recherche communautaire qui abordent des enjeux critiques auxquels font face les communautés nouvelles arrivantes et marginalisées dans la région de Niagara.'}
+            </p>
+          </div>
+        </div>
+        
+        {/* Decorative wave */}
+        <div className="absolute bottom-0 left-0 right-0 h-20">
+          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full" preserveAspectRatio="none">
+            <path d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white"/>
+          </svg>
+        </div>
+      </div>
+
+      {/* Statistics Section */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 -mt-12 relative z-20 mb-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {stats.map((stat, index) => (
+            <div key={index} className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-[#8B0000]/10 flex items-center justify-center flex-shrink-0">
+                  <stat.icon className="w-6 h-6 text-[#8B0000]" />
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-[#0A0A0A] mb-1">{stat.value}</div>
+                  <div className="text-xs text-[#0A0A0A]/60 font-medium">{stat.label}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Content Section */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 relative z-20">
+        
+        {/* Filter Section - Enhanced Design */}
+        <div className="mb-16">
+          <div className="bg-gradient-to-br from-white to-gray-50 rounded-3xl shadow-xl border-2 border-gray-100 p-8 md:p-10">
+            <div className="flex items-center gap-4 mb-8">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#8B0000] to-[#A40000] flex items-center justify-center shadow-lg">
+                <Filter className="w-7 h-7 text-white" />
+              </div>
+              <div className="flex-1">
+                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] mb-1">
+                  {language === 'en' ? 'Filter Projects' : 'Filtrer les projets'}
+                </h2>
+                <p className="text-sm text-[#0A0A0A]/60">
+                  {language === 'en' 
+                    ? 'Refine your search by research hub and project status'
+                    : 'Affinez votre recherche par pôle de recherche et statut de projet'}
+                </p>
+              </div>
+              {(filterHub !== 'all' || filterStatus !== 'all') && (
+                <button
+                  onClick={() => {
+                    setFilterHub('all');
+                    setFilterStatus('all');
+                  }}
+                  className="flex items-center gap-2 px-5 py-3 rounded-xl font-semibold bg-white border-2 border-[#8B0000]/20 text-[#8B0000] hover:border-[#8B0000] hover:bg-[#8B0000] hover:text-white transition-all duration-300 shadow-md hover:shadow-lg"
+                >
+                  <X className="w-4 h-4" />
+                  <span className="hidden sm:inline">{language === 'en' ? 'Clear' : 'Effacer'}</span>
+                </button>
+              )}
+            </div>
+            
+            {/* Dropdown Filters */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Hub Filter Dropdown */}
+              <div>
+                <label className="block text-xs font-bold text-[#0A0A0A]/50 uppercase tracking-wider mb-3">
+                  <span className="flex items-center gap-2">
+                    <Target className="w-4 h-4 text-[#8B0000]" />
+                    {language === 'en' ? 'Research Hub' : 'Pôle de recherche'}
+                  </span>
+                </label>
+                <Select value={filterHub} onValueChange={setFilterHub}>
+                  <SelectTrigger className="w-full h-14 text-base font-semibold border-2 border-gray-200 hover:border-[#8B0000]/50 focus:border-[#8B0000] bg-white rounded-xl shadow-sm transition-all duration-300">
+                    <SelectValue placeholder={language === 'en' ? 'Select a hub...' : 'Sélectionner un pôle...'} />
+                  </SelectTrigger>
+                  <SelectContent className="bg-white border-2 border-gray-200 rounded-xl shadow-2xl">
+                    <SelectItem value="all" className="text-base font-semibold py-3 cursor-pointer hover:bg-gray-50">
+                      <span className="flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full bg-[#0A0A0A]"></div>
+                        {language === 'en' ? 'All Hubs' : 'Tous les pôles'}
+                      </span>
+                    </SelectItem>
+                    <SelectItem value="Childhood and Growing Up Hub" className="text-base font-semibold py-3 cursor-pointer hover:bg-gray-50">
+                      <span className="flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full bg-[#089EA5]"></div>
+                        <span className="mr-2">🌱</span>
+                        {language === 'en' ? 'Childhood & Growing Up' : 'Enfance et croissance'}
+                      </span>
+                    </SelectItem>
+                    <SelectItem value="Identity, Connections and Belonging Hub" className="text-base font-semibold py-3 cursor-pointer hover:bg-gray-50">
+                      <span className="flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full bg-[#6635B1]"></div>
+                        <span className="mr-2">🤝</span>
+                        {language === 'en' ? 'Identity & Belonging' : 'Identité et appartenance'}
+                      </span>
+                    </SelectItem>
+                    <SelectItem value="Health Literacy Hub" className="text-base font-semibold py-3 cursor-pointer hover:bg-gray-50">
+                      <span className="flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full bg-[#12647F]"></div>
+                        <span className="mr-2">🏥</span>
+                        {language === 'en' ? 'Health Literacy' : 'Littératie en santé'}
+                      </span>
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Status Filter Dropdown */}
+              <div>
+                <label className="block text-xs font-bold text-[#0A0A0A]/50 uppercase tracking-wider mb-3">
+                  <span className="flex items-center gap-2">
+                    <Activity className="w-4 h-4 text-[#8B0000]" />
+                    {language === 'en' ? 'Project Status' : 'Statut du projet'}
+                  </span>
+                </label>
+                <Select value={filterStatus} onValueChange={setFilterStatus}>
+                  <SelectTrigger className="w-full h-14 text-base font-semibold border-2 border-gray-200 hover:border-[#8B0000]/50 focus:border-[#8B0000] bg-white rounded-xl shadow-sm transition-all duration-300">
+                    <SelectValue placeholder={language === 'en' ? 'Select a status...' : 'Sélectionner un statut...'} />
+                  </SelectTrigger>
+                  <SelectContent className="bg-white border-2 border-gray-200 rounded-xl shadow-2xl">
+                    <SelectItem value="all" className="text-base font-semibold py-3 cursor-pointer hover:bg-gray-50">
+                      <span className="flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full bg-[#0A0A0A]"></div>
+                        {language === 'en' ? 'All Status' : 'Tous les statuts'}
+                      </span>
+                    </SelectItem>
+                    <SelectItem value="active" className="text-base font-semibold py-3 cursor-pointer hover:bg-gray-50">
+                      <span className="flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full bg-[#089EA5]"></div>
+                        <CheckCircle2 className="w-4 h-4 text-[#089EA5]" />
+                        {language === 'en' ? 'Active' : 'Actif'}
+                      </span>
+                    </SelectItem>
+                    <SelectItem value="recruiting" className="text-base font-semibold py-3 cursor-pointer hover:bg-gray-50">
+                      <span className="flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full bg-[#FFC956]"></div>
+                        <Users className="w-4 h-4 text-[#FFC956]" />
+                        {language === 'en' ? 'Recruiting' : 'Recrutement'}
+                      </span>
+                    </SelectItem>
+                    <SelectItem value="planning" className="text-base font-semibold py-3 cursor-pointer hover:bg-gray-50">
+                      <span className="flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full bg-[#6635B1]"></div>
+                        <Clock className="w-4 h-4 text-[#6635B1]" />
+                        {language === 'en' ? 'Planning' : 'Planification'}
+                      </span>
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            {/* Active Filters Display */}
+            {(filterHub !== 'all' || filterStatus !== 'all') && (
+              <div className="mt-6 pt-6 border-t-2 border-gray-200">
+                <p className="text-xs font-bold text-[#0A0A0A]/50 uppercase tracking-wider mb-3">
+                  {language === 'en' ? 'Active Filters' : 'Filtres actifs'}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {filterHub !== 'all' && (
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#8B0000]/10 border-2 border-[#8B0000]/30 text-[#8B0000] font-semibold">
+                      <Target className="w-4 h-4" />
+                      <span className="text-sm">
+                        {filterHub === 'Childhood and Growing Up Hub' ? (language === 'en' ? 'Childhood & Growing Up' : 'Enfance et croissance') :
+                         filterHub === 'Identity, Connections and Belonging Hub' ? (language === 'en' ? 'Identity & Belonging' : 'Identité et appartenance') :
+                         filterHub === 'Health Literacy Hub' ? (language === 'en' ? 'Health Literacy' : 'Littératie en santé') : ''}
+                      </span>
+                      <button onClick={() => setFilterHub('all')} className="hover:bg-[#8B0000] hover:text-white rounded-full p-0.5 transition-colors">
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  )}
+                  {filterStatus !== 'all' && (
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#8B0000]/10 border-2 border-[#8B0000]/30 text-[#8B0000] font-semibold">
+                      <Activity className="w-4 h-4" />
+                      <span className="text-sm">
+                        {filterStatus === 'active' ? (language === 'en' ? 'Active' : 'Actif') :
+                         filterStatus === 'recruiting' ? (language === 'en' ? 'Recruiting' : 'Recrutement') :
+                         filterStatus === 'planning' ? (language === 'en' ? 'Planning' : 'Planification') : ''}
+                      </span>
+                      <button onClick={() => setFilterStatus('all')} className="hover:bg-[#8B0000] hover:text-white rounded-full p-0.5 transition-colors">
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Projects Grid - Enhanced Cards */}
+        <div className="space-y-12">
+          {filteredProjects.map((project, index) => (
+            <div
+              key={index}
+              onMouseEnter={() => setHoveredProject(index)}
+              onMouseLeave={() => setHoveredProject(null)}
+              className={`group relative bg-white rounded-3xl overflow-hidden transition-all duration-500 border-2 ${
+                hoveredProject === index 
+                  ? 'shadow-2xl scale-[1.01] border-white/0' 
+                  : 'shadow-lg border-gray-100'
+              }`}
+            >
+              {/* Gradient Border Effect */}
+              {hoveredProject === index && (
+                <div className="absolute inset-0 bg-gradient-to-r from-[#8B0000] to-[#A40000] opacity-100 transition-opacity duration-500"></div>
+              )}
+              <div className="absolute inset-[2px] bg-white rounded-3xl"></div>
+              
+              <div className="relative z-10 p-8 md:p-10 lg:p-12">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                  
+                  {/* Left Column: Icon & Metadata */}
+                  <div className="lg:col-span-3 space-y-6">
+                    {/* Project Icon */}
+                    <div className={`relative w-28 h-28 rounded-2xl bg-gradient-to-br from-[#8B0000] to-[#A40000] flex items-center justify-center shadow-xl transform transition-all duration-500 ${
+                      hoveredProject === index ? 'scale-110 rotate-3' : ''
+                    }`}>
+                      <project.IconComponent className="w-14 h-14 text-white" />
+                    </div>
+                    
+                    {/* Status Badge */}
+                    <div>
+                      <Badge className="bg-[#8B0000] text-white border-[#8B0000] text-sm font-bold px-4 py-2 border-2">
+                        {getStatusBadge(project.status).label}
+                      </Badge>
+                    </div>
+                    
+                    {/* Metadata */}
+                    <div className="space-y-3 text-sm">
+                      <div className="flex items-center gap-3 text-[#0A0A0A]/70">
+                        <Calendar className="w-5 h-5 flex-shrink-0 text-[#8B0000]" />
+                        <span className="font-medium">{project.timeline}</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-[#0A0A0A]/70">
+                        <MapPin className="w-5 h-5 flex-shrink-0 text-[#8B0000]" />
+                        <span className="font-medium">{language === 'en' ? project.location : project.locationFr}</span>
+                      </div>
+                    </div>
+
+                    {/* Hub Badge */}
+                    <Badge 
+                      variant="outline" 
+                      className="border-2 font-semibold text-xs px-3 py-1 border-[#8B0000] text-[#8B0000]"
+                    >
+                      {language === 'en' ? project.hubShort : project.hubShortFr}
+                    </Badge>
+                  </div>
+                  
+                  {/* Right Column: Content */}
+                  <div className="lg:col-span-9 space-y-6">
+                    {/* Title */}
+                    <div>
+                      <h2 className={`text-3xl md:text-4xl lg:text-5xl font-bold text-[#0A0A0A] leading-tight transition-colors duration-300 ${
+                        hoveredProject === index ? 'text-[#8B0000]' : ''
+                      }`}>
+                        {language === 'en' ? project.title : project.titleFr}
+                      </h2>
+                    </div>
+                    
+                    {/* Description */}
+                    <p className="text-lg text-[#0A0A0A]/80 leading-relaxed">
+                      {language === 'en' ? project.description : project.descriptionFr}
+                    </p>
+                    
+                    {/* Key Focus Areas */}
+                    <div>
+                      <p className="text-xs font-bold text-[#0A0A0A]/50 uppercase tracking-wider mb-3">
+                        {language === 'en' ? 'Key Focus Areas' : 'Domaines clés'}
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {(language === 'en' ? project.keyFocus : project.keyFocusFr).map((focus, i) => (
+                          <div 
+                            key={i} 
+                            className="px-4 py-2 rounded-full text-sm font-medium border-2 border-[#8B0000]/30 bg-[#8B0000]/10 text-[#8B0000] transition-all duration-300 hover:scale-105"
+                          >
+                            {focus}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    {/* Project Details Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className={`p-5 rounded-2xl transition-all duration-300 ${
+                        hoveredProject === index ? 'bg-gray-100' : 'bg-gray-50'
+                      }`}>
+                        <div className="flex items-start gap-4">
+                          <div className="w-12 h-12 rounded-xl bg-[#8B0000]/10 flex items-center justify-center flex-shrink-0">
+                            <Users className="w-6 h-6 text-[#8B0000]" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs font-bold text-[#0A0A0A]/50 uppercase tracking-wider mb-1">
+                              {language === 'en' ? 'Participants' : 'Participants'}
+                            </p>
+                            <p className="font-semibold text-[#0A0A0A]">
+                              {language === 'en' ? project.participants : project.participantsFr}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className={`p-5 rounded-2xl transition-all duration-300 cursor-pointer hover:ring-2 hover:ring-[#8B0000] ${
+                        hoveredProject === index ? 'bg-gray-100' : 'bg-gray-50'
+                      }`} onClick={() => window.location.href = `mailto:${project.contactEmail}`}>
+                        <div className="flex items-start gap-4">
+                          <div className="w-12 h-12 rounded-xl bg-[#8B0000]/10 flex items-center justify-center flex-shrink-0">
+                            <Mail className="w-6 h-6 text-[#8B0000]" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs font-bold text-[#0A0A0A]/50 uppercase tracking-wider mb-1">
+                              {language === 'en' ? 'Contact' : 'Contact'}
+                            </p>
+                            <p className="font-semibold text-[#0A0A0A] mb-0.5">{project.contact}</p>
+                            <p className="text-xs text-[#0A0A0A]/60 hover:underline">{project.contactEmail}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* CTA Button */}
+                    {project.surveyLink && (
+                      <div className="pt-4">
+                        <Button
+                          asChild
+                          className="bg-gradient-to-r from-[#8B0000] to-[#A40000] hover:shadow-xl text-white font-semibold px-8 py-6 rounded-xl transition-all duration-300 group/btn border-0"
+                        >
+                          <a href={project.surveyLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3">
+                            <ExternalLink className="w-5 h-5" />
+                            <span>{language === 'en' ? 'Learn More & Get Involved' : 'En savoir plus et participer'}</span>
+                            <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
+                          </a>
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* No Results State */}
+        {filteredProjects.length === 0 && (
+          <div className="text-center py-24 bg-gray-50 rounded-3xl">
+            <div className="w-32 h-32 rounded-full bg-gradient-to-br from-[#8B0000] to-[#A40000] flex items-center justify-center mx-auto mb-8 shadow-xl">
+              <Search className="w-16 h-16 text-white" />
+            </div>
+            <h3 className="text-3xl font-bold text-[#0A0A0A] mb-3">
+              {language === 'en' ? 'No projects found' : 'Aucun projet trouvé'}
+            </h3>
+            <p className="text-lg text-[#0A0A0A]/60 mb-8">
+              {language === 'en' ? 'Try adjusting your filters to see more results' : 'Essayez d\'ajuster vos filtres pour voir plus de résultats'}
+            </p>
+            <Button
+              onClick={() => {
+                setFilterHub('all');
+                setFilterStatus('all');
+              }}
+              className="bg-[#8B0000] hover:bg-[#A40000] text-white font-semibold px-8 py-6 rounded-xl"
+            >
+              {language === 'en' ? 'Clear All Filters' : 'Effacer tous les filtres'}
+            </Button>
+          </div>
+        )}
+
+        {/* Call to Action Section */}
+        <div className="mt-24 mb-16 relative">
+          {/* Background Blur Effect */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#8B0000] via-[#A40000] to-[#8B0000] rounded-[3rem] blur-3xl opacity-20"></div>
+          
+          <div className="relative bg-gradient-to-br from-[#8B0000] via-[#A40000] to-[#6B0000] rounded-[3rem] p-12 md:p-16 lg:p-20 overflow-hidden shadow-2xl">
+            {/* Decorative Elements */}
+            <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full -mr-48 -mt-48"></div>
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/10 rounded-full -ml-48 -mb-48"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full">
+              <div className="w-full h-full opacity-5">
+                <svg className="w-full h-full" viewBox="0 0 100 100" fill="none">
+                  <circle cx="50" cy="50" r="40" stroke="white" strokeWidth="0.5" />
+                  <circle cx="50" cy="50" r="30" stroke="white" strokeWidth="0.5" />
+                  <circle cx="50" cy="50" r="20" stroke="white" strokeWidth="0.5" />
+                </svg>
+              </div>
+            </div>
+            
+            <div className="relative z-10 max-w-4xl mx-auto text-center">
+              <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-6 py-3 rounded-full mb-8 shadow-lg">
+                <Heart className="w-5 h-5" />
+                <span className="font-semibold">
+                  {language === 'en' ? 'Join Our Research Community' : 'Rejoignez notre communauté de recherche'}
+                </span>
+              </div>
+              
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                {language === 'en' 
+                  ? 'Make a Difference Through Research' 
+                  : 'Faites la différence par la recherche'}
+              </h2>
+              
+              <p className="text-xl md:text-2xl text-white/90 mb-10 leading-relaxed">
+                {language === 'en' 
+                  ? 'Partner with us to create meaningful change in the Niagara region. Your voice and experience matter.'
+                  : 'Partenariat avec nous pour créer un changement significatif dans la région de Niagara. Votre voix et votre expérience comptent.'}
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button className="bg-white text-[#8B0000] hover:bg-gray-100 font-bold px-10 py-7 rounded-xl text-lg shadow-xl transition-all duration-300 hover:scale-105">
+                  {language === 'en' ? 'Get Involved' : 'Participez'}
+                </Button>
+                <Button variant="outline" className="border-2 border-white text-white hover:bg-white/10 font-bold px-10 py-7 rounded-xl text-lg backdrop-blur-sm transition-all duration-300 hover:scale-105">
+                  {language === 'en' ? 'Contact Us' : 'Contactez-nous'}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
