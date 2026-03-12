@@ -54,6 +54,7 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.community': 'Community',
     'nav.organizations': 'Organizations & Partnerships',
     'nav.timeline': 'Timeline & Events',
+    'nav.media': 'Media & Documentation',
     
     // Home Page Content
     'home.title': 'MSK Research Partnership',
@@ -109,6 +110,7 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.community': 'Communauté',
     'nav.organizations': 'Organisations et partenariats',
     'nav.timeline': 'Chronologie et événements',
+    'nav.media': 'Médias et documentation',
     
     // Contenu de la page d'accueil
     'home.title': 'Partenariat de recherche MSK',

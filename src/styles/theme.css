@@ -50,7 +50,22 @@
     /* MINIMUM TOUCH TARGET SIZE */
     --touch-target: 44px;
     
-    /* PRIMARY COLORS */
+    /* PRIMARY COLORS - Black, White & Dark Red Theme */
+    --background: #FFFFFF;           /* White background */
+    --foreground: #0A0A0A;           /* Black text */
+    --primary: #0A0A0A;              /* Black for primary text */
+    --primary-foreground: #FFFFFF;   /* White text on black backgrounds */
+    --dark-red: #8B0000;             /* Dark red accent */
+    --muted: #F5F5F5;                /* Light gray for muted areas */
+    --muted-foreground: #555555;     /* Dark gray for muted text */
+    --border: #E5E5E5;               /* Light gray borders */
+    --accent: #8B0000;               /* Dark red for accents */
+    --accent-foreground: #FFFFFF;    /* White text on accent backgrounds */
+    
+    /* Text Color Tokens for Accessibility */
+    --text-primary: #111111;         /* Very dark gray/black for main text */
+    --text-secondary: #444444;       /* Medium dark gray for secondary text */
+    --text-muted: #555555;           /* Medium gray for muted text */
   }
 }
 

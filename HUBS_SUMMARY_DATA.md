@@ -207,7 +207,7 @@
 - Mikhaela Sullivan (Le Réseau en Immigration Francophone)
 
 #### **Project #3: ICT Use & Sexual and Gender Diverse (SGD) Newcomers**
-- **Leader:** Dr. Dane Di Cesare (Brock University)
+- **Leader:** Dr. Dane Marco Di Cesare (Brock University)
 - **Team Size:** 8 members
 - **Key Partners:**
   - Niagara Local Immigration Partnership
@@ -216,7 +216,7 @@
 
 **Team Members:**
 - Amy Andrews (Niagara LIP - Research Analyst)
-- Dr. Dane Di Cesare (Brock University - Project Leader)
+- Dr. Dane Marco Di Cesare (Brock University - Project Leader)
 - Lisa Garlent (Niagara LIP - Project Coordinator)
 - Mary Wiley (Community Potential)
 - Mikhaela Sullivan (Le Réseau)
@@ -295,7 +295,7 @@
 - **Hub Leader:** Dr. Jean Ntakirutimana (jntakirutimana@brocku.ca)
 - **Project #1 Leader:** Dr. Jean Ntakirutimana (jntakirutimana@brocku.ca)
 - **Project #2 Leader:** Dr. Julie Ham (jham@brocku.ca)
-- **Project #3 Leader:** Dr. Dane Di Cesare (ddicesare@brocku.ca)
+- **Project #3 Leader:** Dr. Dane Marco Di Cesare (ddicesare@brocku.ca)
 
 ---
 

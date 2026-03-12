@@ -2,6 +2,10 @@ import { Link } from 'react-router';
 import { useLanguage } from '../contexts/LanguageContext';
 import { ArrowUp, Mail, MapPin, Phone } from 'lucide-react';
 
+// Import funder logos
+import sshrcLogo from 'figma:asset/c9c77bb67634af21353fb8f536aed3347c90330c.png';
+import brockLogo from 'figma:asset/6a2d35fb10f25faa07b97ffff38a76f184734ae4.png';
+
 export function Footer() {
   const { t, language } = useLanguage();
   const currentYear = new Date().getFullYear();
@@ -142,11 +146,32 @@ export function Footer() {
           <h4 className="text-lg font-bold mb-3 text-white">
             {language === 'en' ? 'Funding Acknowledgment' : 'Reconnaissance du financement'}
           </h4>
-          <p className="text-gray-100 leading-relaxed text-sm">
+          <p className="text-gray-100 leading-relaxed text-sm mb-4">
             {language === 'en' 
-              ? 'This research is funded by the Social Sciences and Humanities Research Council of Canada (SSHRC). Brock University provides additional institutional support, including resources from the Office of the Vice-President, Research.'
-              : 'Cette recherche est financée par le Conseil de recherches en sciences humaines du Canada (CRSH). L\'Université Brock fournit un soutien institutionnel supplémentaire, y compris des ressources du Bureau du vice-recteur à la recherche.'}
+              ? 'Funded by the Social Sciences and Humanities Research Council of Canada (SSHRC) Partnership Grant, the John R. Evans Leaders Fund of the Canada Foundation for Innovation (CFI), the Social Justice Research Institute (SJRI), and supported by Brock University, including the Office of the Vice-President, Research, the Office of Research Services, and the Office of the Dean, Faculty of Health Sciences.'
+              : 'Financé par la subvention de partenariat du Conseil de recherches en sciences humaines du Canada (CRSH), le Fonds des leaders John-R.-Evans de la Fondation canadienne pour l\'innovation (FCI), l\'Institut de recherche sur la justice sociale (IRJS), et soutenu par l\'Université Brock, y compris le Bureau du vice-recteur à la recherche, le Bureau des services de recherche et le Bureau du doyen de la Faculté des sciences de la santé.'}
           </p>
+          
+          {/* Funder Logos */}
+          <div className="flex flex-wrap items-center gap-6 mt-5 pt-4 border-t border-white/10">
+            <div className="flex items-center gap-2">
+              <img 
+                src={sshrcLogo} 
+                alt={language === 'en' ? 'SSHRC Logo' : 'Logo CRSH'} 
+                className="h-16 w-auto object-contain" 
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <img 
+                src={brockLogo} 
+                alt={language === 'en' ? 'SJRI Logo' : 'Logo IRJS'} 
+                className="h-16 w-auto object-contain" 
+              />
+              <span className="text-xs text-gray-300">
+                {language === 'en' ? 'SJRI' : 'IRJS'}
+              </span>
+            </div>
+          </div>
         </div>
         
         {/* Bottom Bar */}

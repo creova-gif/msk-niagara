@@ -227,7 +227,7 @@ When displaying these photos on the website, use the new MSK color palette:
 **Hub #3 (Identity, Connections & Belonging) - 23 Members:**
 - Dr. Jean Ntakirutimana (Hub Leader)
 - Dr. Julie Ham (Project #2 Leader)
-- Dr. Dane Di Cesare (Project #3 Leader)
+- Dr. Dane Marco Di Cesare (Project #3 Leader)
 - Emmanuel Mompongo (SOFIFRAN)
 - Janet Madume (Welland Heritage Council)
 - Reverend Dr. Daniel Tatarnic

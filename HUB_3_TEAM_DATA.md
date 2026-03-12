@@ -123,7 +123,7 @@
 - **Email:** amy.andrews@niagararegion.ca
 - **Title:** Research Analyst
 
-#### Dr. Dane Di Cesare
+#### Dr. Dane Marco Di Cesare
 - **Organization:** Brock University
 - **Email:** ddicesare@brocku.ca
 - **Title:** Professor
@@ -183,7 +183,7 @@
 - **Hub Leader:** Dr. Jean Ntakirutimana
 - **Project #1 Leader:** Dr. Jean Ntakirutimana
 - **Project #2 Leader:** Dr. Julie Ham
-- **Project #3 Leader:** Dr. Dane Di Cesare
+- **Project #3 Leader:** Dr. Dane Marco Di Cesare
 
 ### Key Community Partners
 1. **SOFIFRAN** (Société des Francophones de la région de Niagara)
@@ -260,7 +260,7 @@ Dr. Jean Ntakirutimana
 - Leader: Dr. Julie Ham (jham@brocku.ca)
 
 **For Project #3 (ICT & SGD Newcomers):**
-- Leader: Dr. Dane Di Cesare (ddicesare@brocku.ca)
+- Leader: Dr. Dane Marco Di Cesare (ddicesare@brocku.ca)
 
 ---
 
@@ -311,7 +311,7 @@ Dr. Jean Ntakirutimana
 **Project #3 Team:**
 1. Amy Andrews (Niagara LIP) - Research Analyst
 2. Dr. Shelley Craig (University of Toronto) - Professor
-3. Dr. Dane Di Cesare (Brock University) - Project Leader
+3. Dr. Dane Marco Di Cesare (Brock University) - Project Leader
 4. Lisa Garlent (Niagara LIP) - Project Coordinator
 5. Dr. Pascal Lupien (Brock University) - Professor
 6. Mikhaela Sullivan (Le Réseau en Immigration Francophone) - Project Officer

@@ -21,6 +21,7 @@ import { Community } from './pages/Community';
 import { Timeline } from './pages/Timeline';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { HelpCenter } from './components/HelpCenter';
+import { Media } from './pages/Media';
 
 /**
  * App Content Component
@@ -30,7 +31,7 @@ function AppContent() {
   const { isTransitioning } = useLanguage();
   
   return (
-    <div className={`min-h-screen min-w-[1280px] flex flex-col bg-white transition-opacity duration-150 ${isTransitioning ? 'opacity-70' : 'opacity-100'}`}>
+    <div className={`min-h-screen flex flex-col bg-white transition-opacity duration-150 ${isTransitioning ? 'opacity-70' : 'opacity-100'}`}>
       <ScrollToTop />
       <Header />
       <Breadcrumbs />
@@ -49,6 +50,7 @@ function AppContent() {
             <Route path="/timeline" element={<Timeline />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/help" element={<HelpCenter />} />
+            <Route path="/media" element={<Media />} />
           </Routes>
         </main>
       </PageTransition>

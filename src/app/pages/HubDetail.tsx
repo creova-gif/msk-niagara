@@ -2,8 +2,11 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { useParams, Link } from 'react-router';
 import { Card, CardContent } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
-import { Avatar, AvatarFallback } from '../components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
 import { Mail, Building2, User, GraduationCap, Users, ArrowLeft, Target, BookOpen } from 'lucide-react';
+
+// Import profile images
+import farahAhmadImg from "figma:asset/80cf63058525c286b302f23654c290a0bb73d727.png";
 
 export function HubDetail() {
   const { language } = useLanguage();
@@ -364,6 +367,7 @@ function MemberCard({ member, language }: { member: any; language: string }) {
       <CardContent className="p-6">
         <div className="flex items-start gap-4 mb-4">
           <Avatar className="w-16 h-16 bg-[#8B0000] text-white flex-shrink-0">
+            {member.image && <AvatarImage src={member.image} alt={member.name} />}
             <AvatarFallback className="bg-[#8B0000] text-white text-lg font-semibold">
               {member.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}
             </AvatarFallback>
@@ -573,6 +577,7 @@ function getMembers() {
       institutionFr: 'Université York',
       email: 'farahmad@yorku.ca',
       type: 'faculty',
+      image: farahAhmadImg,
       bio: 'Professor at York University conducting research on health equity and immigrant health.',
       bioFr: 'Professeure à l\'Université York menant des recherches sur l\'équité en santé et la santé des immigrants.',
     },
@@ -616,19 +621,6 @@ function getMembers() {
       type: 'student',
       bio: 'Research Assistant at Brock University supporting health literacy research.',
       bioFr: 'Assistante de recherche à l\'Université Brock soutenant la recherche en littératie en santé.',
-    },
-    {
-      name: 'Cecilia Nambalirwa',
-      role: 'Research Assistant',
-      roleFr: 'Assistante de recherche',
-      hub: 'Health Literacy Hub',
-      hubFr: 'Pôle Littératie en santé',
-      institution: 'Community Member',
-      institutionFr: 'Membre de la communauté',
-      email: 'cecilianambalirwa@gmail.com',
-      type: 'student',
-      bio: 'Community Research Assistant supporting health literacy initiatives.',
-      bioFr: 'Assistante de recherche communautaire soutenant les initiatives de littératie en santé.',
     },
     {
       name: 'Hurakhsh Hazheer',
@@ -751,19 +743,6 @@ function getMembers() {
       bioFr: 'Gestionnaire de la diversité, de l\'équité et de l\'inclusion au Système de santé de Niagara.',
     },
     {
-      name: 'Tara Wincott',
-      role: 'Manager of Health Promotion',
-      roleFr: 'Gestionnaire de la promotion de la santé',
-      hub: 'Health Literacy Hub',
-      hubFr: 'Pôle Littératie en santé',
-      institution: 'Niagara Public Health',
-      institutionFr: 'Santé publique de Niagara',
-      email: 'tara.wincott@niagararegion.ca',
-      type: 'community',
-      bio: 'Manager of Health Promotion at Niagara Public Health.',
-      bioFr: 'Gestionnaire de la promotion de la santé à Santé publique de Niagara.',
-    },
-    {
       name: 'Donna Mills',
       role: 'Team Lead Health Promotion',
       roleFr: 'Chef d\'équipe Promotion de la santé',
@@ -849,7 +828,7 @@ function getMembers() {
       bioFr: 'Professeure à l\'Université Brock et responsable du projet #2 se concentrant sur les travailleurs agricoles migrants dans la communauté.',
     },
     {
-      name: 'Dane Di Cesare',
+      name: 'Dane Marco Di Cesare',
       role: 'Professor, Project Leader',
       roleFr: 'Professeur, Responsable de projet',
       hub: 'Identity, Connections and Belonging Hub',

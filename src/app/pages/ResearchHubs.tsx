@@ -63,11 +63,11 @@ export function ResearchHubs() {
       id: 'health',
       name: 'Health Literacy Hub',
       nameFr: 'Pôle Littératie en santé',
-      description: 'The Health Literacy Hub promotes health literacy in immigrant and refugee populations. Our research develops culturally responsive health information and programs to improve health outcomes and reduce health disparities among newcomer communities in the Niagara region. Co-led by Dr. Joanne Crawford (Brock University) and Mariam Khayinza (TOES Niagara), the hub brings together healthcare providers, community organizations, and researchers.',
-      descriptionFr: 'Le Pôle Littératie en santé promeut la littératie en santé auprès des populations immigrantes et réfugiées. Notre recherche développe des informations et programmes de santé culturellement adaptés pour améliorer les résultats de santé et réduire les disparités en santé parmi les communautés nouvelles arrivantes dans la région de Niagara. Codirigé par Dre Joanne Crawford (Université Brock) et Mariam Khayinza (TOES Niagara), le pôle réunit des prestataires de soins de santé, des organismes communautaires et des chercheurs.',
+      description: 'The project seeks to explore best practices for health literacy interventions and community-based perspectives to inform the development of locally relevant strategies that aim to improve the health literacy of diverse immigrant and refugee populations in the Niagara Region. Co-led by Dr. Joanne Crawford (Brock University) and Mariam Khayinza (TOES Niagara), the hub brings together healthcare providers, community organizations, and researchers.',
+      descriptionFr: 'Le projet cherche à explorer les meilleures pratiques pour les interventions en littératie en santé et les perspectives communautaires pour éclairer le développement de stratégies localement pertinentes visant à améliorer la littératie en santé des diverses populations immigrantes et réfugiées dans la région de Niagara. Codirigé par Dre Joanne Crawford (Université Brock) et Mariam Khayinza (TOES Niagara), le pôle réunit des prestataires de soins de santé, des organismes communautaires et des chercheurs.',
       members: 20,
       documented: 20,
-      projects: 1,
+      projects: 3,
       leader: 'Dr. Joanne Crawford & Mariam Khayinza',
       leaderFr: 'Dre Joanne Crawford et Mariam Khayinza',
       color: '#12647F',
@@ -78,8 +78,8 @@ export function ResearchHubs() {
         { name: 'York University', logo: uoftOiseLogo },
         { name: 'University at Buffalo', logo: universityBuffaloLogo }
       ],
-      topics: ['Multilingual Health Info', 'Community Health Education', 'Culturally Responsive Care', 'Health Navigation'],
-      topicsFr: ['Info santé multilingue', 'Éducation en santé communautaire', 'Soins culturellement adaptés', 'Navigation en santé'],
+      topics: ['Health Literacy Best Practices', 'Community Resources', 'Community Partnerships', 'Health Equity'],
+      topicsFr: ['Meilleures pratiques en littératie en santé', 'Ressources communautaires', 'Partenariats communautaires', 'Équité en santé'],
       partners: [
         {
           name: 'Bridges Niagara',

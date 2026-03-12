@@ -487,17 +487,31 @@ export function KnowledgeDissemination() {
 
                 {/* Email Signup Form */}
                 <div className="max-w-2xl mx-auto mb-8">
-                  <div className="flex flex-col sm:flex-row gap-3 mb-4">
-                    <div className="flex-1">
-                      <input 
-                        type="email" 
-                        placeholder={language === 'en' ? 'Enter your email address' : 'Entrez votre adresse courriel'}
-                        className="w-full px-6 py-4 rounded-xl bg-white/20 backdrop-blur-sm border-2 border-white/30 text-white placeholder-white/60 focus:outline-none focus:ring-4 focus:ring-white/50 focus:border-white/60 transition-all duration-300 font-medium"
-                      />
+                  <div className="relative group">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-white/40 via-[#8B0000]/40 to-white/40 rounded-2xl blur-lg opacity-60 group-hover:opacity-100 transition-all duration-500"></div>
+                    <div className="relative flex flex-col sm:flex-row gap-3 mb-4 bg-white/10 backdrop-blur-md p-2 rounded-2xl border border-white/30 shadow-2xl">
+                      <div className="flex-1 relative">
+                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 group-hover:text-white transition-colors">
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                          </svg>
+                        </div>
+                        <input 
+                          type="email" 
+                          placeholder={language === 'en' ? 'your.email@example.com' : 'votre.courriel@exemple.com'}
+                          className="w-full pl-12 pr-6 py-4 rounded-xl bg-white/10 backdrop-blur-sm border-2 border-transparent text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/70 focus:border-white/60 focus:bg-white/20 transition-all duration-300 font-medium text-base"
+                        />
+                      </div>
+                      <Button className="relative bg-gradient-to-r from-white via-gray-100 to-white text-[#8B0000] hover:from-gray-100 hover:via-white hover:to-gray-100 font-bold px-8 py-4 rounded-xl text-base shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-white/20 whitespace-nowrap overflow-hidden group/btn">
+                        <span className="relative z-10 flex items-center gap-2">
+                          {language === 'en' ? 'Subscribe Now' : 'S\'abonner'}
+                          <svg className="w-5 h-5 transform group-hover/btn:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                          </svg>
+                        </span>
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#8B0000]/10 via-transparent to-[#8B0000]/10 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500"></div>
+                      </Button>
                     </div>
-                    <Button className="bg-white text-[#8B0000] hover:bg-gray-100 font-bold px-8 py-4 rounded-xl text-base shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl whitespace-nowrap">
-                      {language === 'en' ? 'Subscribe Now' : 'S\'abonner'}
-                    </Button>
                   </div>
                   <p className="text-white/70 text-sm text-center">
                     {language === 'en' 

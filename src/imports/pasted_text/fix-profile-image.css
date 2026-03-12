@@ -1,0 +1,104 @@
+AI Prompt — Fix Profile Image Display (No Stretching)
+
+You are a senior frontend UI engineer and responsive layout specialist.
+
+The Member Bios section contains profile images that may appear stretched, squished, or distorted depending on the uploaded image dimensions.
+
+Your task is to standardize how profile images render so they appear clean, centered, and proportional without stretching.
+
+Do not redesign the UI layout.
+
+Step 1 — Standardize Image Container
+
+Ensure the profile image container uses a fixed aspect ratio.
+
+Set the container to:
+
+aspect-ratio: 1 / 1
+width: consistent across all cards
+height: auto
+
+Example:
+
+width: 96px
+aspect-ratio: 1/1
+
+This ensures the container is always square.
+
+Step 2 — Prevent Image Distortion
+
+Apply the following styling to all profile images:
+
+object-fit: cover
+object-position: center
+
+This ensures:
+
+• Image keeps correct proportions
+• No stretching occurs
+• Image fills the container properly
+
+Step 3 — Apply Circular Cropping
+
+If the UI uses circular avatars, apply:
+
+border-radius: 50%
+overflow: hidden
+
+This keeps the profile image perfectly circular.
+
+Step 4 — Prevent Image Stretching
+
+Remove any styling that causes distortion such as:
+
+height: 100%
+width: 100%
+without object-fit
+
+Replace with:
+
+width: 100%
+height: 100%
+object-fit: cover
+Step 5 — Center Images
+
+Ensure images remain centered in the frame:
+
+object-position: center
+
+This prevents faces from being cut off.
+
+Step 6 — Add Safe Fallback
+
+If a profile image is missing:
+
+Display a placeholder avatar with identical styling.
+
+Example:
+
+default-profile.png
+Step 7 — Responsive Check
+
+Verify image rendering across:
+
+• Desktop
+• Tablet
+• Mobile
+
+Images must remain square, centered, and not distorted.
+
+Expected Result
+
+Each profile card should display:
+
+Perfect circular profile photo
+Centered face
+No stretching
+Consistent image size
+Output Required
+
+Return:
+
+• Number of profile images scanned
+• Number of distorted images fixed
+• Confirmation object-fit applied

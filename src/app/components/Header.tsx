@@ -66,6 +66,7 @@ export function Header() {
     },
     { name: t('nav.community'), href: '/community' },
     { name: t('nav.timeline'), href: '/timeline' },
+    { name: language === 'en' ? 'Media' : 'Médias', href: '/media' },
     { name: language === 'en' ? 'Help' : 'Aide', href: '/help' },
   ];
 
