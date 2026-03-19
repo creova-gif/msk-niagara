@@ -5,13 +5,13 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { useCallback, useEffect, useState } from 'react';
 
 // Import logos
-import sshrcLogo from 'figma:asset/c9c77bb67634af21353fb8f536aed3347c90330c.png';
-import brockLogo from 'figma:asset/6a2d35fb10f25faa07b97ffff38a76f184734ae4.png';
-import uoftOiseLogo from 'figma:asset/7b98ee478f466c3dd71a0410d27d1cae36bc7b2a.png';
-import brockESRCLogo from 'figma:asset/4825dd65e7c70d72bc4874a4e49e5ed0e76764db.png';
-import niagaraRegionLogo from 'figma:asset/b80316cbb5ce9244931d871f5cd787d687cfdafb.png';
-import yorkUniversityLogo from 'figma:asset/c04bb3e0b2c20a914be2fc34dabdbd667e3f6fd3.png';
-import universityAtBuffaloLogo from 'figma:asset/1e02762e71863f48fceb1cc3277e8ecd07e53156.png';
+const sshrcLogo = '/c9c77bb67634af21353fb8f536aed3347c90330c.png';
+const brockLogo = '/6a2d35fb10f25faa07b97ffff38a76f184734ae4.png';
+const uoftOiseLogo = '/7b98ee478f466c3dd71a0410d27d1cae36bc7b2a.png';
+const brockESRCLogo = '/4825dd65e7c70d72bc4874a4e49e5ed0e76764db.png';
+const niagaraRegionLogo = '/b80316cbb5ce9244931d871f5cd787d687cfdafb.png';
+const yorkUniversityLogo = '/c04bb3e0b2c20a914be2fc34dabdbd667e3f6fd3.png';
+const universityAtBuffaloLogo = '/1e02762e71863f48fceb1cc3277e8ecd07e53156.png';
 
 export function Partnership() {
   const { t, language } = useLanguage();

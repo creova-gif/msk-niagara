@@ -34,8 +34,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../co
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
 
 // Import co-director profile images
-import jeanNtakirutimanaImg from "figma:asset/a4bced4acbd5814bb109a187b7f1325cde395ea7.png";
-import livianaTossuttiImg from "figma:asset/438f2f96ee4c30da348ebf5afdbb45ab22a5947b.png";
+const jeanNtakirutimanaImg = '/a4bced4acbd5814bb109a187b7f1325cde395ea7.png';
+const livianaTossuttiImg = '/438f2f96ee4c30da348ebf5afdbb45ab22a5947b.png';
 
 export function Home() {
   const { language } = useLanguage();

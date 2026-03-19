@@ -7,21 +7,21 @@ import { Building2, Users, ArrowRight, Target, Lightbulb, Heart, GraduationCap, 
 import { useState } from 'react';
 
 // Import logos
-import uoftOiseLogo from 'figma:asset/7b98ee478f466c3dd71a0410d27d1cae36bc7b2a.png';
-import brockLogo from 'figma:asset/4825dd65e7c70d72bc4874a4e49e5ed0e76764db.png';
-import ywcaLogo from 'figma:asset/af7a99d39d035b273d4e3d0f598d3a6831ad42e6.png';
-import migrantFarmworkersLogo from 'figma:asset/c51299cab84d0db41025a7b6acc2f91dad241f19.png';
-import stCatharinesLibraryLogo from 'figma:asset/8a7aff8c28e41c14965e60ee35fec519925a66c0.png';
-import bridgesNiagaraLogo from 'figma:asset/42685716c968d89e0ce4c2df255a0e5fe47de6e5.png';
-import niagaraFallsHealthLogo from 'figma:asset/a644b274274c47623c7f67a111672ede625bacd4.png';
-import niagaraConnectsLogo from 'figma:asset/5554cc6019e321efeb2a5ae0621a2d5b54fe8190.png';
-import wellandHeritageLogo from 'figma:asset/b988ec04fdec29b54dd9b6f3d4fa9715cff4d6cd.png';
-import niagaraImmigrationPartnershipLogo from 'figma:asset/e3efa50a0dfbeae579a749859aab8f2f63920ab8.png';
-import futureBlackFemaleLogo from 'figma:asset/e63ce6bc137a9cdd5b4c0dfb3801c54c434f206d.png';
-import niagaraRegionLogo from 'figma:asset/584ab02c6f97daaed41f2ba77c0e96e670fdb60d.png';
-import niagaraHealthLogo from 'figma:asset/628de4b1ee9f5dd370379633138c153274cc3bf5.png';
-import toesNiagaraLogo from 'figma:asset/165706a2c9c6deebc6dc1cfda9805cf86e3cd39d.png';
-import universityBuffaloLogo from 'figma:asset/1e02762e71863f48fceb1cc3277e8ecd07e53156.png';
+const uoftOiseLogo = '/7b98ee478f466c3dd71a0410d27d1cae36bc7b2a.png';
+const brockLogo = '/4825dd65e7c70d72bc4874a4e49e5ed0e76764db.png';
+const ywcaLogo = '/af7a99d39d035b273d4e3d0f598d3a6831ad42e6.png';
+const migrantFarmworkersLogo = '/c51299cab84d0db41025a7b6acc2f91dad241f19.png';
+const stCatharinesLibraryLogo = '/8a7aff8c28e41c14965e60ee35fec519925a66c0.png';
+const bridgesNiagaraLogo = '/42685716c968d89e0ce4c2df255a0e5fe47de6e5.png';
+const niagaraFallsHealthLogo = '/a644b274274c47623c7f67a111672ede625bacd4.png';
+const niagaraConnectsLogo = '/5554cc6019e321efeb2a5ae0621a2d5b54fe8190.png';
+const wellandHeritageLogo = '/b988ec04fdec29b54dd9b6f3d4fa9715cff4d6cd.png';
+const niagaraImmigrationPartnershipLogo = '/e3efa50a0dfbeae579a749859aab8f2f63920ab8.png';
+const futureBlackFemaleLogo = '/e63ce6bc137a9cdd5b4c0dfb3801c54c434f206d.png';
+const niagaraRegionLogo = '/584ab02c6f97daaed41f2ba77c0e96e670fdb60d.png';
+const niagaraHealthLogo = '/628de4b1ee9f5dd370379633138c153274cc3bf5.png';
+const toesNiagaraLogo = '/165706a2c9c6deebc6dc1cfda9805cf86e3cd39d.png';
+const universityBuffaloLogo = '/1e02762e71863f48fceb1cc3277e8ecd07e53156.png';
 
 export function ResearchHubs() {
   const { t, language } = useLanguage();

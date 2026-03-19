@@ -7,22 +7,22 @@ import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
 import { useState } from 'react';
 
 // Import profile images
-import erikaAlegriaImg from "figma:asset/3e4d676df1e0c0b2f8fad10ba1c0d258f1036b17.png";
-import frederickOppongImg from "figma:asset/b32291fe73e7b1c05a02de213dc4e2a0df92a803.png";
-import dianeFarmerImg from "figma:asset/32627da26e09b9d3161271077350a5b2704ea170.png";
-import rebeccaRabyImg from "figma:asset/55aa99e07815047fd4b4490c0ad3a45a417b84e6.png";
-import christineTardifWilliamsImg from "figma:asset/e431960ffadd78f74ce0ddb7b7075b5b30eccb44.png";
-import dawnTrussellImg from "figma:asset/a6fefc3f45134fecdba853ee0584e343388cccdd.png";
-import elisabethZimmermannImg from "figma:asset/f77b38ccb928df2aa4887124053ea912681a53eb.png";
-import jeanNtakirutimanaImg from "figma:asset/a4bced4acbd5814bb109a187b7f1325cde395ea7.png";
-import livianaTossuttiImg from "figma:asset/438f2f96ee4c30da348ebf5afdbb45ab22a5947b.png";
-import farahAhmadImg from "figma:asset/80cf63058525c286b302f23654c290a0bb73d727.png";
-import joanneCrawfordImg from "figma:asset/0fa8d77608ecaf2673ec264f423b8b5fe2201f01.png";
-import hurakhshHazheerImg from "figma:asset/8f7b09ad0b8e30a6839a80d97e0218dfb9caa307.png";
-import karlieJamesImg from "figma:asset/53448f4597ea1cd9b385b1192463b44d74010653.png";
-import sizakeleKhumaloImg from "figma:asset/22a096132d6ac4000788bf0201ddc4a108337a5f.png";
-import marieMouradikianImg from "figma:asset/1c1233b21a7769b6a0108d918be03553c31d4429.png";
-import justinMafieImg from "figma:asset/3e11b66e4ba98e2596d7a69e2b6f7b5655a0abe6.png";
+const erikaAlegriaImg = '/3e4d676df1e0c0b2f8fad10ba1c0d258f1036b17.png';
+const frederickOppongImg = '/b32291fe73e7b1c05a02de213dc4e2a0df92a803.png';
+const dianeFarmerImg = '/32627da26e09b9d3161271077350a5b2704ea170.png';
+const rebeccaRabyImg = '/55aa99e07815047fd4b4490c0ad3a45a417b84e6.png';
+const christineTardifWilliamsImg = '/e431960ffadd78f74ce0ddb7b7075b5b30eccb44.png';
+const dawnTrussellImg = '/a6fefc3f45134fecdba853ee0584e343388cccdd.png';
+const elisabethZimmermannImg = '/f77b38ccb928df2aa4887124053ea912681a53eb.png';
+const jeanNtakirutimanaImg = '/a4bced4acbd5814bb109a187b7f1325cde395ea7.png';
+const livianaTossuttiImg = '/438f2f96ee4c30da348ebf5afdbb45ab22a5947b.png';
+const farahAhmadImg = '/80cf63058525c286b302f23654c290a0bb73d727.png';
+const joanneCrawfordImg = '/0fa8d77608ecaf2673ec264f423b8b5fe2201f01.png';
+const hurakhshHazheerImg = '/8f7b09ad0b8e30a6839a80d97e0218dfb9caa307.png';
+const karlieJamesImg = '/53448f4597ea1cd9b385b1192463b44d74010653.png';
+const sizakeleKhumaloImg = '/22a096132d6ac4000788bf0201ddc4a108337a5f.png';
+const marieMouradikianImg = '/1c1233b21a7769b6a0108d918be03553c31d4429.png';
+const justinMafieImg = '/3e11b66e4ba98e2596d7a69e2b6f7b5655a0abe6.png';
 
 export function MemberBios() {
   const { language } = useLanguage();

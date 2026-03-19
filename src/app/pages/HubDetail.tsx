@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
 import { Mail, Building2, User, GraduationCap, Users, ArrowLeft, Target, BookOpen } from 'lucide-react';
 
 // Import profile images
-import farahAhmadImg from "figma:asset/80cf63058525c286b302f23654c290a0bb73d727.png";
+const farahAhmadImg = '/80cf63058525c286b302f23654c290a0bb73d727.png';
 
 export function HubDetail() {
   const { language } = useLanguage();

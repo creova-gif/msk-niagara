@@ -3,8 +3,8 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { ArrowUp, Mail, MapPin, Phone } from 'lucide-react';
 
 // Import funder logos
-import sshrcLogo from 'figma:asset/c9c77bb67634af21353fb8f536aed3347c90330c.png';
-import brockLogo from 'figma:asset/6a2d35fb10f25faa07b97ffff38a76f184734ae4.png';
+const sshrcLogo = '/c9c77bb67634af21353fb8f536aed3347c90330c.png';
+const brockLogo = '/6a2d35fb10f25faa07b97ffff38a76f184734ae4.png';
 
 export function Footer() {
   const { t, language } = useLanguage();
