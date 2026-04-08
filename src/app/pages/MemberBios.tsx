@@ -712,34 +712,57 @@ export function MemberBios() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-[#8B0000] via-[#8B0000] to-[#6B0000] py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center">
-            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-8 shadow-lg">
-              <User className="w-4 h-4 text-white" />
-              <span className="text-sm text-white font-medium">
-                {language === 'en' ? '56 Team Members' : '56 Membres de l\'équipe'}
-              </span>
+      {/* Hero Section — left-aligned, split layout, distinct from other pages */}
+      <div className="relative overflow-hidden bg-[#0A0A0A] py-20 md:py-28">
+        {/* Dot-grid brand motif */}
+        <div className="absolute inset-0 opacity-[0.04]"
+          style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '28px 28px' }}
+        />
+        {/* Crimson accent gradient — right side */}
+        <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-[#8B0000]/20 to-transparent pointer-events-none" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left: text */}
+            <div>
+              <div className="flex items-center gap-2 mb-6">
+                <div className="w-8 h-px bg-[#8B0000]" />
+                <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-white/40">
+                  {language === 'en' ? 'Our People' : 'Notre équipe'}
+                </span>
+              </div>
+              <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-[1.05] tracking-tight mb-6"
+                style={{ fontFamily: 'var(--font-heading)' }}>
+                {language === 'en' ? (
+                  <>The People<br /><span className="text-[#8B0000]">Behind</span><br />the Research</>
+                ) : (
+                  <>L'équipe<br /><span className="text-[#8B0000]">derrière</span><br />la recherche</>
+                )}
+              </h1>
+              <p className="text-lg text-white/60 leading-relaxed max-w-lg">
+                {language === 'en'
+                  ? 'Faculty researchers, graduate students, and community co-leaders working together across three hubs to mobilize knowledge for a more just Niagara.'
+                  : 'Chercheurs, étudiants et co-responsables communautaires travaillant ensemble dans trois pôles pour mobiliser les connaissances pour un Niagara plus juste.'}
+              </p>
             </div>
-            <h1 className="text-5xl md:text-7xl text-white mb-6 tracking-tight leading-tight">
-              {language === 'en' 
-                ? 'Mobilizing Subjugated Knowledges for a Just and Inclusive Niagara' 
-                : 'Mobiliser les savoirs subjugués pour un Niagara juste et inclusif'}
-            </h1>
-            <p className="text-xl md:text-2xl text-white max-w-4xl mx-auto leading-relaxed">
-              {language === 'en'
-                ? 'Meet the dedicated researchers, students, and community partners driving our collaborative research efforts across the Niagara region.'
-                : 'Rencontrez les chercheurs, étudiants et partenaires communautaires dévoués qui mènent nos efforts de recherche collaborative dans la région de Niagara.'}
-            </p>
+
+            {/* Right: stat cards */}
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { n: '56', label: language === 'en' ? 'Team Members' : 'Membres', sub: language === 'en' ? 'across 3 hubs' : 'dans 3 pôles' },
+                { n: '3', label: language === 'en' ? 'Research Hubs' : 'Pôles', sub: language === 'en' ? 'focused topics' : 'sujets ciblés' },
+                { n: '5+', label: language === 'en' ? 'Institutions' : 'Institutions', sub: language === 'en' ? 'collaborating' : 'collaborant' },
+                { n: '26', label: language === 'en' ? 'Community Partners' : 'Partenaires', sub: language === 'en' ? 'organizations' : 'organisations' },
+              ].map(s => (
+                <div key={s.n} className="rounded-2xl bg-white/5 border border-white/8 p-5 hover:bg-white/8 transition-colors">
+                  <div className="text-3xl font-extrabold text-white mb-1" style={{ fontFamily: 'var(--font-heading)' }}>{s.n}</div>
+                  <div className="text-sm font-semibold text-white/80">{s.label}</div>
+                  <div className="text-xs text-white/35 mt-0.5">{s.sub}</div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-        
-        {/* Decorative wave */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
-            <path d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white"/>
-          </svg>
         </div>
       </div>
 

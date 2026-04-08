@@ -131,24 +131,205 @@ export function Home() {
         </a>
       </section>
 
-      {/* Land Acknowledgment Section */}
-      <section className="py-12 bg-white">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <div className="p-8 bg-white rounded-2xl shadow-lg border-l-4 border-[#8B0000]">
-            <h2 className="text-2xl font-bold text-[#8B0000] mb-4">
-              {language === 'en' ? 'Land Acknowledgment' : 'Reconnaissance territoriale'}
-            </h2>
-            <p className="text-[#0A0A0A]/80 leading-relaxed">
-              {language === 'en' 
-                ? 'Brock University is situated on the traditional territory of the Haudenosaunee and Anishinaabe peoples, many of whom continue to live and work here today. This territory is covered by the Upper Canada Treaties and is within the land protected by the Dish with One Spoon Wampum Agreement. We acknowledge the enduring presence and deep traditional knowledge, laws, and resources of Indigenous peoples, and are grateful to have the opportunity to work in this territory.'
-                : 'L\'Université Brock est située sur le territoire traditionnel des peuples Haudenosaunee et Anishinaabe, dont beaucoup continuent de vivre et de travailler ici aujourd\'hui. Ce territoire est couvert par les traités du Haut-Canada et se trouve sur le territoire protégé par l\'accord de wampum du plat à une cuillère. Nous reconnaissons la présence durable et les connaissances traditionnelles profondes, les lois et les ressources des peuples autochtones, et nous sommes reconnaissants d\'avoir l\'occasion de travailler sur ce territoire.'}
-            </p>
+      {/* Land Acknowledgment Section — atmospheric dark */}
+      <section className="relative bg-[#0A0A0A] py-14 overflow-hidden">
+        {/* Dot-grid brand motif */}
+        <div className="absolute inset-0 opacity-[0.035]"
+          style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '24px 24px' }}
+        />
+        <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-[#8B0000] to-transparent" />
+        <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="flex items-start gap-6">
+            <div className="shrink-0 mt-1">
+              <div className="w-8 h-8 rounded-lg bg-[#8B0000]/20 border border-[#8B0000]/30 flex items-center justify-center">
+                <div className="w-2.5 h-2.5 rounded-full bg-[#8B0000]" />
+              </div>
+            </div>
+            <div>
+              <h2 className="text-xs font-bold tracking-[0.2em] uppercase text-[#8B0000] mb-3">
+                {language === 'en' ? 'Land Acknowledgment' : 'Reconnaissance territoriale'}
+              </h2>
+              <p className="text-white/55 leading-relaxed text-base max-w-3xl">
+                {language === 'en'
+                  ? 'Brock University is situated on the traditional territory of the Haudenosaunee and Anishinaabe peoples, many of whom continue to live and work here today. This territory is covered by the Upper Canada Treaties and is within the land protected by the Dish with One Spoon Wampum Agreement. We acknowledge the enduring presence and deep traditional knowledge, laws, and resources of Indigenous peoples, and are grateful to have the opportunity to work in this territory.'
+                  : 'L\'Université Brock est située sur le territoire traditionnel des peuples Haudenosaunee et Anishinaabe, dont beaucoup continuent de vivre et de travailler ici aujourd\'hui. Ce territoire est couvert par les traités du Haut-Canada et se trouve sur le territoire protégé par l\'accord de wampum du plat à une cuillère. Nous reconnaissons la présence durable et les connaissances traditionnelles profondes, les lois et les ressources des peuples autochtones, et nous sommes reconnaissants d\'avoir l\'occasion de travailler sur ce territoire.'}
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Main Introduction Section - Enhanced */}
-      <section className="py-16 md:py-24 bg-white">
+      {/* Mission + Impact Strip */}
+      <section className="py-16 bg-white border-b border-gray-100">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 items-start">
+            {/* Mission text */}
+            <div className="max-w-2xl">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-6 h-px bg-[#8B0000]" />
+                <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-[#8B0000]">
+                  {language === 'en' ? 'Our Mission' : 'Notre mission'}
+                </span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-[#0A0A0A] leading-tight mb-4"
+                style={{ fontFamily: 'var(--font-heading)' }}>
+                {language === 'en'
+                  ? 'Research that centers the voices others have silenced'
+                  : 'Une recherche qui centre les voix que d\'autres ont fait taire'}
+              </h2>
+              <p className="text-gray-500 leading-relaxed">
+                {language === 'en'
+                  ? 'MSK Niagara is a transnational, university-community partnership funded by SSHRC. Our interdisciplinary team conducts community-based participatory research in English, French, and Spanish to mobilize knowledge that has been marginalized from dominant structures of power.'
+                  : 'MSK Niagara est un partenariat transnational université-communauté financé par le CRSH. Notre équipe interdisciplinaire mène des recherches participatives communautaires en anglais, français et espagnol pour mobiliser des connaissances marginalisées par les structures de pouvoir dominantes.'}
+              </p>
+            </div>
+            {/* Impact numbers */}
+            <div className="flex flex-col gap-6 lg:text-right">
+              {[
+                { n: '65', label: language === 'en' ? 'Team Members' : 'Membres' },
+                { n: '26', label: language === 'en' ? 'Community Partners' : 'Partenaires' },
+                { n: '3', label: language === 'en' ? 'Research Hubs' : 'Pôles' },
+                { n: '5+', label: language === 'en' ? 'Active Projects' : 'Projets actifs' },
+              ].map(s => (
+                <div key={s.n}>
+                  <div className="text-4xl font-extrabold text-[#0A0A0A]" style={{ fontFamily: 'var(--font-heading)' }}>{s.n}</div>
+                  <div className="text-sm text-gray-400">{s.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Research Hubs Visual Cards */}
+      <section className="py-16 bg-gray-50">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between mb-10">
+            <div>
+              <h2 className="text-2xl font-bold text-[#0A0A0A]" style={{ fontFamily: 'var(--font-heading)' }}>
+                {language === 'en' ? 'Three Research Hubs' : 'Trois pôles de recherche'}
+              </h2>
+              <p className="text-gray-500 text-sm mt-1">
+                {language === 'en' ? 'Focused areas critical to community well-being' : 'Domaines essentiels au bien-être communautaire'}
+              </p>
+            </div>
+            <Link to="/about/hubs"
+              className="hidden sm:flex items-center gap-1.5 text-sm font-semibold text-[#8B0000] hover:text-[#A31515] transition-colors">
+              {language === 'en' ? 'Explore all hubs' : 'Explorer tous les pôles'}
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                number: '01',
+                color: '#089EA5',
+                title: language === 'en' ? 'Childhood & Growing Up' : 'Enfance et croissance',
+                desc: language === 'en'
+                  ? 'Listening to newcomer children\'s experiences with housing, sport, education, and belonging.'
+                  : 'Écouter les expériences des enfants nouveaux arrivants en matière de logement, sport, éducation et appartenance.',
+                href: '/about/hubs',
+                topics: language === 'en' ? ['Housing & Home', 'Leisure & Sport', 'Education'] : ['Logement', 'Loisirs', 'Éducation'],
+              },
+              {
+                number: '02',
+                color: '#C97B2E',
+                title: language === 'en' ? 'Health Literacy' : 'Littératie en santé',
+                desc: language === 'en'
+                  ? 'Promoting health literacy in immigrant and refugee populations across Niagara.'
+                  : 'Promouvoir la littératie en santé auprès des populations immigrantes et réfugiées.',
+                href: '/about/hubs',
+                topics: language === 'en' ? ['Healthcare Access', 'Newcomer Health', 'Resources'] : ['Accès aux soins', 'Santé', 'Ressources'],
+              },
+              {
+                number: '03',
+                color: '#7B5EA7',
+                title: language === 'en' ? 'Identity, Connections & Belonging' : 'Identité, liens et appartenance',
+                desc: language === 'en'
+                  ? 'Fostering belonging among Afro-descendants, LGBTQ+ newcomers, and seasonal farmworkers.'
+                  : 'Favoriser l\'appartenance chez les personnes afro-descendantes, les nouveaux arrivants LGBTQ+ et les travailleurs agricoles.',
+                href: '/about/hubs',
+                topics: language === 'en' ? ['Afro-Descendants', 'LGBTQ+ Newcomers', 'Farmworkers'] : ['Afro-descendants', 'LGBTQ+', 'Travailleurs'],
+              },
+            ].map((hub) => (
+              <Link
+                key={hub.number}
+                to={hub.href}
+                className="group relative bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-gray-200 hover:shadow-lg transition-all duration-300 flex flex-col"
+              >
+                {/* Top accent bar */}
+                <div className="h-1 w-full" style={{ backgroundColor: hub.color }} />
+                <div className="p-6 flex flex-col gap-4 flex-1">
+                  <div className="flex items-start justify-between">
+                    <span className="text-4xl font-black leading-none" style={{ color: hub.color, opacity: 0.15, fontFamily: 'var(--font-heading)' }}>
+                      {hub.number}
+                    </span>
+                    <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-gray-500 group-hover:translate-x-0.5 transition-all" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-[#0A0A0A] text-lg leading-snug mb-2" style={{ fontFamily: 'var(--font-heading)' }}>
+                      {hub.title}
+                    </h3>
+                    <p className="text-gray-500 text-sm leading-relaxed">{hub.desc}</p>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5 mt-auto pt-2">
+                    {hub.topics.map(t => (
+                      <span key={t} className="px-2 py-0.5 rounded-full text-[11px] font-medium text-white"
+                        style={{ backgroundColor: hub.color + 'CC' }}>
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Goals strip */}
+      <section className="py-16 bg-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-12 items-start">
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-6 h-px bg-[#8B0000]" />
+                <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-[#8B0000]">
+                  {language === 'en' ? 'What We Do' : 'Ce que nous faisons'}
+                </span>
+              </div>
+              <h2 className="text-3xl font-extrabold text-[#0A0A0A] leading-tight"
+                style={{ fontFamily: 'var(--font-heading)' }}>
+                {language === 'en' ? 'Four goals driving our work' : 'Quatre objectifs qui guident notre travail'}
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {(language === 'en' ? [
+                { n: '01', text: 'Provide a forum for African-descendant and foreign-born persons to share their knowledge and accomplishments.' },
+                { n: '02', text: 'Equip community organizations with insights and tools to develop culturally responsive services.' },
+                { n: '03', text: 'Contribute to scholarship through peer-reviewed research and knowledge dissemination.' },
+                { n: '04', text: 'Offer training and mentoring for student and community-based researchers.' },
+              ] : [
+                { n: '01', text: 'Offrir un forum aux personnes d\'ascendance africaine et aux personnes nées à l\'étranger pour partager leurs connaissances.' },
+                { n: '02', text: 'Fournir aux organismes communautaires des outils pour développer des services culturellement adaptés.' },
+                { n: '03', text: 'Contribuer à la recherche par des publications et la diffusion des connaissances.' },
+                { n: '04', text: 'Offrir de la formation et du mentorat aux chercheurs étudiants et communautaires.' },
+              ]).map(goal => (
+                <div key={goal.n} className="flex gap-4 p-4 rounded-xl bg-gray-50 border border-gray-100 hover:border-[#8B0000]/20 transition-colors">
+                  <span className="text-xl font-black text-[#8B0000]/20 leading-none shrink-0" style={{ fontFamily: 'var(--font-heading)' }}>
+                    {goal.n}
+                  </span>
+                  <p className="text-sm text-gray-600 leading-relaxed">{goal.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Original detailed content — keeping for SEO/academic reference but visually restructured */}
+      <section className="py-16 md:py-24 bg-white border-t border-gray-100">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="prose prose-lg max-w-none">
             {language === 'en' ? (
