@@ -45,3 +45,26 @@ Runs on port 5000, host 0.0.0.0 (required for Replit preview pane).
 - Research hubs, member bios, community partners pages
 - Partnership and timeline pages
 - Privacy policy, help/FAQ pages
+
+## Design System
+**Brand palette**: Black `#0A0A0A`, White `#FFFFFF`, Crimson `#8B0000`
+**Hub colors**: Childhood `#089EA5` (teal), Health Literacy `#C97B2E` (amber), Identity/Belonging `#7B5EA7` (purple)
+**Fonts**: Plus Jakarta Sans (headings, `var(--font-heading)`) + Inter (body) via Google Fonts
+**Dot-grid motif**: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)` / `32px` size — used in dark hero sections
+
+**Hero pattern**: All interior page heroes use a consistent design —
+- Solid crimson (`bg-[#8B0000]`) background (no gradient)
+- Dot-grid motif at 6% opacity
+- Diagonal cut bottom edge via `clipPath: 'polygon(0 100%, 100% 100%, 100% 0)'` on a white div
+- Left-aligned OR centered headlines per page
+- No wave SVGs (removed in design audit)
+
+**Completed design audit** (7 pages):
+- `Header.tsx` — three-bar rising logo, dark/frosted-glass scroll transition, crimson CTA
+- `Home.tsx` — video hero, dark Land Acknowledgment strip, Mission strip, hub color cards, goals grid
+- `MemberBios.tsx` — dark split hero ("The People Behind the Research"), stat cards grid
+- `Media.tsx` — crimson hero, sticky tab nav, masonry gallery, cinematic video section, annual reports
+- `Partnership.tsx` — left-aligned editorial hero with overline + diagonal edge
+- `Timeline.tsx` — pill-style event nodes (✓ for past, → for upcoming), styled event cards
+- `Community.tsx` — org accent bars + service tags use each org's own brand color
+- `ResearchProjects.tsx` — project icon containers use each hub's gradient color

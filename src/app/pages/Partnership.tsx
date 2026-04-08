@@ -97,32 +97,34 @@ export function Partnership() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-[#8B0000] via-[#8B0000] to-[#6B0000] py-20 md:py-24 pb-32">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center">
-            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-6 shadow-lg">
-              <Users className="w-4 h-4 text-white" />
-              <span className="text-sm text-white font-medium">
-                {language === 'en' ? 'Research Partnership' : 'Partenariat de recherche'}
+      {/* Hero Section — clean split with diagonal edge */}
+      <div className="relative overflow-hidden bg-[#8B0000]">
+        {/* Dot-grid brand motif */}
+        <div className="absolute inset-0 opacity-[0.06]"
+          style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}
+        />
+        {/* Diagonal cut bottom edge */}
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-white"
+          style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 0)' }} />
+
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 md:py-28 pb-28">
+          <div className="max-w-3xl">
+            <div className="flex items-center gap-2 mb-6">
+              <div className="w-8 h-px bg-white/40" />
+              <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-white/60">
+                {language === 'en' ? 'MSK Niagara' : 'MSK Niagara'}
               </span>
             </div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl text-white mb-6 tracking-tight font-bold">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl text-white font-extrabold mb-6 tracking-tight leading-[1.05]"
+              style={{ fontFamily: 'var(--font-heading)' }}>
               {t('nav.partnership')}
             </h1>
-            <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
-              {language === 'en' 
-                ? 'A collaborative initiative bringing together academic institutions, community organizations, and funding partners to advance community health research'
-                : 'Une initiative collaborative réunissant des institutions académiques, des organisations communautaires et des partenaires de financement pour faire progresser la recherche en santé communautaire'}
+            <p className="text-lg md:text-xl text-white/75 max-w-2xl leading-relaxed">
+              {language === 'en'
+                ? 'Academic institutions, community organizations, and funding partners — united to advance knowledge for a just Niagara.'
+                : 'Institutions académiques, organisations communautaires et partenaires financiers — unis pour faire avancer les connaissances pour un Niagara juste.'}
             </p>
           </div>
-        </div>
-        
-        {/* Decorative wave */}
-        <div className="absolute bottom-0 left-0 right-0 h-20">
-          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full" preserveAspectRatio="none">
-            <path d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white"/>
-          </svg>
         </div>
       </div>
 

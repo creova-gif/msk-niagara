@@ -183,35 +183,43 @@ export function ResearchProjects() {
   return (
     <div className="min-h-screen bg-white relative overflow-hidden">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-[#8B0000] via-[#8B0000] to-[#6B0000] py-20 md:py-24 pb-32">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="relative overflow-hidden bg-[#8B0000]">
+        {/* Dot-grid brand motif */}
+        <div className="absolute inset-0 opacity-[0.06]"
+          style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}
+        />
+        {/* Hub color strips at bottom for visual connection to projects */}
+        <div className="absolute bottom-0 left-0 right-0 h-1 flex">
+          <div className="flex-1 bg-[#089EA5]" />
+          <div className="flex-1 bg-[#7B5EA7]" />
+          <div className="flex-1 bg-[#C97B2E]" />
+        </div>
+        {/* Diagonal cut bottom edge */}
+        <div className="absolute bottom-0 left-0 right-0 h-14 bg-white"
+          style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 0)' }} />
+
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 md:py-24 pb-28">
           <div className="text-center">
             <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-6 shadow-lg">
               <span className="text-sm text-white font-medium">
                 {language === 'en' ? 'Community-Engaged Research' : 'Recherche communautaire'}
               </span>
             </div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl text-white mb-6 tracking-tight font-bold">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl text-white mb-6 tracking-tight font-extrabold"
+              style={{ fontFamily: 'var(--font-heading)' }}>
               {language === 'en' ? 'Research Projects' : 'Projets de recherche'}
             </h1>
-            <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
-              {language === 'en' 
+            <p className="text-lg md:text-xl text-white/75 max-w-3xl mx-auto leading-relaxed">
+              {language === 'en'
                 ? 'Explore our community-engaged research projects addressing critical issues facing newcomer and marginalized communities in the Niagara region.'
                 : 'Explorez nos projets de recherche communautaire qui abordent des enjeux critiques auxquels font face les communautés nouvelles arrivantes et marginalisées dans la région de Niagara.'}
             </p>
           </div>
         </div>
-        
-        {/* Decorative wave */}
-        <div className="absolute bottom-0 left-0 right-0 h-20">
-          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full" preserveAspectRatio="none">
-            <path d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white"/>
-          </svg>
-        </div>
       </div>
 
       {/* Statistics Section */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 -mt-12 relative z-20 mb-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 relative z-20 mb-16">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {stats.map((stat, index) => (
             <div key={index} className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
@@ -416,40 +424,43 @@ export function ResearchProjects() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                   
                   {/* Left Column: Icon & Metadata */}
-                  <div className="lg:col-span-3 space-y-6">
-                    {/* Project Icon */}
-                    <div className={`relative w-28 h-28 rounded-2xl bg-gradient-to-br from-[#8B0000] to-[#A40000] flex items-center justify-center shadow-xl transform transition-all duration-500 ${
-                      hoveredProject === index ? 'scale-110 rotate-3' : ''
+                  <div className="lg:col-span-3 space-y-5">
+                    {/* Project Icon — hub color */}
+                    <div className={`relative w-24 h-24 rounded-2xl bg-gradient-to-br ${project.gradient} flex items-center justify-center shadow-lg transform transition-all duration-500 ${
+                      hoveredProject === index ? 'scale-110 rotate-2' : ''
                     }`}>
-                      <project.IconComponent className="w-14 h-14 text-white" />
+                      <project.IconComponent className="w-12 h-12 text-white" />
                     </div>
-                    
+
+                    {/* Hub color pill */}
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: project.color }} />
+                      <span className="text-xs font-bold uppercase tracking-wider" style={{ color: project.color }}>
+                        {language === 'en' ? project.hubShort : project.hubShortFr}
+                      </span>
+                    </div>
+
                     {/* Status Badge */}
                     <div>
-                      <Badge className="bg-[#8B0000] text-white border-[#8B0000] text-sm font-bold px-4 py-2 border-2">
+                      <Badge
+                        className="text-white text-xs font-bold px-3 py-1"
+                        style={{ backgroundColor: project.color, borderColor: project.color }}
+                      >
                         {getStatusBadge(project.status).label}
                       </Badge>
                     </div>
                     
                     {/* Metadata */}
-                    <div className="space-y-3 text-sm">
-                      <div className="flex items-center gap-3 text-[#0A0A0A]/70">
-                        <Calendar className="w-5 h-5 flex-shrink-0 text-[#8B0000]" />
+                    <div className="space-y-2.5 text-sm">
+                      <div className="flex items-center gap-2.5 text-[#0A0A0A]/60">
+                        <Calendar className="w-4 h-4 flex-shrink-0" style={{ color: project.color }} />
                         <span className="font-medium">{project.timeline}</span>
                       </div>
-                      <div className="flex items-center gap-3 text-[#0A0A0A]/70">
-                        <MapPin className="w-5 h-5 flex-shrink-0 text-[#8B0000]" />
+                      <div className="flex items-center gap-2.5 text-[#0A0A0A]/60">
+                        <MapPin className="w-4 h-4 flex-shrink-0" style={{ color: project.color }} />
                         <span className="font-medium">{language === 'en' ? project.location : project.locationFr}</span>
                       </div>
                     </div>
-
-                    {/* Hub Badge */}
-                    <Badge 
-                      variant="outline" 
-                      className="border-2 font-semibold text-xs px-3 py-1 border-[#8B0000] text-[#8B0000]"
-                    >
-                      {language === 'en' ? project.hubShort : project.hubShortFr}
-                    </Badge>
                   </div>
                   
                   {/* Right Column: Content */}

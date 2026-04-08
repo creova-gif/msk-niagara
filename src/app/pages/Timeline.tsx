@@ -99,8 +99,16 @@ export function Timeline() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-[#8B0000] via-[#8B0000] to-[#6B0000] py-20 pb-32">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="relative overflow-hidden bg-[#8B0000]">
+        {/* Dot-grid brand motif */}
+        <div className="absolute inset-0 opacity-[0.06]"
+          style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}
+        />
+        {/* Diagonal cut bottom edge */}
+        <div className="absolute bottom-0 left-0 right-0 h-14 bg-white"
+          style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 0)' }} />
+
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 pb-28">
           <div className="text-center">
             <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-6 shadow-lg">
               <Calendar className="w-4 h-4 text-white" />
@@ -108,26 +116,20 @@ export function Timeline() {
                 {language === 'en' ? 'Timeline & Events' : 'Chronologie et événements'}
               </span>
             </div>
-            <h1 className="text-4xl sm:text-5xl md:text-7xl text-white mb-4 tracking-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl text-white font-extrabold mb-4 tracking-tight"
+              style={{ fontFamily: 'var(--font-heading)' }}>
               {t('nav.timeline')}
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-white max-w-4xl mx-auto leading-relaxed px-4">
-              {language === 'en' 
+            <p className="text-lg sm:text-xl text-white/75 max-w-3xl mx-auto leading-relaxed px-4">
+              {language === 'en'
                 ? 'Explore the history of our partnership and discover upcoming events and opportunities for engagement.'
                 : 'Explorez l\'histoire de notre partenariat et découvrez les événements à venir et les opportunités d\'engagement.'}
             </p>
           </div>
         </div>
-        
-        {/* Decorative wave */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
-            <path d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white"/>
-          </svg>
-        </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 -mt-24 pb-20 relative z-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 pb-20 relative z-20">
         {/* Tabs with elevated card design */}
         <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden">
           <Tabs defaultValue="timeline" className="w-full">
@@ -145,34 +147,65 @@ export function Timeline() {
             <div className="p-6 md:p-8">
               <TabsContent value="timeline" className="mt-0">
                 <div className="relative">
-                  {/* Timeline Line */}
-                  <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-[#8B0000]/30" />
-                  
-                  <div className="space-y-8">
-                    {timelineEvents.map((event, index) => (
-                      <div key={index} className="relative pl-20">
-                        {/* Timeline Dot */}
-                        <div className="absolute left-6 top-6 w-5 h-5 rounded-full bg-[#8B0000] border-4 border-white shadow-md" />
-                        
-                        <Card>
-                          <CardHeader>
-                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                              <div className="text-sm text-[#8B0000] font-medium">{event.date}</div>
-                              <Badge variant="secondary">{event.type === 'past' ? t('timeline.past') : t('common.upcoming')}</Badge>
+                  {/* Heavy timeline track */}
+                  <div className="absolute left-7 top-0 bottom-0 w-px bg-gradient-to-b from-[#8B0000]/0 via-[#8B0000]/40 to-[#8B0000]/0" />
+                  <div className="absolute left-[27px] top-0 bottom-0 w-0.5 bg-[#8B0000]/20" />
+
+                  <div className="space-y-6">
+                    {timelineEvents.map((event, index) => {
+                      const isPast = event.type === 'past';
+                      return (
+                        <div key={index} className="relative pl-16 group">
+                          {/* Year/dot node */}
+                          <div className="absolute left-0 top-5 flex items-center gap-2">
+                            {/* Outer ring */}
+                            <div className={`w-14 h-8 rounded-full flex items-center justify-center text-[10px] font-bold tracking-wider border transition-all duration-300 ${
+                              isPast
+                                ? 'bg-[#8B0000] border-[#8B0000] text-white group-hover:shadow-lg group-hover:shadow-[#8B0000]/30'
+                                : 'bg-white border-dashed border-[#8B0000]/60 text-[#8B0000]'
+                            }`}>
+                              {isPast ? '✓' : '→'}
                             </div>
-                            <CardTitle className="text-2xl text-[#0A0A0A]">{event.title}</CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <p className="text-[#0A0A0A]/70 mb-4">{event.description}</p>
-                            <div className="flex items-center gap-2 text-sm text-[#0A0A0A]/60">
-                              <Users className="w-4 h-4" />
-                              <span className="font-medium">{t('timeline.participants')}:</span>
-                              <span>{event.participants}</span>
+                          </div>
+
+                          {/* Event card */}
+                          <div className={`rounded-2xl border transition-all duration-300 group-hover:shadow-md overflow-hidden ${
+                            isPast
+                              ? 'bg-white border-gray-100 group-hover:border-[#8B0000]/20'
+                              : 'bg-[#8B0000]/5 border-dashed border-[#8B0000]/30'
+                          }`}>
+                            <div className="p-5 md:p-6">
+                              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-3">
+                                <div className="flex items-center gap-3">
+                                  <span className={`text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full ${
+                                    isPast
+                                      ? 'bg-[#8B0000]/8 text-[#8B0000]'
+                                      : 'bg-amber-50 text-amber-700 border border-amber-200'
+                                  }`}>
+                                    {event.date}
+                                  </span>
+                                  <span className={`text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded ${
+                                    isPast ? 'text-gray-400' : 'text-amber-600'
+                                  }`}>
+                                    {isPast ? t('timeline.past') : t('common.upcoming')}
+                                  </span>
+                                </div>
+                              </div>
+
+                              <h3 className="text-lg font-bold text-[#0A0A0A] mb-2 leading-snug"
+                                style={{ fontFamily: 'var(--font-heading)' }}>
+                                {event.title}
+                              </h3>
+                              <p className="text-sm text-gray-500 leading-relaxed mb-3">{event.description}</p>
+                              <div className="flex items-center gap-2 text-xs text-gray-400">
+                                <Users className="w-3.5 h-3.5 shrink-0" />
+                                <span>{event.participants}</span>
+                              </div>
                             </div>
-                          </CardContent>
-                        </Card>
-                      </div>
-                    ))}
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </TabsContent>
