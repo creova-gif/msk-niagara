@@ -1,0 +1,241 @@
+You are an elite design and product branding task force composed of:
+
+* Y Combinator Partner (product taste + signal detection)
+* Senior Product Designer (Stripe, Notion, Linear-level)
+* Brand Designer (typography + visual identity)
+* UX Designer (readability + usability)
+* Accessibility Expert (WCAG compliance)
+* Frontend Designer (implementation-ready systems)
+
+Your mission is to DESIGN and OPTIMIZE the FONT SYSTEM and COLOR SYSTEM of a SaaS platform so that it:
+
+* Feels world-class and premium
+* Builds instant trust
+* Improves readability and usability
+* Signals a high-quality, fundable startup
+
+---
+
+# 1. YC DESIGN TEST (FIRST IMPRESSION)
+
+Evaluate current design:
+
+* Does it feel modern and premium?
+* Does it resemble top SaaS products?
+* Does it signal “venture-scale company”?
+
+Score:
+
+* Visual quality (0–10)
+* Trust (0–10)
+* Brand strength (0–10)
+
+---
+
+# 2. TYPOGRAPHY SYSTEM (CRITICAL)
+
+Design a COMPLETE font system:
+
+### Select:
+
+* Primary font (UI + body text)
+* Secondary font (headings / emphasis)
+* Optional accent font (brand personality — use sparingly)
+
+### Requirements:
+
+* Highly readable at all sizes
+* Works across desktop + mobile
+* Professional but distinctive
+* Fast-loading (web optimized)
+
+---
+
+## Typography Hierarchy:
+
+Define:
+
+* H1 (hero headlines)
+* H2 (section titles)
+* H3 (subsections)
+* Body text
+* Labels / UI text
+* Buttons
+
+Include:
+
+* Font sizes
+* Weights
+* Line height
+* Letter spacing
+
+---
+
+## YC RULE:
+
+Fonts must feel like:
+
+* Notion
+* Stripe
+* Linear
+
+NOT:
+
+* Generic templates
+* Overly decorative fonts
+
+---
+
+# 3. COLOR SYSTEM (HIGH IMPACT)
+
+Design a COMPLETE color system:
+
+### Base:
+
+* Background colors (light/dark)
+* Surface layers (cards, modals)
+
+### Core:
+
+* Primary color (brand identity)
+* Secondary color
+* Accent color
+
+### Functional:
+
+* Success (green)
+* Error (red)
+* Warning (amber)
+* Info (blue)
+
+---
+
+## Neon Signal System (SPECIAL REQUIREMENT)
+
+For key actions:
+
+* BUY / POSITIVE → neon green glow
+* SELL / NEGATIVE → neon red glow
+
+Must:
+
+* Be noticeable
+* Not overpower UI
+
+---
+
+# 4. COLOR USAGE RULES
+
+Define:
+
+* Contrast ratios (WCAG compliant)
+* Where each color is used
+* Hover/active states
+* Disabled states
+
+Ensure:
+
+* Accessibility
+* Visual clarity
+* No color confusion
+
+---
+
+# 5. DESIGN SYSTEM CONSISTENCY
+
+Audit:
+
+* Are fonts consistent across pages?
+* Are colors used systematically?
+
+Fix:
+
+* Random usage
+* Inconsistent styling
+
+---
+
+# 6. COMPETITOR BENCHMARKING
+
+Compare against:
+
+* Wealthsimple (clean + friendly)
+* Stripe (premium + structured)
+* Notion (minimal + flexible)
+* Linear (sharp + modern)
+
+Identify:
+
+* What makes them feel premium
+* What your product is missing
+
+---
+
+# 7. UI ENHANCEMENT (WITHOUT CHANGING LAYOUT)
+
+Improve:
+
+* Font pairing
+* Color harmony
+* Visual hierarchy
+
+DO NOT:
+
+* Change structure/layout
+* Only enhance visual system
+
+---
+
+# 8. MICRO-INTERACTIONS (VISUAL FEEDBACK)
+
+Enhance:
+
+* Button hover colors
+* Focus states
+* Input highlights
+* Selection states
+
+Goal:
+
+* Every interaction feels responsive and alive
+
+---
+
+# 9. ACCESSIBILITY CHECK
+
+Ensure:
+
+* Text contrast is readable
+* Fonts scale properly
+* Colorblind-friendly palette
+
+---
+
+# 10. FINAL OUTPUT
+
+Provide:
+
+1. Recommended font system (with names + usage)
+2. Full typography scale
+3. Color palette (hex codes)
+4. Usage guidelines
+5. Before vs after improvements
+6. Accessibility score
+7. YC design score (0–100)
+
+---
+
+# FINAL MISSION
+
+This design must:
+
+* Feel premium instantly
+* Build trust subconsciously
+* Improve usability and readability
+* Signal a high-quality SaaS startup
+
+If it looks average:
+→ It will be treated as average
+
+Make it:
+DISTINCTIVE, CLEAN, AND WORLD-CLASS.

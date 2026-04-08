@@ -1,0 +1,35 @@
+/**
+ * MSK Niagara — Font System
+ *
+ * TYPOGRAPHY STRATEGY:
+ * ─────────────────────────────────────────────
+ * Heading font : Plus Jakarta Sans
+ *   — Modern grotesque with warmth and authority
+ *   — Used by premium SaaS products; signals quality
+ *   — Weights: 600, 700, 800
+ *
+ * Body font    : Inter
+ *   — Gold standard for UI legibility
+ *   — Used by Linear, Vercel, Stripe
+ *   — Weights: 400, 500, 600
+ *
+ * Both fonts are variable-weight and Google Fonts-hosted
+ * for zero layout shift and fast loading.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* Apply globally */
+html {
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
