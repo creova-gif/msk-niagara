@@ -23,6 +23,12 @@ export function Breadcrumbs() {
       'knowledge': { en: 'Knowledge Dissemination', fr: 'Diffusion des connaissances' },
       'community': { en: 'Community', fr: 'Communauté' },
       'timeline': { en: 'Timeline', fr: 'Chronologie' },
+      'media': { en: 'Media', fr: 'Médias' },
+      'childhood': { en: 'Childhood and Growing Up', fr: 'Enfance et développement' },
+      'health': { en: 'Health Literacy', fr: 'Littératie en santé' },
+      'identity': { en: 'Identity & Belonging', fr: 'Identité et appartenance' },
+      'privacy-policy': { en: 'Privacy Policy', fr: 'Politique de confidentialité' },
+      'help': { en: 'Help', fr: 'Aide' },
     };
     
     return breadcrumbMap[path]?.[language] || path;

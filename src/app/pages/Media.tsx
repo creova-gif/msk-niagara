@@ -356,8 +356,12 @@ export function Media() {
               {filtered.map((photo) => (
                 <div
                   key={photo.id}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`View photo: ${language === 'en' ? photo.title : photo.titleFr}`}
                   className="break-inside-avoid group relative overflow-hidden rounded-2xl cursor-pointer bg-gray-900 shadow-sm hover:shadow-xl transition-all duration-300"
                   onClick={() => setLightboxPhoto(photo)}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setLightboxPhoto(photo); } }}
                 >
                   <img
                     src={photo.thumbnail}
@@ -425,8 +429,12 @@ export function Media() {
 
             {/* Featured video (first item, large) */}
             <div
+              role="button"
+              tabIndex={0}
+              aria-label={`Play featured video: ${language === 'en' ? videos[0]?.title : videos[0]?.titleFr}`}
               className="relative rounded-3xl overflow-hidden mb-6 cursor-pointer group shadow-xl"
               onClick={() => setLightboxVideo(videos[0])}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setLightboxVideo(videos[0]); } }}
             >
               <img
                 src={videos[0].thumbnail}
@@ -472,8 +480,12 @@ export function Media() {
               {videos.slice(1).map(video => (
                 <div
                   key={video.id}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`Play video: ${language === 'en' ? video.title : video.titleFr}`}
                   className="group relative rounded-2xl overflow-hidden cursor-pointer bg-gray-900 shadow-sm hover:shadow-lg transition-all duration-300"
                   onClick={() => setLightboxVideo(video)}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setLightboxVideo(video); } }}
                 >
                   <img
                     src={video.thumbnail}

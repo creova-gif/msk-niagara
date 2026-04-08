@@ -19,7 +19,7 @@ export function HubDetail() {
       nameFr: 'Pôle Enfance et développement',
       descriptionEn: 'The Childhood and Growing Up Hub listens to and responds to newcomer children with respect to their experiences in housing, sport/recreation and schooling. Our research examines how children navigate multiple spaces and systems, and aims to amplify their voices in shaping more inclusive and equitable communities.',
       descriptionFr: 'Le Pôle Enfance et développement écoute et répond aux besoins des enfants nouveaux arrivants concernant leur logement, leurs activités sportives et récréatives et leur scolarité. Notre recherche examine comment les enfants naviguent dans de multiples espaces et systèmes, et vise à amplifier leurs voix dans la construction de communautés plus inclusives et équitables.',
-      color: '#F20014',
+      color: '#089EA5',
       icon: Users,
       objectivesEn: [
         'Create forums for newcomer children to share their experiences and perspectives',
@@ -69,7 +69,7 @@ export function HubDetail() {
       nameFr: 'Pôle Littératie en santé',
       descriptionEn: 'The Health Literacy Hub promotes health literacy in immigrant and refugee populations. Our research develops culturally responsive health information and programs to improve health outcomes and reduce health disparities among newcomer communities in the Niagara region.',
       descriptionFr: 'Le Pôle Littératie en santé promeut la littératie en santé auprès des populations immigrantes et réfugiées. Notre recherche développe des informations et programmes de santé culturellement adaptés pour améliorer les résultats de santé et réduire les disparités en santé parmi les communautés nouvelles arrivantes dans la région de Niagara.',
-      color: '#F20014',
+      color: '#C97B2E',
       icon: BookOpen,
       objectivesEn: [
         'Develop culturally responsive health literacy resources and programs',
@@ -119,7 +119,7 @@ export function HubDetail() {
       nameFr: 'Pôle Identité, relations et appartenance',
       descriptionEn: 'The Identity, Connections and Belonging Hub hosts three distinct projects which foster a sense of belonging amongst three populations: Afro-descendants, sexual and gender diverse young adult newcomers, and seasonal agricultural workers. Our research explores identity formation, community connections, and experiences of belonging in the Niagara region.',
       descriptionFr: 'Le Pôle Identité, relations et appartenance héberge trois projets distincts visant à favoriser un sentiment d\'appartenance chez trois groupes de populations : les personnes afro-descendantes, les jeunes adultes nouveaux arrivants de diverses identités sexuelles et de genre, et les travailleurs agricoles saisonniers. Notre recherche explore la formation de l\'identité, les connexions communautaires et les expériences d\'appartenance dans la région de Niagara.',
-      color: '#F20014',
+      color: '#7B5EA7',
       icon: Target,
       objectivesEn: [
         'Explore identity formation and belonging among Afro-descendant communities',
@@ -189,44 +189,51 @@ export function HubDetail() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[#8B0000] via-[#8B0000] to-[#6B0000] text-white py-16 md:py-24 pb-32 overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 right-10 w-96 h-96 bg-white rounded-full blur-3xl"></div>
-        </div>
-        
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Link 
-            to="/about/hubs" 
-            className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-8 transition-colors group"
+      <section className="relative bg-[#8B0000] text-white overflow-hidden">
+        {/* Dot-grid brand motif */}
+        <div className="absolute inset-0 opacity-[0.06]"
+          style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}
+        />
+        {/* Hub accent color top stripe */}
+        <div className="absolute top-0 left-0 right-0 h-0.5" style={{ backgroundColor: currentHub.color || '#8B0000' }} />
+        {/* Diagonal cut bottom edge */}
+        <div className="absolute bottom-0 left-0 right-0 h-14 bg-white"
+          style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 0)' }} />
+
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24 pb-28">
+          <Link
+            to="/about/hubs"
+            className="inline-flex items-center gap-2 text-white/60 hover:text-white mb-10 transition-colors text-sm"
           >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+            <ArrowLeft className="w-3.5 h-3.5" />
             {language === 'en' ? 'Back to Research Hubs' : 'Retour aux pôles de recherche'}
           </Link>
 
-          <div className="flex items-center gap-6 mb-6">
-            <div className="p-4 bg-white/10 rounded-2xl backdrop-blur-sm">
-              <HubIcon className="w-12 h-12 text-white" />
+          <div className="flex items-start gap-5 mb-6">
+            <div className="p-3.5 rounded-xl flex-shrink-0"
+              style={{ backgroundColor: (currentHub.color || '#8B0000') + '30' }}>
+              <HubIcon className="w-10 h-10 text-white" />
             </div>
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold break-words text-white">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-3 h-px bg-white/40" />
+                <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-white/50">
+                  {language === 'en' ? 'Research Hub' : 'Pôle de recherche'}
+                </span>
+              </div>
+              <h1 className="text-4xl md:text-5xl font-extrabold break-words text-white leading-tight"
+                style={{ fontFamily: 'var(--font-heading)' }}>
                 {language === 'en' ? currentHub.nameEn : currentHub.nameFr}
               </h1>
-              <p className="text-xl text-white/90 mt-2">
+              <p className="text-sm text-white/50 mt-2 font-medium">
                 {hubMembers.length} {language === 'en' ? 'Team Members' : 'Membres de l\'équipe'}
               </p>
             </div>
           </div>
-          
-          <p className="text-lg md:text-xl leading-relaxed max-w-4xl text-white/95 break-words">
+
+          <p className="text-base md:text-lg leading-relaxed max-w-3xl text-white/70 break-words">
             {language === 'en' ? currentHub.descriptionEn : currentHub.descriptionFr}
           </p>
-        </div>
-        
-        {/* Decorative wave */}
-        <div className="absolute bottom-0 left-0 right-0 h-20">
-          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full" preserveAspectRatio="none">
-            <path d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white"/>
-          </svg>
         </div>
       </section>
 

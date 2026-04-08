@@ -193,35 +193,34 @@ export function ResearchHubs() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-br from-[#8B0000] via-[#8B0000] to-[#6B0000] py-20 md:py-24 pb-32 overflow-hidden">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center">
-            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-6 shadow-lg">
-              <Users className="w-4 h-4 text-white" />
-              <span className="text-sm text-white font-medium">
-                {language === 'en' ? 'Research Hubs' : 'Pôles de recherche'}
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl text-white mb-6 tracking-tight font-bold">
-              {t('nav.hubs')}
-            </h1>
-            <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
-              {language === 'en' 
-                ? 'Our research is organized into collaborative hubs, each focusing on specific aspects of community health, youth development, and social well-being.'
-                : 'Notre recherche est organisée en pôles collaboratifs, chacun se concentrant sur des aspects spécifiques de la santé communautaire, du développement des jeunes et du bien-être social.'}
-            </p>
+      <div className="relative bg-[#8B0000] overflow-hidden">
+        {/* Dot-grid brand motif */}
+        <div className="absolute inset-0 opacity-[0.06]"
+          style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }} />
+        {/* Diagonal cut bottom edge */}
+        <div className="absolute bottom-0 left-0 right-0 h-14 bg-white"
+          style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 0)' }} />
+
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10 pt-20 md:pt-24 pb-28 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/15 mb-8">
+            <Users className="w-3.5 h-3.5 text-white/70" />
+            <span className="text-xs text-white/70 font-semibold tracking-[0.12em] uppercase">
+              {language === 'en' ? 'Research Hubs' : 'Pôles de recherche'}
+            </span>
           </div>
-        </div>
-        
-        {/* Decorative wave - positioned to not interfere */}
-        <div className="absolute bottom-0 left-0 right-0 h-20">
-          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full" preserveAspectRatio="none">
-            <path d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white"/>
-          </svg>
+          <h1 className="text-5xl md:text-7xl text-white mb-5 font-extrabold tracking-tight leading-none"
+            style={{ fontFamily: 'var(--font-heading)' }}>
+            {t('nav.hubs')}
+          </h1>
+          <p className="text-base md:text-lg text-white/60 max-w-2xl mx-auto leading-relaxed">
+            {language === 'en'
+              ? 'Our research is organized into collaborative hubs, each focusing on specific aspects of community health, youth development, and social well-being.'
+              : 'Notre recherche est organisée en pôles collaboratifs, chacun se concentrant sur des aspects spécifiques de la santé communautaire, du développement des jeunes et du bien-être social.'}
+          </p>
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 -mt-12 relative z-20 mb-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 relative z-20 mb-20">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {stats.map((stat, index) => (
             <div key={index} className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
