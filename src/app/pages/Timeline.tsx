@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import { Badge } from '../components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { Calendar, MapPin, Users, Clock, Inbox } from 'lucide-react';
+import { TimelineBeam } from '../components/HeroAnimations';
 
 const TODAY = new Date();
 TODAY.setHours(0, 0, 0, 0);
@@ -114,21 +115,25 @@ export function Timeline() {
       <div className="relative overflow-hidden bg-[#8B0000]">
         <div className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }} />
+        {/* Animated timeline beam drawing across the hero */}
+        <TimelineBeam />
         <div className="absolute bottom-0 left-0 right-0 h-14 bg-white"
           style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 0)' }} />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 pb-28">
           <div className="text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/15 mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/15 mb-8"
+              style={{ animation: 'fade-in-down 0.5s cubic-bezier(0.16,1,0.3,1) 0.15s both' }}>
               <Calendar className="w-3.5 h-3.5 text-white/70" />
               <span className="text-xs text-white/70 font-semibold tracking-[0.12em] uppercase">
                 {language === 'en' ? 'Timeline & Events' : 'Chronologie et événements'}
               </span>
             </div>
             <h1 className="text-5xl md:text-7xl text-white font-extrabold mb-4 tracking-tight leading-none"
-              style={{ fontFamily: 'var(--font-heading)' }}>
+              style={{ fontFamily: 'var(--font-heading)', animation: 'fade-in-up 0.7s cubic-bezier(0.16,1,0.3,1) 0.25s both' }}>
               {t('nav.timeline')}
             </h1>
-            <p className="text-base md:text-lg text-white/60 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-base md:text-lg text-white/60 max-w-2xl mx-auto leading-relaxed"
+              style={{ animation: 'fade-in-up 0.6s cubic-bezier(0.16,1,0.3,1) 0.4s both' }}>
               {language === 'en'
                 ? 'Explore the history of our partnership and discover upcoming events and opportunities for engagement.'
                 : 'Explorez l\'histoire de notre partenariat et découvrez les événements à venir et les opportunités d\'engagement.'}

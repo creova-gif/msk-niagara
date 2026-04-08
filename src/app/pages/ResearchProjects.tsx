@@ -2,6 +2,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { Badge } from '../components/ui/badge';
 import { Button } from '../components/ui/button';
 import { useState } from 'react';
+import { DataGrid } from '../components/HeroAnimations';
 import { ExternalLink, Users, Calendar, Mail, TrendingUp, Heart, Zap, GraduationCap, HandHeart, Sprout, Network, Activity, Target, Search, ArrowRight, CheckCircle2, Clock, MapPin, Filter, X } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 
@@ -188,6 +189,8 @@ export function ResearchProjects() {
         <div className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}
         />
+        {/* Data grid materialising — research data visualisation */}
+        <DataGrid />
         {/* Hub color strips at bottom for visual connection to projects */}
         <div className="absolute bottom-0 left-0 right-0 h-1 flex">
           <div className="flex-1 bg-[#089EA5]" />
@@ -200,16 +203,18 @@ export function ResearchProjects() {
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 md:py-24 pb-28">
           <div className="text-center">
-            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-6 shadow-lg">
+            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-6 shadow-lg"
+              style={{ animation: 'fade-in-down 0.5s cubic-bezier(0.16,1,0.3,1) 0.1s both' }}>
               <span className="text-sm text-white font-medium">
                 {language === 'en' ? 'Community-Engaged Research' : 'Recherche communautaire'}
               </span>
             </div>
             <h1 className="text-4xl md:text-6xl lg:text-7xl text-white mb-6 tracking-tight font-extrabold"
-              style={{ fontFamily: 'var(--font-heading)' }}>
+              style={{ fontFamily: 'var(--font-heading)', animation: 'fade-in-up 0.7s cubic-bezier(0.16,1,0.3,1) 0.2s both' }}>
               {language === 'en' ? 'Research Projects' : 'Projets de recherche'}
             </h1>
-            <p className="text-lg md:text-xl text-white/75 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl text-white/75 max-w-3xl mx-auto leading-relaxed"
+              style={{ animation: 'fade-in-up 0.6s cubic-bezier(0.16,1,0.3,1) 0.38s both' }}>
               {language === 'en'
                 ? 'Explore our community-engaged research projects addressing critical issues facing newcomer and marginalized communities in the Niagara region.'
                 : 'Explorez nos projets de recherche communautaire qui abordent des enjeux critiques auxquels font face les communautés nouvelles arrivantes et marginalisées dans la région de Niagara.'}

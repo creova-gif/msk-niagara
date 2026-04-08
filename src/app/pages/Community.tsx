@@ -4,6 +4,7 @@ import { Button } from '../components/ui/button';
 import { ExternalLink, Mail, MapPin, Heart, Users, Building2, Search, Filter, X, Tag } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { useState } from 'react';
+import { RippleRings } from '../components/HeroAnimations';
 import { sanitizeSearchQuery, sanitizeUrl } from '../utils/security';
 
 // Import logos
@@ -398,23 +399,27 @@ export function Community() {
         <div className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}
         />
+        {/* Ripple rings expanding outward — community ripple effect */}
+        <RippleRings count={6} />
         {/* Diagonal cut bottom edge */}
         <div className="absolute bottom-0 left-0 right-0 h-14 bg-white"
           style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 0)' }} />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24 pb-24">
           <div className="text-center">
-            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-8 shadow-lg">
+            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-8 shadow-lg"
+              style={{ animation: 'fade-in-down 0.5s cubic-bezier(0.16,1,0.3,1) 0.1s both' }}>
               <Heart className="w-4 h-4 text-white" />
               <span className="text-sm text-white font-medium">
                 {language === 'en' ? '22 Community Organizations' : '22 Organisations communautaires'}
               </span>
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-7xl text-white font-extrabold mb-6 tracking-tight"
-              style={{ fontFamily: 'var(--font-heading)' }}>
+              style={{ fontFamily: 'var(--font-heading)', animation: 'fade-in-up 0.7s cubic-bezier(0.16,1,0.3,1) 0.2s both' }}>
               {language === 'en' ? 'Community' : 'Communauté'}
             </h1>
-            <p className="text-lg sm:text-xl text-white/75 max-w-3xl mx-auto leading-relaxed px-4">
+            <p className="text-lg sm:text-xl text-white/75 max-w-3xl mx-auto leading-relaxed px-4"
+              style={{ animation: 'fade-in-up 0.6s cubic-bezier(0.16,1,0.3,1) 0.35s both' }}>
               {language === 'en'
                 ? 'Working together with community service organizations dedicated to supporting newcomers, youth, diverse communities, and families across Niagara.'
                 : 'Travailler ensemble avec des organisations de services communautaires dédiées au soutien des nouveaux arrivants, des jeunes, des communautés diverses et des familles dans Niagara.'}

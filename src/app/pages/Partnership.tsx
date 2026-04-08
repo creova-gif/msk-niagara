@@ -3,6 +3,7 @@ import { ArrowRight, ExternalLink, Users, Shield } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { useCallback, useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router';
+import { NetworkNodes } from '../components/HeroAnimations';
 
 // Import logos
 const sshrcLogo = '/c9c77bb67634af21353fb8f536aed3347c90330c.png';
@@ -114,19 +115,22 @@ export function Partnership() {
       <div className="relative overflow-hidden bg-[#8B0000]">
         <div className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }} />
+        {/* Network nodes animation — partnership connections */}
+        <NetworkNodes />
         <div className="absolute bottom-0 left-0 right-0 h-16 bg-white"
           style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 0)' }} />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 md:py-28 pb-28">
           <div className="max-w-3xl">
-            <div className="flex items-center gap-2 mb-6">
+            <div className="flex items-center gap-2 mb-6" style={{ animation: 'fade-in-up 0.5s cubic-bezier(0.16,1,0.3,1) 0.1s both' }}>
               <div className="w-8 h-px bg-white/40" />
               <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-white/60">MSK Niagara</span>
             </div>
             <h1 className="text-4xl md:text-6xl lg:text-7xl text-white font-extrabold mb-6 tracking-tight leading-[1.05]"
-              style={{ fontFamily: 'var(--font-heading)' }}>
+              style={{ fontFamily: 'var(--font-heading)', animation: 'fade-in-up 0.65s cubic-bezier(0.16,1,0.3,1) 0.2s both' }}>
               {t('nav.partnership')}
             </h1>
-            <p className="text-lg md:text-xl text-white/70 max-w-2xl leading-relaxed">
+            <p className="text-lg md:text-xl text-white/70 max-w-2xl leading-relaxed"
+              style={{ animation: 'fade-in-up 0.6s cubic-bezier(0.16,1,0.3,1) 0.35s both' }}>
               {language === 'en'
                 ? 'Academic institutions, community organizations, and funding partners — united to advance knowledge for a just Niagara.'
                 : 'Institutions académiques, organisations communautaires et partenaires financiers — unis pour un Niagara juste.'}

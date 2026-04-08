@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router';
 import { Card, CardContent } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
+import { RisingBubbles, HeartbeatLine, Constellation } from '../components/HeroAnimations';
 import { Mail, Building2, User, GraduationCap, Users, ArrowLeft, Target, BookOpen } from 'lucide-react';
 
 // Import profile images
@@ -194,6 +195,10 @@ export function HubDetail() {
         <div className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}
         />
+        {/* Hub-specific thematic animation */}
+        {hubId === 'childhood' && <RisingBubbles color={currentHub.color || '#089EA5'} />}
+        {hubId === 'health' && <HeartbeatLine color={currentHub.color || '#C97B2E'} />}
+        {hubId === 'identity' && <Constellation color={currentHub.color || '#7B5EA7'} />}
         {/* Hub accent color top stripe */}
         <div className="absolute top-0 left-0 right-0 h-0.5" style={{ backgroundColor: currentHub.color || '#8B0000' }} />
         {/* Diagonal cut bottom edge */}

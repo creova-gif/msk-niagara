@@ -33,6 +33,7 @@ import { ArrowRight, Users, BookOpen, Calendar, ExternalLink, CheckCircle2 } fro
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
 import { useEffect, useRef, useState } from 'react';
+import { EmberParticles } from '../components/HeroAnimations';
 
 // Import co-director profile images
 const jeanNtakirutimanaImg = '/a4bced4acbd5814bb109a187b7f1325cde395ea7.png';
@@ -102,6 +103,9 @@ export function Home() {
 
         {/* Black accent line at top */}
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#0A0A0A]/0 via-[#0A0A0A] to-[#0A0A0A]/0"></div>
+
+        {/* Ember particles drifting upward */}
+        <EmberParticles count={14} />
 
         <div className="relative w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-3xl md:text-5xl lg:text-6xl mb-6 font-bold animate-fade-in-up leading-tight text-white drop-shadow-lg">

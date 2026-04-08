@@ -3,6 +3,7 @@ import { Card, CardContent } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { Building2, User, GraduationCap, Mail, Award, Target } from 'lucide-react';
+import { MemberDots } from '../components/HeroAnimations';
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
 import { useState } from 'react';
 
@@ -718,6 +719,8 @@ export function MemberBios() {
         <div className="absolute inset-0 opacity-[0.04]"
           style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '28px 28px' }}
         />
+        {/* Cascading member dots — representing the team */}
+        <MemberDots />
         {/* Crimson accent gradient — right side */}
         <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-[#8B0000]/20 to-transparent pointer-events-none" />
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />

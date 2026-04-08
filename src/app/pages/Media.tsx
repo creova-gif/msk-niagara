@@ -5,6 +5,7 @@ import {
   Mic, BookOpen, ArrowRight, Users, BarChart3
 } from 'lucide-react';
 import { useState } from 'react';
+import { FilmScan } from '../components/HeroAnimations';
 
 /* ─── DATA ─────────────────────────────────────────── */
 
@@ -258,12 +259,15 @@ export function Media() {
         <div className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}
         />
+        {/* Film scan sweep animation — cinematic projector start-up */}
+        <FilmScan />
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 md:py-28">
           <div className="max-w-3xl">
             {/* Overline */}
-            <div className="inline-flex items-center gap-2 mb-6">
+            <div className="inline-flex items-center gap-2 mb-6"
+              style={{ animation: 'fade-in-up 0.5s cubic-bezier(0.16,1,0.3,1) 0.1s both' }}>
               <div className="w-8 h-px bg-white/40" />
               <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-white/60">
                 {l('MSK Niagara', 'MSK Niagara')}
@@ -271,12 +275,13 @@ export function Media() {
             </div>
 
             <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-[1.05] tracking-tight mb-6"
-              style={{ fontFamily: 'var(--font-heading)' }}>
+              style={{ fontFamily: 'var(--font-heading)', animation: 'fade-in-up 0.65s cubic-bezier(0.16,1,0.3,1) 0.22s both' }}>
               {l('Media &', 'Médias &')}<br />
               <span className="text-white/70">{l('Documentation', 'Documentation')}</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-white/75 leading-relaxed max-w-xl">
+            <p className="text-lg md:text-xl text-white/75 leading-relaxed max-w-xl"
+              style={{ animation: 'fade-in-up 0.6s cubic-bezier(0.16,1,0.3,1) 0.38s both' }}>
               {l(
                 'Community events, researcher voices, and annual impact — documented and shared.',
                 'Événements communautaires, voix des chercheurs et impact annuel — documentés et partagés.'
@@ -284,7 +289,8 @@ export function Media() {
             </p>
 
             {/* Stats row */}
-            <div className="mt-10 flex flex-wrap gap-8">
+            <div className="mt-10 flex flex-wrap gap-8"
+              style={{ animation: 'fade-in-up 0.6s cubic-bezier(0.16,1,0.3,1) 0.5s both' }}>
               {[
                 { n: '6+', label: l('Photo Events', 'Événements photo') },
                 { n: '4', label: l('Video Stories', 'Témoignages vidéo') },

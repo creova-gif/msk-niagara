@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import { Badge } from '../components/ui/badge';
 import { Button } from '../components/ui/button';
 import { FileText, Video, Presentation, Download, BookOpen, Users, TrendingUp, Globe, ExternalLink, Calendar, Tag, Search, Filter, Lightbulb, Share2, Eye, X } from 'lucide-react';
+import { KnowledgeFlow } from '../components/HeroAnimations';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { useState } from 'react';
 
@@ -167,22 +168,26 @@ export function KnowledgeDissemination() {
         {/* Dot-grid brand motif */}
         <div className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }} />
+        {/* Floating knowledge words radiating outward */}
+        <KnowledgeFlow />
         {/* Diagonal cut bottom edge */}
         <div className="absolute bottom-0 left-0 right-0 h-14 bg-white"
           style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 0)' }} />
 
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10 pt-20 md:pt-24 pb-28 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/15 mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/15 mb-8"
+            style={{ animation: 'fade-in-down 0.5s cubic-bezier(0.16,1,0.3,1) 0.1s both' }}>
             <BookOpen className="w-3.5 h-3.5 text-white/70" />
             <span className="text-xs text-white/70 font-semibold tracking-[0.12em] uppercase">
               {language === 'en' ? 'Research Outputs & Resources' : 'Productions et ressources de recherche'}
             </span>
           </div>
           <h1 className="text-5xl md:text-7xl text-white mb-5 font-extrabold tracking-tight leading-none"
-            style={{ fontFamily: 'var(--font-heading)' }}>
+            style={{ fontFamily: 'var(--font-heading)', animation: 'fade-in-up 0.7s cubic-bezier(0.16,1,0.3,1) 0.2s both' }}>
             {t('nav.knowledge')}
           </h1>
-          <p className="text-base md:text-lg text-white/60 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base md:text-lg text-white/60 max-w-2xl mx-auto leading-relaxed"
+            style={{ animation: 'fade-in-up 0.6s cubic-bezier(0.16,1,0.3,1) 0.38s both' }}>
             {language === 'en'
               ? 'Explore our research publications, presentations, videos, and community resources sharing insights from our community-engaged research.'
               : 'Explorez nos publications de recherche, présentations, vidéos et ressources communautaires partageant les perspectives de notre recherche communautaire.'}
