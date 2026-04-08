@@ -1,8 +1,8 @@
 import { useLanguage } from '../contexts/LanguageContext';
-import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
-import { Target, Users, Award } from 'lucide-react';
+import { ArrowRight, ExternalLink, Users, Shield } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
+import { Link } from 'react-router';
 
 // Import logos
 const sshrcLogo = '/c9c77bb67634af21353fb8f536aed3347c90330c.png';
@@ -13,81 +13,87 @@ const niagaraRegionLogo = '/b80316cbb5ce9244931d871f5cd787d687cfdafb.png';
 const yorkUniversityLogo = '/c04bb3e0b2c20a914be2fc34dabdbd667e3f6fd3.png';
 const universityAtBuffaloLogo = '/1e02762e71863f48fceb1cc3277e8ecd07e53156.png';
 
+const HUB_COLORS = {
+  childhood: '#089EA5',
+  health: '#C97B2E',
+  identity: '#7B5EA7',
+};
+
 export function Partnership() {
   const { t, language } = useLanguage();
-  const [emblaRef, emblaApi] = useEmblaCarousel({ 
-    loop: true, 
-    align: 'center',
-    slidesToScroll: 1,
-  });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'center', slidesToScroll: 1 });
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const introRef = useRef<HTMLDivElement>(null);
+  const hubsRef = useRef<HTMLDivElement>(null);
+  const govRef = useRef<HTMLDivElement>(null);
+  const [introVisible, setIntroVisible] = useState(false);
+  const [hubsVisible, setHubsVisible] = useState(false);
+  const [govVisible, setGovVisible] = useState(false);
+
+  useEffect(() => {
+    const observe = (el: Element | null, setter: (v: boolean) => void) => {
+      if (!el) return;
+      const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setter(true); obs.disconnect(); } }, { threshold: 0.1 });
+      obs.observe(el);
+      return () => obs.disconnect();
+    };
+    const c1 = observe(introRef.current, setIntroVisible);
+    const c2 = observe(hubsRef.current, setHubsVisible);
+    const c3 = observe(govRef.current, setGovVisible);
+    return () => { c1?.(); c2?.(); c3?.(); };
+  }, []);
 
   const partners = [
+    { name: 'University of Toronto – OISE', nameFr: 'Université de Toronto – OISE', type: 'Academic Partner', typeFr: 'Partenaire académique', url: 'https://www.oise.utoronto.ca/', logo: uoftOiseLogo },
+    { name: 'Brock University – ESRC', nameFr: 'Université Brock – CERS', type: 'Academic Partner', typeFr: 'Partenaire académique', url: 'https://www.brocku.ca/esrc/', logo: brockESRCLogo },
+    { name: 'Social Justice Research Institute', nameFr: 'Institut de recherche sur la justice sociale', type: 'Academic Partner', typeFr: 'Partenaire académique', url: 'https://www.brocku.ca/social-justice-research-institute/', logo: brockLogo },
+    { name: 'Niagara Region', nameFr: 'Région de Niagara', type: 'Community Partner', typeFr: 'Partenaire communautaire', url: 'https://www.niagararegion.ca/', logo: niagaraRegionLogo },
+    { name: 'York University', nameFr: 'Université York', type: 'Academic Partner', typeFr: 'Partenaire académique', url: 'https://www.yorku.ca/', logo: yorkUniversityLogo },
+    { name: 'University at Buffalo', nameFr: 'Université de Buffalo', type: 'Academic Partner', typeFr: 'Partenaire académique', url: 'https://www.buffalo.edu/', logo: universityAtBuffaloLogo },
+  ];
+
+  const goals = language === 'en' ? [
+    'Provide a forum for African descendant and foreign-born persons in the Regional Municipality of Niagara to share their experiences, knowledge and accomplishments with non-profit, academic, government and para-public sectors.',
+    'Provide community organizations with insights and tools to develop culturally responsive services.',
+    'Contribute to scholarship.',
+    'Provide training and mentoring for student and community-based researchers.',
+  ] : [
+    'Offrir un forum aux personnes d\'ascendance africaine et nées à l\'étranger dans la Municipalité régionale de Niagara pour partager leurs expériences, connaissances et réalisations avec les secteurs à but non lucratif, académique, gouvernemental et parapublic.',
+    'Fournir aux organisations communautaires des outils pour développer des services culturellement adaptés.',
+    'Contribuer au savoir académique.',
+    'Offrir de la formation et du mentorat aux chercheurs étudiants et communautaires.',
+  ];
+
+  const hubs = [
     {
-      name: 'University of Toronto - OISE',
-      nameFr: 'Université de Toronto - OISE',
-      type: 'Academic Partner',
-      typeFr: 'Partenaire académique',
-      url: 'https://www.oise.utoronto.ca/',
-      logo: uoftOiseLogo,
+      id: 'childhood',
+      color: HUB_COLORS.childhood,
+      titleEn: 'Childhood and Growing Up Hub',
+      titleFr: 'Pôle Enfance et développement',
+      descEn: 'Will listen to and respond to newcomer children with respect to their experiences in housing, sport/recreation and schooling.',
+      descFr: 'Écoute et répond aux enfants nouveaux arrivants concernant leur logement, sports et scolarité.',
     },
     {
-      name: 'Brock University - ESRC',
-      nameFr: 'Université Brock - CERS',
-      type: 'Academic Partner',
-      typeFr: 'Partenaire académique',
-      url: 'https://www.brocku.ca/esrc/',
-      logo: brockESRCLogo,
+      id: 'health',
+      color: HUB_COLORS.health,
+      titleEn: 'Health Literacy Hub',
+      titleFr: 'Pôle Littératie en santé',
+      descEn: 'Will promote health literacy in immigrant and refugee populations through culturally responsive programs.',
+      descFr: 'Promeut la littératie en santé auprès des populations immigrantes et réfugiées.',
     },
     {
-      name: 'Social Justice Research Institute (SJRI)',
-      nameFr: 'Institut de recherche sur la justice sociale (IRJS)',
-      type: 'Academic Partner',
-      typeFr: 'Partenaire académique',
-      url: 'https://www.brocku.ca/social-justice-research-institute/',
-      logo: brockLogo,
-      fullName: 'Social Justice Research Institute (SJRI)',
-      fullNameFr: 'Institut de recherche sur la justice sociale (IRJS)',
-    },
-    {
-      name: 'Niagara Region',
-      nameFr: 'Région de Niagara',
-      type: 'Community Partner',
-      typeFr: 'Partenaire communautaire',
-      url: 'https://www.niagararegion.ca/',
-      logo: niagaraRegionLogo,
-    },
-    {
-      name: 'York University',
-      nameFr: 'Université York',
-      type: 'Academic Partner',
-      typeFr: 'Partenaire académique',
-      url: 'https://www.yorku.ca/',
-      logo: yorkUniversityLogo,
-    },
-    {
-      name: 'University at Buffalo',
-      nameFr: 'Université de Buffalo',
-      type: 'Academic Partner',
-      typeFr: 'Partenaire académique',
-      url: 'https://www.buffalo.edu/',
-      logo: universityAtBuffaloLogo,
+      id: 'identity',
+      color: HUB_COLORS.identity,
+      titleEn: 'Identity, Connections and Belonging Hub',
+      titleFr: 'Pôle Identité, relations et appartenance',
+      descEn: 'Hosts three distinct projects fostering belonging among Afro-descendants, gender-diverse newcomers, and seasonal agricultural workers.',
+      descFr: 'Héberge trois projets visant l\'appartenance chez les Afro-descendants, les nouveaux arrivants de diverses identités de genre et les travailleurs agricoles saisonniers.',
     },
   ];
 
-  const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
-
-  const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
-
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-    setSelectedIndex(emblaApi.selectedScrollSnap());
-  }, [emblaApi]);
-
+  const scrollPrev = useCallback(() => { if (emblaApi) emblaApi.scrollPrev(); }, [emblaApi]);
+  const scrollNext = useCallback(() => { if (emblaApi) emblaApi.scrollNext(); }, [emblaApi]);
+  const onSelect = useCallback(() => { if (!emblaApi) return; setSelectedIndex(emblaApi.selectedScrollSnap()); }, [emblaApi]);
   useEffect(() => {
     if (!emblaApi) return;
     onSelect();
@@ -95,83 +101,71 @@ export function Partnership() {
     emblaApi.on('reInit', onSelect);
   }, [emblaApi, onSelect]);
 
+  const fadeUp = (visible: boolean, delay = 0): React.CSSProperties => ({
+    opacity: visible ? 1 : 0,
+    transform: visible ? 'translateY(0)' : 'translateY(32px)',
+    transition: `opacity 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms`,
+  });
+
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section — clean split with diagonal edge */}
+
+      {/* ── HERO ── */}
       <div className="relative overflow-hidden bg-[#8B0000]">
-        {/* Dot-grid brand motif */}
         <div className="absolute inset-0 opacity-[0.06]"
-          style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}
-        />
-        {/* Diagonal cut bottom edge */}
+          style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }} />
         <div className="absolute bottom-0 left-0 right-0 h-16 bg-white"
           style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 0)' }} />
-
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 md:py-28 pb-28">
           <div className="max-w-3xl">
             <div className="flex items-center gap-2 mb-6">
               <div className="w-8 h-px bg-white/40" />
-              <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-white/60">
-                {language === 'en' ? 'MSK Niagara' : 'MSK Niagara'}
-              </span>
+              <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-white/60">MSK Niagara</span>
             </div>
             <h1 className="text-4xl md:text-6xl lg:text-7xl text-white font-extrabold mb-6 tracking-tight leading-[1.05]"
               style={{ fontFamily: 'var(--font-heading)' }}>
               {t('nav.partnership')}
             </h1>
-            <p className="text-lg md:text-xl text-white/75 max-w-2xl leading-relaxed">
+            <p className="text-lg md:text-xl text-white/70 max-w-2xl leading-relaxed">
               {language === 'en'
                 ? 'Academic institutions, community organizations, and funding partners — united to advance knowledge for a just Niagara.'
-                : 'Institutions académiques, organisations communautaires et partenaires financiers — unis pour faire avancer les connaissances pour un Niagara juste.'}
+                : 'Institutions académiques, organisations communautaires et partenaires financiers — unis pour un Niagara juste.'}
             </p>
           </div>
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 relative z-20">{/* Partner Logos Carousel */}
-        <section className="mb-16">
+      {/* ── PARTNERS CAROUSEL ── */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+        <section className="mb-20">
           <div className="bg-white rounded-3xl p-8 shadow-2xl border border-gray-100">
-            <h2 className="text-4xl mb-8 text-center text-[#0A0A0A]">
-              {language === 'en' ? 'Our Partners' : 'Nos partenaires'}
-            </h2>
-
-            {/* Carousel */}
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-3xl font-extrabold text-[#0A0A0A]" style={{ fontFamily: 'var(--font-heading)' }}>
+                {language === 'en' ? 'Our Partners' : 'Nos partenaires'}
+              </h2>
+              <a href="/community" className="text-sm font-semibold text-[#8B0000] hover:underline flex items-center gap-1">
+                {language === 'en' ? 'All partners' : 'Tous les partenaires'}
+                <ArrowRight className="w-3.5 h-3.5" />
+              </a>
+            </div>
             <div className="relative">
               <div className="overflow-hidden" ref={emblaRef}>
                 <div className="flex">
                   {partners.map((partner, index) => (
-                    <div key={index} className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 px-4">
-                      <a
-                        href={partner.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block group h-full"
-                      >
-                        <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-[#8B0000]/10 hover:border-[#8B0000] h-full flex flex-col items-center justify-center min-h-[320px]">
-                          {/* Logo */}
-                          <div className="w-full h-48 flex items-center justify-center mb-6">
-                            <img 
-                              src={partner.logo} 
-                              alt={`${language === 'en' ? partner.name : (partner.nameFr || partner.name)} logo`}
-                              className="max-w-full max-h-full object-contain"
-                            />
+                    <div key={index} className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 px-3">
+                      <a href={partner.url} target="_blank" rel="noopener noreferrer" className="block group h-full">
+                        <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:border-[#8B0000]/30 hover:shadow-lg transition-all duration-300 h-full flex flex-col items-center justify-center min-h-[220px] gap-4">
+                          <div className="h-20 flex items-center justify-center">
+                            <img src={partner.logo} alt={language === 'en' ? partner.name : partner.nameFr}
+                              className="max-h-16 max-w-[160px] object-contain opacity-80 group-hover:opacity-100 transition-opacity" />
                           </div>
-                          
-                          {/* Partner Name */}
-                          <h3 className="text-2xl font-semibold text-[#0A0A0A] mb-2 text-center group-hover:text-[#8B0000] transition-colors">
-                            {language === 'en' ? partner.name : (partner.nameFr || partner.name)}
-                          </h3>
-                          
-                          {/* Full Name (for SJRI or other partners with full names) */}
-                          {partner.fullName && (
-                            <p className="text-sm text-[#0A0A0A]/60 mb-3 text-center px-4">
-                              {language === 'en' ? partner.fullName : partner.fullNameFr}
+                          <div className="text-center">
+                            <p className="text-sm font-semibold text-[#0A0A0A] group-hover:text-[#8B0000] transition-colors leading-snug">
+                              {language === 'en' ? partner.name : partner.nameFr}
                             </p>
-                          )}
-                          
-                          {/* Type Badge */}
-                          <div className="inline-block px-4 py-2 bg-[#8B0000] text-white rounded-full text-sm font-medium">
-                            {language === 'en' ? partner.type : partner.typeFr}
+                            <p className="text-[11px] text-gray-400 mt-1 tracking-wide uppercase font-medium">
+                              {language === 'en' ? partner.type : partner.typeFr}
+                            </p>
                           </div>
                         </div>
                       </a>
@@ -179,175 +173,212 @@ export function Partnership() {
                   ))}
                 </div>
               </div>
-
-              {/* Navigation Arrows */}
-              <button
-                onClick={scrollPrev}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 w-12 h-12 rounded-full bg-white shadow-lg border-2 border-[#8B0000]/20 hover:border-[#8B0000] hover:bg-[#8B0000] hover:text-white transition-all duration-300 flex items-center justify-center z-10"
-                aria-label="Previous partner"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
+              <button onClick={scrollPrev} aria-label="Previous"
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 w-9 h-9 rounded-full bg-white shadow-md border border-gray-200 hover:border-[#8B0000] hover:bg-[#8B0000] hover:text-white transition-all flex items-center justify-center z-10">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
               </button>
-              <button
-                onClick={scrollNext}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 w-12 h-12 rounded-full bg-white shadow-lg border-2 border-[#8B0000]/20 hover:border-[#8B0000] hover:bg-[#8B0000] hover:text-white transition-all duration-300 flex items-center justify-center z-10"
-                aria-label="Next partner"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
+              <button onClick={scrollNext} aria-label="Next"
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 w-9 h-9 rounded-full bg-white shadow-md border border-gray-200 hover:border-[#8B0000] hover:bg-[#8B0000] hover:text-white transition-all flex items-center justify-center z-10">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
               </button>
             </div>
-
-            {/* Dots Indicator */}
-            <div className="flex justify-center gap-2 mt-8">
+            <div className="flex justify-center gap-2 mt-6">
               {partners.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => emblaApi?.scrollTo(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === selectedIndex 
-                      ? 'bg-[#8B0000] w-8' 
-                      : 'bg-[#8B0000]/30 hover:bg-[#8B0000]/50'
-                  }`}
-                  aria-label={`Go to partner ${index + 1}`}
-                />
+                <button key={index} onClick={() => emblaApi?.scrollTo(index)} aria-label={`Go to partner ${index + 1}`}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${index === selectedIndex ? 'bg-[#8B0000] w-6' : 'bg-[#8B0000]/20 w-1.5 hover:bg-[#8B0000]/40'}`} />
               ))}
-            </div>
-
-            {/* All Partners Link */}
-            <div className="mt-8 text-center">
-              <p className="text-[#0A0A0A]/60 text-sm">
-                {language === 'en' 
-                  ? 'For more information about community partners, visit our '
-                  : 'Pour plus d\'informations sur les partenaires communautaires, visitez notre '}
-                <a href="/community" className="text-[#8B0000] hover:text-[#6B0000] underline font-medium">
-                  {language === 'en' ? 'Community page' : 'page Communauté'}
-                </a>
-              </p>
             </div>
           </div>
         </section>
 
-        {/* Overview Section */}
-        <section className="mb-16">
-          <Card className="overflow-hidden">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-3 text-[#0A0A0A]">
-                <Users className="w-6 h-6 text-[#8B0000]" />
-                {language === 'en' ? 'Partnership Overview' : 'Aperçu du partenariat'}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="overflow-hidden">
-              <div className="space-y-4">
-                <p className="text-[#0A0A0A]/80 break-words">
-                  {language === 'en' 
-                    ? 'The MSK Research Partnership is a collaborative initiative bringing together leading researchers, academic institutions, and community organizations dedicated to advancing the understanding of community health challenges. Our partnership was formed in response to the growing need for comprehensive, community-engaged research that addresses the complex challenges faced by diverse populations in the Niagara region.'
-                    : 'Le partenariat de recherche MSK est une initiative collaborative réunissant des chercheurs de premier plan, des institutions académiques et des organisations communautaires dédiées à l\'avancement de la compréhension des défis de santé communautaire. Notre partenariat a été formé en réponse au besoin croissant de recherche communautaire complète qui répond aux défis complexes auxquels sont confrontées diverses populations dans la région de Niagara.'}
-                </p>
-                <p className="text-[#0A0A0A]/80 break-words">
+        {/* ── ABOUT + GOALS — editorial split ── */}
+        <section ref={introRef} className="mb-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-3xl overflow-hidden shadow-xl border border-gray-100">
+
+            {/* Left: intro text */}
+            <div className="bg-[#0A0A0A] p-10 md:p-14 flex flex-col justify-between" style={fadeUp(introVisible, 0)}>
+              <div>
+                <div className="flex items-center gap-2 mb-8">
+                  <div className="w-5 h-px bg-[#8B0000]" />
+                  <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#8B0000]">
+                    {language === 'en' ? 'About MSK Niagara' : 'À propos de MSK Niagara'}
+                  </span>
+                </div>
+                <blockquote className="text-2xl md:text-3xl font-extrabold text-white leading-tight mb-8"
+                  style={{ fontFamily: 'var(--font-heading)' }}>
                   {language === 'en'
-                    ? 'Through our collaborative approach, we combine expertise from multiple disciplines, integrate community perspectives, and leverage resources across institutions to conduct meaningful research that translates into real-world impact.'
-                    : 'Grâce à notre approche collaborative, nous combinons l\'expertise de plusieurs disciplines, intégrons les perspectives communautaires et exploitons les ressources des institutions pour mener des recherches significatives qui se traduisent par un impact réel.'}
+                    ? '"Mobilizing voices that have been marginalized from dominant knowledge structures."'
+                    : '«\u00A0Mobiliser les voix marginalisées par les structures de savoir dominantes.\u00A0»'}
+                </blockquote>
+                <p className="text-white/50 text-sm leading-relaxed">
+                  {language === 'en'
+                    ? 'MSK Niagara is a transnational, university-community partnership funded by the Social Sciences and Humanities Research Council (SSHRC). Our interdisciplinary team of faculty, students and community organizations is committed to fostering a more just and inclusive Niagara. Through community-based participatory research conducted in English, French and Spanish, we mobilize knowledge that challenges dominant power structures.'
+                    : 'MSK Niagara est un partenariat transnational université-communauté financé par le CRSH. Notre équipe interdisciplinaire mène des recherches participatives en anglais, français et espagnol pour mobiliser des connaissances qui défient les structures de pouvoir dominantes.'}
                 </p>
               </div>
-            </CardContent>
-          </Card>
+              <div className="mt-10 pt-8 border-t border-white/10">
+                <a href="https://www.sshrc-crsh.gc.ca/" target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-xs text-white/30 hover:text-white/60 transition-colors">
+                  <img src={sshrcLogo} alt="SSHRC" className="h-5 opacity-40 hover:opacity-70 transition-opacity invert" />
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
+            </div>
+
+            {/* Right: numbered goals */}
+            <div className="bg-white p-10 md:p-14" style={fadeUp(introVisible, 100)}>
+              <div className="flex items-center gap-2 mb-8">
+                <div className="w-5 h-px bg-[#8B0000]" />
+                <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#8B0000]">
+                  {language === 'en' ? 'Through our research, we will' : 'Grâce à notre recherche, nous allons'}
+                </span>
+              </div>
+              <div className="space-y-0 divide-y divide-gray-100">
+                {goals.map((goal, i) => (
+                  <div key={i} className="py-5 flex gap-5 group" style={fadeUp(introVisible, 150 + i * 80)}>
+                    <div className="flex-shrink-0 w-8 h-8 rounded-full border border-[#8B0000]/20 flex items-center justify-center group-hover:bg-[#8B0000] group-hover:border-[#8B0000] transition-all duration-300">
+                      <span className="text-[11px] font-black text-[#8B0000] group-hover:text-white transition-colors">
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-600 leading-relaxed pt-1">{goal}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </section>
 
-        {/* Research Objectives */}
-        <section className="mb-16">
-          <Card className="overflow-hidden">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-3 text-[#0A0A0A]">
-                <Target className="w-6 h-6 text-[#8B0000]" />
-                {language === 'en' ? 'Research Objectives' : 'Objectifs de recherche'}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="overflow-hidden">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="p-6 bg-[#8B0000]/5 rounded-lg border border-[#8B0000]/20">
-                  <h3 className="text-xl mb-3 text-[#0A0A0A]">
-                    {language === 'en' ? 'Advance Knowledge' : 'Faire progresser les connaissances'}
+        {/* ── RESEARCH HUBS ── */}
+        <section ref={hubsRef} className="mb-24">
+          <div className="mb-10" style={fadeUp(hubsVisible, 0)}>
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-5 h-px bg-[#8B0000]" />
+              <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#8B0000]">
+                {language === 'en' ? 'Research Hubs' : 'Pôles de recherche'}
+              </span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-[#0A0A0A] leading-tight"
+              style={{ fontFamily: 'var(--font-heading)' }}>
+              {language === 'en' ? 'Three Focused Hubs' : 'Trois pôles ciblés'}
+            </h2>
+            <p className="text-gray-500 mt-3 text-sm max-w-xl">
+              {language === 'en'
+                ? 'Our work is organized into three research hubs that focus on areas critical to community well-being.'
+                : 'Notre travail est organisé en trois pôles de recherche axés sur des domaines essentiels au bien-être communautaire.'}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-100 rounded-2xl overflow-hidden">
+            {hubs.map(({ id, color, titleEn, titleFr, descEn, descFr }, i) => (
+              <Link key={id} to={`/about/hubs/${id}`}
+                className="group bg-white p-8 flex flex-col gap-6 hover:bg-gray-50 transition-colors duration-300"
+                style={fadeUp(hubsVisible, i * 100)}>
+                {/* Color swatch */}
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-1 rounded-full" style={{ backgroundColor: color }} />
+                  <div className="w-2 h-2 rounded-full opacity-40" style={{ backgroundColor: color }} />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-[#0A0A0A] mb-3 leading-snug group-hover:text-[#8B0000] transition-colors duration-300"
+                    style={{ fontFamily: 'var(--font-heading)' }}>
+                    {language === 'en' ? titleEn : titleFr}
                   </h3>
-                  <p className="text-[#0A0A0A]/70 break-words">
-                    {language === 'en'
-                      ? 'Generate new insights into community health challenges through rigorous, interdisciplinary research methodologies.'
-                      : 'Générer de nouvelles perspectives sur les défis de santé communautaire grâce à des méthodologies de recherche rigoureuses et interdisciplinaires.'}
+                  <p className="text-sm text-gray-500 leading-relaxed">
+                    {language === 'en' ? descEn : descFr}
                   </p>
                 </div>
-                <div className="p-6 bg-[#8B0000]/5 rounded-lg border border-[#8B0000]/20">
-                  <h3 className="text-xl mb-3 text-[#0A0A0A]">
-                    {language === 'en' ? 'Community Engagement' : 'Engagement communautaire'}
-                  </h3>
-                  <p className="text-[#0A0A0A]/70 break-words">
+                <div className="flex items-center gap-1.5 text-xs font-bold tracking-widest uppercase text-gray-300 group-hover:text-[#8B0000] transition-colors duration-300">
+                  {language === 'en' ? 'Explore Hub' : 'Explorer'}
+                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform duration-300" />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* ── GOVERNANCE ── */}
+        <section ref={govRef} className="mb-8">
+          <div className="rounded-3xl overflow-hidden border border-gray-100 shadow-lg">
+            {/* Header bar */}
+            <div className="bg-[#8B0000] px-10 py-8 flex items-center gap-4" style={fadeUp(govVisible, 0)}>
+              <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0">
+                <Shield className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-white/50 mb-0.5">
+                  {language === 'en' ? 'Structure' : 'Structure'}
+                </p>
+                <h2 className="text-2xl font-extrabold text-white leading-none" style={{ fontFamily: 'var(--font-heading)' }}>
+                  {language === 'en' ? 'Governance' : 'Gouvernance'}
+                </h2>
+              </div>
+            </div>
+
+            <div className="bg-white">
+              {/* IC stats strip */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-100" style={fadeUp(govVisible, 100)}>
+                {[
+                  { n: '10', label: language === 'en' ? 'IC Members' : 'Membres du CM' },
+                  { n: '2', label: language === 'en' ? 'Co-Directors' : 'Codirecteurs' },
+                  { n: '6', label: language === 'en' ? 'Hub Representatives' : 'Représentants des pôles' },
+                  { n: '2', label: language === 'en' ? 'Student Representatives' : 'Représentants étudiants' },
+                ].map((s, i) => (
+                  <div key={i} className="bg-white px-8 py-6 flex flex-col">
+                    <div className="w-4 h-0.5 bg-[#8B0000] mb-3 rounded-full" />
+                    <div className="text-4xl font-extrabold text-[#0A0A0A] leading-none mb-1"
+                      style={{ fontFamily: 'var(--font-heading)' }}>{s.n}</div>
+                    <div className="text-[11px] font-semibold tracking-wide uppercase text-gray-400">{s.label}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Two columns of detail */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-gray-100" style={fadeUp(govVisible, 200)}>
+                <div className="bg-white p-10">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Users className="w-4 h-4 text-[#8B0000]" />
+                    <h3 className="text-base font-bold text-[#0A0A0A]">
+                      {language === 'en' ? 'Implementation Council (IC)' : 'Conseil de mise en œuvre (CM)'}
+                    </h3>
+                  </div>
+                  <p className="text-sm text-gray-500 leading-relaxed">
                     {language === 'en'
-                      ? 'Work directly with community partners to ensure research addresses real-world needs and priorities.'
-                      : 'Travailler directement avec les partenaires communautaires pour garantir que la recherche répond aux besoins et priorités du monde réel.'}
+                      ? 'Even though we work from 3 distinct Hubs and 5 projects, the MSK initiative is governed by the Implementation Council (IC) — a unifying body where each Hub and project is valued equally. The IC makes all important governance and administration decisions by consensus. Membership rotates annually so that all interested participants may serve.'
+                      : 'Bien que nous travaillions à partir de 3 pôles distincts et 5 projets, l\'initiative MSK est gouvernée par le Conseil de mise en œuvre (CM) — un organe unificateur où chaque pôle et projet est valorisé également. Le CM prend toutes les décisions importantes par consensus. La composition varie annuellement pour que tous les participants intéressés puissent siéger.'}
                   </p>
                 </div>
-                <div className="p-6 bg-[#8B0000]/5 rounded-lg border border-[#8B0000]/20">
-                  <h3 className="text-xl mb-3 text-[#0A0A0A]">
-                    {language === 'en' ? 'Knowledge Translation' : 'Transfert de connaissances'}
-                  </h3>
-                  <p className="text-[#0A0A0A]/70 break-words">
+                <div className="bg-white p-10">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Users className="w-4 h-4 text-[#8B0000]" />
+                    <h3 className="text-base font-bold text-[#0A0A0A]">
+                      {language === 'en' ? 'Hub Leaders & Co-Leaders' : 'Responsables et co-responsables des pôles'}
+                    </h3>
+                  </div>
+                  <p className="text-sm text-gray-500 leading-relaxed">
                     {language === 'en'
-                      ? 'Transform research findings into accessible resources and practical tools for healthcare providers and communities.'
-                      : 'Transformer les résultats de recherche en ressources accessibles et outils pratiques pour les prestataires de soins de santé et les communautés.'}
-                  </p>
-                </div>
-                <div className="p-6 bg-[#8B0000]/5 rounded-lg border border-[#8B0000]/20">
-                  <h3 className="text-xl mb-3 text-[#0A0A0A]">
-                    {language === 'en' ? 'Capacity Building' : 'Renforcement des capacités'}
-                  </h3>
-                  <p className="text-[#0A0A0A]/70 break-words">
-                    {language === 'en'
-                      ? 'Develop skills and resources within communities to sustain health promotion efforts beyond research projects.'
-                      : 'Développer les compétences et les ressources au sein des communautés pour soutenir les efforts de promotion de la santé au-delà des projets de recherche.'}
+                      ? 'Each research hub is led or co-led by experienced university and/or community-based researchers who coordinate hub activities, facilitate collaboration, and ensure research quality. Hub and student representatives are chosen by Hub members based on the principle of annual rotating membership.'
+                      : 'Chaque pôle de recherche est dirigé ou codirigé par des chercheurs universitaires et/ou communautaires expérimentés. Les représentants des pôles et des étudiants sont choisis par les membres du pôle selon le principe de rotation annuelle.'}
                   </p>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-        </section>
 
-        {/* Governance Structure */}
-        <section>
-          <Card className="overflow-hidden">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-3 text-[#0A0A0A]">
-                <Award className="w-6 h-6 text-[#8B0000]" />
-                {language === 'en' ? 'Governance Structure' : 'Structure de gouvernance'}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="overflow-hidden">
-              <div className="space-y-6">
-                <div className="p-6 bg-[#8B0000]/5 rounded-lg border-l-4 border-[#8B0000]">
-                  <h3 className="text-xl mb-3 text-[#0A0A0A]">
-                    {language === 'en' ? 'Implementation Council' : 'Conseil de mise en œuvre'}
-                  </h3>
-                  <p className="text-[#0A0A0A]/70 mb-4 break-words">
-                    {language === 'en'
-                      ? 'The Implementation Council provides day-to-day oversight for the partnership, ensuring alignment with our mission and objectives. Comprising 10 members including co-directors, hub representatives, and student representatives, the IC makes all important decisions by consensus. Community input occurs through community representation on the Implementation Council and community-based members within Research Hubs.'
-                      : 'Le Conseil de mise en œuvre assure la supervision quotidienne du partenariat, garantissant l\'alignement avec notre mission et nos objectifs. Composé de 10 membres incluant les codirecteurs, les représentants des pôles et les représentants étudiants, le CM prend toutes les décisions importantes par consensus. La contribution communautaire se fait par la représentation communautaire au Conseil de mise en œuvre et les membres communautaires au sein des pôles de recherche.'}
-                  </p>
-                </div>
-                
-                <div className="p-6 bg-[#8B0000]/5 rounded-lg border-l-4 border-[#8B0000]">
-                  <h3 className="text-xl mb-3 text-[#0A0A0A]">
-                    {language === 'en' ? 'Research Hub Leaders / Co-Leaders' : 'Responsables / Co-responsables des pôles de recherche'}
-                  </h3>
-                  <p className="text-[#0A0A0A]/70 mb-4 break-words">
-                    {language === 'en'
-                      ? 'Each research hub is led or co-led by experienced university and/or community-based researchers who coordinate hub activities, facilitate collaboration, and ensure research quality across all projects.'
-                      : 'Chaque pôle de recherche est dirigé ou codirigé par des chercheurs universitaires et/ou communautaires expérimentés qui coordonnent les activités du pôle, facilitent la collaboration et assurent la qualité de la recherche dans tous les projets.'}
-                  </p>
-                </div>
+              {/* Bottom CTA */}
+              <div className="px-10 py-8 bg-gray-50 border-t border-gray-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+                style={fadeUp(govVisible, 300)}>
+                <p className="text-sm text-gray-500 max-w-lg">
+                  {language === 'en'
+                    ? 'We invite you to learn more about the unique and exciting work unfolding in our Hubs. While our activities are Niagara-focussed, we hope that all small and mid-sized centres can draw on our work.'
+                    : 'Nous vous invitons à en apprendre davantage sur le travail unique et passionnant qui se déroule dans nos pôles. Bien que nos activités soient axées sur Niagara, nous espérons que tous les petits et moyens centres pourront s\'en inspirer.'}
+                </p>
+                <Link to="/about/hubs"
+                  className="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 bg-[#8B0000] text-white text-sm font-semibold rounded-xl hover:bg-[#A31515] transition-colors">
+                  {language === 'en' ? 'Explore Hubs' : 'Explorer les pôles'}
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </section>
       </div>
     </div>
