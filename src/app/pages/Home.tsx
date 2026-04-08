@@ -61,24 +61,41 @@ export function Home() {
 
   return (
     <div>
-      {/* Hero Banner - Enhanced with Dark Red Background */}
-      <section className="relative bg-[#8B0000] text-white py-20 md:py-28 overflow-hidden">
-        {/* Decorative elements */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 left-10 w-72 h-72 bg-white rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-10 right-10 w-96 h-96 bg-white rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-        </div>
-        
+      {/* Hero Banner - Video Background */}
+      <section className="relative text-white py-20 md:py-28 overflow-hidden min-h-[520px] flex items-center">
+        {/* Background video */}
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden="true"
+        >
+          <source
+            src="https://videos.pexels.com/video-files/3173312/3173312-hd_1920_1080_30fps.mp4"
+            type="video/mp4"
+          />
+          <source
+            src="https://videos.pexels.com/video-files/6419194/6419194-hd_1920_1080_30fps.mp4"
+            type="video/mp4"
+          />
+        </video>
+
+        {/* Dark red overlay for readability */}
+        <div className="absolute inset-0 bg-[#8B0000]/80 mix-blend-multiply"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40"></div>
+
         {/* Black accent line at top */}
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#0A0A0A]/0 via-[#0A0A0A] to-[#0A0A0A]/0"></div>
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-3xl md:text-5xl lg:text-6xl mb-6 font-bold animate-fade-in-up leading-tight text-white">
+        <div className="relative w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl mb-6 font-bold animate-fade-in-up leading-tight text-white drop-shadow-lg">
             {language === 'en' 
               ? 'Mobilizing Subjugated Knowledges for a Just and Inclusive Niagara'
               : 'Mobiliser les savoirs marginalisés pour un Niagara juste et inclusif'}
           </h1>
-          <p className="text-lg md:text-2xl max-w-4xl mx-auto animate-fade-in-up animate-delay-200 leading-relaxed text-white/95">
+          <p className="text-lg md:text-2xl max-w-4xl mx-auto animate-fade-in-up animate-delay-200 leading-relaxed text-white/95 drop-shadow">
             {language === 'en'
               ? 'A transnational, university-community partnership committed to fostering social justice'
               : 'Un partenariat transnational université-communauté engagé à bâtir la justice sociale'}
@@ -101,6 +118,17 @@ export function Home() {
             </Link>
           </div>
         </div>
+
+        {/* Video credit */}
+        <a
+          href="https://www.pexels.com/video/the-strong-force-of-niagara-falls-3173312/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute bottom-3 right-4 text-white/50 hover:text-white/80 text-xs transition-colors"
+          aria-label="Video credit"
+        >
+          Video by Aric Shelby · Pexels
+        </a>
       </section>
 
       {/* Land Acknowledgment Section */}
