@@ -32,6 +32,7 @@ import { Link } from 'react-router';
 import { ArrowRight, Users, BookOpen, Calendar, ExternalLink, CheckCircle2 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
+import { useEffect, useRef, useState } from 'react';
 
 // Import co-director profile images
 const jeanNtakirutimanaImg = '/a4bced4acbd5814bb109a187b7f1325cde395ea7.png';
@@ -39,6 +40,19 @@ const livianaTossuttiImg = '/438f2f96ee4c30da348ebf5afdbb45ab22a5947b.png';
 
 export function Home() {
   const { language } = useLanguage();
+  const workSectionRef = useRef<HTMLDivElement>(null);
+  const [workVisible, setWorkVisible] = useState(false);
+
+  useEffect(() => {
+    const el = workSectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setWorkVisible(true); observer.disconnect(); } },
+      { threshold: 0.15 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   /**
    * Co-Directors Data
@@ -588,71 +602,116 @@ export function Home() {
       </section>
 
       {/* Quick Links Section */}
-      <section className="py-16 bg-white">
+      <section id="explore" ref={workSectionRef} className="py-20 bg-[#0A0A0A] overflow-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl text-[#0A0A0A] mb-8 text-center">
-            {language === 'en' ? 'Explore Our Work' : 'Explorez nos travaux'}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Link to="/about/hubs">
-              <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer border-t-4 border-[#8B0000]">
-                <CardHeader>
-                  <div className="mb-4">
-                    <Users className="w-10 h-10 text-[#8B0000]" />
-                  </div>
-                  <CardTitle className="text-[#0A0A0A]">
-                    {language === 'en' ? 'Research Hubs' : 'Pôles de recherche'}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-base text-[#0A0A0A]/70">
-                    {language === 'en' 
-                      ? 'Discover our three research hubs and their unique focus areas'
-                      : 'Découvrez nos trois pôles de recherche et leurs domaines d\'expertise'}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            </Link>
+          {/* Section header */}
+          <div className="mb-14"
+            style={{
+              opacity: workVisible ? 1 : 0,
+              transform: workVisible ? 'translateY(0)' : 'translateY(24px)',
+              transition: 'opacity 0.6s ease, transform 0.6s ease',
+            }}>
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-6 h-px bg-[#8B0000]" />
+              <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-[#8B0000]">
+                {language === 'en' ? 'Explore' : 'Explorer'}
+              </span>
+            </div>
+            <h2 className="text-5xl md:text-6xl font-extrabold text-white leading-none"
+              style={{ fontFamily: 'var(--font-heading)' }}>
+              {language === 'en' ? 'Our Work' : 'Nos travaux'}
+            </h2>
+          </div>
 
-            <Link to="/research/projects">
-              <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer border-t-4 border-[#8B0000]">
-                <CardHeader>
-                  <div className="mb-4">
-                    <BookOpen className="w-10 h-10 text-[#8B0000]" />
-                  </div>
-                  <CardTitle className="text-[#0A0A0A]">
-                    {language === 'en' ? 'Research Projects' : 'Projets de recherche'}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-base text-[#0A0A0A]/70">
-                    {language === 'en'
-                      ? 'Explore our current research projects and community partnerships'
-                      : 'Explorez nos projets de recherche actuels et nos partenariats communautaires'}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            </Link>
+          {/* Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/5 rounded-2xl overflow-hidden">
+            {[
+              {
+                to: '/about/hubs',
+                num: '01',
+                Icon: Users,
+                titleEn: 'Research Hubs',
+                titleFr: 'Pôles de recherche',
+                descEn: 'Three collaborative hubs advancing community health, youth development, and belonging in Niagara.',
+                descFr: 'Trois pôles collaboratifs pour la santé communautaire, le développement des jeunes et l\'appartenance.',
+                delay: 0,
+              },
+              {
+                to: '/research/projects',
+                num: '02',
+                Icon: BookOpen,
+                titleEn: 'Research Projects',
+                titleFr: 'Projets de recherche',
+                descEn: 'Five active projects generating knowledge across housing, health, sport, and identity.',
+                descFr: 'Cinq projets actifs produisant des connaissances en logement, santé, sport et identité.',
+                delay: 100,
+              },
+              {
+                to: '/community',
+                num: '03',
+                Icon: Calendar,
+                titleEn: 'Community Partners',
+                titleFr: 'Partenaires communautaires',
+                descEn: '26 partner organizations co-creating equitable programs across the Niagara region.',
+                descFr: '26 organisations partenaires co-créant des programmes équitables dans la région de Niagara.',
+                delay: 200,
+              },
+            ].map(({ to, num, Icon, titleEn, titleFr, descEn, descFr, delay }) => (
+              <Link
+                key={to}
+                to={to}
+                className="group relative bg-[#0A0A0A] p-8 md:p-10 flex flex-col gap-8 overflow-hidden"
+                style={{
+                  opacity: workVisible ? 1 : 0,
+                  transform: workVisible ? 'translateY(0)' : 'translateY(40px)',
+                  transition: `opacity 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms`,
+                }}
+              >
+                {/* Ghost number */}
+                <span
+                  className="absolute top-5 right-7 text-8xl font-black select-none pointer-events-none"
+                  style={{
+                    fontFamily: 'var(--font-heading)',
+                    color: 'rgba(139,0,0,0.08)',
+                    transition: 'color 0.4s ease',
+                  }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = 'rgba(139,0,0,0.18)'; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'rgba(139,0,0,0.08)'; }}
+                >
+                  {num}
+                </span>
 
-            <Link to="/community">
-              <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer border-t-4 border-[#8B0000]">
-                <CardHeader>
-                  <div className="mb-4">
-                    <Calendar className="w-10 h-10 text-[#8B0000]" />
-                  </div>
-                  <CardTitle className="text-[#0A0A0A]">
-                    {language === 'en' ? 'Community Partners' : 'Partenaires communautaires'}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-base text-[#0A0A0A]/70">
-                    {language === 'en'
-                      ? 'Meet our community partners and learn how to collaborate with us'
-                      : 'Rencontrez nos partenaires communautaires et apprenez comment collaborer avec nous'}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            </Link>
+                {/* Icon */}
+                <div className="w-12 h-12 rounded-xl bg-[#8B0000]/15 flex items-center justify-center group-hover:bg-[#8B0000]/30 transition-colors duration-500">
+                  <Icon className="w-6 h-6 text-[#8B0000]" />
+                </div>
+
+                {/* Text */}
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-white mb-3 leading-tight"
+                    style={{ fontFamily: 'var(--font-heading)' }}>
+                    {language === 'en' ? titleEn : titleFr}
+                  </h3>
+                  <p className="text-white/40 text-sm leading-relaxed group-hover:text-white/60 transition-colors duration-300">
+                    {language === 'en' ? descEn : descFr}
+                  </p>
+                </div>
+
+                {/* CTA */}
+                <div className="flex items-center gap-2 text-white/20 group-hover:text-[#8B0000] transition-colors duration-400">
+                  <span className="text-[10px] font-bold tracking-[0.18em] uppercase">
+                    {language === 'en' ? 'Explore' : 'Explorer'}
+                  </span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform duration-300" />
+                </div>
+
+                {/* Animated bottom rule */}
+                <div className="absolute bottom-0 left-0 h-[2px] bg-[#8B0000] w-0 group-hover:w-full transition-all duration-500 ease-out" />
+
+                {/* Side glow on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#8B0000]/0 to-[#8B0000]/0 group-hover:from-[#8B0000]/5 group-hover:to-transparent transition-all duration-500 pointer-events-none" />
+              </Link>
+            ))}
           </div>
         </div>
       </section>
