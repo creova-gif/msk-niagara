@@ -528,124 +528,141 @@ export function Media() {
 
       {/* ── ANNUAL REPORTS ────────────────────────────── */}
       {activeTab === 'reports' && (
-        <section className="py-12 bg-gray-50 min-h-[60vh]">
+        <section className="py-16 bg-white min-h-[60vh]">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-            <div className="mb-10">
-              <h2 className="text-2xl font-bold text-[#0A0A0A]" style={{ fontFamily: 'var(--font-heading)' }}>
-                {l('Annual Reports', 'Rapports annuels')}
-              </h2>
-              <p className="text-gray-500 mt-1">
-                {l('Comprehensive documentation of our research impact and community progress.', 'Documentation complète de notre impact de recherche et progrès communautaire.')}
-              </p>
+            {/* Section header */}
+            <div className="flex items-end justify-between mb-12">
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-5 h-px bg-[#8B0000]" />
+                  <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#8B0000]">
+                    {l('Documentation', 'Documentation')}
+                  </span>
+                </div>
+                <h2 className="text-4xl md:text-5xl font-extrabold text-[#0A0A0A] leading-tight" style={{ fontFamily: 'var(--font-heading)' }}>
+                  {l('Annual Reports', 'Rapports annuels')}
+                </h2>
+                <p className="text-gray-400 mt-2 text-sm max-w-md">
+                  {l('Comprehensive documentation of our research impact and community progress.', 'Documentation complète de notre impact de recherche et progrès communautaire.')}
+                </p>
+              </div>
+              <div className="hidden md:flex items-center gap-1.5 text-xs font-semibold text-gray-300 tracking-widest uppercase">
+                <BarChart3 className="w-4 h-4" />
+                {annualReports.length} {l('Reports', 'Rapports')}
+              </div>
             </div>
 
-            <div className="space-y-6">
+            {/* Report cards */}
+            <div className="space-y-5">
               {annualReports.map((report, i) => (
                 <div
                   key={report.id}
-                  className="relative bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg hover:border-gray-200 transition-all duration-300 group"
+                  className="group rounded-2xl overflow-hidden border border-gray-100 hover:border-gray-200 hover:shadow-xl transition-all duration-500 bg-white"
                 >
-                  {/* Left accent stripe */}
-                  <div
-                    className="absolute left-0 top-0 bottom-0 w-1 transition-all duration-300 group-hover:w-1.5"
-                    style={{ backgroundColor: report.color }}
-                  />
+                  <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] min-h-[260px]">
 
-                  <div className="pl-8 pr-6 py-8 md:pr-10 md:py-10">
-                    <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 items-start">
+                    {/* Left: cover panel */}
+                    <div
+                      className="relative flex flex-col justify-between p-8 overflow-hidden"
+                      style={{ backgroundColor: i === 0 ? '#8B0000' : '#0A0A0A' }}
+                    >
+                      {/* Dot-grid texture */}
+                      <div className="absolute inset-0 opacity-[0.07]"
+                        style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '20px 20px' }} />
 
-                      {/* Left: content */}
-                      <div>
-                        {/* Header */}
-                        <div className="flex flex-wrap items-center gap-3 mb-4">
-                          <span
-                            className="text-5xl font-extrabold leading-none"
-                            style={{ fontFamily: 'var(--font-heading)', color: report.color, opacity: 0.12 }}
-                          >
-                            {report.year}
+                      {/* Ghost year watermark */}
+                      <div
+                        className="absolute bottom-0 left-0 right-0 text-[90px] font-extrabold leading-none text-white opacity-[0.07] tracking-tighter select-none pointer-events-none overflow-hidden"
+                        style={{ fontFamily: 'var(--font-heading)', lineHeight: '0.85' }}
+                      >
+                        {report.year}
+                      </div>
+
+                      {/* Top: badges */}
+                      <div className="relative z-10 flex flex-wrap gap-2">
+                        <span className="text-[10px] font-bold tracking-[0.15em] uppercase px-2.5 py-1 rounded-full bg-white/15 text-white/70">
+                          {report.year}
+                        </span>
+                        {i === 0 && (
+                          <span className="text-[10px] font-bold tracking-[0.15em] uppercase px-2.5 py-1 rounded-full bg-white text-[#8B0000]">
+                            {l('Latest', 'Dernier')}
                           </span>
-                          <div>
-                            <div className="flex items-center gap-2 mb-0.5">
-                              <span
-                                className="text-xs font-bold tracking-widest uppercase px-2 py-0.5 rounded"
-                                style={{ backgroundColor: report.color + '18', color: report.color }}
-                              >
-                                {report.year}
-                              </span>
-                              {i === 0 && (
-                                <span className="text-xs font-semibold px-2 py-0.5 rounded bg-green-50 text-green-700">
-                                  {l('Latest', 'Dernier')}
-                                </span>
-                              )}
-                            </div>
-                            <h3 className="text-xl font-bold text-[#0A0A0A]" style={{ fontFamily: 'var(--font-heading)' }}>
-                              {language === 'en' ? report.title : report.titleFr}
-                            </h3>
-                            <p className="text-sm text-gray-400">{language === 'en' ? report.subtitle : report.subtitleFr}</p>
-                          </div>
-                        </div>
+                        )}
+                      </div>
 
-                        <p className="text-gray-600 leading-relaxed mb-6 max-w-2xl">
+                      {/* Bottom: title */}
+                      <div className="relative z-10 mt-auto">
+                        <h3 className="text-2xl font-extrabold text-white leading-tight mb-1"
+                          style={{ fontFamily: 'var(--font-heading)' }}>
+                          {language === 'en' ? report.title : report.titleFr}
+                        </h3>
+                        <p className="text-sm text-white/50">
+                          {language === 'en' ? report.subtitle : report.subtitleFr}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Right: content */}
+                    <div className="p-8 md:p-10 flex flex-col justify-between gap-6">
+
+                      <div>
+                        <p className="text-gray-500 leading-relaxed text-sm mb-6 max-w-xl">
                           {language === 'en' ? report.description : report.descriptionFr}
                         </p>
 
-                        {/* Stats grid */}
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-                          {report.stats.map(stat => (
-                            <div
-                              key={stat.label}
-                              className="rounded-xl p-3 text-center"
-                              style={{ backgroundColor: report.color + '08' }}
-                            >
+                        {/* Stats row — elegant horizontal */}
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-0 divide-x divide-gray-100 border border-gray-100 rounded-xl overflow-hidden">
+                          {report.stats.map((stat, si) => (
+                            <div key={si} className="px-4 py-3 bg-gray-50/60 text-center">
                               <div
-                                className="text-2xl font-extrabold"
-                                style={{ fontFamily: 'var(--font-heading)', color: report.color }}
+                                className="text-xl font-extrabold leading-none mb-0.5"
+                                style={{ fontFamily: 'var(--font-heading)', color: i === 0 ? '#8B0000' : '#0A0A0A' }}
                               >
                                 {stat.value}
                               </div>
-                              <div className="text-xs text-gray-500 mt-0.5">
+                              <div className="text-[10px] text-gray-400 font-medium tracking-wide uppercase">
                                 {language === 'en' ? stat.label : stat.labelFr}
                               </div>
                             </div>
                           ))}
                         </div>
+                      </div>
 
-                        {/* Meta */}
-                        <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400">
+                      {/* Bottom: meta + actions */}
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-4 border-t border-gray-100">
+                        <div className="flex flex-wrap gap-4 text-xs text-gray-400">
                           <span className="flex items-center gap-1.5">
-                            <BookOpen className="w-4 h-4" />
+                            <BookOpen className="w-3.5 h-3.5" />
                             {report.pages} {l('pages', 'pages')}
                           </span>
                           <span className="flex items-center gap-1.5">
-                            <FileText className="w-4 h-4" />
+                            <FileText className="w-3.5 h-3.5" />
                             {report.fileSize}
                           </span>
                           <span className="flex items-center gap-1.5">
-                            <Calendar className="w-4 h-4" />
+                            <Calendar className="w-3.5 h-3.5" />
                             {l(`Published ${report.publishDate}`, `Publié ${report.publishDateFr}`)}
                           </span>
                         </div>
-                      </div>
 
-                      {/* Right: download actions */}
-                      <div className="flex flex-col gap-3 min-w-[160px]">
-                        <a
-                          href={report.downloadUrl}
-                          className="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl font-semibold text-sm text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
-                          style={{ backgroundColor: report.color }}
-                        >
-                          <Download className="w-4 h-4" />
-                          {l('Download PDF', 'Télécharger PDF')}
-                        </a>
-                        <a
-                          href={report.downloadUrl}
-                          className="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl font-semibold text-sm border border-gray-200 text-gray-600 hover:border-gray-300 hover:text-gray-800 transition-all duration-200"
-                        >
-                          <Eye className="w-4 h-4" />
-                          {l('Preview', 'Aperçu')}
-                        </a>
-                        <p className="text-center text-xs text-gray-400">{l('Free · No login required', 'Gratuit · Sans connexion')}</p>
+                        <div className="flex items-center gap-2 flex-shrink-0">
+                          <a
+                            href={report.downloadUrl}
+                            className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold border border-gray-200 text-gray-500 hover:border-gray-300 hover:text-gray-800 transition-all"
+                          >
+                            <Eye className="w-3.5 h-3.5" />
+                            {l('Preview', 'Aperçu')}
+                          </a>
+                          <a
+                            href={report.downloadUrl}
+                            className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold text-white transition-all hover:opacity-90"
+                            style={{ backgroundColor: i === 0 ? '#8B0000' : '#0A0A0A' }}
+                          >
+                            <Download className="w-3.5 h-3.5" />
+                            {l('Download PDF', 'Télécharger PDF')}
+                          </a>
+                        </div>
                       </div>
 
                     </div>
@@ -654,22 +671,30 @@ export function Media() {
               ))}
             </div>
 
-            {/* Bottom CTA */}
-            <div className="mt-10 rounded-2xl bg-[#8B0000]/5 border border-[#8B0000]/10 p-8 text-center">
-              <h3 className="text-lg font-bold text-[#0A0A0A] mb-2" style={{ fontFamily: 'var(--font-heading)' }}>
-                {l('Want to stay informed?', 'Vous souhaitez rester informé(e) ?')}
-              </h3>
-              <p className="text-gray-500 text-sm mb-4">
-                {l('Follow our research progress and receive updates on new publications.', 'Suivez nos progrès et recevez des mises à jour sur les nouvelles publications.')}
-              </p>
-              <a
-                href="mailto:contact@msk-niagara.ca"
-                className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#8B0000] text-white text-sm font-semibold rounded-full hover:bg-[#A31515] transition-colors"
-              >
-                {l('Contact Us', 'Nous contacter')}
-                <ArrowRight className="w-4 h-4" />
-              </a>
+            {/* Bottom CTA — dark editorial strip */}
+            <div className="mt-10 rounded-2xl bg-[#0A0A0A] overflow-hidden">
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] items-center gap-6 px-10 py-8">
+                <div>
+                  <p className="text-xs font-bold tracking-[0.2em] uppercase text-white/30 mb-2">
+                    {l('Stay Informed', 'Rester informé')}
+                  </p>
+                  <h3 className="text-xl font-extrabold text-white mb-1" style={{ fontFamily: 'var(--font-heading)' }}>
+                    {l('Want to stay informed?', 'Vous souhaitez rester informé(e) ?')}
+                  </h3>
+                  <p className="text-white/40 text-sm">
+                    {l('Follow our research progress and receive updates on new publications.', 'Suivez nos progrès et recevez des mises à jour sur les nouvelles publications.')}
+                  </p>
+                </div>
+                <a
+                  href="mailto:contact@msk-niagara.ca"
+                  className="flex-shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-white text-[#0A0A0A] text-sm font-bold rounded-xl hover:bg-gray-100 transition-colors"
+                >
+                  {l('Contact Us', 'Nous contacter')}
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
             </div>
+
           </div>
         </section>
       )}
