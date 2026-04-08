@@ -160,40 +160,47 @@ export function Home() {
       </section>
 
       {/* Mission + Impact Strip */}
-      <section className="py-16 bg-white border-b border-gray-100">
+      <section id="mission" className="py-16 bg-white border-b border-gray-100">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Mission text */}
-            <div className="max-w-2xl">
+            <div>
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-6 h-px bg-[#8B0000]" />
                 <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-[#8B0000]">
                   {language === 'en' ? 'Our Mission' : 'Notre mission'}
                 </span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-[#0A0A0A] leading-tight mb-4"
+              <h2 className="text-3xl md:text-4xl font-extrabold text-[#0A0A0A] leading-tight mb-5"
                 style={{ fontFamily: 'var(--font-heading)' }}>
                 {language === 'en'
                   ? 'Research that centers the voices others have silenced'
                   : 'Une recherche qui centre les voix que d\'autres ont fait taire'}
               </h2>
-              <p className="text-gray-500 leading-relaxed">
+              <p className="text-gray-500 leading-relaxed text-[15px]">
                 {language === 'en'
                   ? 'MSK Niagara is a transnational, university-community partnership funded by SSHRC. Our interdisciplinary team conducts community-based participatory research in English, French, and Spanish to mobilize knowledge that has been marginalized from dominant structures of power.'
                   : 'MSK Niagara est un partenariat transnational université-communauté financé par le CRSH. Notre équipe interdisciplinaire mène des recherches participatives communautaires en anglais, français et espagnol pour mobiliser des connaissances marginalisées par les structures de pouvoir dominantes.'}
               </p>
             </div>
-            {/* Impact numbers */}
-            <div className="flex flex-col gap-6 lg:text-right">
+
+            {/* Impact numbers — 2×2 grid */}
+            <div className="grid grid-cols-2 gap-px bg-gray-100 rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
               {[
                 { n: '65', label: language === 'en' ? 'Team Members' : 'Membres' },
-                { n: '26', label: language === 'en' ? 'Community Partners' : 'Partenaires' },
-                { n: '3', label: language === 'en' ? 'Research Hubs' : 'Pôles' },
+                { n: '26', label: language === 'en' ? 'Community Partners' : 'Partenaires communautaires' },
+                { n: '3', label: language === 'en' ? 'Research Hubs' : 'Pôles de recherche' },
                 { n: '5+', label: language === 'en' ? 'Active Projects' : 'Projets actifs' },
-              ].map(s => (
-                <div key={s.n}>
-                  <div className="text-4xl font-extrabold text-[#0A0A0A]" style={{ fontFamily: 'var(--font-heading)' }}>{s.n}</div>
-                  <div className="text-sm text-gray-400">{s.label}</div>
+              ].map((s, i) => (
+                <div key={s.n} className={`bg-white px-6 py-7 flex flex-col ${i === 0 ? 'rounded-tl-2xl' : ''} ${i === 1 ? 'rounded-tr-2xl' : ''} ${i === 2 ? 'rounded-bl-2xl' : ''} ${i === 3 ? 'rounded-br-2xl' : ''}`}>
+                  <div className="w-5 h-0.5 bg-[#8B0000] mb-3 rounded-full" />
+                  <div className="text-4xl font-extrabold text-[#0A0A0A] leading-none mb-2"
+                    style={{ fontFamily: 'var(--font-heading)' }}>
+                    {s.n}
+                  </div>
+                  <div className="text-[11px] font-semibold tracking-[0.12em] uppercase text-gray-400 leading-snug">
+                    {s.label}
+                  </div>
                 </div>
               ))}
             </div>
