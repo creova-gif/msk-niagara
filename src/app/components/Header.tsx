@@ -1,212 +1,419 @@
-/**
- * Header Component
- * 
- * Main navigation header for the MSK Niagara website.
- * Features:
- * - Responsive design (desktop & mobile)
- * - Bilingual language toggle (EN/FR)
- * - Dropdown menus for About and Research sections
- * - Sticky header with scroll effects
- * - Mobile hamburger menu
- * - Automatic scroll-to-top on navigation
- * 
- * Primary color: #8B0000 (Dark Red)
- * 
- * @author MSK Development Team
- * @version 2.0
- */
-
 import { Link, useLocation } from 'react-router';
 import { useLanguage } from '../contexts/LanguageContext';
-import { Globe, Menu, X, ChevronDown } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { ChevronDown, Menu, X, ArrowRight, Users, BookOpen, Building2, Lightbulb, Globe } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+
+const dropdownItems = {
+  about: [
+    {
+      name: 'Partnership',
+      nameEn: 'Partnership',
+      nameFr: 'Partenariat',
+      href: '/about/partnership',
+      desc: 'Our academic & community network',
+      descFr: 'Notre réseau académique et communautaire',
+      icon: Building2,
+    },
+    {
+      name: 'Research Hubs',
+      nameEn: 'Research Hubs',
+      nameFr: 'Pôles de recherche',
+      href: '/about/hubs',
+      desc: '3 hubs across the Niagara region',
+      descFr: '3 pôles à travers la région de Niagara',
+      icon: Lightbulb,
+    },
+    {
+      name: 'Team Members',
+      nameEn: 'Team Members',
+      nameFr: 'Membres de l\'équipe',
+      href: '/about/members',
+      desc: 'Researchers, students & partners',
+      descFr: 'Chercheurs, étudiants et partenaires',
+      icon: Users,
+    },
+  ],
+  research: [
+    {
+      name: 'Projects',
+      nameEn: 'Projects',
+      nameFr: 'Projets',
+      href: '/research/projects',
+      desc: 'Active research initiatives',
+      descFr: 'Initiatives de recherche actives',
+      icon: BookOpen,
+    },
+    {
+      name: 'Knowledge',
+      nameEn: 'Knowledge Dissemination',
+      nameFr: 'Diffusion des savoirs',
+      href: '/research/knowledge',
+      desc: 'Publications & findings',
+      descFr: 'Publications et résultats',
+      icon: Lightbulb,
+    },
+  ],
+};
 
 export function Header() {
   const { language, setLanguage, t } = useLanguage();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const closeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  /**
-   * Handle scroll effect
-   * Adds shadow to header when user scrolls down
-   */
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-
-
-  /**
-   * Navigation Menu Structure
-   * Includes main menu items and dropdown submenus
-   */
-  const navigation = [
-    { name: t('nav.home'), href: '/' },
-    {
-      name: t('nav.about'),
-      href: '#',
-      submenu: [
-        { name: t('nav.partnership'), href: '/about/partnership' },
-        { name: t('nav.hubs'), href: '/about/hubs' },
-        { name: t('nav.members'), href: '/about/members' },
-      ],
-    },
-    {
-      name: t('nav.research'),
-      href: '#',
-      submenu: [
-        { name: t('nav.projects'), href: '/research/projects' },
-        { name: t('nav.knowledge'), href: '/research/knowledge' },
-      ],
-    },
-    { name: t('nav.community'), href: '/community' },
-    { name: t('nav.timeline'), href: '/timeline' },
-    { name: language === 'en' ? 'Media' : 'Médias', href: '/media' },
-    { name: language === 'en' ? 'Help' : 'Aide', href: '/help' },
-  ];
-
-  /**
-   * Toggle between English and French
-   */
-  const toggleLanguage = () => {
-    setLanguage(language === 'en' ? 'fr' : 'en');
-  };
-
-  const handleNavClick = () => {
+  useEffect(() => {
     setMobileMenuOpen(false);
+    setActiveDropdown(null);
+  }, [location.pathname]);
+
+  const toggleLanguage = () => setLanguage(language === 'en' ? 'fr' : 'en');
+
+  const openDropdown = (key: string) => {
+    if (closeTimeout.current) clearTimeout(closeTimeout.current);
+    setActiveDropdown(key);
   };
+
+  const closeDropdown = () => {
+    closeTimeout.current = setTimeout(() => setActiveDropdown(null), 120);
+  };
+
+  const stayOpen = () => {
+    if (closeTimeout.current) clearTimeout(closeTimeout.current);
+  };
+
+  const isActive = (href: string) =>
+    href === '/' ? location.pathname === '/' : location.pathname.startsWith(href);
+
+  const isDark = !scrolled;
 
   return (
-    <header className={`sticky top-0 z-50 bg-[#0A0A0A] transition-all duration-300 ${
-      scrolled ? 'shadow-2xl border-b-2 border-dark-red/30' : 'border-b border-gray-800'
-    }`}>
+    <header
+      className={`sticky top-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? 'bg-white/95 backdrop-blur-xl border-b border-gray-200/80 shadow-sm'
+          : 'bg-[#0A0A0A]/95 backdrop-blur-md border-b border-white/5'
+      }`}
+    >
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-20 items-center justify-between px-2">
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            <Link to="/" className="flex items-center gap-3 group" >
-              <div className="w-12 h-12 rounded-xl bg-[#8B0000] flex items-center justify-center text-white font-bold shadow-lg group-hover:shadow-xl group-hover:shadow-[#8B0000]/30 transform group-hover:scale-105 transition-all duration-300">
-                MSK
+        <div className="flex h-[68px] items-center justify-between">
+
+          {/* ── LOGO ── */}
+          <Link
+            to="/"
+            className="flex items-center gap-3 group shrink-0"
+            aria-label="MSK Research Partnership — Home"
+          >
+            <div className="relative">
+              <div className="w-9 h-9 rounded-lg bg-[#8B0000] flex items-center justify-center shadow-md group-hover:shadow-[0_0_16px_rgba(139,0,0,0.5)] transition-all duration-300">
+                <span className="text-white font-bold text-xs tracking-wider leading-none">MSK</span>
               </div>
-              <span className="hidden sm:block text-white font-semibold text-lg group-hover:opacity-90 transition-opacity">
-                {t('home.title')}
+            </div>
+            <div className="hidden sm:flex flex-col leading-none">
+              <span
+                className={`font-bold text-[15px] tracking-tight transition-colors duration-300 ${
+                  isDark ? 'text-white' : 'text-[#0A0A0A]'
+                }`}
+                style={{ fontFamily: 'var(--font-heading)' }}
+              >
+                MSK Research
               </span>
+              <span
+                className={`text-[11px] tracking-wider font-medium uppercase transition-colors duration-300 ${
+                  isDark ? 'text-white/50' : 'text-gray-400'
+                }`}
+              >
+                Partnership
+              </span>
+            </div>
+          </Link>
+
+          {/* ── DESKTOP NAV ── */}
+          <div className="hidden lg:flex items-center gap-1">
+
+            {/* Home */}
+            <Link
+              to="/"
+              className={`relative px-3.5 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                isActive('/')
+                  ? isDark
+                    ? 'text-white'
+                    : 'text-[#0A0A0A]'
+                  : isDark
+                  ? 'text-white/65 hover:text-white hover:bg-white/8'
+                  : 'text-gray-500 hover:text-[#0A0A0A] hover:bg-gray-100/70'
+              }`}
+            >
+              {t('nav.home')}
+              {isActive('/') && (
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#8B0000]" />
+              )}
+            </Link>
+
+            {/* About — dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => openDropdown('about')}
+              onMouseLeave={closeDropdown}
+            >
+              <button
+                className={`relative inline-flex items-center gap-1 px-3.5 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                  location.pathname.startsWith('/about')
+                    ? isDark
+                      ? 'text-white'
+                      : 'text-[#0A0A0A]'
+                    : isDark
+                    ? 'text-white/65 hover:text-white hover:bg-white/8'
+                    : 'text-gray-500 hover:text-[#0A0A0A] hover:bg-gray-100/70'
+                }`}
+              >
+                {t('nav.about')}
+                <ChevronDown
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                    activeDropdown === 'about' ? 'rotate-180' : ''
+                  }`}
+                />
+                {location.pathname.startsWith('/about') && (
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#8B0000]" />
+                )}
+              </button>
+
+              {/* About dropdown */}
+              {activeDropdown === 'about' && (
+                <div
+                  className="absolute left-0 top-full pt-3 w-72"
+                  onMouseEnter={stayOpen}
+                  onMouseLeave={closeDropdown}
+                >
+                  <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden animate-fade-in-down">
+                    <div className="p-2">
+                      {dropdownItems.about.map((item) => {
+                        const Icon = item.icon;
+                        return (
+                          <Link
+                            key={item.href}
+                            to={item.href}
+                            className="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 group/item transition-all duration-150"
+                          >
+                            <div className="mt-0.5 w-8 h-8 rounded-lg bg-[#8B0000]/8 flex items-center justify-center shrink-0 group-hover/item:bg-[#8B0000]/15 transition-colors">
+                              <Icon className="w-4 h-4 text-[#8B0000]" />
+                            </div>
+                            <div>
+                              <div className="text-sm font-semibold text-[#0A0A0A] group-hover/item:text-[#8B0000] transition-colors">
+                                {language === 'en' ? item.nameEn : item.nameFr}
+                              </div>
+                              <div className="text-xs text-gray-400 mt-0.5">
+                                {language === 'en' ? item.desc : item.descFr}
+                              </div>
+                            </div>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Research — dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => openDropdown('research')}
+              onMouseLeave={closeDropdown}
+            >
+              <button
+                className={`relative inline-flex items-center gap-1 px-3.5 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                  location.pathname.startsWith('/research')
+                    ? isDark
+                      ? 'text-white'
+                      : 'text-[#0A0A0A]'
+                    : isDark
+                    ? 'text-white/65 hover:text-white hover:bg-white/8'
+                    : 'text-gray-500 hover:text-[#0A0A0A] hover:bg-gray-100/70'
+                }`}
+              >
+                {t('nav.research')}
+                <ChevronDown
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                    activeDropdown === 'research' ? 'rotate-180' : ''
+                  }`}
+                />
+                {location.pathname.startsWith('/research') && (
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#8B0000]" />
+                )}
+              </button>
+
+              {/* Research dropdown */}
+              {activeDropdown === 'research' && (
+                <div
+                  className="absolute left-0 top-full pt-3 w-64"
+                  onMouseEnter={stayOpen}
+                  onMouseLeave={closeDropdown}
+                >
+                  <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden animate-fade-in-down">
+                    <div className="p-2">
+                      {dropdownItems.research.map((item) => {
+                        const Icon = item.icon;
+                        return (
+                          <Link
+                            key={item.href}
+                            to={item.href}
+                            className="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 group/item transition-all duration-150"
+                          >
+                            <div className="mt-0.5 w-8 h-8 rounded-lg bg-[#8B0000]/8 flex items-center justify-center shrink-0 group-hover/item:bg-[#8B0000]/15 transition-colors">
+                              <Icon className="w-4 h-4 text-[#8B0000]" />
+                            </div>
+                            <div>
+                              <div className="text-sm font-semibold text-[#0A0A0A] group-hover/item:text-[#8B0000] transition-colors">
+                                {language === 'en' ? item.nameEn : item.nameFr}
+                              </div>
+                              <div className="text-xs text-gray-400 mt-0.5">
+                                {language === 'en' ? item.desc : item.descFr}
+                              </div>
+                            </div>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Single nav items */}
+            {[
+              { label: t('nav.community'), href: '/community' },
+              { label: t('nav.timeline'), href: '/timeline' },
+              { label: language === 'en' ? 'Media' : 'Médias', href: '/media' },
+            ].map((item) => (
+              <Link
+                key={item.href}
+                to={item.href}
+                className={`relative px-3.5 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                  isActive(item.href)
+                    ? isDark
+                      ? 'text-white'
+                      : 'text-[#0A0A0A]'
+                    : isDark
+                    ? 'text-white/65 hover:text-white hover:bg-white/8'
+                    : 'text-gray-500 hover:text-[#0A0A0A] hover:bg-gray-100/70'
+                }`}
+              >
+                {item.label}
+                {isActive(item.href) && (
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#8B0000]" />
+                )}
+              </Link>
+            ))}
+          </div>
+
+          {/* ── RIGHT ACTIONS ── */}
+          <div className="hidden lg:flex items-center gap-2">
+            {/* Language toggle */}
+            <button
+              onClick={toggleLanguage}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold tracking-widest uppercase transition-all duration-200 ${
+                isDark
+                  ? 'text-white/60 hover:text-white hover:bg-white/10'
+                  : 'text-gray-400 hover:text-gray-700 hover:bg-gray-100'
+              }`}
+              aria-label="Toggle language"
+            >
+              <Globe className="w-3.5 h-3.5" />
+              {language.toUpperCase()}
+            </button>
+
+            {/* Divider */}
+            <div className={`w-px h-5 ${isDark ? 'bg-white/15' : 'bg-gray-200'}`} />
+
+            {/* CTA — Get Involved */}
+            <Link
+              to="/about/partnership"
+              className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#8B0000] text-white text-sm font-semibold rounded-full hover:bg-[#A31515] transition-all duration-200 shadow-md hover:shadow-[0_4px_16px_rgba(139,0,0,0.4)] hover:-translate-y-px group"
+            >
+              {language === 'en' ? 'Get Involved' : 'Participer'}
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex lg:items-center lg:gap-2">
-            {navigation.map((item) => (
-              <div key={item.name} className="relative group/nav">
-                {item.submenu ? (
-                  <>
-                    <button className="inline-flex items-center gap-1 px-4 py-2 text-white hover:bg-white/10 transition-all duration-200 font-medium rounded-lg">
-                      {item.name}
-                      <ChevronDown className="w-4 h-4 transition-transform group-hover/nav:rotate-180" />
-                    </button>
-                    <div className="absolute left-0 mt-2 w-64 invisible opacity-0 group-hover/nav:visible group-hover/nav:opacity-100 transition-all duration-300 transform translate-y-2 group-hover/nav:translate-y-0 z-50">
-                      <div className="bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden">
-                        {item.submenu.map((subitem, idx) => (
-                          <Link
-                            key={subitem.href}
-                            to={subitem.href}
-                            className="block px-5 py-3 text-[#0A0A0A] hover:bg-gray-50 transition-all duration-200 font-medium border-l-4 border-transparent hover:border-[#8B0000] hover:text-[#8B0000]"
-                            style={{ animationDelay: `${idx * 50}ms` }}
-                            onClick={handleNavClick}
-                          >
-                            {subitem.name}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  </>
-                ) : (
-                  <Link
-                    to={item.href}
-                    className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
-                      location.pathname === item.href 
-                        ? 'text-[#0A0A0A] bg-white shadow-md' 
-                        : 'text-white hover:bg-white/10'
-                    }`}
-                    onClick={handleNavClick}
-                  >
-                    {item.name}
-                  </Link>
-                )}
-              </div>
-            ))}
-
-            {/* Language Toggle Desktop */}
+          {/* ── MOBILE CONTROLS ── */}
+          <div className="flex lg:hidden items-center gap-2">
             <button
               onClick={toggleLanguage}
-              className="flex items-center gap-2 px-4 py-2 ml-2 rounded-lg border-2 border-white text-white hover:bg-white hover:text-[#0A0A0A] transition-all duration-300 font-medium shadow-sm hover:shadow-md transform hover:scale-105 group"
+              className={`p-2 rounded-lg text-xs font-bold tracking-wider uppercase transition-all duration-200 ${
+                isDark ? 'text-white/70 hover:bg-white/10' : 'text-gray-500 hover:bg-gray-100'
+              }`}
               aria-label="Toggle language"
             >
-              <Globe className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-              <span className="font-semibold">{language.toUpperCase()}</span>
-            </button>
-          </div>
-
-          {/* Mobile controls */}
-          <div className="flex lg:hidden items-center gap-3">
-            <button
-              onClick={toggleLanguage}
-              className="p-2.5 rounded-lg border-2 border-white text-white hover:bg-white hover:text-[#0A0A0A] transition-all duration-300"
-              aria-label="Toggle language"
-            >
-              <Globe className="w-4 h-4" />
+              {language.toUpperCase()}
             </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2.5 rounded-lg hover:bg-white/10 transition-all duration-300 text-white"
+              className={`p-2 rounded-lg transition-all duration-200 ${
+                isDark
+                  ? 'text-white hover:bg-white/10'
+                  : 'text-[#0A0A0A] hover:bg-gray-100'
+              }`}
               aria-label="Toggle menu"
+              aria-expanded={mobileMenuOpen}
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile menu */}
+        {/* ── MOBILE MENU ── */}
         {mobileMenuOpen && (
-          <div className="lg:hidden py-4 space-y-2 border-t border-gray-700 mt-2 animate-fade-in-up bg-primary">
-            {navigation.map((item) => (
-              <div key={item.name}>
-                {item.submenu ? (
-                  <>
-                    <div className="px-4 py-2.5 font-semibold text-white">{item.name}</div>
-                    <div className="pl-6 space-y-1">
-                      {item.submenu.map((subitem) => (
-                        <Link
-                          key={subitem.href}
-                          to={subitem.href}
-                          className="block px-4 py-2.5 hover:bg-white/10 rounded-lg transition-all duration-200 text-white font-medium border-l-2 border-transparent hover:border-dark-red"
-                          onClick={handleNavClick}
-                        >
-                          {subitem.name}
-                        </Link>
-                      ))}
-                    </div>
-                  </>
-                ) : (
-                  <Link
-                    to={item.href}
-                    className={`block px-4 py-2.5 rounded-lg font-medium transition-all duration-200 ${
-                      location.pathname === item.href
-                        ? 'bg-white text-primary'
-                        : 'hover:bg-white/10 text-white'
-                    }`}
-                    onClick={handleNavClick}
-                  >
-                    {item.name}
-                  </Link>
-                )}
+          <div className="lg:hidden pb-4 animate-fade-in-down">
+            <div className={`rounded-2xl overflow-hidden border ${
+              isDark ? 'bg-white/5 border-white/10' : 'bg-gray-50 border-gray-200'
+            } p-2 mt-2 space-y-0.5`}>
+              {[
+                { label: t('nav.home'), href: '/' },
+                { label: t('nav.partnership'), href: '/about/partnership' },
+                { label: t('nav.hubs'), href: '/about/hubs' },
+                { label: t('nav.members'), href: '/about/members' },
+                { label: t('nav.projects'), href: '/research/projects' },
+                { label: t('nav.knowledge'), href: '/research/knowledge' },
+                { label: t('nav.community'), href: '/community' },
+                { label: t('nav.timeline'), href: '/timeline' },
+                { label: language === 'en' ? 'Media' : 'Médias', href: '/media' },
+              ].map((item) => (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all duration-150 ${
+                    isActive(item.href)
+                      ? 'bg-[#8B0000] text-white'
+                      : isDark
+                      ? 'text-white/80 hover:bg-white/10 hover:text-white'
+                      : 'text-gray-700 hover:bg-white hover:text-[#0A0A0A]'
+                  }`}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.label}
+                  {isActive(item.href) && <ArrowRight className="w-4 h-4 opacity-70" />}
+                </Link>
+              ))}
+
+              <div className="pt-2 px-2">
+                <Link
+                  to="/about/partnership"
+                  className="flex items-center justify-center gap-2 w-full py-3 bg-[#8B0000] text-white text-sm font-semibold rounded-xl hover:bg-[#A31515] transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {language === 'en' ? 'Get Involved' : 'Participer'}
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
               </div>
-            ))}
+            </div>
           </div>
         )}
       </nav>
