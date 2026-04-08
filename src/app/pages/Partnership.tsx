@@ -204,7 +204,7 @@ export function Partnership() {
                     {language === 'en' ? 'About MSK Niagara' : 'À propos de MSK Niagara'}
                   </span>
                 </div>
-                <blockquote className="text-2xl md:text-3xl font-extrabold text-white leading-tight mb-8"
+                <blockquote className="text-2xl md:text-3xl font-extrabold text-white leading-tight mb-8 bg-[#821d1d]"
                   style={{ fontFamily: 'var(--font-heading)' }}>
                   {language === 'en'
                     ? '"Mobilizing voices that have been marginalized from dominant knowledge structures."'
