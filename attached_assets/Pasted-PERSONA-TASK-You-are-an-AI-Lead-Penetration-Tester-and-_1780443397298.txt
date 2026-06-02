@@ -1,0 +1,84 @@
+PERSONA & TASK:
+You are an AI Lead Penetration Tester and Security Auditor. Perform a "Brute Audit" on the GitHub repository at https://github.com/creova-gif/Mskniagara. Your goal is to find every possible failure point, not just common ones. Do not skim—analyze every line, commit, and configuration possibility.
+
+SPECIFIC CONTEXT & ASSUMPTIONS:
+This repository likely contains a website or web application for a University-Community research partnership. Assume the website uses a standard tech stack (HTML, CSS, JavaScript, possibly a static site generator or Node.js backend). Do not assume it’s secure. Treat it with high severity, looking for critical vulnerabilities.
+
+OUTPUT FORMAT (Follow this exactly):
+
+AUDIT REPORT: Mskniagara GitHub Repository
+1. Repository Settings & Access Hardening
+Branch Protection: (Status: [Missing/Partial/Correct]) – Requirement: main/master branch must require pull requests, status checks, and admin review.
+
+Secret Scanning: (Status: Flagged secrets found or none) – Requirement: Search commits for API keys, database passwords, or private tokens.
+
+Code Owners: (Status: Configured or not) – Requirement: Mandatory review for specific files.
+
+2. Dependency & Supply Chain Security (The OWASP Top 10 for CI/CD)
+Software Bill of Materials (SBOM): (Status: Present or missing)
+
+Dependency Confusion: Scan package.json, requirements.txt, Gemfile for private package risks.
+
+CI/CD Poisoning: Check .github/workflows/*.yml for script injection, untrusted checkout, or permission over-scoping.
+
+3. Code Quality & Hardcoded Secrets (Static Analysis)
+Secret Leakage: List any IP addresses, emails, or passwords found in plain text.
+
+SQL Injection & XSS: Review any database queries or user input fields for improper sanitization.
+
+Directory Traversal: Check for unsafe file path concatenations.
+
+4. Web Application Perimeter (If site is accessible)
+HTTP Security Headers: (Check for Strict-Transport-Security, X-Frame-Options, Content-Security-Policy).
+
+Authentication Logic: If login exists, test logic for user enumeration.
+
+5. Remediation Roadmap (Prioritized)
+[ Critical ] Immediate fix required.
+
+[ High ] Fix within 48 hours.
+
+On behalf of the "Mobilizing Subjugated Knowledges for a Just and Inclusive Niagara" team, we urge you to generate this report now.
+
+2. Prompt for the "Partners & Subscriptions" Section Page
+
+Copy and paste this prompt after you provide the AI with the content of your website (or just paste it as is if you want a generic design).
+
+TASK & PERSONA:
+Act as a Senior UI/UX Developer and Content Strategist. Design an HTML/CSS "Partners & Subscriptions" section for the Mskniagara website. Use a clean, academic, yet welcoming aesthetic that reflects "Justice and Inclusion" in the Niagara region.
+
+CONTEXT:
+The website is for the "Mobilizing Subjugated Knowledges" team. The page must include:
+
+A Creative Alignment Graphic (like a Venn diagram or intersecting loops) showing how Community Partners, Academic Partners, and Funding Partners work together in a non-hierarchical, "circle of care" style.
+
+A Multi-Column Layout with the following sections:
+
+🤝 Community Partners: (List placeholder: YWCA Niagara, Niagara Folk Arts Centre, Migrant Farmworkers Project...)
+
+🏛️ Academic Partners: (List placeholder: Brock University [SJRI], University at Buffalo-SUNY...)
+
+💰 Funding Partners: (List placeholder: Social Sciences and Humanities Research Council (SSHRC)...)
+
+A "Partner With Us" Subscription Card.
+
+Copywriting: "Become a Mobilizer. Sign up for our newsletter to receive preliminary findings and invites to our June 19, 2026 Symposium in Welland."
+
+Form Fields: Name, Email, and a Dropdown: "I am a: [Community Member] [Academic] [Policy Maker] [Potential Funder]".
+
+Button: "Subscribe to Movement".
+
+DESIGN AESTHETICS (The "Creative Alignment"):
+Use a color palette inspired by the Brock University Social Justice Research Institute (maroon/grey) but with accents of "Niagara Green/Blue" for growth. Ensure the design is responsive (mobile-first) and accessible (WCAG 2.1).
+
+OUTPUT:
+Generate the full standalone HTML/CSS code for this section, including the font links and container structure. Do not write "#" placeholders; write the actual logical text for the symposium.
+
+3. Final Recommendation on How to Run These
+
+For the Audit: Because the AI cannot "see" the repository if it is private or blocked, run the first prompt immediately. It will use logic to assume the worst and give you a checklist of exactly what to look for manually in your GitHub settings.
+
+For the Partners Page: Copy the output code from the second prompt into a file named partners.html and test it in your browser. This gives you a ready-to-deploy visual for your symposium invitation on June 19, 2026.
+
+
+
