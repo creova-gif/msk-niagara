@@ -3,7 +3,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { Search, ChevronDown, ChevronUp, HelpCircle, BookOpen, Users, Mail, Calendar, FileText, X, Filter, Tag } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { motion, AnimatePresence } from 'motion/react';
-import { sanitizeSearchInput, escapeSpecialChars } from '../../utils/security';
+import { sanitizeSearchQuery as sanitizeSearchInput, escapeRegex as escapeSpecialChars } from '../utils/security';
 
 interface FAQItem {
   id: number;

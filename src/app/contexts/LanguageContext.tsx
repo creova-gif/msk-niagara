@@ -16,6 +16,7 @@
  */
 
 import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { secureStorage } from '../utils/security';
 
 // Language type: supports English (en) and French (fr)
 export type Language = 'en' | 'fr';
@@ -167,7 +168,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   // Initialize language from localStorage or default to English
   const [language, setLanguageState] = useState<Language>(() => {
     if (typeof window !== 'undefined') {
-      const savedLanguage = localStorage.getItem('msk-language') as Language;
+      const savedLanguage = secureStorage.getItem('msk-language') as Language;
       return savedLanguage === 'fr' ? 'fr' : 'en';
     }
     return 'en';
@@ -183,7 +184,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     
     // Save to localStorage
     if (typeof window !== 'undefined') {
-      localStorage.setItem('msk-language', lang);
+      secureStorage.setItem('msk-language', lang);
     }
     
     // Small delay for smooth transition

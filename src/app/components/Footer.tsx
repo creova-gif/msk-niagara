@@ -77,6 +77,7 @@ export function Footer() {
             </div>
             <ul className="space-y-3">
               {[
+                { to: '/donate', label: language === 'en' ? 'Support Us' : 'Nous Soutenir' },
                 { to: '/about/partnership', label: t('nav.partnership') },
                 { to: '/about/hubs', label: t('nav.hubs') },
                 { to: '/about/members', label: t('nav.members') },

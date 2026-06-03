@@ -22,6 +22,8 @@ import { Timeline } from './pages/Timeline';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { HelpCenter } from './components/HelpCenter';
 import { Media } from './pages/Media';
+import { Partners } from './pages/Partners';
+import { Donate } from './pages/Donate';
 
 /**
  * App Content Component
@@ -44,6 +46,7 @@ function AppContent() {
             <Route path="/about/hubs" element={<ResearchHubs />} />
             <Route path="/about/hubs/:hubId" element={<HubDetail />} />
             <Route path="/about/members" element={<MemberBios />} />
+            <Route path="/partners" element={<Partners />} />
             <Route path="/research/projects" element={<ResearchProjects />} />
             <Route path="/research/knowledge" element={<KnowledgeDissemination />} />
             <Route path="/community" element={<Community />} />
@@ -51,6 +54,7 @@ function AppContent() {
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/help" element={<HelpCenter />} />
             <Route path="/media" element={<Media />} />
+            <Route path="/donate" element={<Donate />} />
           </Routes>
         </main>
       </PageTransition>

@@ -1,3 +1,4 @@
+import { sanitizeEmail } from '../utils/security';
 /**
  * TeamMemberCard Component
  * 
@@ -122,7 +123,7 @@ export function TeamMemberCard({ member, language = 'en', showHub = true }: Team
             <div className="flex items-center gap-2">
               <Mail className="w-4 h-4 text-dark-red flex-shrink-0" />
               <a 
-                href={`mailto:${member.email}`} 
+                href={`mailto:${sanitizeEmail(member.email)}`} 
                 className="text-sm text-dark-red hover:text-dark-red/80 transition-colors truncate font-medium"
               >
                 {language === 'en' ? 'Contact' : 'Contacter'}

@@ -1,3 +1,4 @@
+import { sanitizeUrl } from '../utils/security';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Badge } from '../components/ui/badge';
 import { Button } from '../components/ui/button';
@@ -546,7 +547,7 @@ export function ResearchProjects() {
                           asChild
                           className="bg-gradient-to-r from-[#8B0000] to-[#A40000] hover:shadow-xl text-white font-semibold px-8 py-6 rounded-xl transition-all duration-300 group/btn border-0"
                         >
-                          <a href={project.surveyLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3">
+                          <a href={sanitizeUrl(project.surveyLink)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3">
                             <ExternalLink className="w-5 h-5" />
                             <span>{language === 'en' ? 'Learn More & Get Involved' : 'En savoir plus et participer'}</span>
                             <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />

@@ -320,6 +320,7 @@ export function Header() {
 
             {/* Single nav items */}
             {[
+              { label: language === 'en' ? 'Partners' : 'Partenaires', href: '/partners' },
               { label: t('nav.community'), href: '/community' },
               { label: t('nav.timeline'), href: '/timeline' },
               { label: language === 'en' ? 'Media' : 'Médias', href: '/media' },
@@ -364,13 +365,25 @@ export function Header() {
             {/* Divider */}
             <div className={`w-px h-5 ${isDark ? 'bg-white/15' : 'bg-gray-200'}`} />
 
+            {/* CTA — Support Us */}
+            <Link
+              to="/donate"
+              className="inline-flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-[#8B0000] to-[#A31515] text-white text-sm font-semibold rounded-full hover:shadow-[0_4px_16px_rgba(139,0,0,0.4)] hover:-translate-y-px transition-all duration-300 group"
+            >
+              {language === 'en' ? 'Support Us' : 'Nous Soutenir'}
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            </Link>
+
             {/* CTA — Get Involved */}
             <Link
               to="/about/partnership"
-              className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#8B0000] text-white text-sm font-semibold rounded-full hover:bg-[#A31515] transition-all duration-200 shadow-md hover:shadow-[0_4px_16px_rgba(139,0,0,0.4)] hover:-translate-y-px group"
+              className={`inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-full border-2 transition-all duration-200 group ${
+                isDark 
+                  ? 'border-white/20 text-white hover:bg-white/10' 
+                  : 'border-gray-200 text-[#0A0A0A] hover:border-[#8B0000] hover:text-[#8B0000]'
+              }`}
             >
               {language === 'en' ? 'Get Involved' : 'Participer'}
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </div>
 
@@ -411,6 +424,7 @@ export function Header() {
                 { label: t('nav.partnership'), href: '/about/partnership' },
                 { label: t('nav.hubs'), href: '/about/hubs' },
                 { label: t('nav.members'), href: '/about/members' },
+                { label: language === 'en' ? 'Partners' : 'Partenaires', href: '/partners' },
                 { label: t('nav.projects'), href: '/research/projects' },
                 { label: t('nav.knowledge'), href: '/research/knowledge' },
                 { label: t('nav.community'), href: '/community' },
@@ -434,14 +448,23 @@ export function Header() {
                 </Link>
               ))}
 
-              <div className="pt-2 px-2">
+              <div className="pt-2 px-2 flex flex-col gap-2">
+                <Link
+                  to="/donate"
+                  className="flex items-center justify-center gap-2 w-full py-3 bg-gradient-to-r from-[#8B0000] to-[#A31515] text-white text-sm font-semibold rounded-xl hover:shadow-lg transition-all"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {language === 'en' ? 'Support Us' : 'Nous Soutenir'}
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
                 <Link
                   to="/about/partnership"
-                  className="flex items-center justify-center gap-2 w-full py-3 bg-[#8B0000] text-white text-sm font-semibold rounded-xl hover:bg-[#A31515] transition-colors"
+                  className={`flex items-center justify-center gap-2 w-full py-3 text-sm font-semibold rounded-xl transition-colors border-2 ${
+                    isDark ? 'border-white/20 text-white' : 'border-gray-200 text-[#0A0A0A]'
+                  }`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {language === 'en' ? 'Get Involved' : 'Participer'}
-                  <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>

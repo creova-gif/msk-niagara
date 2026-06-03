@@ -1,3 +1,4 @@
+import { sanitizeEmail } from '../utils/security';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Card, CardContent } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
@@ -854,7 +855,7 @@ export function MemberBios() {
                         {/* Contact Button for Hub Leaders and Co-Directors */}
                         {(member.isHubLeader || member.isCoDirector) && member.email && (
                           <a
-                            href={`mailto:${member.email}`}
+                            href={`mailto:${sanitizeEmail(member.email)}`}
                             className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-gradient-to-r from-[#8B0000] to-[#6B0000] text-white hover:from-[#A40000] hover:to-[#8B0000] rounded-lg transition-all duration-300 shadow-md hover:shadow-lg font-medium text-sm sm:text-base"
                           >
                             <Mail className="w-4 h-4" />
@@ -983,7 +984,7 @@ export function MemberBios() {
                         {/* Contact Button for Community Hub Leaders */}
                         {member.isHubLeader && member.email && (
                           <a
-                            href={`mailto:${member.email}`}
+                            href={`mailto:${sanitizeEmail(member.email)}`}
                             className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-gradient-to-r from-[#8B0000] to-[#6B0000] text-white hover:from-[#A40000] hover:to-[#8B0000] rounded-lg transition-all duration-300 shadow-md hover:shadow-lg font-medium text-sm sm:text-base"
                           >
                             <Mail className="w-4 h-4" />

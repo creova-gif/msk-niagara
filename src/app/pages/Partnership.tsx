@@ -1,3 +1,4 @@
+import { sanitizeUrl } from '../utils/security';
 import { useLanguage } from '../contexts/LanguageContext';
 import { ArrowRight, ExternalLink, Users, Shield } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
@@ -157,7 +158,7 @@ export function Partnership() {
                 <div className="flex">
                   {partners.map((partner, index) => (
                     <div key={index} className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 px-3">
-                      <a href={partner.url} target="_blank" rel="noopener noreferrer" className="block group h-full">
+                      <a href={sanitizeUrl(partner.url)} target="_blank" rel="noopener noreferrer" className="block group h-full">
                         <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:border-[#8B0000]/30 hover:shadow-lg transition-all duration-300 h-full flex flex-col items-center justify-center min-h-[220px] gap-4">
                           <div className="h-20 flex items-center justify-center">
                             <img src={partner.logo} alt={language === 'en' ? partner.name : partner.nameFr}

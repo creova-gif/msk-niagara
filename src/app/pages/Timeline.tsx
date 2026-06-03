@@ -2,8 +2,9 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
-import { Calendar, MapPin, Users, Clock, Inbox } from 'lucide-react';
+import { Calendar, MapPin, Users, Clock, Inbox, ExternalLink } from 'lucide-react';
 import { TimelineBeam } from '../components/HeroAnimations';
+import { sanitizeUrl } from '../utils/security';
 
 const TODAY = new Date();
 TODAY.setHours(0, 0, 0, 0);
@@ -82,6 +83,19 @@ export function Timeline() {
   ];
 
   const allEvents = [
+    {
+      dateValue: new Date('2026-06-19'),
+      date: language === 'en' ? 'June 19, 2026' : '19 juin 2026',
+      time: '9:00 AM – 1:00 PM',
+      title: language === 'en' ? 'Community-University Symposium' : 'Symposium communautaire-universitaire',
+      description: language === 'en'
+        ? 'The MSK/MSM team will present their preliminary findings on five research projects focused on improving public and institutional awareness about the issues, needs and identities of Afro-descendant and immigrant and refugee populations in Niagara. The symposium will begin with morning refreshments at 9am and conclude at about 1pm, followed by a light lunch. We are grateful to the Social Justice Research Institute at Brock University for its generous support of this event.'
+        : 'L\'équipe MSK/MSM présentera les résultats préliminaires sur les cinq projets de recherche visant à sensibiliser le public et les institutions aux enjeux des populations afro-descendantes, immigrantes et réfugiées du Niagara. Le symposium commencera par des rafraîchissements à 9 h et se terminera vers 13 h, suivi d\'un déjeuner léger. Nous remercions l\'Institut de recherche sur la justice sociale (SJRI) de l\'Université Brock pour son généreux soutien.',
+      location: language === 'en' ? 'Community Room, Civic Square, Welland, ON' : 'Salle communautaire, Civic Square, Welland, ON',
+      locationUrl: 'https://maps.app.goo.gl/nEzwTCaAiYCJ43Kn9',
+      registration: language === 'en' ? 'Open (RSVP by May 29)' : 'Ouverte (RSVP avant le 29 mai)',
+      registrationUrl: 'https://doodle.com/sign-up-sheet/participate/070efb40-abeb-4fb8-8d7e-7fba14025436/select',
+    },
     {
       dateValue: new Date('2026-02-20'),
       date: language === 'en' ? 'February 20, 2026' : '20 février 2026',
@@ -289,7 +303,9 @@ interface EventData {
   title: string;
   description: string;
   location: string;
+  locationUrl?: string;
   registration: string;
+  registrationUrl?: string;
 }
 
 function EventCard({ event, isPast, language, t }: {
@@ -326,17 +342,29 @@ function EventCard({ event, isPast, language, t }: {
 
         <div className="flex items-center gap-2 text-[#0A0A0A]/60">
           <MapPin className="w-4 h-4 shrink-0" />
-          <span className="text-sm">{event.location}</span>
+          {event.locationUrl ? (
+            <a href={sanitizeUrl(event.locationUrl)} target="_blank" rel="noopener noreferrer" className="text-sm text-[#8B0000] hover:underline flex items-center gap-1">
+              {event.location}
+              <ExternalLink className="w-3 h-3" />
+            </a>
+          ) : (
+            <span className="text-sm">{event.location}</span>
+          )}
         </div>
 
         <div className="flex items-center justify-between pt-2 flex-wrap gap-2">
           <div className="flex items-center gap-2">
             <span className="text-sm text-[#0A0A0A]/50">{t('timeline.registration')}:</span>
-            <Badge variant={event.registration === 'Open' ? 'default' : 'secondary'}>
-              {event.registration === 'Open' ? t('common.open') : event.registration}
+            <Badge variant={event.registration === 'Closed' || event.registration === 'Fermée' ? 'secondary' : 'default'} className={event.registration !== 'Closed' && event.registration !== 'Fermée' ? 'bg-[#089EA5] hover:bg-[#067A80]' : ''}>
+              {event.registration}
             </Badge>
           </div>
-          {event.registration === 'Open' && !isPast && (
+          {event.registrationUrl && !isPast ? (
+            <a href={sanitizeUrl(event.registrationUrl)} target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-[#8B0000] text-white text-sm font-medium rounded-lg hover:bg-[#A40000] transition-colors inline-flex items-center gap-2">
+              {t('timeline.register')}
+              <ExternalLink className="w-4 h-4" />
+            </a>
+          ) : event.registration === 'Open' && !isPast && (
             <button className="px-4 py-2 bg-[#8B0000] text-white text-sm font-medium rounded-lg hover:bg-[#A40000] transition-colors">
               {t('timeline.register')}
             </button>

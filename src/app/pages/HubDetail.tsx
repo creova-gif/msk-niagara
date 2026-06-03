@@ -1,3 +1,4 @@
+import { sanitizeEmail } from '../utils/security';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useParams, Link } from 'react-router';
 import { Card, CardContent } from '../components/ui/card';
@@ -405,7 +406,7 @@ function MemberCard({ member, language }: { member: any; language: string }) {
           {member.email && (
             <div className="flex items-center gap-2">
               <Mail className="w-4 h-4 flex-shrink-0 text-[#8B0000]" />
-              <a href={`mailto:${member.email}`} className="text-[#8B0000] hover:underline truncate">
+              <a href={`mailto:${sanitizeEmail(member.email)}`} className="text-[#8B0000] hover:underline truncate">
                 {member.email}
               </a>
             </div>
