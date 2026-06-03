@@ -109,56 +109,70 @@ export function Header() {
           <Link
             to="/"
             className="flex items-center gap-3 group shrink-0 select-none"
-            aria-label="MSK Research Partnership — Home"
+            aria-label="MSK Niagara Research Partnership — Home"
           >
-            {/* Brand mark — geometric SVG icon */}
-            <div className="relative w-10 h-10 shrink-0">
-              {/* Background shape */}
-              <div className="absolute inset-0 rounded-xl bg-[#8B0000] group-hover:scale-105 transition-transform duration-300" />
-              {/* Inner glow on hover */}
-              <div className="absolute inset-0 rounded-xl bg-[#8B0000] opacity-0 group-hover:opacity-100 blur-md transition-opacity duration-300" />
-              {/* SVG mark: three rising bars (knowledge/growth) */}
+            {/* Brand mark — circular "rising voices" mark */}
+            <div className="relative w-11 h-11 shrink-0">
               <svg
-                className="absolute inset-0 w-full h-full p-2.5"
-                viewBox="0 0 20 16"
+                className="absolute inset-0 w-full h-full transition-transform duration-500 ease-out group-hover:rotate-3"
+                viewBox="0 0 44 44"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
               >
-                <rect x="0"  y="8"  width="4.5" height="8"  rx="1" fill="white" fillOpacity="0.9" />
-                <rect x="7.75" y="4" width="4.5" height="12" rx="1" fill="white" />
-                <rect x="15.5" y="0" width="4.5" height="16" rx="1" fill="white" fillOpacity="0.7" />
+                {/* circle field */}
+                <circle cx="22" cy="22" r="22" fill="#8B0000" />
+                {/* faint inner ring for craft */}
+                <circle cx="22" cy="22" r="17.5" stroke="white" strokeOpacity="0.14" strokeWidth="1" />
+                {/* source point — the community / the subjugated */}
+                <circle cx="22" cy="30.5" r="2.6" fill="white" />
+                {/* three ascending arcs — knowledge mobilized outward & up */}
+                <path
+                  d="M15 27 Q22 20.5 29 27"
+                  stroke="white" strokeWidth="2.4" strokeLinecap="round" fill="none"
+                  className="origin-center transition-opacity duration-300"
+                />
+                <path
+                  d="M11.5 24 Q22 13 32.5 24"
+                  stroke="white" strokeOpacity="0.72" strokeWidth="2.4" strokeLinecap="round" fill="none"
+                />
+                <path
+                  d="M8.5 21.5 Q22 7 35.5 21.5"
+                  stroke="white" strokeOpacity="0.42" strokeWidth="2.4" strokeLinecap="round" fill="none"
+                />
               </svg>
             </div>
 
             {/* Wordmark */}
-            <div className="hidden sm:flex flex-col justify-center gap-px leading-none">
+            <div className="hidden sm:flex flex-col justify-center leading-none">
               {/* Primary name line */}
-              <div className="flex items-baseline gap-1.5">
+              <div className="flex items-center gap-2">
                 <span
-                  className={`font-extrabold text-[17px] tracking-tight leading-none transition-colors duration-300 ${
+                  className={`font-extrabold text-[20px] leading-none transition-colors duration-300 ${
                     isDark ? 'text-white' : 'text-[#0A0A0A]'
                   }`}
-                  style={{ fontFamily: 'var(--font-heading)', letterSpacing: '-0.03em' }}
+                  style={{ fontFamily: 'var(--font-heading)', letterSpacing: '-0.045em' }}
                 >
                   MSK
                 </span>
-                {/* Crimson accent dot */}
                 <span
-                  className="w-1.5 h-1.5 rounded-full bg-[#8B0000] mb-px shrink-0 group-hover:scale-125 transition-transform duration-200"
+                  className={`w-px h-[18px] transition-colors duration-300 ${
+                    isDark ? 'bg-white/25' : 'bg-gray-300'
+                  }`}
                 />
                 <span
-                  className={`font-medium text-[13px] tracking-tight leading-none transition-colors duration-300 ${
-                    isDark ? 'text-white/80' : 'text-gray-600'
+                  className={`text-[13px] font-medium leading-none transition-colors duration-300 ${
+                    isDark ? 'text-white/75' : 'text-gray-600'
                   }`}
-                  style={{ fontFamily: 'var(--font-heading)' }}
+                  style={{ fontFamily: 'var(--font-heading)', letterSpacing: '-0.01em' }}
                 >
                   Niagara
                 </span>
               </div>
               {/* Sub-label */}
               <span
-                className={`text-[9.5px] font-semibold tracking-[0.18em] uppercase leading-none transition-colors duration-300 ${
-                  isDark ? 'text-white/35' : 'text-gray-400'
+                className={`mt-[5px] text-[9px] font-semibold tracking-[0.24em] uppercase leading-none transition-colors duration-300 ${
+                  isDark ? 'text-white/40' : 'text-gray-400'
                 }`}
               >
                 Research&nbsp;Partnership
