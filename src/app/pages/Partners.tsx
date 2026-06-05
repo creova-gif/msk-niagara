@@ -137,51 +137,80 @@ export function Partners() {
             </ul>
           </div>
 
-          {/* Venn */}
-          <div className="relative mx-auto w-full max-w-[420px] aspect-square">
-            <div className="absolute inset-0" style={{ filter: 'saturate(1.05)' }}>
-              {/* Community — bottom right */}
+          {/* Venn — luminous dark diagram */}
+          <div className="relative mx-auto w-full max-w-[440px] aspect-square rounded-[28px] bg-[#0B0B0B] overflow-hidden shadow-[0_30px_70px_-30px_rgba(0,0,0,0.6)] ring-1 ring-white/5">
+            {/* dot-grid texture */}
+            <div
+              className="absolute inset-0 opacity-[0.05] pointer-events-none"
+              style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '24px 24px' }}
+            />
+
+            {/* glow orbs (screen blend → overlaps brighten) */}
+            <div className="absolute inset-0">
+              {/* Funding — top */}
               <div
-                className="absolute rounded-full mix-blend-multiply animate-fade-in-up"
-                style={{ width: '62%', height: '62%', bottom: '4%', right: '4%', backgroundColor: '#089EA5', opacity: 0.78 }}
+                className="absolute rounded-full mix-blend-screen animate-fade-in-up"
+                style={{
+                  width: '70%', height: '70%', top: '4%', left: '50%', transform: 'translateX(-50%)',
+                  background: 'radial-gradient(circle at 50% 50%, rgba(201,123,46,0.95) 0%, rgba(201,123,46,0.30) 42%, rgba(201,123,46,0) 70%)',
+                  animationDelay: '0.05s',
+                }}
               />
               {/* Academic — bottom left */}
               <div
-                className="absolute rounded-full mix-blend-multiply animate-fade-in-up"
-                style={{ width: '62%', height: '62%', bottom: '4%', left: '4%', backgroundColor: '#8B0000', opacity: 0.78, animationDelay: '0.1s' }}
+                className="absolute rounded-full mix-blend-screen animate-fade-in-up"
+                style={{
+                  width: '70%', height: '70%', bottom: '6%', left: '3%',
+                  background: 'radial-gradient(circle at 50% 50%, rgba(176,20,38,0.95) 0%, rgba(176,20,38,0.30) 42%, rgba(176,20,38,0) 70%)',
+                  animationDelay: '0.15s',
+                }}
               />
-              {/* Funding — top center */}
+              {/* Community — bottom right */}
               <div
-                className="absolute rounded-full mix-blend-multiply animate-fade-in-up"
-                style={{ width: '62%', height: '62%', top: '4%', left: '50%', transform: 'translateX(-50%)', backgroundColor: '#C97B2E', opacity: 0.82, animationDelay: '0.2s' }}
+                className="absolute rounded-full mix-blend-screen animate-fade-in-up"
+                style={{
+                  width: '70%', height: '70%', bottom: '6%', right: '3%',
+                  background: 'radial-gradient(circle at 50% 50%, rgba(20,184,192,0.92) 0%, rgba(20,184,192,0.28) 42%, rgba(20,184,192,0) 70%)',
+                  animationDelay: '0.25s',
+                }}
               />
+            </div>
 
-              {/* Labels */}
-              <div className="absolute top-[12%] left-1/2 -translate-x-1/2 text-center text-white">
-                <Landmark className="w-5 h-5 mx-auto mb-1 drop-shadow" />
-                <span className="text-[11px] font-bold tracking-wide drop-shadow">
-                  {language === 'en' ? 'Funding' : 'Financiers'}
-                </span>
-              </div>
-              <div className="absolute bottom-[14%] left-[10%] text-center text-white">
-                <BookOpen className="w-5 h-5 mx-auto mb-1 drop-shadow" />
-                <span className="text-[11px] font-bold tracking-wide drop-shadow">
-                  {language === 'en' ? 'Academic' : 'Académiques'}
-                </span>
-              </div>
-              <div className="absolute bottom-[14%] right-[10%] text-center text-white">
-                <Users className="w-5 h-5 mx-auto mb-1 drop-shadow" />
-                <span className="text-[11px] font-bold tracking-wide drop-shadow">
-                  {language === 'en' ? 'Community' : 'Communauté'}
-                </span>
-              </div>
+            {/* thin defining rings */}
+            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+              <circle cx="50" cy="33" r="33" stroke="#C97B2E" strokeOpacity="0.5" strokeWidth="0.4" />
+              <circle cx="33" cy="61" r="33" stroke="#B01426" strokeOpacity="0.5" strokeWidth="0.4" />
+              <circle cx="67" cy="61" r="33" stroke="#14B8C0" strokeOpacity="0.5" strokeWidth="0.4" />
+            </svg>
 
-              {/* Center node */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-                <div className="bg-white rounded-full w-[78px] h-[78px] flex flex-col items-center justify-center shadow-lg border border-black/5 text-center">
-                  <span className="font-extrabold text-[#0A0A0A] text-[13px] leading-none" style={{ fontFamily: 'var(--font-heading)' }}>MSK</span>
-                  <span className="text-[8.5px] font-semibold tracking-[0.12em] uppercase text-gray-500 mt-1">Niagara</span>
-                </div>
+            {/* Labels */}
+            <div className="absolute top-[12%] left-1/2 -translate-x-1/2 text-center text-white/90">
+              <Landmark className="w-5 h-5 mx-auto mb-1" style={{ filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.6))' }} />
+              <span className="text-[11px] font-bold tracking-wide" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.7)' }}>
+                {language === 'en' ? 'Funding' : 'Financiers'}
+              </span>
+            </div>
+            <div className="absolute bottom-[13%] left-[11%] text-center text-white/90">
+              <BookOpen className="w-5 h-5 mx-auto mb-1" style={{ filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.6))' }} />
+              <span className="text-[11px] font-bold tracking-wide" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.7)' }}>
+                {language === 'en' ? 'Academic' : 'Académiques'}
+              </span>
+            </div>
+            <div className="absolute bottom-[13%] right-[11%] text-center text-white/90">
+              <Users className="w-5 h-5 mx-auto mb-1" style={{ filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.6))' }} />
+              <span className="text-[11px] font-bold tracking-wide" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.7)' }}>
+                {language === 'en' ? 'Community' : 'Communauté'}
+              </span>
+            </div>
+
+            {/* Center medallion — where the work lives */}
+            <div className="absolute top-[51%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+              <div
+                className="bg-white rounded-full w-[84px] h-[84px] flex flex-col items-center justify-center text-center"
+                style={{ boxShadow: '0 0 0 1px rgba(255,255,255,0.4), 0 0 32px 4px rgba(255,255,255,0.18), 0 10px 30px rgba(0,0,0,0.5)' }}
+              >
+                <span className="font-extrabold text-[#0A0A0A] text-[15px] leading-none" style={{ fontFamily: 'var(--font-heading)' }}>MSK</span>
+                <span className="text-[8.5px] font-semibold tracking-[0.16em] uppercase text-gray-500 mt-1">Niagara</span>
               </div>
             </div>
           </div>
