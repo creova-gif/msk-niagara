@@ -250,31 +250,34 @@ export function Home() {
               {
                 number: '01',
                 color: '#089EA5',
+                image: 'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&q=80&w=600',
                 title: language === 'en' ? 'Childhood & Growing Up' : 'Enfance et croissance',
                 desc: language === 'en'
                   ? 'Listening to newcomer children\'s experiences with housing, sport, education, and belonging.'
                   : 'Écouter les expériences des enfants nouveaux arrivants en matière de logement, sport, éducation et appartenance.',
-                href: '/about/hubs',
+                href: '/about/hubs/childhood',
                 topics: language === 'en' ? ['Housing & Home', 'Leisure & Sport', 'Education'] : ['Logement', 'Loisirs', 'Éducation'],
               },
               {
                 number: '02',
                 color: '#C97B2E',
+                image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=600',
                 title: language === 'en' ? 'Health Literacy' : 'Littératie en santé',
                 desc: language === 'en'
                   ? 'Promoting health literacy in immigrant and refugee populations across Niagara.'
                   : 'Promouvoir la littératie en santé auprès des populations immigrantes et réfugiées.',
-                href: '/about/hubs',
+                href: '/about/hubs/health',
                 topics: language === 'en' ? ['Healthcare Access', 'Newcomer Health', 'Resources'] : ['Accès aux soins', 'Santé', 'Ressources'],
               },
               {
                 number: '03',
                 color: '#7B5EA7',
+                image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&q=80&w=600',
                 title: language === 'en' ? 'Identity, Connections & Belonging' : 'Identité, liens et appartenance',
                 desc: language === 'en'
                   ? 'Fostering belonging among Afro-descendants, LGBTQ+ newcomers, and seasonal farmworkers.'
                   : 'Favoriser l\'appartenance chez les personnes afro-descendantes, les nouveaux arrivants LGBTQ+ et les travailleurs agricoles.',
-                href: '/about/hubs',
+                href: '/about/hubs/identity',
                 topics: language === 'en' ? ['Afro-Descendants', 'LGBTQ+ Newcomers', 'Farmworkers'] : ['Afro-descendants', 'LGBTQ+', 'Travailleurs'],
               },
             ].map((hub) => (
@@ -283,20 +286,29 @@ export function Home() {
                 to={hub.href}
                 className="group relative bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-gray-200 hover:shadow-lg transition-all duration-300 flex flex-col"
               >
-                {/* Top accent bar */}
+                {/* Hub Banner Image */}
+                <div className="h-44 w-full overflow-hidden relative">
+                  <img
+                    src={hub.image}
+                    alt={hub.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                  <span className="absolute bottom-3 left-4 text-3xl font-black leading-none text-white/40" style={{ fontFamily: 'var(--font-heading)' }}>
+                    {hub.number}
+                  </span>
+                </div>
+                {/* Top accent bar under image */}
                 <div className="h-1 w-full" style={{ backgroundColor: hub.color }} />
                 <div className="p-6 flex flex-col gap-4 flex-1">
                   <div className="flex items-start justify-between">
-                    <span className="text-4xl font-black leading-none" style={{ color: hub.color, opacity: 0.15, fontFamily: 'var(--font-heading)' }}>
-                      {hub.number}
-                    </span>
-                    <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-gray-500 group-hover:translate-x-0.5 transition-all" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-[#0A0A0A] text-lg leading-snug mb-2" style={{ fontFamily: 'var(--font-heading)' }}>
+                    <h3 className="font-bold text-[#0A0A0A] text-lg leading-snug" style={{ fontFamily: 'var(--font-heading)' }}>
                       {hub.title}
                     </h3>
-                    <p className="text-gray-500 text-sm leading-relaxed">{hub.desc}</p>
+                    <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-[#8B0000] group-hover:translate-x-0.5 transition-all mt-1 flex-shrink-0" />
+                  </div>
+                  <div>
+                    <p className="text-gray-500 text-sm leading-relaxed mb-4">{hub.desc}</p>
                   </div>
                   <div className="flex flex-wrap gap-1.5 mt-auto pt-2">
                     {hub.topics.map(t => (
@@ -355,225 +367,255 @@ export function Home() {
 
       {/* Original detailed content — keeping for SEO/academic reference but visually restructured */}
       <section className="py-16 md:py-24 bg-white border-t border-gray-100">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <div className="prose prose-lg max-w-none">
-            {language === 'en' ? (
-              <>
-                <p className="text-lg text-[#0A0A0A]/90 leading-relaxed mb-6 animate-fade-in-up">
-                  <strong className="text-[#8B0000] text-xl">Mobilizing Subjugated Knowledges for a Just and Inclusive Niagara</strong> is a transnational, university-community partnership funded by the{' '}
-                  <a 
-                    href="https://www.sshrc-crsh.gc.ca/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-[#8B0000] hover:text-[#A40000] underline inline-flex items-center gap-1 font-semibold transition-colors"
-                  >
-                    Social Sciences and Humanities Research Council
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
-                  . Our interdisciplinary team of faculty, students and{' '}
-                  <Link to="/community" className="text-[#8B0000] hover:text-[#A40000] underline font-semibold transition-colors">
-                    community organizations
-                  </Link>
-                  {' '}is committed to fostering a more just and inclusive Niagara. Our work is informed by the principles of social justice and a desire to mobilize voices that have been marginalized from the dominant knowledge structures that maintain and enhance power in society.
-                </p>
-
-                <p className="text-lg text-[#0A0A0A]/90 leading-relaxed mb-8 animate-fade-in-up animate-delay-100">
-                  Through community-based participatory research and knowledge mobilization conducted in <strong className="text-[#8B0000]">English, French and Spanish</strong>, we will:
-                </p>
-
-                <div className="space-y-4 mb-12">
-                  <div className="flex gap-4 p-4 bg-[#8B0000]/5 rounded-xl animate-slide-in-left animate-delay-100 hover:shadow-md transition-shadow">
-                    <CheckCircle2 className="w-7 h-7 text-[#8B0000] flex-shrink-0 mt-1" />
-                    <p className="text-[#0A0A0A]/90 leading-relaxed">
-                      Provide a forum for African descendant and foreign-born persons in the Regional Municipality of Niagara to share their experiences, knowledge and accomplishments with the non-profit, academic, government and para-public sectors;
-                    </p>
-                  </div>
-                  <div className="flex gap-4 p-4 bg-[#8B0000]/5 rounded-xl animate-slide-in-left animate-delay-200 hover:shadow-md transition-shadow">
-                    <CheckCircle2 className="w-7 h-7 text-[#8B0000] flex-shrink-0 mt-1" />
-                    <p className="text-[#0A0A0A]/90 leading-relaxed">
-                      Provide community organizations with insights and tools to develop culturally responsive services;
-                    </p>
-                  </div>
-                  <div className="flex gap-4 p-4 bg-[#8B0000]/5 rounded-xl animate-slide-in-left animate-delay-300 hover:shadow-md transition-shadow">
-                    <CheckCircle2 className="w-7 h-7 text-[#8B0000] flex-shrink-0 mt-1" />
-                    <p className="text-[#0A0A0A]/90 leading-relaxed">
-                      Contribute to scholarship;
-                    </p>
-                  </div>
-                  <div className="flex gap-4 p-4 bg-[#8B0000]/5 rounded-xl animate-slide-in-left animate-delay-400 hover:shadow-md transition-shadow">
-                    <CheckCircle2 className="w-7 h-7 text-[#8B0000] flex-shrink-0 mt-1" />
-                    <p className="text-[#0A0A0A]/90 leading-relaxed">
-                      Provide training and mentoring for student and community-based researchers.
-                    </p>
-                  </div>
-                </div>
-
-                <h2 className="text-2xl md:text-3xl text-[#0A0A0A] mb-6 mt-12 animate-fade-in-up">Our Research Hubs</h2>
-                <p className="text-lg text-[#0A0A0A]/90 leading-relaxed mb-6 animate-fade-in-up animate-delay-100">
-                  Our work is organized into three research Hubs that focus on areas critical to well-being:
-                </p>
-
-                <div className="space-y-4 mb-8">
-                  <div className="p-5 bg-[#8B0000]/5 rounded-lg border-l-4 border-[#8B0000] animate-fade-in-up animate-delay-100">
-                    <h3 className="text-xl font-semibold text-[#0A0A0A] mb-2">
-                      <Link to="/about/hubs" className="hover:text-[#8B0000] transition-colors">
-                        Childhood and Growing Up Hub
-                      </Link>
-                    </h3>
-                    <p className="text-[#0A0A0A]/80">
-                      Will listen to and respond to newcomer children with respect to their experiences in housing, sport/recreation and schooling.
-                    </p>
-                  </div>
-
-                  <div className="p-5 bg-[#8B0000]/5 rounded-lg border-l-4 border-[#8B0000] animate-fade-in-up animate-delay-200">
-                    <h3 className="text-xl font-semibold text-[#0A0A0A] mb-2">
-                      <Link to="/about/hubs" className="hover:text-[#8B0000] transition-colors">
-                        Health Literacy Hub
-                      </Link>
-                    </h3>
-                    <p className="text-[#0A0A0A]/80">
-                      Will promote health literacy in immigrant and refugee populations.
-                    </p>
-                  </div>
-
-                  <div className="p-5 bg-[#8B0000]/5 rounded-lg border-l-4 border-[#8B0000] animate-fade-in-up animate-delay-300">
-                    <h3 className="text-xl font-semibold text-[#0A0A0A] mb-2">
-                      <Link to="/about/hubs" className="hover:text-[#8B0000] transition-colors">
-                        Identity, Connections and Belonging Hub
-                      </Link>
-                    </h3>
-                    <p className="text-[#0A0A0A]/80">
-                      Hosts three distinct projects which will foster a sense of belonging amongst three populations: Afro-descendants, sexual and gender diverse young adult newcomers, and seasonal agricultural workers.
-                    </p>
-                  </div>
-                </div>
-
-                <h2 className="text-2xl md:text-3xl text-[#0A0A0A] mb-6 mt-12 animate-fade-in-up">Governance Structure</h2>
-                <p className="text-lg text-[#0A0A0A]/90 leading-relaxed mb-6 animate-fade-in-up animate-delay-100">
-                  Even though we are working from 3 distinct Hubs and 5 projects, the MSK initiative is governed by a unifying structure—<strong>the Implementation Council (IC)</strong>—in which each Hub and each project is valued in its interactions with other Hubs/projects. The IC is the body where important decisions regarding governance and administration are made by consensus.
-                </p>
-                <p className="text-lg text-[#0A0A0A]/90 leading-relaxed mb-6 animate-fade-in-up animate-delay-200">
-                  The IC comprises 10 members: the 2 Co-Directors, 6 Hub representatives (2 from each Hub: 1 community organization representative + 1 faculty member) and 2 at-large student representatives. Hub and student representatives are chosen by Hub members, based on the principle of annual rotating membership so that all interested participants may serve if they wish.
-                </p>
-
-                <div className="p-6 bg-[#8B0000]/5 rounded-lg my-12 border border-[#8B0000]/20 animate-fade-in-up animate-delay-300">
-                  <p className="text-lg text-[#0A0A0A] leading-relaxed mb-4">
-                    <strong>We invite you to learn more about the unique and exciting work unfolding in our Hubs.</strong>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-12 lg:gap-16 items-start">
+            
+            {/* Left side: Text & Objectives */}
+            <div className="prose prose-lg max-w-none">
+              {language === 'en' ? (
+                <>
+                  <p className="text-lg text-[#0A0A0A]/90 leading-relaxed mb-6 animate-fade-in-up animate-delay-100">
+                    <strong className="text-[#8B0000] text-xl">Mobilizing Subjugated Knowledges for a Just and Inclusive Niagara</strong> is a transnational, university-community partnership funded by the{' '}
+                    <a 
+                      href="https://www.sshrc-crsh.gc.ca/" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-[#8B0000] hover:text-[#A40000] underline inline-flex items-center gap-1 font-semibold transition-colors"
+                    >
+                      Social Sciences and Humanities Research Council
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                    . Our interdisciplinary team of faculty, students and{' '}
+                    <Link to="/community" className="text-[#8B0000] hover:text-[#A40000] underline font-semibold transition-colors">
+                      community organizations
+                    </Link>
+                    {' '}is committed to fostering a more just and inclusive Niagara. Our work is informed by the principles of social justice and a desire to mobilize voices that have been marginalized from the dominant knowledge structures that maintain and enhance power in society.
                   </p>
-                  <p className="text-[#0A0A0A]/80">
-                    While our activities are Niagara-focussed, we hope that all small and mid-sized centres can draw on our work as part of their efforts to build more just and inclusive communities.
+
+                  <p className="text-lg text-[#0A0A0A]/90 leading-relaxed mb-8 animate-fade-in-up animate-delay-200">
+                    Through community-based participatory research and knowledge mobilization conducted in <strong className="text-[#8B0000]">English, French and Spanish</strong>, we will:
                   </p>
-                </div>
-              </>
-            ) : (
-              <>
-                <p className="text-lg text-[#0A0A0A]/90 leading-relaxed mb-6 animate-fade-in-up">
-                  <strong className="text-[#8B0000] text-xl">Mobiliser les savoirs marginalisés pour un Niagara juste et inclusif</strong> est un partenariat transnational université-communauté financé par le{' '}
-                  <a 
-                    href="https://www.sshrc-crsh.gc.ca/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-[#8B0000] hover:text-[#A40000] underline inline-flex items-center gap-1 font-semibold transition-colors"
-                  >
-                    Conseil de recherches en sciences humaines (CRSH)
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
-                  . Notre équipe interdisciplinaire, composée de professeur.e.s, d'étudiant.e.s et{' '}
-                  <Link to="/community" className="text-[#8B0000] hover:text-[#A40000] underline font-semibold transition-colors">
-                    d'organismes communautaires
-                  </Link>
-                  , s'engage à bâtir un Niagara plus juste et inclusif. Nos travaux s'inspirent des principes de justice sociale et du désir de donner la parole aux personnes marginalisées par les structures de savoir dominantes qui maintiennent et renforcent leur pouvoir dans la société.
-                </p>
 
-                <p className="text-lg text-[#0A0A0A]/90 leading-relaxed mb-8 animate-fade-in-up animate-delay-100">
-                  Par le biais de recherches participatives communautaires et de la mobilisation des connaissances menées en <strong className="text-[#8B0000]">anglais, en français et en espagnol</strong>, nous visons à :
-                </p>
-
-                <div className="space-y-4 mb-12">
-                  <div className="flex gap-4 p-4 bg-[#8B0000]/5 rounded-xl animate-slide-in-left animate-delay-100 hover:shadow-md transition-shadow">
-                    <CheckCircle2 className="w-7 h-7 text-[#8B0000] flex-shrink-0 mt-1" />
-                    <p className="text-[#0A0A0A]/90 leading-relaxed">
-                      Offrir aux personnes d'ascendance africaine et aux personnes nées à l'étranger résidant dans la municipalité régionale de Niagara, une tribune pour partager leurs expériences, leurs connaissances et leurs réalisations, avec les secteurs sans but lucratif, avec le milieu académique, ainsi qu'avec les secteurs gouvernementaux et parapublics;
-                    </p>
-                  </div>
-                  <div className="flex gap-4 p-4 bg-[#8B0000]/5 rounded-xl animate-slide-in-left animate-delay-200 hover:shadow-md transition-shadow">
-                    <CheckCircle2 className="w-7 h-7 text-[#8B0000] flex-shrink-0 mt-1" />
-                    <p className="text-[#0A0A0A]/90 leading-relaxed">
-                      Fournir aux organismes communautaires des perspectives et des outils pour développer des services adaptés à différentes réalités culturelles;
-                    </p>
-                  </div>
-                  <div className="flex gap-4 p-4 bg-[#8B0000]/5 rounded-xl animate-slide-in-left animate-delay-300 hover:shadow-md transition-shadow">
-                    <CheckCircle2 className="w-7 h-7 text-[#8B0000] flex-shrink-0 mt-1" />
-                    <p className="text-[#0A0A0A]/90 leading-relaxed">
-                      Contribuer à la recherche;
-                    </p>
-                  </div>
-                  <div className="flex gap-4 p-4 bg-[#8B0000]/5 rounded-xl animate-slide-in-left animate-delay-400 hover:shadow-md transition-shadow">
-                    <CheckCircle2 className="w-7 h-7 text-[#8B0000] flex-shrink-0 mt-1" />
-                    <p className="text-[#0A0A0A]/90 leading-relaxed">
-                      Offrir de la formation et du mentorat aux étudiant.e.s et aux chercheur.e.s communautaires.
-                    </p>
-                  </div>
-                </div>
-
-                <h2 className="text-2xl md:text-3xl text-[#0A0A0A] mb-6 mt-12 animate-fade-in-up">Nos pôles de recherche</h2>
-                <p className="text-lg text-[#0A0A0A]/90 leading-relaxed mb-6 animate-fade-in-up animate-delay-100">
-                  Nos travaux s'articulent autour de trois pôles de recherche axés sur des domaines essentiels au bien-être :
-                </p>
-
-                <div className="space-y-4 mb-8">
-                  <div className="p-5 bg-[#8B0000]/5 rounded-lg border-l-4 border-[#8B0000] animate-fade-in-up animate-delay-100">
-                    <h3 className="text-xl font-semibold text-[#0A0A0A] mb-2">
-                      <Link to="/about/hubs" className="hover:text-[#8B0000] transition-colors">
-                        Pôle Enfance et développement
-                      </Link>
-                    </h3>
-                    <p className="text-[#0A0A0A]/80">
-                      Écoutera et répondra aux besoins des enfants nouvellement arrivés concernant leur logement, leurs activités sportives et récréatives et leur scolarité.
-                    </p>
+                  <div className="space-y-4 mb-12">
+                    <div className="flex gap-4 p-4 bg-[#8B0000]/5 rounded-xl animate-slide-in-left animate-delay-100 hover:shadow-md transition-shadow">
+                      <CheckCircle2 className="w-7 h-7 text-[#8B0000] flex-shrink-0 mt-1" />
+                      <p className="text-[#0A0A0A]/90 leading-relaxed">
+                        Provide a forum for African descendant and foreign-born persons in the Regional Municipality of Niagara to share their experiences, knowledge and accomplishments with the non-profit, academic, government and para-public sectors;
+                      </p>
+                    </div>
+                    <div className="flex gap-4 p-4 bg-[#8B0000]/5 rounded-xl animate-slide-in-left animate-delay-200 hover:shadow-md transition-shadow">
+                      <CheckCircle2 className="w-7 h-7 text-[#8B0000] flex-shrink-0 mt-1" />
+                      <p className="text-[#0A0A0A]/90 leading-relaxed">
+                        Provide community organizations with insights and tools to develop culturally responsive services;
+                      </p>
+                    </div>
+                    <div className="flex gap-4 p-4 bg-[#8B0000]/5 rounded-xl animate-slide-in-left animate-delay-300 hover:shadow-md transition-shadow">
+                      <CheckCircle2 className="w-7 h-7 text-[#8B0000] flex-shrink-0 mt-1" />
+                      <p className="text-[#0A0A0A]/90 leading-relaxed">
+                        Contribute to scholarship;
+                      </p>
+                    </div>
+                    <div className="flex gap-4 p-4 bg-[#8B0000]/5 rounded-xl animate-slide-in-left animate-delay-400 hover:shadow-md transition-shadow">
+                      <CheckCircle2 className="w-7 h-7 text-[#8B0000] flex-shrink-0 mt-1" />
+                      <p className="text-[#0A0A0A]/90 leading-relaxed">
+                        Provide training and mentoring for student and community-based researchers.
+                      </p>
+                    </div>
                   </div>
 
-                  <div className="p-5 bg-[#8B0000]/5 rounded-lg border-l-4 border-[#8B0000] animate-fade-in-up animate-delay-200">
-                    <h3 className="text-xl font-semibold text-[#0A0A0A] mb-2">
-                      <Link to="/about/hubs" className="hover:text-[#8B0000] transition-colors">
-                        Pôle Littératie en santé
-                      </Link>
-                    </h3>
-                    <p className="text-[#0A0A0A]/80">
-                      Promouvra la littératie en santé auprès des populations immigrantes et réfugiées.
-                    </p>
-                  </div>
-
-                  <div className="p-5 bg-[#8B0000]/5 rounded-lg border-l-4 border-[#8B0000] animate-fade-in-up animate-delay-300">
-                    <h3 className="text-xl font-semibold text-[#0A0A0A] mb-2">
-                      <Link to="/about/hubs" className="hover:text-[#8B0000] transition-colors">
-                        Pôle Identité, relations et appartenance
-                      </Link>
-                    </h3>
-                    <p className="text-[#0A0A0A]/80">
-                      Héberge trois projets distincts visant à favoriser un sentiment d'appartenance chez trois groupes de populations : les personnes afro-descendantes, les jeunes adultes nouvellement arrivé.e.s et ayant une identité de genre et une orientation sexuelle diverses, et le personnel agricole saisonnier.
-                    </p>
-                  </div>
-                </div>
-
-                <h2 className="text-2xl md:text-3xl text-[#0A0A0A] mb-6 mt-12 animate-fade-in-up">Structure de gouvernance</h2>
-                <p className="text-lg text-[#0A0A0A]/90 leading-relaxed mb-6 animate-fade-in-up animate-delay-100">
-                  Bien que nous travaillions à partir de trois pôles et de cinq projets distincts, l'initiative MSK est régie par une structure unificatrice : <strong>le Conseil de mise en œuvre (CM)</strong>. Au sein de ce Conseil, chaque pôle et chaque projet est valorisé dans ses interactions avec les autres pôles et projets. Le CM est l'instance où les décisions importantes concernant la gouvernance et l'administration sont prises par consensus.
-                </p>
-                <p className="text-lg text-[#0A0A0A]/90 leading-relaxed mb-6 animate-fade-in-up animate-delay-200">
-                  Le CM est composé de dix membres : les deux membres de la codirection, six représentant.e.s des pôles (deux par pôle : 1 représentant.e d'un organisme communautaire + 1 membre du corps professoral) et 2 représentant.e.s étudiant.e.s. Les représentant.e.s des pôles et les représentant.e.s étudiant.e.s sont choisi.e.s par les membres des pôles, selon le principe d'une rotation annuelle des membres, permettant ainsi à toute personne intéressée de s'impliquer.
-                </p>
-
-                <div className="p-6 bg-[#8B0000]/5 rounded-lg my-12 border border-[#8B0000]/20 animate-fade-in-up animate-delay-300">
-                  <p className="text-lg text-[#0A0A0A] leading-relaxed mb-4">
-                    <strong>Nous vous invitons à découvrir le travail unique et stimulant qui se déroule au sein de nos Pôles.</strong>
+                  <h2 className="text-2xl md:text-3xl text-[#0A0A0A] mb-6 mt-12 animate-fade-in-up">Our Research Hubs</h2>
+                  <p className="text-lg text-[#0A0A0A]/90 leading-relaxed mb-6 animate-fade-in-up animate-delay-100">
+                    Our work is organized into three research Hubs that focus on areas critical to well-being:
                   </p>
-                  <p className="text-[#0A0A0A]/80">
-                    Bien que nos activités soient axées sur la région de Niagara, nous espérons que toutes les régions de petite et moyenne envergure pourront s'inspirer de notre travail dans le cadre de leurs efforts pour bâtir des communautés plus justes et inclusives.
+
+                  <div className="space-y-4 mb-8">
+                    <div className="p-5 bg-[#8B0000]/5 rounded-lg border-l-4 border-[#8B0000] animate-fade-in-up animate-delay-100">
+                      <h3 className="text-xl font-semibold text-[#0A0A0A] mb-2">
+                        <Link to="/about/hubs/childhood" className="hover:text-[#8B0000] transition-colors">
+                          Childhood and Growing Up Hub
+                        </Link>
+                      </h3>
+                      <p className="text-[#0A0A0A]/80">
+                        Will listen to and respond to newcomer children with respect to their experiences in housing, sport/recreation and schooling.
+                      </p>
+                    </div>
+
+                    <div className="p-5 bg-[#8B0000]/5 rounded-lg border-l-4 border-[#8B0000] animate-fade-in-up animate-delay-200">
+                      <h3 className="text-xl font-semibold text-[#0A0A0A] mb-2">
+                        <Link to="/about/hubs/health" className="hover:text-[#8B0000] transition-colors">
+                          Health Literacy Hub
+                        </Link>
+                      </h3>
+                      <p className="text-[#0A0A0A]/80">
+                        Will promote health literacy in immigrant and refugee populations.
+                      </p>
+                    </div>
+
+                    <div className="p-5 bg-[#8B0000]/5 rounded-lg border-l-4 border-[#8B0000] animate-fade-in-up animate-delay-300">
+                      <h3 className="text-xl font-semibold text-[#0A0A0A] mb-2">
+                        <Link to="/about/hubs/identity" className="hover:text-[#8B0000] transition-colors">
+                          Identity, Connections and Belonging Hub
+                        </Link>
+                      </h3>
+                      <p className="text-[#0A0A0A]/80">
+                        Hosts three distinct projects which will foster a sense of belonging amongst three populations: Afro-descendants, sexual and gender diverse young adult newcomers, and seasonal agricultural workers.
+                      </p>
+                    </div>
+                  </div>
+
+                  <h2 className="text-2xl md:text-3xl text-[#0A0A0A] mb-6 mt-12 animate-fade-in-up">Governance Structure</h2>
+                  <p className="text-lg text-[#0A0A0A]/90 leading-relaxed mb-6 animate-fade-in-up animate-delay-100">
+                    Even though we are working from 3 distinct Hubs and 5 projects, the MSK initiative is governed by a unifying structure—<strong>the Implementation Council (IC)</strong>—in which each Hub and each project is valued in its interactions with other Hubs/projects. The IC is the body where important decisions regarding governance and administration are made by consensus.
                   </p>
-                </div>
-              </>
-            )}
+                  <p className="text-lg text-[#0A0A0A]/90 leading-relaxed mb-6 animate-fade-in-up animate-delay-200">
+                    The IC comprises 10 members: the 2 Co-Directors, 6 Hub representatives (2 from each Hub: 1 community organization representative + 1 faculty member) and 2 at-large student representatives. Hub and student representatives are chosen by Hub members, based on the principle of annual rotating membership so that all interested participants may serve if they wish.
+                  </p>
+
+                  <div className="p-6 bg-[#8B0000]/5 rounded-lg my-12 border border-[#8B0000]/20 animate-fade-in-up animate-delay-300">
+                    <p className="text-lg text-[#0A0A0A] leading-relaxed mb-4">
+                      <strong>We invite you to learn more about the unique and exciting work unfolding in our Hubs.</strong>
+                    </p>
+                    <p className="text-[#0A0A0A]/80">
+                      While our activities are Niagara-focussed, we hope that all small and mid-sized centres can draw on our work as part of their efforts to build more just and inclusive communities.
+                    </p>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <p className="text-lg text-[#0A0A0A]/90 leading-relaxed mb-6 animate-fade-in-up">
+                    <strong className="text-[#8B0000] text-xl">Mobiliser les savoirs marginalisés pour un Niagara juste et inclusif</strong> est un partenariat transnational université-communauté financé par le{' '}
+                    <a 
+                      href="https://www.sshrc-crsh.gc.ca/" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-[#8B0000] hover:text-[#A40000] underline inline-flex items-center gap-1 font-semibold transition-colors"
+                    >
+                      Conseil de recherches en sciences humaines (CRSH)
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                    . Notre équipe interdisciplinaire, composée de professeur.e.s, d'étudiant.e.s et{' '}
+                    <Link to="/community" className="text-[#8B0000] hover:text-[#A40000] underline font-semibold transition-colors">
+                      d'organismes communautaires
+                    </Link>
+                    , s'engage à bâtir un Niagara plus juste et inclusif. Nos travaux s'inspirent des principes de justice sociale et du désir de donner la parole aux personnes marginalisées par les structures de savoir dominantes qui maintiennent et renforcent leur pouvoir dans la société.
+                  </p>
+
+                  <p className="text-lg text-[#0A0A0A]/90 leading-relaxed mb-8 animate-fade-in-up animate-delay-100">
+                    Par le biais de recherches participatives communautaires et de la mobilisation des connaissances menées en <strong className="text-[#8B0000]">anglais, en français et en espagnol</strong>, nous visons à :
+                  </p>
+
+                  <div className="space-y-4 mb-12">
+                    <div className="flex gap-4 p-4 bg-[#8B0000]/5 rounded-xl animate-slide-in-left animate-delay-100 hover:shadow-md transition-shadow">
+                      <CheckCircle2 className="w-7 h-7 text-[#8B0000] flex-shrink-0 mt-1" />
+                      <p className="text-[#0A0A0A]/90 leading-relaxed">
+                        Offrir aux personnes d'ascendance africaine et aux personnes nées à l'étranger résidant dans la municipalité régionale de Niagara, une tribune pour partager leurs expériences, leurs connaissances et leurs réalisations, avec les secteurs sans but lucratif, avec le milieu académique, ainsi qu'avec les secteurs gouvernementaux et parapublics;
+                      </p>
+                    </div>
+                    <div className="flex gap-4 p-4 bg-[#8B0000]/5 rounded-xl animate-slide-in-left animate-delay-200 hover:shadow-md transition-shadow">
+                      <CheckCircle2 className="w-7 h-7 text-[#8B0000] flex-shrink-0 mt-1" />
+                      <p className="text-[#0A0A0A]/90 leading-relaxed">
+                        Fournir aux organismes communautaires des perspectives et des outils pour développer des services adaptés à différentes réalités culturelles;
+                      </p>
+                    </div>
+                    <div className="flex gap-4 p-4 bg-[#8B0000]/5 rounded-xl animate-slide-in-left animate-delay-300 hover:shadow-md transition-shadow">
+                      <CheckCircle2 className="w-7 h-7 text-[#8B0000] flex-shrink-0 mt-1" />
+                      <p className="text-[#0A0A0A]/90 leading-relaxed">
+                        Contribuer à la recherche;
+                      </p>
+                    </div>
+                    <div className="flex gap-4 p-4 bg-[#8B0000]/5 rounded-xl animate-slide-in-left animate-delay-400 hover:shadow-md transition-shadow">
+                      <CheckCircle2 className="w-7 h-7 text-[#8B0000] flex-shrink-0 mt-1" />
+                      <p className="text-[#0A0A0A]/90 leading-relaxed">
+                        Offrir de la formation et du mentorat aux étudiant.e.s et aux chercheur.e.s communautaires.
+                      </p>
+                    </div>
+                  </div>
+
+                  <h2 className="text-2xl md:text-3xl text-[#0A0A0A] mb-6 mt-12 animate-fade-in-up">Nos pôles de recherche</h2>
+                  <p className="text-lg text-[#0A0A0A]/90 leading-relaxed mb-6 animate-fade-in-up animate-delay-100">
+                    Nos travaux s'articulent autour de trois pôles de recherche axés sur des domaines essentiels au bien-être :
+                  </p>
+
+                  <div className="space-y-4 mb-8">
+                    <div className="p-5 bg-[#8B0000]/5 rounded-lg border-l-4 border-[#8B0000] animate-fade-in-up animate-delay-100">
+                      <h3 className="text-xl font-semibold text-[#0A0A0A] mb-2">
+                        <Link to="/about/hubs/childhood" className="hover:text-[#8B0000] transition-colors">
+                          Pôle Enfance et développement
+                        </Link>
+                      </h3>
+                      <p className="text-[#0A0A0A]/80">
+                        Écoutera et répondra aux besoins des enfants nouvellement arrivés concernant leur logement, leurs activités sportives et récréatives et leur scolarité.
+                      </p>
+                    </div>
+
+                    <div className="p-5 bg-[#8B0000]/5 rounded-lg border-l-4 border-[#8B0000] animate-fade-in-up animate-delay-200">
+                      <h3 className="text-xl font-semibold text-[#0A0A0A] mb-2">
+                        <Link to="/about/hubs/health" className="hover:text-[#8B0000] transition-colors">
+                          Pôle Littératie en santé
+                        </Link>
+                      </h3>
+                      <p className="text-[#0A0A0A]/80">
+                        Promouvra la littératie en santé auprès des populations immigrantes et réfugiées.
+                      </p>
+                    </div>
+
+                    <div className="p-5 bg-[#8B0000]/5 rounded-lg border-l-4 border-[#8B0000] animate-fade-in-up animate-delay-300">
+                      <h3 className="text-xl font-semibold text-[#0A0A0A] mb-2">
+                        <Link to="/about/hubs/identity" className="hover:text-[#8B0000] transition-colors">
+                          Pôle Identité, relations et appartenance
+                        </Link>
+                      </h3>
+                      <p className="text-[#0A0A0A]/80">
+                        Héberge trois projets distincts visant à favoriser un sentiment d'appartenance chez trois groupes de populations : les personnes afro-descendantes, les jeunes adultes nouvellement arrivé.e.s et ayant une identité de genre et une orientation sexuelle diverses, et le personnel agricole saisonnier.
+                      </p>
+                    </div>
+                  </div>
+
+                  <h2 className="text-2xl md:text-3xl text-[#0A0A0A] mb-6 mt-12 animate-fade-in-up">Structure de gouvernance</h2>
+                  <p className="text-lg text-[#0A0A0A]/90 leading-relaxed mb-6 animate-fade-in-up animate-delay-100">
+                    Bien que nous travaillions à partir de trois pôles et de cinq projets distincts, l'initiative MSK est régie par une structure unificatrice : <strong>le Conseil de mise en œuvre (CM)</strong>. Au sein de ce Conseil, chaque pôle et chaque projet est valorisé dans ses interactions avec les autres pôles et projets. Le CM est l'instance où les décisions importantes concernant la gouvernance et l'administration sont prises par consensus.
+                  </p>
+                  <p className="text-lg text-[#0A0A0A]/90 leading-relaxed mb-6 animate-fade-in-up animate-delay-200">
+                    Le CM est composé de dix membres : les deux membres de la codirection, six représentant.e.s des pôles (deux par pôle : 1 représentant.e d'un organisme communautaire + 1 membre du corps professoral) et 2 représentant.e.s étudiant.e.s. Les représentant.e.s des pôles et les représentant.e.s étudiant.e.s sont choisi.e.s par les membres des pôles, selon le principe d'une rotation annuelle des membres, permettant ainsi à toute personne intéressée de s'impliquer.
+                  </p>
+
+                  <div className="p-6 bg-[#8B0000]/5 rounded-lg my-12 border border-[#8B0000]/20 animate-fade-in-up animate-delay-300">
+                    <p className="text-lg text-[#0A0A0A] leading-relaxed mb-4">
+                      <strong>Nous vous invitons à découvrir le travail unique et stimulant qui se déroule au sein de nos Pôles.</strong>
+                    </p>
+                    <p className="text-[#0A0A0A]/80">
+                      Bien que nos activités soient axées sur la région de Niagara, nous espérons que toutes les régions de petite et moyenne envergure pourront s'inspirer de notre travail dans le cadre de leurs efforts pour bâtir des communautés plus justes et inclusives.
+                    </p>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Right side: Beautiful visual anchor of Niagara Falls */}
+            <div className="relative lg:sticky lg:top-24 rounded-3xl overflow-hidden shadow-2xl border-4 border-white transform hover:scale-[1.01] transition-transform duration-500 group/img w-full flex-shrink-0 mt-8 lg:mt-0">
+              <div className="absolute inset-0 bg-[#8B0000]/10 mix-blend-multiply z-10"></div>
+              {/* Highlight border decoration */}
+              <div className="absolute inset-0 border-2 border-[#8B0000]/30 rounded-2xl z-20 pointer-events-none m-2"></div>
+              <img 
+                src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&q=80&w=800" 
+                alt={language === 'en' ? 'Stunning Niagara Falls landscape representing the Niagara Region partnership' : 'Magnifique paysage des chutes du Niagara représentant le partenariat régional'}
+                className="w-full h-[500px] lg:h-[650px] object-cover transition-transform duration-700 group-hover/img:scale-105"
+              />
+              <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-8 z-20 text-white">
+                <span className="text-[10px] font-bold tracking-widest uppercase text-[#EF4444] mb-2 block">
+                  {language === 'en' ? 'Niagara Region' : 'Région de Niagara'}
+                </span>
+                <h4 className="text-xl font-bold mb-2 font-heading" style={{ fontFamily: 'var(--font-heading)' }}>
+                  {language === 'en' ? 'Mobilizing Knowledge, Transforming Communities' : 'Mobiliser les savoirs, transformer les communautés'}
+                </h4>
+                <p className="text-xs text-white/80 leading-relaxed">
+                  {language === 'en'
+                    ? 'A partnership bridging Brock University and community partners across Saint Catharines, Welland, and Niagara Falls.'
+                    : 'Un partenariat reliant l\'Université Brock et les partenaires communautaires à Saint Catharines, Welland et Niagara Falls.'}
+                </p>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
@@ -639,6 +681,7 @@ export function Home() {
                 descEn: 'Three collaborative hubs advancing community health, youth development, and belonging in Niagara.',
                 descFr: 'Trois pôles collaboratifs pour la santé communautaire, le développement des jeunes et l\'appartenance.',
                 delay: 0,
+                bgImage: 'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&q=80&w=600'
               },
               {
                 to: '/research/projects',
@@ -649,6 +692,7 @@ export function Home() {
                 descEn: 'Five active projects generating knowledge across housing, health, sport, and identity.',
                 descFr: 'Cinq projets actifs produisant des connaissances en logement, santé, sport et identité.',
                 delay: 100,
+                bgImage: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80&w=600'
               },
               {
                 to: '/community',
@@ -659,8 +703,9 @@ export function Home() {
                 descEn: '26 partner organizations co-creating equitable programs across the Niagara region.',
                 descFr: '26 organisations partenaires co-créant des programmes équitables dans la région de Niagara.',
                 delay: 200,
+                bgImage: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&q=80&w=600'
               },
-            ].map(({ to, num, Icon, titleEn, titleFr, descEn, descFr, delay }) => (
+            ].map(({ to, num, Icon, titleEn, titleFr, descEn, descFr, delay, bgImage }) => (
               <Link
                 key={to}
                 to={to}
@@ -671,6 +716,11 @@ export function Home() {
                   transition: `opacity 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms`,
                 }}
               >
+                {/* Background image overlay */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-[0.05] group-hover:opacity-[0.15] group-hover:scale-105 transition-all duration-700 ease-out pointer-events-none"
+                  style={{ backgroundImage: `url(${bgImage})` }}
+                />
                 {/* Ghost number */}
                 <span
                   className="absolute top-5 right-7 text-8xl font-black select-none pointer-events-none"

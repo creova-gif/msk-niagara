@@ -34,6 +34,7 @@ export function ResearchHubs() {
       id: 'childhood',
       name: 'Childhood and Growing Up Hub',
       nameFr: 'Pôle Enfance et croissance',
+      image: 'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&q=80&w=600',
       description: 'We focus on talking to newcomer and racialized children to learn about their perspectives and experiences, particularly in relation to: 1) housing and home, especially how newcomer children think about home and experience their current housing (including children experiencing homelessness); 2) leisure/sport, which benefits from stable housing, and which may bring opportunities and challenges to newcomer children; 3) education, as newcomer children\'s experiences in school are often central to their feelings of inclusion and/or exclusion in their new communities, and schools can provide important programming to best support newcomer children; and 4) children\'s engagements with companion and other animals, as well as the outside world, and especially how these are affected by being uprooted. Children\'s voices are frequently unheard, especially in programming and policy-making, and yet they are participants in their families and communities, with their own viewpoints, interests, needs and challenges.',
       descriptionFr: 'Nous nous concentrons sur les conversations avec les enfants nouveaux arrivants et racialisés pour connaître leurs perspectives et expériences, particulièrement en ce qui concerne : 1) le logement et le foyer, surtout comment les enfants nouveaux arrivants pensent au foyer et vivent leur logement actuel (y compris les enfants en situation d\'itinérance); 2) les loisirs/sports, qui bénéficient d\'un logement stable et qui peuvent apporter des opportunités et des défis aux enfants nouveaux arrivants; 3) l\'éducation, car les expériences scolaires des enfants nouveaux arrivants sont souvent au cœur de leurs sentiments d\'inclusion et/ou d\'exclusion dans leurs nouvelles communautés, et les écoles peuvent fournir une programmation importante pour mieux soutenir les enfants nouveaux arrivants; et 4) les engagements des enfants avec les animaux de compagnie et autres, ainsi que le monde extérieur, et surtout comment ceux-ci sont affectés par le déracinement.',
       members: 10,
@@ -64,6 +65,7 @@ export function ResearchHubs() {
       id: 'health',
       name: 'Health Literacy Hub',
       nameFr: 'Pôle Littératie en santé',
+      image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=600',
       description: 'The project seeks to explore best practices for health literacy interventions and community-based perspectives to inform the development of locally relevant strategies that aim to improve the health literacy of diverse immigrant and refugee populations in the Niagara Region. Co-led by Dr. Joanne Crawford (Brock University) and Mariam Khayinza (TOES Niagara), the hub brings together healthcare providers, community organizations, and researchers.',
       descriptionFr: 'Le projet cherche à explorer les meilleures pratiques pour les interventions en littératie en santé et les perspectives communautaires pour éclairer le développement de stratégies localement pertinentes visant à améliorer la littératie en santé des diverses populations immigrantes et réfugiées dans la région de Niagara. Codirigé par Dre Joanne Crawford (Université Brock) et Mariam Khayinza (TOES Niagara), le pôle réunit des prestataires de soins de santé, des organismes communautaires et des chercheurs.',
       members: 20,
@@ -102,6 +104,7 @@ export function ResearchHubs() {
       id: 'identity',
       name: 'Identity, Connections and Belonging Hub',
       nameFr: 'Pôle Identité, connexions et appartenance',
+      image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&q=80&w=600',
       description: 'The Identity, Connections and Belonging Hub hosts three distinct projects which foster a sense of belonging amongst three populations: Afro-descendants, sexual and gender diverse young adult newcomers, and seasonal agricultural workers. Led by Dr. Jean Ntakirutimana, the hub includes 26 team members across three focused community projects.',
       descriptionFr: 'Le Pôle Identité, relations et appartenance héberge trois projets distincts visant à favoriser un sentiment d\'appartenance chez trois groupes de populations : les personnes afro-descendantes, les jeunes adultes nouveaux arrivants de diverses identités sexuelles et de genre, et les travailleurs agricoles saisonniers. Dirigé par Dr Jean Ntakirutimana, le pôle comprend 26 membres d\'équipe répartis sur trois projets communautaires ciblés.',
       members: 26,
@@ -284,17 +287,28 @@ export function ResearchHubs() {
                     {hoveredHub === index && (
                       <div className={`absolute inset-0 bg-gradient-to-r ${hub.gradient} opacity-100 transition-opacity duration-500`}></div>
                     )}
-                    <div className="absolute inset-[2px] bg-white rounded-3xl"></div>
-                    
-                    <div className="relative z-10 p-8 flex flex-col flex-1">
-                      {/* Icon */}
-                      <div className="mb-6">
-                        <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br from-[#8B0000] to-[#A40000] flex items-center justify-center shadow-lg transform transition-all duration-500 ${
-                          hoveredHub === index ? 'scale-110 rotate-3' : ''
-                        }`}>
-                          <IconComponent className="w-10 h-10 text-white" />
+                    <div className="absolute inset-[2px] bg-white rounded-3xl overflow-hidden flex flex-col">
+                      
+                      {/* Hub Image Banner */}
+                      <div className="h-48 w-full overflow-hidden relative flex-shrink-0">
+                        <img
+                          src={hub.image}
+                          alt={language === 'en' ? hub.name : hub.nameFr}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        
+                        {/* Floating Icon */}
+                        <div className="absolute bottom-4 right-4 z-20">
+                          <div className={`w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-lg transform transition-all duration-500 ${
+                            hoveredHub === index ? 'scale-110' : ''
+                          }`}>
+                            <IconComponent className="w-6 h-6 text-white" />
+                          </div>
                         </div>
                       </div>
+
+                      <div className="relative z-10 p-6 flex flex-col flex-1">
 
                       {/* Title */}
                       <h3 className={`text-2xl font-bold text-[#0A0A0A] mb-4 leading-tight transition-colors duration-300 ${
@@ -354,7 +368,8 @@ export function ResearchHubs() {
                       </Button>
                     </div>
                   </div>
-                </Link>
+                </div>
+              </Link>
               );
             })}
           </div>

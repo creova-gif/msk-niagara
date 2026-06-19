@@ -15,10 +15,12 @@ export function HubDetail() {
   const { hubId } = useParams<{ hubId: string }>();
 
   // Hub data
+  // Hub data
   const hubs = {
     'childhood': {
       nameEn: 'Childhood and Growing Up Hub',
       nameFr: 'Pôle Enfance et développement',
+      image: 'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&q=80&w=1200',
       descriptionEn: 'The Childhood and Growing Up Hub listens to and responds to newcomer children with respect to their experiences in housing, sport/recreation and schooling. Our research examines how children navigate multiple spaces and systems, and aims to amplify their voices in shaping more inclusive and equitable communities.',
       descriptionFr: 'Le Pôle Enfance et développement écoute et répond aux besoins des enfants nouveaux arrivants concernant leur logement, leurs activités sportives et récréatives et leur scolarité. Notre recherche examine comment les enfants naviguent dans de multiples espaces et systèmes, et vise à amplifier leurs voix dans la construction de communautés plus inclusives et équitables.',
       color: '#089EA5',
@@ -69,6 +71,7 @@ export function HubDetail() {
     'health': {
       nameEn: 'Health Literacy Hub',
       nameFr: 'Pôle Littératie en santé',
+      image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1200',
       descriptionEn: 'The Health Literacy Hub promotes health literacy in immigrant and refugee populations. Our research develops culturally responsive health information and programs to improve health outcomes and reduce health disparities among newcomer communities in the Niagara region.',
       descriptionFr: 'Le Pôle Littératie en santé promeut la littératie en santé auprès des populations immigrantes et réfugiées. Notre recherche développe des informations et programmes de santé culturellement adaptés pour améliorer les résultats de santé et réduire les disparités en santé parmi les communautés nouvelles arrivantes dans la région de Niagara.',
       color: '#C97B2E',
@@ -119,6 +122,7 @@ export function HubDetail() {
     'identity': {
       nameEn: 'Identity, Connections and Belonging Hub',
       nameFr: 'Pôle Identité, relations et appartenance',
+      image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&q=80&w=1200',
       descriptionEn: 'The Identity, Connections and Belonging Hub hosts three distinct projects which foster a sense of belonging amongst three populations: Afro-descendants, sexual and gender diverse young adult newcomers, and seasonal agricultural workers. Our research explores identity formation, community connections, and experiences of belonging in the Niagara region.',
       descriptionFr: 'Le Pôle Identité, relations et appartenance héberge trois projets distincts visant à favoriser un sentiment d\'appartenance chez trois groupes de populations : les personnes afro-descendantes, les jeunes adultes nouveaux arrivants de diverses identités sexuelles et de genre, et les travailleurs agricoles saisonniers. Notre recherche explore la formation de l\'identité, les connexions communautaires et les expériences d\'appartenance dans la région de Niagara.',
       color: '#7B5EA7',
@@ -191,22 +195,29 @@ export function HubDetail() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       {/* Hero Section */}
-      <section className="relative bg-[#8B0000] text-white overflow-hidden">
+      <section className="relative text-white overflow-hidden bg-cover bg-center min-h-[420px] flex items-center"
+        style={{ backgroundImage: `url(${currentHub.image})` }}
+      >
+        {/* Deep dark-red multiplier overlay for perfect text contrast (WCAG AAA compliant) */}
+        <div className="absolute inset-0 bg-[#8B0000]/85 mix-blend-multiply z-[1]"></div>
+        
         {/* Dot-grid brand motif */}
-        <div className="absolute inset-0 opacity-[0.06]"
+        <div className="absolute inset-0 opacity-[0.06] z-[2]"
           style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}
         />
         {/* Hub-specific thematic animation */}
-        {hubId === 'childhood' && <RisingBubbles color={currentHub.color || '#089EA5'} />}
-        {hubId === 'health' && <HeartbeatLine color={currentHub.color || '#C97B2E'} />}
-        {hubId === 'identity' && <Constellation color={currentHub.color || '#7B5EA7'} />}
+        <div className="absolute inset-0 z-[2] pointer-events-none">
+          {hubId === 'childhood' && <RisingBubbles color={currentHub.color || '#089EA5'} />}
+          {hubId === 'health' && <HeartbeatLine color={currentHub.color || '#C97B2E'} />}
+          {hubId === 'identity' && <Constellation color={currentHub.color || '#7B5EA7'} />}
+        </div>
         {/* Hub accent color top stripe */}
-        <div className="absolute top-0 left-0 right-0 h-0.5" style={{ backgroundColor: currentHub.color || '#8B0000' }} />
+        <div className="absolute top-0 left-0 right-0 h-1.5 z-30" style={{ backgroundColor: currentHub.color || '#8B0000' }} />
         {/* Diagonal cut bottom edge */}
-        <div className="absolute bottom-0 left-0 right-0 h-14 bg-white"
+        <div className="absolute bottom-0 left-0 right-0 h-14 bg-white z-[3]"
           style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 0)' }} />
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24 pb-28">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24 pb-28">
           <Link
             to="/about/hubs"
             className="inline-flex items-center gap-2 text-white/60 hover:text-white mb-10 transition-colors text-sm"

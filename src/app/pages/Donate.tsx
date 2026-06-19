@@ -207,8 +207,16 @@ export function Donate() {
 
           {/* Sidebar Info */}
           <div className="space-y-6">
-            <Card className="border-0 shadow-lg bg-[#0A0A0A] text-white">
-              <CardHeader>
+            <Card className="border-0 shadow-lg bg-[#0A0A0A] text-white overflow-hidden">
+              <div className="h-40 w-full overflow-hidden relative">
+                <img 
+                  src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=600" 
+                  alt={language === 'en' ? 'Community connection and support' : 'Connexion communautaire et soutien'}
+                  className="w-full h-full object-cover opacity-85"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent"></div>
+              </div>
+              <CardHeader className="pt-4">
                 <ShieldCheck className="w-8 h-8 text-[#8B0000] mb-2" />
                 <CardTitle className="text-xl" style={{ fontFamily: 'var(--font-heading)' }}>
                   {language === 'en' ? 'Why Support Us?' : 'Pourquoi nous soutenir ?'}
