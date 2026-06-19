@@ -1,64 +1,4 @@
-import "./styles/index.css";
-
-// --- Types & Configuration ---
-interface PartnerLead {
-  formMode: 'partner' | 'rsvp' | 'newsletter' | 'contact';
-  fullName: string;
-  emailAddress: string;
-  organization?: string;
-  jobTitle?: string;
-  researchField?: string;
-  interestDesc?: string;
-  guestCount?: string;
-  message?: string;
-}
-
-// 22+ Community Partners Directory Data
-const COMMUNITY_PARTNERS = [
-  { name: "Niagara Regional Native Centre", desc: "Providing support, programs, and cultural preservation for Indigenous families in Niagara.", tags: ["Indigenous", "Family Support", "Welland"] },
-  { name: "Fort Erie Multicultural Centre", desc: "Assisting newcomers and refugees with settlement, language classes, and employment integration.", tags: ["Settlement", "Refugee Support", "Fort Erie"] },
-  { name: "BlackOwned 905", desc: "Amplifying Black-owned businesses, culture, and community advocacy across the Niagara Peninsula.", tags: ["Advocacy", "Economic development", "Niagara Falls"] },
-  { name: "TOES Niagara", desc: "Empowering immigrant women with education, entrepreneurship programs, and wellness workshops.", tags: ["Women Support", "Education", "St. Catharines"] },
-  { name: "Niagara Folk Arts Multicultural Centre", desc: "Celebrating heritage and supporting newcomers with comprehensive immigration services.", tags: ["Settlement", "Cultural Arts", "St. Catharines"] },
-  { name: "Positive Living Niagara", desc: "Providing community support, harm reduction, and education services across the region.", tags: ["Health Support", "Advocacy", "St. Catharines"] },
-  { name: "Niagara Region Public Health", desc: "Collaborating on health literacy and community-based health promotion campaigns.", tags: ["Health Support", "Government", "Thorold"] },
-  { name: "Welland Heritage Council", desc: "Supporting multicultural integration and providing housing resources for refugees.", tags: ["Settlement", "Housing", "Welland"] },
-  { name: "YMCA of Niagara Settlement Services", desc: "Settlement programs and youth mentorship pathways for newly arrived immigrant families.", tags: ["Settlement", "Youth", "Niagara Falls"] },
-  { name: "Port Colborne Affirmative Action", desc: "Supporting food security and basic needs for low-income newcomers in the southern tier.", tags: ["Social Services", "Food Security", "Port Colborne"] },
-  { name: "Brock University SJRI", desc: "Bridging academic research and community action to advocate for local social justice reform.", tags: ["Academic", "Advocacy", "St. Catharines"] },
-  { name: "Niagara Regional Police Service Diversity Unit", desc: "Improving institutional awareness and community relations with diverse populations.", tags: ["Government", "Advocacy", "Thorold"] },
-  { name: "Gideon's Place", desc: "Advocating for seasonal agricultural workers, providing housing support and social connections.", tags: ["Agriculture Workers", "Housing", "Lincoln"] },
-  { name: "South Niagara Migrant Worker Coalition", desc: "Protecting the rights and health of temporary agricultural workers in southern Niagara.", tags: ["Agriculture Workers", "Health Support", "Pelham"] },
-  { name: "Quest Community Health Centre", desc: "Providing accessible, culturally-sensitive primary healthcare and wellness programs.", tags: ["Health Support", "Social Services", "St. Catharines"] },
-  { name: "Niagara Falls Community Health Centre", desc: "Integrated medical and community services for marginalized populations.", tags: ["Health Support", "Social Services", "Niagara Falls"] },
-  { name: "Links for Greener Learning", desc: "Connecting newcomers with environmental education and community garden initiatives.", tags: ["Education", "Environment", "St. Catharines"] },
-  { name: "Women's Place of South Niagara", desc: "Safe shelter and counseling services for women fleeing domestic violence.", tags: ["Women Support", "Social Services", "Welland"] },
-  { name: "Start Me Up Niagara", desc: "Supporting individuals facing significant life challenges to obtain stable employment and housing.", tags: ["Housing", "Employment", "St. Catharines"] },
-  { name: "De dwa da dehs nye>s Aboriginal Health Centre", desc: "Improving wellness outcomes through traditional and contemporary Indigenous medicine.", tags: ["Indigenous", "Health Support", "Niagara Falls"] },
-  { name: "Niagara West Adult Learning Centre", desc: "Literacy and basic skills training for adult learners seeking career advancement.", tags: ["Education", "Employment", "Grimsby"] },
-  { name: "Project SHARE", desc: "Providing emergency support and prevention services to Niagara Falls residents in need.", tags: ["Social Services", "Food Security", "Niagara Falls"] }
-];
-
-// --- Client-Side Router ---
-const routes: Record<string, () => string> = {
-  home: renderHome,
-  about: renderAbout,
-  research: renderResearch,
-  community: renderCommunity,
-  partners: renderPartners,
-  contact: renderContact,
-  subscribe: renderSubscribe,
-  symposium: renderSymposium
-};
-
-function router() {
-  const hash = location.hash.slice(2) || 'home';
-  const renderFn = routes[hash] || routes.home;
-  
-  const root = document.getElementById("root");
-  if (!root) return;
-
-  root.innerHTML = `
+(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const a of document.querySelectorAll('link[rel="modulepreload"]'))o(a);new MutationObserver(a=>{for(const i of a)if(i.type==="childList")for(const r of i.addedNodes)r.tagName==="LINK"&&r.rel==="modulepreload"&&o(r)}).observe(document,{childList:!0,subtree:!0});function s(a){const i={};return a.integrity&&(i.integrity=a.integrity),a.referrerPolicy&&(i.referrerPolicy=a.referrerPolicy),a.crossOrigin==="use-credentials"?i.credentials="include":a.crossOrigin==="anonymous"?i.credentials="omit":i.credentials="same-origin",i}function o(a){if(a.ep)return;a.ep=!0;const i=s(a);fetch(a.href,i)}})();const w=[{name:"Niagara Regional Native Centre",desc:"Providing support, programs, and cultural preservation for Indigenous families in Niagara.",tags:["Indigenous","Family Support","Welland"]},{name:"Fort Erie Multicultural Centre",desc:"Assisting newcomers and refugees with settlement, language classes, and employment integration.",tags:["Settlement","Refugee Support","Fort Erie"]},{name:"BlackOwned 905",desc:"Amplifying Black-owned businesses, culture, and community advocacy across the Niagara Peninsula.",tags:["Advocacy","Economic development","Niagara Falls"]},{name:"TOES Niagara",desc:"Empowering immigrant women with education, entrepreneurship programs, and wellness workshops.",tags:["Women Support","Education","St. Catharines"]},{name:"Niagara Folk Arts Multicultural Centre",desc:"Celebrating heritage and supporting newcomers with comprehensive immigration services.",tags:["Settlement","Cultural Arts","St. Catharines"]},{name:"Positive Living Niagara",desc:"Providing community support, harm reduction, and education services across the region.",tags:["Health Support","Advocacy","St. Catharines"]},{name:"Niagara Region Public Health",desc:"Collaborating on health literacy and community-based health promotion campaigns.",tags:["Health Support","Government","Thorold"]},{name:"Welland Heritage Council",desc:"Supporting multicultural integration and providing housing resources for refugees.",tags:["Settlement","Housing","Welland"]},{name:"YMCA of Niagara Settlement Services",desc:"Settlement programs and youth mentorship pathways for newly arrived immigrant families.",tags:["Settlement","Youth","Niagara Falls"]},{name:"Port Colborne Affirmative Action",desc:"Supporting food security and basic needs for low-income newcomers in the southern tier.",tags:["Social Services","Food Security","Port Colborne"]},{name:"Brock University SJRI",desc:"Bridging academic research and community action to advocate for local social justice reform.",tags:["Academic","Advocacy","St. Catharines"]},{name:"Niagara Regional Police Service Diversity Unit",desc:"Improving institutional awareness and community relations with diverse populations.",tags:["Government","Advocacy","Thorold"]},{name:"Gideon's Place",desc:"Advocating for seasonal agricultural workers, providing housing support and social connections.",tags:["Agriculture Workers","Housing","Lincoln"]},{name:"South Niagara Migrant Worker Coalition",desc:"Protecting the rights and health of temporary agricultural workers in southern Niagara.",tags:["Agriculture Workers","Health Support","Pelham"]},{name:"Quest Community Health Centre",desc:"Providing accessible, culturally-sensitive primary healthcare and wellness programs.",tags:["Health Support","Social Services","St. Catharines"]},{name:"Niagara Falls Community Health Centre",desc:"Integrated medical and community services for marginalized populations.",tags:["Health Support","Social Services","Niagara Falls"]},{name:"Links for Greener Learning",desc:"Connecting newcomers with environmental education and community garden initiatives.",tags:["Education","Environment","St. Catharines"]},{name:"Women's Place of South Niagara",desc:"Safe shelter and counseling services for women fleeing domestic violence.",tags:["Women Support","Social Services","Welland"]},{name:"Start Me Up Niagara",desc:"Supporting individuals facing significant life challenges to obtain stable employment and housing.",tags:["Housing","Employment","St. Catharines"]},{name:"De dwa da dehs nye>s Aboriginal Health Centre",desc:"Improving wellness outcomes through traditional and contemporary Indigenous medicine.",tags:["Indigenous","Health Support","Niagara Falls"]},{name:"Niagara West Adult Learning Centre",desc:"Literacy and basic skills training for adult learners seeking career advancement.",tags:["Education","Employment","Grimsby"]},{name:"Project SHARE",desc:"Providing emergency support and prevention services to Niagara Falls residents in need.",tags:["Social Services","Food Security","Niagara Falls"]}],b={home:k,about:E,research:C,community:A,partners:N,contact:M,subscribe:L,symposium:I};function v(){const e=location.hash.slice(2)||"home",t=b[e]||b.home,s=document.getElementById("root");s&&(s.innerHTML=`
     <!-- Persistent Header -->
     <header class="bg-[#f8f6f0] border-b border-[#d1cfc8] px-6 py-4 flex justify-between items-center sticky top-0 z-50">
       <a href="#/" class="font-serif text-2xl font-bold tracking-tight text-[#1a2a3a] flex items-center gap-2">
@@ -98,7 +38,7 @@ function router() {
     </header>
 
     <!-- Main Content Area -->
-    <main id="app-content">${renderFn()}</main>
+    <main id="app-content">${t()}</main>
 
     <!-- Persistent Footer -->
     <footer class="bg-[#1a2a3a] text-[#f8f6f0] px-6 py-16 border-t border-[#2d3a4b] mt-12">
@@ -134,56 +74,7 @@ function router() {
       <span id="toast-message">Submission successful.</span>
       <button type="button" class="text-white hover:text-[#6b2a3e] focus:outline-none" onclick="this.parentElement.classList.remove('show')" aria-label="Close Toast">✕</button>
     </div>
-  `;
-
-  // --- Attach Global Navigation Event Listeners ---
-  setupNavigation();
-  
-  // --- Attach Page-Specific Script Logics ---
-  if (hash === 'home') setupHomeScripts();
-  if (hash === 'community') setupCommunityScripts();
-  if (hash === 'partners') setupFormScripts('partner');
-  if (hash === 'subscribe') setupFormScripts('newsletter');
-  if (hash === 'symposium-june-19' || hash === 'symposium') setupFormScripts('rsvp');
-  if (hash === 'contact') setupFormScripts('contact');
-
-  // Set active nav link visual state
-  document.querySelectorAll('.nav-link').forEach(link => {
-    if (link.getAttribute('href') === `#/${hash}`) {
-      link.classList.add('text-[#6b2a3e]', 'border-b-2', 'border-[#6b2a3e]');
-    } else {
-      link.classList.remove('text-[#6b2a3e]', 'border-b-2', 'border-[#6b2a3e]');
-    }
-  });
-
-  window.scrollTo({ top: 0, behavior: 'instant' });
-}
-
-function setupNavigation() {
-  const menuToggle = document.getElementById('menuToggle');
-  const mobileMenu = document.getElementById('mobileMenu');
-  const menuClose = document.getElementById('menuClose');
-
-  if (menuToggle && mobileMenu && menuClose) {
-    menuToggle.addEventListener('click', () => mobileMenu.classList.remove('hidden'));
-    menuClose.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-    mobileMenu.addEventListener('click', (e) => {
-      if (e.target === mobileMenu) mobileMenu.classList.add('hidden');
-    });
-  }
-
-  // Close sidebar on click of any mobile link
-  document.querySelectorAll('.mobile-nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu?.classList.add('hidden');
-    });
-  });
-}
-
-// --- Page Render Functions ---
-
-function renderHome() {
-  return `
+  `,S(),e==="home"&&B(),e==="community"&&R(),e==="partners"&&u("partner"),e==="subscribe"&&u("newsletter"),(e==="symposium-june-19"||e==="symposium")&&u("rsvp"),e==="contact"&&u("contact"),document.querySelectorAll(".nav-link").forEach(o=>{o.getAttribute("href")===`#/${e}`?o.classList.add("text-[#6b2a3e]","border-b-2","border-[#6b2a3e]"):o.classList.remove("text-[#6b2a3e]","border-b-2","border-[#6b2a3e]")}),window.scrollTo({top:0,behavior:"instant"}))}function S(){const e=document.getElementById("menuToggle"),t=document.getElementById("mobileMenu"),s=document.getElementById("menuClose");e&&t&&s&&(e.addEventListener("click",()=>t.classList.remove("hidden")),s.addEventListener("click",()=>t.classList.add("hidden")),t.addEventListener("click",o=>{o.target===t&&t.classList.add("hidden")})),document.querySelectorAll(".mobile-nav-link").forEach(o=>{o.addEventListener("click",()=>{t==null||t.classList.add("hidden")})})}function k(){return`
     <!-- Hero Section with Dominant CTA -->
     <section class="bg-[#1a2a3a] text-[#f8f6f0] py-24 px-6 md:px-12 relative overflow-hidden border-b border-[#d1cfc8]">
       <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
@@ -282,11 +173,7 @@ function renderHome() {
         </div>
       </div>
     </section>
-  `;
-}
-
-function renderAbout() {
-  return `
+  `}function E(){return`
     <div class="max-w-5xl mx-auto py-16 px-6 flex flex-col gap-16">
       
       <!-- Intro Section -->
@@ -347,11 +234,7 @@ function renderAbout() {
       </section>
 
     </div>
-  `;
-}
-
-function renderResearch() {
-  return `
+  `}function C(){return`
     <div class="max-w-5xl mx-auto py-16 px-6 flex flex-col gap-16">
       <section class="flex flex-col gap-4">
         <h1 class="text-4xl md:text-5xl font-serif font-extrabold text-[#1a2a3a]">Active Research Hubs</h1>
@@ -426,11 +309,7 @@ function renderResearch() {
       </div>
 
     </div>
-  `;
-}
-
-function renderCommunity() {
-  return `
+  `}function A(){return`
     <div class="max-w-5xl mx-auto py-16 px-6">
       <div class="flex flex-col gap-4 mb-12">
         <h1 class="text-4xl md:text-5xl font-serif font-extrabold text-[#1a2a3a]">Community Partners Directory</h1>
@@ -462,11 +341,7 @@ function renderCommunity() {
         <!-- Rendered dynamically by JS -->
       </div>
     </div>
-  `;
-}
-
-function renderPartners() {
-  return `
+  `}function N(){return`
     <div class="max-w-7xl mx-auto py-16 px-6">
       
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
@@ -519,7 +394,7 @@ function renderPartners() {
           </div>
 
           <!-- Form Structure -->
-          ${renderFormTemplate('partner')}
+          ${m("partner")}
           
           <div class="trust-section mt-8 border-t border-[#d1cfc8] pt-6 flex flex-col gap-4">
             <div class="trust-label text-[10px] uppercase tracking-wider text-[#8a8a8a] font-semibold">Affiliated Research Entities</div>
@@ -540,11 +415,7 @@ function renderPartners() {
       </div>
 
     </div>
-  `;
-}
-
-function renderContact() {
-  return `
+  `}function M(){return`
     <div class="max-w-5xl mx-auto py-16 px-6">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
         <div class="flex flex-col gap-6">
@@ -572,29 +443,21 @@ function renderContact() {
         </div>
         <div class="bg-white border border-[#d1cfc8] p-6 rounded-lg shadow-sm">
           <h2 class="text-2xl font-serif text-[#1a2a3a] mb-6">Send an Inquiry</h2>
-          ${renderFormTemplate('contact')}
+          ${m("contact")}
         </div>
       </div>
     </div>
-  `;
-}
-
-function renderSubscribe() {
-  return `
+  `}function L(){return`
     <div class="max-w-md mx-auto py-16 px-6">
       <div class="bg-white border border-[#d1cfc8] p-8 rounded-xl shadow-lg flex flex-col gap-6">
         <div class="text-center flex flex-col gap-2">
           <h1 class="text-3xl font-serif text-[#1a2a3a]">Subscribe to Movement</h1>
           <p class="text-xs text-[#555]">Receive direct publications and council briefs.</p>
         </div>
-        ${renderFormTemplate('newsletter')}
+        ${m("newsletter")}
       </div>
     </div>
-  `;
-}
-
-function renderSymposium() {
-  return `
+  `}function I(){return`
     <div class="max-w-4xl mx-auto py-16 px-6 flex flex-col gap-12">
       <section class="bg-[#1a2a3a] text-white p-8 rounded-lg border border-[#2d3a4b]">
         <span class="text-xs font-semibold uppercase tracking-wider text-[#6b2a3e]">Invited Community Symposium</span>
@@ -612,18 +475,12 @@ function renderSymposium() {
 
       <div class="bg-white border border-[#d1cfc8] p-8 rounded-lg shadow-sm max-w-xl mx-auto w-full">
         <h2 class="text-2xl font-serif text-[#1a2a3a] mb-6 text-center">Symposium Registration (RSVP)</h2>
-        ${renderFormTemplate('rsvp')}
+        ${m("rsvp")}
       </div>
     </div>
-  `;
-}
-
-// --- Dynamic Form HTML Generation Helper ---
-
-function renderFormTemplate(initialMode: 'partner' | 'rsvp' | 'newsletter' | 'contact') {
-  return `
+  `}function m(e){return`
     <form id="dynamic-form" class="flex flex-col gap-4" novalidate>
-      <input type="hidden" id="formMode" name="formMode" value="${initialMode}">
+      <input type="hidden" id="formMode" name="formMode" value="${e}">
 
       <div class="form-group" id="group-name">
         <label for="fullName" id="label-name" class="block text-xs font-semibold uppercase tracking-wider text-[#1a2a3a] mb-1">Full Name</label>
@@ -673,335 +530,44 @@ function renderFormTemplate(initialMode: 'partner' | 'rsvp' | 'newsletter' | 'co
 
       <button type="submit" id="submitBtn" class="bg-[#6b2a3e] text-white py-3 px-6 font-serif font-semibold rounded hover:bg-[#521d2d] transition-all mt-4 w-full">Apply to Partner</button>
     </form>
-  `;
-}
-
-// --- Dynamic Form Switcher Logic ---
-
-function setupFormScripts(initialMode: 'partner' | 'rsvp' | 'newsletter' | 'contact') {
-  const form = document.getElementById('dynamic-form') as HTMLFormElement | null;
-  if (!form) return;
-
-  const modeInput = document.getElementById('formMode') as HTMLInputElement | null;
-  const tabs = document.querySelectorAll('.tab-btn');
-
-  // Trigger initial setup
-  setFormMode(initialMode);
-
-  // Tabs switcher event listener if tab buttons exist
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => {
-        t.classList.remove('active');
-        t.setAttribute('aria-selected', 'false');
-      });
-      tab.classList.add('active');
-      tab.setAttribute('aria-selected', 'true');
-      
-      const mode = tab.getAttribute('data-type') as 'partner' | 'rsvp' | 'newsletter';
-      setFormMode(mode);
-    });
-  });
-
-  // Intercept form submission
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
-
-    const payload: PartnerLead = {
-      formMode: (modeInput?.value || 'partner') as 'partner' | 'rsvp' | 'newsletter' | 'contact',
-      fullName: (document.getElementById('fullName') as HTMLInputElement)?.value || '',
-      emailAddress: (document.getElementById('emailAddress') as HTMLInputElement)?.value || '',
-      organization: (document.getElementById('organization') as HTMLInputElement)?.value || undefined,
-      jobTitle: (document.getElementById('jobTitle') as HTMLInputElement)?.value || undefined,
-      researchField: (document.getElementById('researchField') as HTMLSelectElement)?.value || undefined,
-      interestDesc: (document.getElementById('interestDesc') as HTMLTextAreaElement)?.value || undefined,
-      guestCount: (document.getElementById('guestCount') as HTMLInputElement)?.value || undefined,
-      message: (document.getElementById('messageText') as HTMLTextAreaElement)?.value || undefined
-    };
-
-    if (navigator.onLine) {
-      sendLead(payload);
-    } else {
-      enqueueOfflineLead(payload);
-    }
-  });
-}
-
-function setFormMode(mode: 'partner' | 'rsvp' | 'newsletter' | 'contact') {
-  const modeInput = document.getElementById('formMode') as HTMLInputElement | null;
-  if (modeInput) modeInput.value = mode;
-
-  const labelName = document.getElementById('label-name');
-  const submitBtn = document.getElementById('submitBtn');
-
-  // Fields to toggle
-  const groups: Record<string, HTMLElement | null> = {
-    name: document.getElementById('group-name'),
-    email: document.getElementById('group-email'),
-    org: document.getElementById('group-org'),
-    title: document.getElementById('group-title'),
-    field: document.getElementById('group-field'),
-    why: document.getElementById('group-why'),
-    guests: document.getElementById('group-guests'),
-    message: document.getElementById('group-message')
-  };
-
-  // Reset inputs disable states
-  Object.values(groups).forEach(group => {
-    if (group) {
-      group.classList.add('hidden');
-      const input = group.querySelector('.form-control');
-      if (input) input.setAttribute('disabled', 'true');
-    }
-  });
-
-  if (mode === 'partner') {
-    if (labelName) labelName.textContent = "Full Name";
-    if (submitBtn) submitBtn.textContent = "Apply to Partner";
-    
-    ['name', 'email', 'org', 'title', 'field', 'why'].forEach(fieldKey => {
-      const g = groups[fieldKey];
-      if (g) {
-        g.classList.remove('hidden');
-        g.querySelector('.form-control')?.removeAttribute('disabled');
-      }
-    });
-  } else if (mode === 'rsvp') {
-    if (labelName) labelName.textContent = "Full Name";
-    if (submitBtn) submitBtn.textContent = "Submit RSVP";
-    
-    ['name', 'email', 'guests'].forEach(fieldKey => {
-      const g = groups[fieldKey];
-      if (g) {
-        g.classList.remove('hidden');
-        g.querySelector('.form-control')?.removeAttribute('disabled');
-      }
-    });
-  } else if (mode === 'newsletter') {
-    if (labelName) labelName.textContent = "First Name";
-    if (submitBtn) submitBtn.textContent = "Subscribe to Newsletter";
-    
-    ['name', 'email'].forEach(fieldKey => {
-      const g = groups[fieldKey];
-      if (g) {
-        g.classList.remove('hidden');
-        g.querySelector('.form-control')?.removeAttribute('disabled');
-      }
-    });
-  } else if (mode === 'contact') {
-    if (labelName) labelName.textContent = "Full Name";
-    if (submitBtn) submitBtn.textContent = "Send Inquiry";
-    
-    ['name', 'email', 'message'].forEach(fieldKey => {
-      const g = groups[fieldKey];
-      if (g) {
-        g.classList.remove('hidden');
-        g.querySelector('.form-control')?.removeAttribute('disabled');
-      }
-    });
-  }
-}
-
-// --- Online Submission & Webhook logic ---
-
-function sendLead(payload: PartnerLead) {
-  // Post data to mock CRM webhook endpoint
-  fetch('https://webhook.site/7fba1402-536a-4ac1-b49e-dcbd497fc8e0', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
-  })
-  .then(res => {
-    console.log('[CRM Entry] Successfully pushed lead metrics to HubSpot/Airtable integration.');
-  })
-  .catch(err => {
-    console.warn('[CRM Gateway] Sync failed, entry was stored locally inside mock logs.');
-  });
-
-  // Emulate email routing outputs to console
-  logEmulatedEmails(payload);
-
-  showToast('Thanks! A member of our partnerships team will reach out personally within 2 business days.');
-  (document.getElementById('dynamic-form') as HTMLFormElement | null)?.reset();
-}
-
-function enqueueOfflineLead(payload: PartnerLead) {
-  const pending = JSON.parse(localStorage.getItem('pendingSubmissions') || '[]');
-  pending.push({ id: Date.now(), payload });
-  localStorage.setItem('pendingSubmissions', JSON.stringify(pending));
-
-  showToast('Network disconnected. Submission cached locally and will auto-submit when connectivity returns.');
-  (document.getElementById('dynamic-form') as HTMLFormElement | null)?.reset();
-}
-
-// Background sync online event listener
-window.addEventListener('online', () => {
-  const pending = JSON.parse(localStorage.getItem('pendingSubmissions') || '[]');
-  if (pending.length === 0) return;
-
-  console.log('Online signal recovered. Synchronizing offline applications...');
-  pending.forEach((item: { payload: PartnerLead }) => {
-    sendLead(item.payload);
-  });
-  localStorage.removeItem('pendingSubmissions');
-  showToast('All offline applications synchronized successfully.');
-});
-
-// Auto-reply HTML and Internal Leads alert logger
-function logEmulatedEmails(payload: PartnerLead) {
-  const stamp = new Date().toLocaleString();
-  
-  // HTML user receipt
-  const emailUser = {
-    To: payload.emailAddress,
-    Subject: 'Partnership Inquiry Received // MSK Niagara',
-    BodyHTML: `
+  `}function u(e){const t=document.getElementById("dynamic-form");if(!t)return;const s=document.getElementById("formMode"),o=document.querySelectorAll(".tab-btn");h(e),o.forEach(a=>{a.addEventListener("click",()=>{o.forEach(r=>{r.classList.remove("active"),r.setAttribute("aria-selected","false")}),a.classList.add("active"),a.setAttribute("aria-selected","true");const i=a.getAttribute("data-type");h(i)})}),t.addEventListener("submit",a=>{var r,n,l,c,d,f,p,x;if(a.preventDefault(),!t.checkValidity()){t.reportValidity();return}const i={formMode:(s==null?void 0:s.value)||"partner",fullName:((r=document.getElementById("fullName"))==null?void 0:r.value)||"",emailAddress:((n=document.getElementById("emailAddress"))==null?void 0:n.value)||"",organization:((l=document.getElementById("organization"))==null?void 0:l.value)||void 0,jobTitle:((c=document.getElementById("jobTitle"))==null?void 0:c.value)||void 0,researchField:((d=document.getElementById("researchField"))==null?void 0:d.value)||void 0,interestDesc:((f=document.getElementById("interestDesc"))==null?void 0:f.value)||void 0,guestCount:((p=document.getElementById("guestCount"))==null?void 0:p.value)||void 0,message:((x=document.getElementById("messageText"))==null?void 0:x.value)||void 0};navigator.onLine?y(i):T(i)})}function h(e){const t=document.getElementById("formMode");t&&(t.value=e);const s=document.getElementById("label-name"),o=document.getElementById("submitBtn"),a={name:document.getElementById("group-name"),email:document.getElementById("group-email"),org:document.getElementById("group-org"),title:document.getElementById("group-title"),field:document.getElementById("group-field"),why:document.getElementById("group-why"),guests:document.getElementById("group-guests"),message:document.getElementById("group-message")};Object.values(a).forEach(i=>{if(i){i.classList.add("hidden");const r=i.querySelector(".form-control");r&&r.setAttribute("disabled","true")}}),e==="partner"?(s&&(s.textContent="Full Name"),o&&(o.textContent="Apply to Partner"),["name","email","org","title","field","why"].forEach(i=>{var n;const r=a[i];r&&(r.classList.remove("hidden"),(n=r.querySelector(".form-control"))==null||n.removeAttribute("disabled"))})):e==="rsvp"?(s&&(s.textContent="Full Name"),o&&(o.textContent="Submit RSVP"),["name","email","guests"].forEach(i=>{var n;const r=a[i];r&&(r.classList.remove("hidden"),(n=r.querySelector(".form-control"))==null||n.removeAttribute("disabled"))})):e==="newsletter"?(s&&(s.textContent="First Name"),o&&(o.textContent="Subscribe to Newsletter"),["name","email"].forEach(i=>{var n;const r=a[i];r&&(r.classList.remove("hidden"),(n=r.querySelector(".form-control"))==null||n.removeAttribute("disabled"))})):e==="contact"&&(s&&(s.textContent="Full Name"),o&&(o.textContent="Send Inquiry"),["name","email","message"].forEach(i=>{var n;const r=a[i];r&&(r.classList.remove("hidden"),(n=r.querySelector(".form-control"))==null||n.removeAttribute("disabled"))}))}function y(e){var t;fetch("https://webhook.site/7fba1402-536a-4ac1-b49e-dcbd497fc8e0",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(e)}).then(s=>{console.log("[CRM Entry] Successfully pushed lead metrics to HubSpot/Airtable integration.")}).catch(s=>{console.warn("[CRM Gateway] Sync failed, entry was stored locally inside mock logs.")}),P(e),g("Thanks! A member of our partnerships team will reach out personally within 2 business days."),(t=document.getElementById("dynamic-form"))==null||t.reset()}function T(e){var s;const t=JSON.parse(localStorage.getItem("pendingSubmissions")||"[]");t.push({id:Date.now(),payload:e}),localStorage.setItem("pendingSubmissions",JSON.stringify(t)),g("Network disconnected. Submission cached locally and will auto-submit when connectivity returns."),(s=document.getElementById("dynamic-form"))==null||s.reset()}window.addEventListener("online",()=>{const e=JSON.parse(localStorage.getItem("pendingSubmissions")||"[]");e.length!==0&&(console.log("Online signal recovered. Synchronizing offline applications..."),e.forEach(t=>{y(t.payload)}),localStorage.removeItem("pendingSubmissions"),g("All offline applications synchronized successfully."))});function P(e){const t=new Date().toLocaleString(),s={To:e.emailAddress,Subject:"Partnership Inquiry Received // MSK Niagara",BodyHTML:`
       <div style="font-family: Georgia, serif; padding: 24px; background-color: #f8f6f0; color: #1a1a1a; max-width: 600px; border: 1px solid #d1cfc8;">
         <h2 style="color: #1a2a3a; font-weight: bold; font-size: 20px;">Inquiry Received</h2>
-        <p style="font-size: 14px; line-height: 1.6;">Dear ${payload.fullName},</p>
-        <p style="font-size: 14px; line-height: 1.6;">Thank you for contacting the Mobilizing Subjugated Knowledges partnership office. Your submission was received on ${stamp}.</p>
+        <p style="font-size: 14px; line-height: 1.6;">Dear ${e.fullName},</p>
+        <p style="font-size: 14px; line-height: 1.6;">Thank you for contacting the Mobilizing Subjugated Knowledges partnership office. Your submission was received on ${t}.</p>
         <div style="margin: 20px 0; padding: 15px; border-left: 3px solid #6b2a3e; background: #ffffff;">
           <table style="width: 100%; border-collapse: collapse; font-family: sans-serif; font-size: 13px;">
-            <tr><td style="padding: 4px; font-weight: bold; width: 120px;">Mode:</td><td>${payload.formMode}</td></tr>
-            ${payload.organization ? `<tr><td style="padding: 4px; font-weight: bold;">Organization:</td><td>${payload.organization}</td></tr>` : ''}
-            ${payload.jobTitle ? `<tr><td style="padding: 4px; font-weight: bold;">Title:</td><td>${payload.jobTitle}</td></tr>` : ''}
+            <tr><td style="padding: 4px; font-weight: bold; width: 120px;">Mode:</td><td>${e.formMode}</td></tr>
+            ${e.organization?`<tr><td style="padding: 4px; font-weight: bold;">Organization:</td><td>${e.organization}</td></tr>`:""}
+            ${e.jobTitle?`<tr><td style="padding: 4px; font-weight: bold;">Title:</td><td>${e.jobTitle}</td></tr>`:""}
           </table>
         </div>
         <p style="font-size: 12px; color: #555;">A member of our partnerships team will reach out personally within 2 business days.</p>
       </div>
-    `
-  };
-
-  // Text table for Internal Leads alert
-  const emailLead = {
-    To: ['Lead1@domain.com', 'Lead2@domain.com'],
-    Subject: `[URGENT - PARTNER LEAD] ${payload.fullName} - ${payload.organization || 'Individual'}`,
-    BodyText: `
+    `},o={To:["Lead1@domain.com","Lead2@domain.com"],Subject:`[URGENT - PARTNER LEAD] ${e.fullName} - ${e.organization||"Individual"}`,BodyText:`
       New high-intent lead routing alert:
       
       ======================================================
       DATA KEY           | VALUE
       ======================================================
-      Full Name          | ${payload.fullName}
-      Email              | ${payload.emailAddress}
-      Form Mode          | ${payload.formMode}
-      Organization       | ${payload.organization || 'N/A'}
-      Job Title          | ${payload.jobTitle || 'N/A'}
-      Field              | ${payload.researchField || 'N/A'}
-      Interests          | ${payload.interestDesc || 'N/A'}
-      Guest Count        | ${payload.guestCount || 'N/A'}
-      Message            | ${payload.message || 'N/A'}
+      Full Name          | ${e.fullName}
+      Email              | ${e.emailAddress}
+      Form Mode          | ${e.formMode}
+      Organization       | ${e.organization||"N/A"}
+      Job Title          | ${e.jobTitle||"N/A"}
+      Field              | ${e.researchField||"N/A"}
+      Interests          | ${e.interestDesc||"N/A"}
+      Guest Count        | ${e.guestCount||"N/A"}
+      Message            | ${e.message||"N/A"}
       ======================================================
-    `
-  };
-
-  console.log('--- OUTPUT SIMULATED SMTP TRANSACTION ---');
-  console.log('Auto-Reply E-mail (Client Receipt):', emailUser);
-  console.log('Priority Leads E-mail (Internal Notification):', emailLead);
-}
-
-function showToast(msg: string) {
-  const toastEl = document.getElementById('toast');
-  const msgEl = document.getElementById('toast-message');
-  if (toastEl && msgEl) {
-    msgEl.textContent = msg;
-    toastEl.classList.add('show', 'translate-y-0', 'opacity-100');
-    toastEl.classList.remove('translate-y-24', 'opacity-0');
-    setTimeout(() => {
-      toastEl.classList.remove('show', 'translate-y-0', 'opacity-100');
-      toastEl.classList.add('translate-y-24', 'opacity-0');
-    }, 5000);
-  }
-}
-
-// --- Page Scripts Hooking ---
-
-function setupHomeScripts() {
-  // Exit-Intent Popup handler for newsletter sign-ups
-  let exitIntentFired = false;
-  document.addEventListener('mouseleave', (e) => {
-    if (e.clientY < 20 && !exitIntentFired) {
-      exitIntentFired = true;
-      if (confirm('Would you like to subscribe to the MSK Niagara research digest?')) {
-        location.hash = '#/subscribe';
-      }
-    }
-  });
-}
-
-function setupCommunityScripts() {
-  const searchInput = document.getElementById('partnerSearch') as HTMLInputElement | null;
-  const tagButtons = document.querySelectorAll('#filterTags button');
-  let activeFilter = 'all';
-
-  function renderGrid() {
-    const query = searchInput?.value.toLowerCase() || '';
-    const grid = document.getElementById('directoryGrid');
-    if (!grid) return;
-
-    const filtered = COMMUNITY_PARTNERS.filter(partner => {
-      const matchesSearch = partner.name.toLowerCase().includes(query) || 
-                            partner.desc.toLowerCase().includes(query) ||
-                            partner.tags.some(t => t.toLowerCase().includes(query));
-      
-      const matchesFilter = activeFilter === 'all' || partner.tags.includes(activeFilter);
-      return matchesSearch && matchesFilter;
-    });
-
-    if (filtered.length === 0) {
-      grid.innerHTML = `<div class="col-span-full text-center text-sm text-[#8a8a8a] py-8">No community organizations found matching criteria.</div>`;
-      return;
-    }
-
-    grid.innerHTML = filtered.map(partner => `
+    `};console.log("--- OUTPUT SIMULATED SMTP TRANSACTION ---"),console.log("Auto-Reply E-mail (Client Receipt):",s),console.log("Priority Leads E-mail (Internal Notification):",o)}function g(e){const t=document.getElementById("toast"),s=document.getElementById("toast-message");t&&s&&(s.textContent=e,t.classList.add("show","translate-y-0","opacity-100"),t.classList.remove("translate-y-24","opacity-0"),setTimeout(()=>{t.classList.remove("show","translate-y-0","opacity-100"),t.classList.add("translate-y-24","opacity-0")},5e3))}function B(){let e=!1;document.addEventListener("mouseleave",t=>{t.clientY<20&&!e&&(e=!0,confirm("Would you like to subscribe to the MSK Niagara research digest?")&&(location.hash="#/subscribe"))})}function R(){const e=document.getElementById("partnerSearch"),t=document.querySelectorAll("#filterTags button");let s="all";function o(){const a=(e==null?void 0:e.value.toLowerCase())||"",i=document.getElementById("directoryGrid");if(!i)return;const r=w.filter(n=>{const l=n.name.toLowerCase().includes(a)||n.desc.toLowerCase().includes(a)||n.tags.some(d=>d.toLowerCase().includes(a)),c=s==="all"||n.tags.includes(s);return l&&c});if(r.length===0){i.innerHTML='<div class="col-span-full text-center text-sm text-[#8a8a8a] py-8">No community organizations found matching criteria.</div>';return}i.innerHTML=r.map(n=>`
       <div class="bg-white border border-[#d1cfc8] p-6 rounded-lg shadow-xs hover:shadow-md transition-all flex flex-col justify-between gap-4">
         <div class="flex flex-col gap-2">
-          <h3 class="text-xl font-bold font-serif text-[#1a2a3a]">${partner.name}</h3>
-          <p class="text-xs text-[#555] leading-relaxed">${partner.desc}</p>
+          <h3 class="text-xl font-bold font-serif text-[#1a2a3a]">${n.name}</h3>
+          <p class="text-xs text-[#555] leading-relaxed">${n.desc}</p>
         </div>
         <div class="flex flex-wrap gap-1">
-          ${partner.tags.map(tag => `<span class="bg-[#f8f6f0] border border-[#d1cfc8] text-[#1a2a3a] px-2 py-0.5 text-[10px] rounded">${tag}</span>`).join('')}
+          ${n.tags.map(l=>`<span class="bg-[#f8f6f0] border border-[#d1cfc8] text-[#1a2a3a] px-2 py-0.5 text-[10px] rounded">${l}</span>`).join("")}
         </div>
       </div>
-    `).join('');
-  }
-
-  // Bind keyup event for instant search
-  searchInput?.addEventListener('keyup', renderGrid);
-
-  // Bind tag click events
-  tagButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      tagButtons.forEach(b => {
-        b.classList.remove('bg-[#1a2a3a]', 'text-white');
-        b.classList.add('bg-gray-100', 'text-[#1a1a1a]', 'border-gray-200');
-      });
-      btn.classList.add('bg-[#1a2a3a]', 'text-white');
-      btn.classList.remove('bg-gray-100', 'text-[#1a1a1a]', 'border-gray-200');
-      
-      activeFilter = btn.getAttribute('data-tag') || 'all';
-      renderGrid();
-    });
-  });
-
-  // Initial render
-  renderGrid();
-}
-
-// --- App Initialization ---
-
-window.addEventListener('hashchange', router);
-window.addEventListener('DOMContentLoaded', router);
-
-// Register Offline Service Worker
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then(() => console.log('Lightweight PWA sw.js registered.'))
-      .catch(err => console.warn('Service worker registration failed:', err));
-  });
-}
+    `).join("")}e==null||e.addEventListener("keyup",o),t.forEach(a=>{a.addEventListener("click",()=>{t.forEach(i=>{i.classList.remove("bg-[#1a2a3a]","text-white"),i.classList.add("bg-gray-100","text-[#1a1a1a]","border-gray-200")}),a.classList.add("bg-[#1a2a3a]","text-white"),a.classList.remove("bg-gray-100","text-[#1a1a1a]","border-gray-200"),s=a.getAttribute("data-tag")||"all",o()})}),o()}window.addEventListener("hashchange",v);window.addEventListener("DOMContentLoaded",v);"serviceWorker"in navigator&&window.addEventListener("load",()=>{navigator.serviceWorker.register("/sw.js").then(()=>console.log("Lightweight PWA sw.js registered.")).catch(e=>console.warn("Service worker registration failed:",e))});
