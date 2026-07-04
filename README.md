@@ -1,5 +1,8 @@
 # MSK Niagara Research Partnership Website
 
+> **Hosting note:** this repository is hosted under the creova-gif GitHub account because Justin Mafie contributes to this project as a research assistant. This is MSK Niagara Research Partnership's project, not CREOVA-owned software — see LICENSE.
+
+
 **Mobilizing Subjugated Knowledges for a Just and Inclusive Niagara**
 
 A comprehensive bilingual (English/French) website for a transnational university-community research partnership committed to fostering social justice through collaborative research.
