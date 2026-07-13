@@ -141,7 +141,7 @@ msk-niagara/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-org/msk-niagara.git
+   git clone https://github.com/creova-gif/msk-niagara.git
    cd msk-niagara
    ```
 
