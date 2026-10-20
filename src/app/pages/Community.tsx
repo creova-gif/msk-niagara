@@ -1,21 +1,32 @@
-import { useLanguage } from '../contexts/LanguageContext';
-import { Card, CardContent } from '../components/ui/card';
-import { Button } from '../components/ui/button';
-import { ExternalLink, Mail, MapPin, Heart, Users, Building2, Search, Filter, X, Tag } from 'lucide-react';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
+/**
+ * Community partners directory
+ *
+ * Built to the Figma "community-partners" mockup (Brand Identity System,
+ * page 16): photographic hero, "Find Organizations" filter card, organization
+ * cards with a rotating brand-accent bar, and the Partner With Us band.
+ */
+
 import { useMemo, useState } from 'react';
-import { RippleRings } from '../components/HeroAnimations';
+import { ExternalLink, Mail, MapPin, Search, Tag, X } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
+import { Container } from '../components/brand';
 import { sanitizeEmail, sanitizeSearchQuery, sanitizeUrl } from '../utils/security';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { useSanityQuery } from '../../lib/sanity/useSanityQuery';
 import { communityPartnersQuery, type CommunityPartner } from '../../lib/sanity/queries/communityPartner';
 import { urlForImage } from '../../lib/sanity/image';
 
+/** Card accent bars cycle through the hub colours + water, as in the mockup. */
+const ACCENT_BARS = ['bg-ochre-500', 'bg-sage-500', 'bg-terra-500', 'bg-water'];
+
 export function Community() {
-  const { t, language } = useLanguage();
+  const { language } = useLanguage();
+  const en = language === 'en';
+
   usePageMeta(
-    language === 'en' ? 'Community | MSK Niagara' : 'Communauté | MSK Niagara',
-    language === 'en'
+    en ? 'Community | MSK Niagara' : 'Communauté | MSK Niagara',
+    en
       ? 'Community organizations and health partners across the Niagara region working alongside MSK Niagara.'
       : 'Organismes communautaires et partenaires de santé de la région de Niagara collaborant avec MSK Niagara.'
   );
@@ -26,367 +37,266 @@ export function Community() {
   const organizations = useMemo(
     () =>
       (rawOrganizations ?? []).map((org) => ({
+        id: org._id,
         name: org.name.en,
         nameFr: org.name.fr,
         description: org.description?.en ?? '',
         descriptionFr: org.description?.fr ?? '',
         services: (org.services ?? []).map((s) => s.en),
         servicesFr: (org.services ?? []).map((s) => s.fr),
-        website: org.website ?? '#',
+        website: org.website ?? '',
         contact: org.contact ?? '',
         category: org.category ?? '',
         location: org.location ?? '',
         logo: urlForImage(org.logo)?.width(300).url(),
-        color: org.color,
       })),
     [rawOrganizations]
   );
 
-
   const categories = [
-    { value: 'all', label: language === 'en' ? 'All Organizations' : 'Toutes les organisations', icon: Building2 },
-    { value: 'health', label: language === 'en' ? 'Health Services' : 'Services de santé', icon: Heart },
-    { value: 'newcomer-services', label: language === 'en' ? 'Newcomer Services' : 'Services aux nouveaux arrivants', icon: Users },
-    { value: 'youth', label: language === 'en' ? 'Youth Services' : 'Services aux jeunes', icon: Users },
-    { value: 'social-services', label: language === 'en' ? 'Social Services' : 'Services sociaux', icon: Heart },
-    { value: 'education', label: language === 'en' ? 'Education' : 'Éducation', icon: Building2 },
-    { value: 'research', label: language === 'en' ? 'Research' : 'Recherche', icon: Building2 },
-    { value: 'government', label: language === 'en' ? 'Government' : 'Gouvernement', icon: Building2 },
-    { value: 'international', label: language === 'en' ? 'International' : 'International', icon: Building2 },
-    { value: 'community', label: language === 'en' ? 'Community' : 'Communauté', icon: Building2 },
+    { value: 'all', label: en ? 'All Sectors' : 'Tous les secteurs' },
+    { value: 'health', label: en ? 'Health Services' : 'Services de santé' },
+    { value: 'newcomer-services', label: en ? 'Newcomer Services' : 'Services aux nouveaux arrivants' },
+    { value: 'youth', label: en ? 'Youth Services' : 'Services aux jeunes' },
+    { value: 'social-services', label: en ? 'Social Services' : 'Services sociaux' },
+    { value: 'education', label: en ? 'Education' : 'Éducation' },
+    { value: 'research', label: en ? 'Research' : 'Recherche' },
+    { value: 'government', label: en ? 'Government' : 'Gouvernement' },
+    { value: 'international', label: en ? 'International' : 'International' },
+    { value: 'community', label: en ? 'Community' : 'Communauté' },
   ];
 
-  const filteredOrganizations = organizations.filter(org => {
+  const filtered = organizations.filter((org) => {
     const matchesCategory = selectedCategory === 'all' || org.category === selectedCategory;
-    const matchesSearch = searchTerm === '' || 
-      (language === 'en' ? org.name : org.nameFr).toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (language === 'en' ? org.description : org.descriptionFr).toLowerCase().includes(searchTerm.toLowerCase());
+    const q = searchTerm.toLowerCase();
+    const matchesSearch =
+      q === '' ||
+      (en ? org.name : org.nameFr).toLowerCase().includes(q) ||
+      (en ? org.description : org.descriptionFr).toLowerCase().includes(q);
     return matchesCategory && matchesSearch;
   });
 
+  const hasFilters = selectedCategory !== 'all' || searchTerm !== '';
+  const clearFilters = () => {
+    setSelectedCategory('all');
+    setSearchTerm('');
+  };
+
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <div className="relative overflow-hidden bg-[#0B4F5C]">
-        {/* Dot-grid brand motif */}
-        <div className="absolute inset-0 opacity-[0.06]"
-          style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}
+    <div className="bg-paper">
+      {/* ── HERO ── */}
+      <section className="relative isolate overflow-hidden bg-teal-600 py-20 md:py-24">
+        <img
+          src="/community/community-voice-speaking.jpg"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 h-full w-full object-cover opacity-30"
         />
-        {/* Ripple rings expanding outward — community ripple effect */}
-        <RippleRings count={6} />
-        {/* Diagonal cut bottom edge */}
-        <div className="absolute bottom-0 left-0 right-0 h-14 bg-white"
-          style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 0)' }} />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-teal-700/90 via-teal-600/70 to-teal-600/30" aria-hidden="true" />
+        <Container>
+          {organizations.length > 0 && (
+            <span className="mb-6 inline-flex rounded-full bg-white/15 px-4 py-1.5 text-sm font-medium text-white backdrop-blur">
+              {organizations.length} {en ? 'Community Organizations' : 'Organisations communautaires'}
+            </span>
+          )}
+          <h1 className="!text-white">{en ? 'Our Partners' : 'Nos partenaires'}</h1>
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed !text-white/85">
+            {en
+              ? 'Connecting with local health clinics, public libraries, immigration networks, and social services across Niagara to synthesize robust research foundations.'
+              : 'Nous collaborons avec des cliniques de santé locales, des bibliothèques publiques, des réseaux d’immigration et des services sociaux de Niagara pour bâtir des assises de recherche solides.'}
+          </p>
+        </Container>
+      </section>
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24 pb-24">
-          <div className="text-center">
-            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-8 shadow-lg"
-              style={{ animation: 'fade-in-down 0.5s cubic-bezier(0.16,1,0.3,1) 0.1s both' }}>
-              <Heart className="w-4 h-4 text-white" />
-              <span className="text-sm text-white font-medium">
-                {language === 'en'
-                  ? `${organizations.length} Community Organizations`
-                  : `${organizations.length} Organisations communautaires`}
-              </span>
+      <Container className="py-12 md:py-16">
+        {/* ── FILTERS ── */}
+        <div className="rounded-2xl border border-stone-100 bg-white p-6 shadow-sm md:p-8">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h2 className="!text-[1.5rem]">{en ? 'Find Organizations' : 'Trouver des organisations'}</h2>
+              <p className="!mb-0 mt-1 text-sm">
+                {en
+                  ? `Showing ${filtered.length} of ${organizations.length} community partners`
+                  : `Affichage de ${filtered.length} sur ${organizations.length} partenaires communautaires`}
+              </p>
             </div>
-            <h1 className="text-4xl sm:text-5xl md:text-7xl text-white font-extrabold mb-6 tracking-tight"
-              style={{ fontFamily: 'var(--font-heading)', animation: 'fade-in-up 0.7s cubic-bezier(0.16,1,0.3,1) 0.2s both' }}>
-              {language === 'en' ? 'Community' : 'Communauté'}
-            </h1>
-            <p className="text-lg sm:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed px-4"
-              style={{ animation: 'fade-in-up 0.6s cubic-bezier(0.16,1,0.3,1) 0.35s both' }}>
-              {language === 'en'
-                ? 'Working together with community service organizations dedicated to supporting newcomers, youth, diverse communities, and families across Niagara.'
-                : 'Travailler ensemble avec des organisations de services communautaires dédiées au soutien des nouveaux arrivants, des jeunes, des communautés diverses et des familles dans Niagara.'}
-            </p>
+            {hasFilters && (
+              <button
+                onClick={clearFilters}
+                className="inline-flex items-center gap-2 rounded-full border border-stone-200 px-4 py-2 text-sm font-semibold text-teal-700 transition-colors hover:bg-teal-50"
+              >
+                <X className="h-4 w-4" />
+                {en ? 'Clear All' : 'Tout effacer'}
+              </button>
+            )}
           </div>
-        </div>
-      </div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8 pb-20 relative z-20">
-        {/* Search and Filter Section */}
-        <div className="mb-12">
-          <div className="bg-gradient-to-br from-white to-gray-50 rounded-3xl shadow-xl border-2 border-gray-100 p-8 md:p-10">
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#0B4F5C] to-[#094149] flex items-center justify-center shadow-lg">
-                <Filter className="w-7 h-7 text-white" />
-              </div>
-              <div className="flex-1">
-                <h2 className="text-2xl md:text-3xl font-bold text-[#132A35] mb-1">
-                  {language === 'en' ? 'Find Organizations' : 'Trouver des organisations'}
-                </h2>
-                <p className="text-sm text-[#132A35]/60">
-                  {language === 'en' 
-                    ? `Showing ${filteredOrganizations.length} of ${organizations.length} community partners`
-                    : `Affichage de ${filteredOrganizations.length} sur ${organizations.length} partenaires communautaires`}
-                </p>
-              </div>
-              {(selectedCategory !== 'all' || searchTerm !== '') && (
+          <div className="mt-6 grid gap-4 md:grid-cols-[1fr_280px]">
+            <div className="relative">
+              <label htmlFor="community-search" className="sr-only">
+                {en ? 'Search Organizations' : 'Rechercher des organisations'}
+              </label>
+              <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" aria-hidden="true" />
+              <input
+                id="community-search"
+                type="text"
+                placeholder={en ? 'Search by name or keyword…' : 'Rechercher par nom ou mot-clé…'}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(sanitizeSearchQuery(e.target.value))}
+                className="h-12 w-full rounded-xl border border-stone-200 bg-white pl-11 pr-10 text-sm text-ink placeholder:text-stone-300 hover:border-teal-300"
+              />
+              {searchTerm && (
                 <button
-                  onClick={() => {
-                    setSelectedCategory('all');
-                    setSearchTerm('');
-                  }}
-                  className="flex items-center gap-2 px-5 py-3 rounded-xl font-semibold bg-white border-2 border-[#0B4F5C]/20 text-[#0B4F5C] hover:border-[#0B4F5C] hover:bg-[#0B4F5C] hover:text-white transition-all duration-300 shadow-md hover:shadow-lg"
+                  onClick={() => setSearchTerm('')}
+                  className="absolute right-3 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full bg-stone-50 text-stone-400 hover:bg-stone-100"
+                  aria-label={en ? 'Clear search' : 'Effacer la recherche'}
                 >
-                  <X className="w-4 h-4" />
-                  <span className="hidden sm:inline">{language === 'en' ? 'Clear All' : 'Tout effacer'}</span>
+                  <X className="h-3.5 w-3.5" />
                 </button>
               )}
             </div>
-            
-            {/* Search and Category Filter */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              {/* Search */}
-              <div>
-                <label htmlFor="community-search" className="block text-xs font-bold text-[#132A35]/50 uppercase tracking-wider mb-3">
-                  <span className="flex items-center gap-2">
-                    <Search className="w-4 h-4 text-[#0B4F5C]" />
-                    {language === 'en' ? 'Search Organizations' : 'Rechercher des organisations'}
-                  </span>
-                </label>
-                <div className="relative">
-                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
-                  <input
-                    id="community-search"
-                    type="text"
-                    placeholder={language === 'en' ? 'Enter organization name...' : 'Entrez le nom de l\'organisation...'}
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(sanitizeSearchQuery(e.target.value))}
-                    className="w-full h-14 pl-12 pr-12 text-base font-semibold border-2 border-gray-200 hover:border-[#0B4F5C]/50 focus:border-[#0B4F5C] focus:outline-none focus:ring-4 focus:ring-[#0B4F5C]/10 bg-white rounded-xl shadow-sm transition-all duration-300"
-                  />
-                  {searchTerm && (
-                    <button
-                      onClick={() => setSearchTerm('')}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full bg-gray-200 hover:bg-[#0B4F5C] text-gray-600 hover:text-white transition-all duration-300"
-                      aria-label={language === 'en' ? 'Clear search' : 'Effacer la recherche'}
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
-                  )}
-                </div>
-              </div>
 
-              {/* Category Dropdown */}
-              <div>
-                <label className="block text-xs font-bold text-[#132A35]/50 uppercase tracking-wider mb-3">
-                  <span className="flex items-center gap-2">
-                    <Tag className="w-4 h-4 text-[#0B4F5C]" />
-                    {language === 'en' ? 'Category' : 'Catégorie'}
-                  </span>
-                </label>
-                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                  <SelectTrigger
-                    aria-label={language === 'en' ? 'Category' : 'Catégorie'}
-                    className="w-full h-14 text-base font-semibold border-2 border-gray-200 hover:border-[#0B4F5C]/50 focus:border-[#0B4F5C] bg-white rounded-xl shadow-sm transition-all duration-300"
-                  >
-                    <SelectValue placeholder={language === 'en' ? 'Select category...' : 'Sélectionner la catégorie...'} />
-                  </SelectTrigger>
-                  <SelectContent className="bg-white border-2 border-gray-200 rounded-xl shadow-2xl">
-                    {categories.map((category) => {
-                      const Icon = category.icon;
-                      return (
-                        <SelectItem 
-                          key={category.value} 
-                          value={category.value} 
-                          className="text-base font-semibold py-3 cursor-pointer hover:bg-gray-50"
-                        >
-                          <span className="flex items-center gap-3">
-                            <div className="w-2 h-2 rounded-full bg-[#0B4F5C]"></div>
-                            <Icon className="w-4 h-4 text-[#0B4F5C]" />
-                            {category.label}
-                          </span>
-                        </SelectItem>
-                      );
-                    })}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-
-            {/* Active Filters Display */}
-            {(selectedCategory !== 'all' || searchTerm !== '') && (
-              <div className="pt-6 border-t-2 border-gray-200">
-                <p className="text-xs font-bold text-[#132A35]/50 uppercase tracking-wider mb-3">
-                  {language === 'en' ? 'Active Filters' : 'Filtres actifs'}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {selectedCategory !== 'all' && (
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#0B4F5C]/10 border-2 border-[#0B4F5C]/30 text-[#0B4F5C] font-semibold">
-                      <Tag className="w-4 h-4" />
-                      <span className="text-sm">
-                        {categories.find(cat => cat.value === selectedCategory)?.label}
-                      </span>
-                      <button 
-                        onClick={() => setSelectedCategory('all')} 
-                        className="hover:bg-[#0B4F5C] hover:text-white rounded-full p-0.5 transition-colors"
-                      >
-                        <X className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                  )}
-                  {searchTerm !== '' && (
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#0B4F5C]/10 border-2 border-[#0B4F5C]/30 text-[#0B4F5C] font-semibold">
-                      <Search className="w-4 h-4" />
-                      <span className="text-sm">
-                        "{searchTerm}"
-                      </span>
-                      <button 
-                        onClick={() => setSearchTerm('')} 
-                        className="hover:bg-[#0B4F5C] hover:text-white rounded-full p-0.5 transition-colors"
-                      >
-                        <X className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
+            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+              <SelectTrigger
+                aria-label={en ? 'Category' : 'Catégorie'}
+                className="h-12 w-full rounded-xl border border-stone-200 bg-white text-sm font-medium text-ink hover:border-teal-300"
+              >
+                <SelectValue placeholder={en ? 'Category: All Sectors' : 'Catégorie : tous les secteurs'} />
+              </SelectTrigger>
+              <SelectContent className="rounded-xl border border-stone-100 bg-white shadow-xl">
+                {categories.map((c) => (
+                  <SelectItem key={c.value} value={c.value} className="cursor-pointer py-2.5 text-sm">
+                    {c.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
+
+          {hasFilters && (
+            <div className="mt-5 flex flex-wrap items-center gap-2 border-t border-stone-100 pt-5">
+              <span className="text-xs font-semibold uppercase tracking-wider text-stone-400">
+                {en ? 'Active Filters' : 'Filtres actifs'}
+              </span>
+              {selectedCategory !== 'all' && (
+                <button
+                  onClick={() => setSelectedCategory('all')}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-700 hover:bg-teal-100"
+                >
+                  <Tag className="h-3 w-3" />
+                  {categories.find((c) => c.value === selectedCategory)?.label}
+                  <X className="h-3 w-3" />
+                </button>
+              )}
+              {searchTerm !== '' && (
+                <button
+                  onClick={() => setSearchTerm('')}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-700 hover:bg-teal-100"
+                >
+                  “{searchTerm}”
+                  <X className="h-3 w-3" />
+                </button>
+              )}
+            </div>
+          )}
         </div>
 
-        {/* Organizations Grid */}
-        {filteredOrganizations.length > 0 ? (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {filteredOrganizations.map((org, index) => (
-              <Card
-                key={index}
-                className="group hover:shadow-2xl transition-all duration-500 border-0 overflow-hidden bg-white relative"
-                style={{
-                  boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05)',
-                }}
-              >
-                {/* Accent Bar — uses each org's own brand color */}
-                <div
-                  className="absolute top-0 left-0 right-0 h-1 transition-all duration-500 group-hover:h-1.5"
-                  style={{ backgroundColor: org.color || '#0B4F5C' }}
-                />
+        {/* ── ORGANIZATIONS ── */}
+        {filtered.length > 0 ? (
+          <div className="mt-10 grid gap-6 lg:grid-cols-2">
+            {filtered.map((org, i) => {
+              const website = org.website ? sanitizeUrl(org.website) : '';
+              const services = en ? org.services : org.servicesFr;
+              return (
+                <article key={org.id} className="overflow-hidden rounded-2xl border border-stone-100 bg-white shadow-sm transition-shadow duration-300 hover:shadow-lg">
+                  <div className={`h-1 ${ACCENT_BARS[i % ACCENT_BARS.length]}`} aria-hidden="true" />
+                  <div className="p-7">
+                    {org.logo && (
+                      <div className="mb-5 flex min-h-[96px] items-center justify-center rounded-xl border border-stone-100 bg-white p-4">
+                        <img src={org.logo} alt={`${en ? org.name : org.nameFr} logo`} className="max-h-16 max-w-full object-contain" />
+                      </div>
+                    )}
+                    {org.category && (
+                      <span className="mb-3 inline-flex rounded-md bg-stone-50 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-stone-500">
+                        {categories.find((c) => c.value === org.category)?.label ?? org.category}
+                      </span>
+                    )}
+                    <h3 className="mb-1">{en ? org.name : org.nameFr}</h3>
+                    {org.location && (
+                      <p className="!mb-3 flex items-center gap-1.5 text-xs">
+                        <MapPin className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                        {org.location}
+                      </p>
+                    )}
+                    <p className="line-clamp-3 text-sm leading-relaxed">{en ? org.description : org.descriptionFr}</p>
 
-                <CardContent className="p-6 md:p-8">
-                  {/* Logo + color swatch */}
-                  {org.logo && (
-                    <div className="flex items-center justify-center p-4 md:p-5 bg-white rounded-2xl border border-gray-100 mb-5 min-h-[110px] md:min-h-[130px] group-hover:border-gray-200 transition-all shadow-sm">
-                      <img
-                        src={org.logo}
-                        alt={`${org.name} logo`}
-                        className="max-h-16 md:max-h-20 max-w-full object-contain transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                  )}
+                    {services.length > 0 && (
+                      <div className="mb-5 flex flex-wrap gap-1.5">
+                        {services.slice(0, 4).map((s, k) => (
+                          <span key={k} className="rounded-md bg-teal-50 px-2.5 py-1 text-[11px] font-semibold text-teal-700">
+                            {s}
+                          </span>
+                        ))}
+                      </div>
+                    )}
 
-                  {/* Organization Name */}
-                  <h3
-                    className="text-lg md:text-xl font-bold mb-1.5 text-[#132A35] leading-snug transition-colors duration-300"
-                    style={{ fontFamily: 'var(--font-heading)' }}
-                  >
-                    {language === 'fr' ? org.nameFr : org.name}
-                  </h3>
-
-                  {/* Location */}
-                  {org.location && (
-                    <div className="flex items-center gap-1.5 mb-3 text-gray-500">
-                      <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
-                      <span className="text-xs font-medium">{org.location}</span>
-                    </div>
-                  )}
-
-                  {/* Description */}
-                  <p className="text-sm text-gray-500 mb-5 leading-relaxed line-clamp-3">
-                    {language === 'fr' ? org.descriptionFr : org.description}
-                  </p>
-
-                  {/* Services Tags — org's own color */}
-                  <div className="mb-5">
-                    <div className="flex flex-wrap gap-1.5">
-                      {(language === 'fr' ? org.servicesFr : org.services).slice(0, 4).map((service, i) => (
-                        <span
-                          key={i}
-                          className="px-2.5 py-1 rounded-full text-[11px] font-semibold"
-                          style={{
-                            backgroundColor: (org.color || '#0B4F5C') + '15',
-                            color: org.color || '#0B4F5C',
-                          }}
+                    <div className="flex flex-wrap gap-3 border-t border-stone-100 pt-5">
+                      {website && website !== '#' && (
+                        <a
+                          href={website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn btn-primary !min-h-0 !px-5 !py-2 text-sm"
                         >
-                          {service}
-                        </span>
-                      ))}
+                          <ExternalLink className="h-4 w-4" />
+                          {en ? 'Visit Website' : 'Site web'}
+                        </a>
+                      )}
+                      {org.contact && (
+                        <a
+                          href={`mailto:${sanitizeEmail(org.contact)}`}
+                          className="btn !min-h-0 border border-stone-200 !px-5 !py-2 text-sm text-ink hover:bg-stone-50"
+                        >
+                          <Mail className="h-4 w-4" />
+                          {en ? 'Contact' : 'Contacter'}
+                        </a>
+                      )}
                     </div>
                   </div>
-
-                  {/* Action Buttons */}
-                  <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-100">
-                    <Button
-                      variant="default"
-                      size="lg"
-                      className="flex-1 gap-2 bg-[#0B4F5C] hover:bg-[#094149] text-white group/btn transition-all duration-300 text-sm md:text-base"
-                      onClick={() => window.open(sanitizeUrl(org.website), '_blank')}
-                    >
-                      <ExternalLink className="w-4 h-4 flex-shrink-0 transition-transform group-hover/btn:rotate-12" />
-                      <span className="truncate">{language === 'en' ? 'Visit Website' : 'Site web'}</span>
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="lg"
-                      className="flex-1 gap-2 hover:bg-gray-50 text-sm md:text-base"
-                      onClick={() => (window.location.href = `mailto:${sanitizeEmail(org.contact)}`)}
-                    >
-                      <Mail className="w-4 h-4 flex-shrink-0" />
-                      <span className="truncate">{language === 'en' ? 'Contact' : 'Contacter'}</span>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                </article>
+              );
+            })}
           </div>
         ) : (
-          <div className="text-center py-20">
-            <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gray-100 mb-6">
-              <Search className="w-12 h-12 text-gray-500" />
-            </div>
-            <h3 className="text-2xl text-[#132A35] mb-3">
-              {language === 'en' ? 'No organizations found' : 'Aucune organisation trouvée'}
-            </h3>
-            <p className="text-gray-600 mb-6">
-              {language === 'en' 
-                ? 'Try adjusting your search or filter to find what you\'re looking for.'
-                : 'Essayez d\'ajuster votre recherche ou votre filtre pour trouver ce que vous cherchez.'}
+          <div className="py-20 text-center">
+            <h3 className="mb-3">{en ? 'No organizations found' : 'Aucune organisation trouvée'}</h3>
+            <p className="mx-auto mb-6 max-w-md">
+              {en
+                ? 'Try adjusting your search or filter to find what you’re looking for.'
+                : 'Essayez d’ajuster votre recherche ou votre filtre pour trouver ce que vous cherchez.'}
             </p>
-            <Button
-              onClick={() => {
-                setSearchTerm('');
-                setSelectedCategory('all');
-              }}
-              className="bg-[#0B4F5C] hover:bg-[#094149]"
-            >
-              {language === 'en' ? 'Clear Filters' : 'Effacer les filtres'}
-            </Button>
+            <button onClick={clearFilters} className="btn btn-primary">
+              {en ? 'Clear Filters' : 'Effacer les filtres'}
+            </button>
           </div>
         )}
+      </Container>
 
-        {/* CTA Section */}
-        <section className="mt-16 relative overflow-hidden rounded-3xl bg-[#0B4F5C] p-12 md:p-16 text-center shadow-2xl">
-          <div className="relative z-10">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/20 backdrop-blur-sm mb-8 shadow-lg">
-              <Users className="w-10 h-10 text-white" />
-            </div>
-            <h2 className="text-4xl md:text-5xl text-white mb-6">
-              {language === 'en' ? 'Partner With Us' : 'Devenez Partenaire'}
-            </h2>
-            <p className="text-white/90 text-lg md:text-xl mb-10 max-w-3xl mx-auto leading-relaxed">
-              {language === 'en'
-                ? 'Are you a community organization interested in partnering with our research network? We welcome collaborations that advance community health, support newcomers and youth, and promote social well-being.'
-                : 'Êtes-vous une organisation communautaire intéressée à devenir partenaire de notre réseau de recherche? Nous accueillons les collaborations qui font progresser la santé communautaire.'}
-            </p>
-            <Button
-              size="lg"
-              className="gap-3 bg-white text-[#0B4F5C] hover:bg-gray-50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 text-lg px-8 py-6"
-            >
-              <Mail className="w-6 h-6" />
-              {language === 'en' ? 'Get in Touch' : 'Contactez-nous'}
-            </Button>
-          </div>
-        </section>
-      </div>
+      {/* ── PARTNER CTA ── */}
+      <section className="bg-teal-600 py-20 text-center md:py-24">
+        <Container>
+          <h2 className="!text-white">{en ? 'Partner With Us' : 'Devenez partenaire'}</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-lg !text-white/85">
+            {en
+              ? 'Let’s build community pathways to structural equity together. If your organization is based in Niagara and centers newcomers, racialized, or marginalized families, let’s explore co-designing our next inquiry project.'
+              : 'Bâtissons ensemble des parcours communautaires vers l’équité structurelle. Si votre organisation est établie à Niagara et place au centre les familles nouvellement arrivées, racisées ou marginalisées, explorons la co-conception de notre prochain projet de recherche.'}
+          </p>
+          <a href="mailto:contact@msk-niagara.ca" className="btn mt-8 bg-white text-teal-700 hover:bg-paper">
+            <Mail className="h-4 w-4" />
+            {en ? 'Get in Touch' : 'Contactez-nous'}
+          </a>
+        </Container>
+      </section>
     </div>
   );
 }

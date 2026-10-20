@@ -1,81 +1,78 @@
+/**
+ * Partner Network page
+ *
+ * Built to the Figma "partner-network" mockup (Brand Identity System,
+ * page 16): coalition hero, stat strip, "Circle of Care" model, the three
+ * partner columns (Community / Academic / Funding) and the registry form.
+ */
+
+import { useMemo, useState } from 'react';
+import { ArrowUpRight, BookOpen, Landmark, Send, Users } from 'lucide-react';
 import { sanitizeUrl } from '../utils/security';
 import { useLanguage } from '../contexts/LanguageContext';
-import { ArrowUpRight, BookOpen, Users, Landmark, Send } from 'lucide-react';
-import { useMemo, useState } from 'react';
-import { NetworkNodes } from '../components/HeroAnimations';
+import { Container, SectionHeading } from '../components/brand';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { useSanityQuery } from '../../lib/sanity/useSanityQuery';
 import { partnersNetworkQuery, type CommunityPartner } from '../../lib/sanity/queries/communityPartner';
 import { urlForImage } from '../../lib/sanity/image';
 
-const MONO = 'var(--font-mono)';
-
 const COLUMNS = [
   {
     key: 'community',
-    code: 'C',
-    color: '#3993A4',
-    glow: '#6AB3C1',
     icon: Users,
-    titleEn: 'Community Partners',
-    titleFr: 'Partenaires Communautaires',
-    blurbEn: 'Grassroots organizations rooted in lived experience.',
-    blurbFr: 'Organisations ancrées dans l’expérience vécue.',
+    tile: 'bg-teal-600',
+    pill: 'bg-teal-600',
+    dot: 'bg-teal-600',
+    bar: 'bg-teal-600',
+    titleEn: 'Community',
+    titleFr: 'Communauté',
+    unitEn: 'ORGS',
+    unitFr: 'ORG.',
   },
   {
     key: 'academic',
-    code: 'A',
-    color: '#0B4F5C',
-    glow: '#6AB3C1',
     icon: BookOpen,
-    titleEn: 'Academic Partners',
-    titleFr: 'Partenaires Académiques',
-    blurbEn: 'Researchers and institutions advancing the evidence.',
-    blurbFr: 'Chercheurs et institutions qui font avancer la preuve.',
+    tile: 'bg-sage-500',
+    pill: 'bg-sage-500',
+    dot: 'bg-sage-500',
+    bar: 'bg-sage-500',
+    titleEn: 'Academic',
+    titleFr: 'Académique',
+    unitEn: 'INST',
+    unitFr: 'INST.',
   },
   {
     key: 'funding',
-    code: 'F',
-    color: '#4E8064',
-    glow: '#E1B449',
     icon: Landmark,
-    titleEn: 'Funding Partners',
-    titleFr: 'Partenaires Financiers',
-    blurbEn: 'Funders investing in systemic, lasting change.',
-    blurbFr: 'Bailleurs qui investissent dans un changement durable.',
+    tile: 'bg-terra-500',
+    pill: 'bg-terra-500',
+    dot: 'bg-terra-500',
+    bar: 'bg-terra-500',
+    titleEn: 'Funding',
+    titleFr: 'Financement',
+    unitEn: 'FUNDS',
+    unitFr: 'BAILL.',
   },
 ] as const;
 
+type ColumnKey = (typeof COLUMNS)[number]['key'];
 type Partner = { name: string; url: string; logo: string | null };
-
-function Marker({ index, label }: { index: string; label: string }) {
-  return (
-    <div className="flex items-center gap-4 mb-7">
-      <span className="text-[#6AB3C1] text-sm font-semibold tracking-[0.18em]" style={{ fontFamily: MONO }}>
-        {index}
-      </span>
-      <span className="h-px w-10 bg-[#33333D]" />
-      <span className="text-[11px] tracking-[0.34em] uppercase text-[#69736F]" style={{ fontFamily: MONO }}>
-        {label}
-      </span>
-    </div>
-  );
-}
 
 export function Partners() {
   const { language } = useLanguage();
+  const en = language === 'en';
+
   usePageMeta(
-    language === 'en' ? 'Partner Network | MSK Niagara' : 'Réseau de partenaires | MSK Niagara',
-    language === 'en'
+    en ? 'Partner Network | MSK Niagara' : 'Réseau de partenaires | MSK Niagara',
+    en
       ? 'Community organizers, academic researchers, and institutional funders working as equals in the MSK Niagara partner network.'
       : 'Organisateurs communautaires, chercheurs universitaires et bailleurs de fonds institutionnels collaborant à égalité au sein du réseau de partenaires MSK Niagara.'
   );
-  const en = language === 'en';
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
 
   const { data: rawPartners } = useSanityQuery<CommunityPartner[]>(partnersNetworkQuery);
-  const partnersData: Record<string, Partner[]> = useMemo(() => {
-    const buckets: Record<string, Partner[]> = { community: [], academic: [], funding: [] };
+  const partnersData = useMemo(() => {
+    const buckets: Record<ColumnKey, Partner[]> = { community: [], academic: [], funding: [] };
     for (const p of rawPartners ?? []) {
       const entry: Partner = {
         name: en ? p.name.en : p.name.fr,
@@ -90,14 +87,41 @@ export function Partners() {
   }, [rawPartners, en]);
 
   const totalOrgs = COLUMNS.reduce((n, c) => n + partnersData[c.key].length, 0);
-  const academicCount = partnersData.academic.length;
+  const pad = (n: number) => String(n).padStart(2, '0');
 
   const stats = [
-    { value: '03', label: en ? 'Research Hubs' : 'Pôles de recherche', color: '#A85645' },
-    { value: String(totalOrgs).padStart(2, '0'), label: en ? 'Partner Orgs' : 'Organisations', color: '#6AB3C1' },
-    { value: String(academicCount).padStart(2, '0'), label: en ? 'Institutions' : 'Institutions', color: '#E1B449' },
-    { value: '01', label: en ? 'Shared Mission' : 'Mission commune', color: '#6AB3C1' },
+    { value: '03', label: en ? 'Research Hubs' : 'Pôles de recherche', dot: 'bg-teal-500' },
+    { value: pad(totalOrgs), label: en ? 'Partner Orgs' : 'Organisations', dot: 'bg-ochre-500' },
+    { value: pad(partnersData.academic.length), label: en ? 'Institutions' : 'Institutions', dot: 'bg-terra-500' },
+    { value: '01', label: en ? 'Shared Mission' : 'Mission commune', dot: 'bg-stone-300' },
   ];
+
+  const circle = [
+    {
+      value: `${partnersData.community.length}+`,
+      label: en ? 'Community Partners' : 'Partenaires communautaires',
+      text: en
+        ? 'Frontline service providers, grass-roots organizations, and regional clinics guiding our focus.'
+        : 'Fournisseurs de services de première ligne, organismes de terrain et cliniques régionales qui orientent notre action.',
+      bar: 'bg-teal-500',
+    },
+    {
+      value: pad(partnersData.academic.length),
+      label: en ? 'Academic Partners' : 'Partenaires académiques',
+      text: en
+        ? 'Universities and regional colleges lending methodological rigor and safeguarding data pools.'
+        : 'Universités et collèges régionaux qui apportent la rigueur méthodologique et protègent les bases de données.',
+      bar: 'bg-terra-500',
+    },
+    {
+      value: pad(partnersData.funding.length),
+      label: en ? 'Funding Partners' : 'Partenaires financiers',
+      text: en
+        ? 'Social Sciences and Humanities Research Council of Canada and local philanthropy structures.'
+        : 'Conseil de recherches en sciences humaines du Canada et structures philanthropiques locales.',
+      bar: 'bg-ochre-500',
+    },
+  ].filter((c) => c.value !== '0+' && c.value !== '00');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -114,298 +138,218 @@ export function Partners() {
     setFormStatus('success');
   };
 
-  const inputCls =
-    'w-full bg-[#0E202A] border border-[#21404E] rounded-lg px-4 py-3 text-white placeholder-[#525C58] focus:outline-none focus:border-[#4E8064] focus:ring-1 focus:ring-[#4E8064] transition-all text-sm';
+  const fieldCls =
+    'h-11 w-full rounded-lg border border-stone-200 bg-white px-4 text-sm text-ink placeholder:text-stone-300 hover:border-teal-300';
+  const labelCls = 'mb-1.5 block text-[11px] font-semibold uppercase tracking-wider text-ink';
 
   return (
-    <div className="min-h-screen bg-[#0E202A] text-[#E1E4E0]">
-      {/* ── MASTHEAD HERO ── */}
-      <header className="relative overflow-hidden bg-[#0B4F5C]">
-        <div
-          className="absolute inset-0 opacity-[0.06] pointer-events-none"
-          style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}
+    <div className="bg-paper">
+      {/* ── HERO ── */}
+      <header className="relative isolate overflow-hidden bg-teal-600 py-14 md:py-20">
+        <img
+          src="/community/researcher-greeting-attendees.jpg"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 h-full w-full object-cover opacity-30"
         />
-        <NetworkNodes />
-        <div
-          className="absolute bottom-0 left-0 right-0 h-24 bg-[#0E202A]"
-          style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 0)' }}
-        />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-12 pb-36 md:pt-16 md:pb-44">
-          {/* dispatch top bar */}
-          <div className="flex items-start justify-between gap-4 border-b border-white/15 pb-5 mb-12">
-            <div className="text-white/90 text-xs sm:text-sm font-semibold tracking-[0.22em]" style={{ fontFamily: MONO }}>
-              MSK <span className="text-white/40">//</span> {en ? 'PARTNER NETWORK' : 'RÉSEAU DE PARTENAIRES'}
-            </div>
-            <div className="text-right text-[10px] leading-relaxed text-white/90 tracking-[0.18em]" style={{ fontFamily: MONO }}>
-              <span className="inline-flex items-center gap-1.5 text-white/90">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#6AB3C1] animate-pulse" />
-                {en ? 'LIVE COALITION' : 'COALITION ACTIVE'}
-              </span>
-              <br />
-              {en ? 'NIAGARA REGION · ON, CA' : 'RÉGION DE NIAGARA · ON, CA'}
-            </div>
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-teal-700/90 via-teal-600/70 to-teal-600/40" aria-hidden="true" />
+        <Container>
+          <div className="mb-12 flex items-start justify-between gap-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/85">
+            <span>MSK // {en ? 'Partner Network' : 'Réseau de partenaires'}</span>
+            <span className="inline-flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-ochre-400" aria-hidden="true" />
+              {en ? 'Live Coalition' : 'Coalition active'}
+            </span>
           </div>
-
-          <span className="inline-flex items-center gap-2 text-white/90 text-[11px] font-semibold tracking-[0.28em] uppercase mb-6" style={{ fontFamily: MONO }}>
-            <span className="w-6 h-px bg-white/40" />
-            {en ? 'Our Network' : 'Notre Réseau'}
-          </span>
-          <h1
-            className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-[1.03] tracking-tight max-w-4xl"
-            style={{ fontFamily: 'var(--font-heading)' }}
-          >
+          <h1 className="max-w-4xl !text-white">
             {en ? 'United for Justice and Inclusion' : 'Unis pour la justice et l’inclusion'}
           </h1>
-          <p className="text-lg md:text-xl text-white/90 max-w-2xl leading-relaxed">
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed !text-white/85">
             {en
-              ? 'Community organizers, academic researchers, and institutional funders working as equals — a circle of care for the Niagara region.'
-              : 'Organisateurs communautaires, chercheurs et bailleurs de fonds, à parts égales — un cercle de bienveillance pour la région de Niagara.'}
+              ? 'A powerful coalition connecting academic researchers, community organizers, and localized regional institutions on a democratic platform where all partners work as equals.'
+              : 'Une coalition puissante qui relie chercheur.e.s, organisateurs communautaires et institutions régionales sur une plateforme démocratique où tous les partenaires travaillent à égalité.'}
           </p>
-        </div>
+        </Container>
       </header>
 
-      {/* ── DATA STRIP ── */}
-      <div className="border-y border-[#1D3A47] bg-[#162F3B]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-stretch divide-x divide-[#1D3A47] overflow-x-auto">
-            {stats.map((s) => (
-              <div key={s.label} className="flex items-baseline gap-3 py-5 pr-8 pl-0 first:pl-0 sm:pl-8 shrink-0">
-                <span className="text-2xl md:text-3xl font-semibold" style={{ fontFamily: MONO, color: s.color }}>
-                  {s.value}
-                </span>
-                <span className="text-[11px] tracking-[0.2em] uppercase text-[#69736F]" style={{ fontFamily: MONO }}>
-                  {s.label}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
+      {/* ── STAT STRIP ── */}
+      <div className="border-b border-stone-100 bg-white">
+        <Container className="flex flex-wrap items-center justify-between gap-x-10 gap-y-3 py-5">
+          {stats.map((s) => (
+            <div key={s.label} className="flex items-center gap-3 text-sm font-semibold text-ink">
+              <span className={`h-2 w-2 ${s.dot}`} aria-hidden="true" />
+              <span>{s.value}</span>
+              <span className="font-medium text-stone-500">{s.label}</span>
+            </div>
+          ))}
+        </Container>
       </div>
 
-      {/* ── 01 · OUR MODEL ── */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 md:py-28">
-        <Marker index="01" label={en ? 'Our Model' : 'Notre Modèle'} />
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16">
-          <div className="lg:col-span-5">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-5 tracking-tight" style={{ fontFamily: 'var(--font-heading)' }}>
-              {en ? 'The Circle of Care' : 'Le Cercle de Bienveillance'}
-            </h2>
-            <p className="text-[#9AA29D] leading-relaxed">
-              {en
-                ? 'No partner sits above another. Community knowledge, academic rigour, and sustained funding overlap to drive systemic change — and where all three meet is where the work truly lives.'
-                : 'Aucun partenaire n’est au-dessus d’un autre. Savoirs communautaires, rigueur académique et financement durable se rejoignent au cœur du changement.'}
-            </p>
-          </div>
-          <div className="lg:col-span-7 grid sm:grid-cols-3 gap-4">
-            {COLUMNS.map((c) => {
-              const Icon = c.icon;
-              return (
-                <div
-                  key={c.key}
-                  className="relative bg-[#162F3B] border border-[#1D3A47] rounded-xl p-5 overflow-hidden transition-colors hover:border-[#3A3A45]"
-                >
-                  <div className="absolute top-0 left-0 h-full w-[3px]" style={{ backgroundColor: c.color }} />
-                  <div className="flex items-center justify-between mb-5">
-                    <div className="p-2 rounded-lg" style={{ backgroundColor: `${c.color}1F` }}>
-                      <Icon className="w-5 h-5" style={{ color: c.glow }} />
-                    </div>
-                    <span className="text-xs tracking-[0.2em]" style={{ fontFamily: MONO, color: '#9AA29D' }}>
-                      {c.code}-00
-                    </span>
+      {/* ── CIRCLE OF CARE ── */}
+      <section className="py-16 md:py-24">
+        <Container className="grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
+          <SectionHeading
+            eyebrow={en ? 'Ecosystem philosophy' : 'Philosophie de l’écosystème'}
+            accent="terra"
+            title={en ? 'The Circle of Care' : 'Le cercle de bienveillance'}
+            lede={
+              en
+                ? 'In our network, no partner sits above another. We recognize lived experience and grass-roots organizational wisdom as having equal weight and validity to academic inquiry. Together, we co-design, co-own, and co-publish our structural findings.'
+                : 'Dans notre réseau, aucun partenaire n’est au-dessus d’un autre. Nous reconnaissons que le vécu et la sagesse organisationnelle de terrain ont le même poids et la même validité que la recherche universitaire. Ensemble, nous co-concevons, co-détenons et co-publions nos constats structurels.'
+            }
+          />
+          {circle.length > 0 && (
+            <div className="space-y-4">
+              {circle.map((c) => (
+                <div key={c.label} className="rounded-2xl border border-stone-100 bg-white p-6 shadow-sm">
+                  <span className={`block h-1 w-6 rounded-full ${c.bar}`} aria-hidden="true" />
+                  <div className="mt-4 text-4xl font-bold text-teal-600" style={{ fontFamily: 'var(--font-heading)' }}>
+                    {c.value}
                   </div>
-                  <h3 className="text-base font-bold text-white leading-snug mb-1.5" style={{ fontFamily: 'var(--font-heading)' }}>
-                    {en ? c.titleEn : c.titleFr}
-                  </h3>
-                  <p className="text-xs text-[#69736F] leading-relaxed">
-                    {en ? c.blurbEn : c.blurbFr}
-                  </p>
+                  <div className="mt-1 text-xs font-semibold uppercase tracking-wider text-ink">{c.label}</div>
+                  <p className="!mb-0 mt-2 text-sm">{c.text}</p>
+                </div>
+              ))}
+            </div>
+          )}
+        </Container>
+      </section>
+
+      {/* ── COALITION MAP ── */}
+      <section className="border-y border-stone-100 bg-white py-16 md:py-24">
+        <Container>
+          <SectionHeading
+            eyebrow={en ? 'Network registry' : 'Registre du réseau'}
+            accent="ochre"
+            title={en ? 'Our Coalition Map' : 'Notre carte de coalition'}
+          />
+          <div className="mt-10 grid items-start gap-6 lg:grid-cols-3">
+            {COLUMNS.map((col) => {
+              const Icon = col.icon;
+              const list = partnersData[col.key];
+              return (
+                <div key={col.key} className="overflow-hidden rounded-2xl border border-stone-100 bg-paper">
+                  <div className={`h-1 ${col.bar}`} aria-hidden="true" />
+                  <div className="flex items-center gap-4 p-6">
+                    <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-white ${col.tile}`}>
+                      <Icon className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <div>
+                      <h3 className="!text-[1.375rem]">{en ? col.titleEn : col.titleFr}</h3>
+                      <span className={`mt-1 inline-flex rounded-full px-2.5 py-0.5 text-[10px] font-bold tracking-wider text-white ${col.pill}`}>
+                        {list.length} {en ? col.unitEn : col.unitFr}
+                      </span>
+                    </div>
+                  </div>
+                  <ul className="px-6 pb-4">
+                    {list.map((partner, i) => {
+                      const isLink = partner.url && partner.url !== '#';
+                      const inner = (
+                        <span className="flex items-center gap-3 py-3 text-sm text-ink">
+                          <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${col.dot}`} aria-hidden="true" />
+                          {partner.logo ? (
+                            <img src={partner.logo} alt={partner.name} className="h-6 max-w-[140px] object-contain" />
+                          ) : (
+                            <span className="flex-1 leading-snug">{partner.name}</span>
+                          )}
+                          {partner.logo && <span className="flex-1" />}
+                          {isLink && <ArrowUpRight className="h-4 w-4 shrink-0 text-stone-300" aria-hidden="true" />}
+                        </span>
+                      );
+                      return (
+                        <li key={i} className="border-b border-stone-100 last:border-0">
+                          {isLink ? (
+                            <a
+                              href={sanitizeUrl(partner.url)}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block transition-colors hover:text-teal-700"
+                            >
+                              {inner}
+                            </a>
+                          ) : (
+                            inner
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </div>
               );
             })}
           </div>
-        </div>
+        </Container>
       </section>
 
-      {/* ── 02 · THE NETWORK ── */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-20 md:pb-28">
-        <Marker index="02" label={en ? 'The Network' : 'Le Réseau'} />
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-6 items-start">
-          {COLUMNS.map((col) => {
-            const Icon = col.icon;
-            const list = partnersData[col.key];
-            return (
-              <div key={col.key} className="bg-[#162F3B] border border-[#1D3A47] rounded-2xl overflow-hidden">
-                {/* category header */}
-                <div className="flex items-center gap-3 p-5 border-b border-[#1D3A47]">
-                  <div className="p-2.5 rounded-xl shrink-0" style={{ backgroundColor: `${col.color}1F` }}>
-                    <Icon className="w-5 h-5" style={{ color: col.glow }} />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <h3 className="text-base font-bold text-white leading-tight truncate" style={{ fontFamily: 'var(--font-heading)' }}>
-                      {en ? col.titleEn : col.titleFr}
-                    </h3>
-                    <p className="text-[11px] text-[#69736F] mt-0.5 truncate">
-                      {en ? col.blurbEn : col.blurbFr}
-                    </p>
-                  </div>
-                  <span className="text-xs tracking-[0.1em] shrink-0" style={{ fontFamily: MONO, color: col.glow }}>
-                    [{String(list.length).padStart(2, '0')}]
-                  </span>
-                </div>
+      {/* ── JOIN THE COALITION ── */}
+      <section className="py-16 md:py-24">
+        <Container>
+          <div className="rounded-3xl border border-stone-100 bg-white p-8 shadow-sm md:p-12">
+            <h2>{en ? 'Partner With Us' : 'Devenez partenaire'}</h2>
+            <p className="mt-3 max-w-2xl">
+              {en
+                ? 'Align your organization with regional Niagara equity initiatives. Submit the registry form below to join our supportive ecosystem.'
+                : 'Associez votre organisation aux initiatives régionales d’équité de Niagara. Soumettez le formulaire ci-dessous pour joindre notre écosystème de soutien.'}
+            </p>
 
-                {/* roster */}
-                <ul className="divide-y divide-[#212129]">
-                  {list.map((partner, i) => {
-                    const isLink = partner.url && partner.url !== '#';
-                    const idx = `${col.code}-${String(i + 1).padStart(2, '0')}`;
-                    const inner = (
-                      <div className="flex items-center gap-3 px-5 py-4">
-                        <span className="text-[10px] tracking-[0.1em] shrink-0 w-9" style={{ fontFamily: MONO, color: '#9AA29D' }}>
-                          {idx}
-                        </span>
-                        {partner.logo ? (
-                          <span className="bg-white rounded-md px-2.5 py-1.5 inline-flex items-center shrink-0">
-                            <img src={partner.logo} alt={partner.name} className="h-6 object-contain max-w-[120px]" />
-                          </span>
-                        ) : (
-                          <span className="font-medium text-[#C7CCC7] text-sm leading-snug flex-1">{partner.name}</span>
-                        )}
-                        {partner.logo && <span className="flex-1" />}
-                        {isLink && (
-                          <ArrowUpRight
-                            className="w-4 h-4 shrink-0 transition-all group-hover/item:-translate-y-0.5 group-hover/item:translate-x-0.5 group-focus-within/item:-translate-y-0.5 group-focus-within/item:translate-x-0.5"
-                            style={{ color: col.glow }}
-                          />
-                        )}
-                      </div>
-                    );
-                    return isLink ? (
-                      <li
-                        key={i}
-                        className="group/item transition-colors hover:bg-[color-mix(in_srgb,var(--g)_9%,transparent)] focus-within:bg-[color-mix(in_srgb,var(--g)_9%,transparent)]"
-                        style={{ ['--g' as string]: col.glow }}
-                      >
-                        <a href={sanitizeUrl(partner.url)} target="_blank" rel="noopener noreferrer" className="block">
-                          {inner}
-                        </a>
-                      </li>
-                    ) : (
-                      <li key={i}>{inner}</li>
-                    );
-                  })}
-                </ul>
+            {formStatus === 'success' ? (
+              <div className="mt-6 rounded-2xl border border-sage-200 bg-sage-50 p-8 text-center">
+                <h3 className="mb-2">{en ? 'Message Ready' : 'Message prêt'}</h3>
+                <p className="!mb-0 text-sm">
+                  {en
+                    ? 'Your email app should have opened with the details filled in. Send it and our coordination team will reach out shortly.'
+                    : 'Votre application de courriel devrait s’être ouverte avec les détails remplis. Envoyez le message et notre équipe de coordination communiquera avec vous sous peu.'}
+                </p>
+                <button
+                  onClick={() => setFormStatus('idle')}
+                  className="mt-5 text-sm font-semibold text-teal-700 hover:text-teal-600"
+                >
+                  {en ? 'Submit another' : 'Envoyer un autre'}
+                </button>
               </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* ── 03 · JOIN THE COALITION ── */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-24 md:pb-32">
-        <Marker index="03" label={en ? 'Join the Coalition' : 'Rejoindre la Coalition'} />
-        <div className="relative bg-[#132A35] border border-[#1D3A47] rounded-3xl p-8 md:p-12 lg:p-14 overflow-hidden">
-          <div
-            className="absolute inset-0 opacity-[0.05] pointer-events-none"
-            style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '28px 28px' }}
-          />
-          <div className="absolute -top-24 -right-24 w-72 h-72 bg-[#0B4F5C]/35 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-[#3993A4]/15 rounded-full blur-3xl pointer-events-none" />
-
-          <div className="relative z-10 grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight" style={{ fontFamily: 'var(--font-heading)' }}>
-                {en ? 'Partner With Us' : 'Devenez Partenaire'}
-              </h2>
-              <p className="text-[#9AA29D] text-sm leading-relaxed mb-8 max-w-md">
-                {en
-                  ? 'Community organization, research institution, or funder — if you believe in evidence-based, culturally-sensitive change in Niagara, we want to hear from you.'
-                  : 'Organisation communautaire, institution de recherche ou bailleur de fonds — si vous croyez au changement fondé sur des données probantes, contactez-nous.'}
-              </p>
-              <div className="flex items-center gap-4">
-                <div className="flex -space-x-2.5">
-                  <div className="w-9 h-9 rounded-full bg-[#0B4F5C] border-2 border-[#132A35] flex items-center justify-center"><BookOpen className="w-4 h-4 text-white" /></div>
-                  <div className="w-9 h-9 rounded-full bg-[#3993A4] border-2 border-[#132A35] flex items-center justify-center"><Users className="w-4 h-4 text-white" /></div>
-                  <div className="w-9 h-9 rounded-full bg-[#4E8064] border-2 border-[#132A35] flex items-center justify-center"><Landmark className="w-4 h-4 text-white" /></div>
-                </div>
-                <span className="text-[#69736F] text-xs tracking-[0.12em]" style={{ fontFamily: MONO }}>
-                  {en ? `JOIN ${totalOrgs}+ ORGANIZATIONS` : `${totalOrgs}+ ORGANISATIONS`}
-                </span>
-              </div>
-            </div>
-
-            <div className="w-full">
-              {formStatus === 'success' ? (
-                <div className="bg-[#0E202A] border border-[#21404E] rounded-2xl p-8 text-center animate-fade-in-up">
-                  <div className="w-16 h-16 bg-[#3993A4]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg className="w-8 h-8 text-[#6AB3C1]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-2">{en ? 'Message Sent' : 'Message Envoyé'}</h3>
-                  <p className="text-sm text-[#69736F]">
-                    {en ? 'Thank you. Our coordination team will reach out shortly.' : 'Merci. Notre équipe vous contactera sous peu.'}
-                  </p>
-                  <button onClick={() => setFormStatus('idle')} className="mt-6 text-sm text-[#E1B449] hover:text-white transition-colors">
-                    {en ? 'Submit another' : 'Envoyer un autre'}
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="bg-[#0E202A] border border-[#21404E] p-6 rounded-2xl space-y-3.5">
+            ) : (
+              <form onSubmit={handleSubmit} className="mt-6 grid gap-4 md:grid-cols-[1fr_1fr_1fr_auto] md:items-end">
+                <div>
+                  <label htmlFor="orgName" className={labelCls}>{en ? 'Organization name' : 'Nom de l’organisation'}</label>
                   <input
+                    id="orgName"
                     required
                     type="text"
                     name="orgName"
-                    aria-label={en ? 'Organization name' : 'Nom de l’organisation'}
-                    placeholder={en ? 'Organization name' : 'Nom de l’organisation'}
-                    className={inputCls}
+                    placeholder={en ? 'Enter your organization' : 'Entrez votre organisation'}
+                    className={fieldCls}
                   />
+                </div>
+                <div>
+                  <label htmlFor="contactEmail" className={labelCls}>{en ? 'Email address' : 'Courriel'}</label>
                   <input
+                    id="contactEmail"
                     required
                     type="email"
                     name="contactEmail"
-                    aria-label={en ? 'Contact email' : 'Courriel'}
-                    placeholder={en ? 'Contact email' : 'Courriel'}
-                    className={inputCls}
+                    placeholder="name@organization.org"
+                    className={fieldCls}
                   />
-                  <select
-                    required
-                    name="role"
-                    defaultValue=""
-                    aria-label={en ? 'Partnership type' : 'Type de partenariat'}
-                    className={`${inputCls} appearance-none`}
-                  >
+                </div>
+                <div>
+                  <label htmlFor="role" className={labelCls}>{en ? 'Coalition role' : 'Rôle dans la coalition'}</label>
+                  <select id="role" required name="role" defaultValue="" className={fieldCls}>
                     <option value="" disabled>{en ? 'I am a…' : 'Je suis…'}</option>
-                    <option value="community">{en ? 'Community Member' : 'Membre de la communauté'}</option>
-                    <option value="academic">{en ? 'Academic / Researcher' : 'Universitaire / Chercheur'}</option>
-                    <option value="policy">{en ? 'Policy Maker' : 'Décideur politique'}</option>
-                    <option value="funder">{en ? 'Potential Funder' : 'Bailleur potentiel'}</option>
+                    <option value="community">{en ? 'Community Partner' : 'Partenaire communautaire'}</option>
+                    <option value="academic">{en ? 'Academic / Researcher' : 'Universitaire / Chercheur.e'}</option>
+                    <option value="policy">{en ? 'Policy Maker' : 'Décideur.se politique'}</option>
+                    <option value="funder">{en ? 'Potential Funder' : 'Bailleur de fonds potentiel'}</option>
                   </select>
-                  <button
-                    type="submit"
-                    disabled={formStatus === 'submitting'}
-                    className="w-full bg-[#0B4F5C] hover:bg-[#177485] text-white font-semibold py-3.5 px-6 rounded-lg flex items-center justify-center gap-2 transition-all shadow-lg disabled:opacity-70"
-                  >
-                    {formStatus === 'submitting' ? (
-                      <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    ) : (
-                      <>
-                        <span>{en ? 'Subscribe to the Movement' : 'Rejoindre le Mouvement'}</span>
-                        <Send className="w-4 h-4" />
-                      </>
-                    )}
-                  </button>
-                </form>
-              )}
-            </div>
+                </div>
+                <button type="submit" disabled={formStatus === 'submitting'} className="btn btn-primary h-11 !min-h-0">
+                  {en ? 'Subscribe to the Movement' : 'Rejoindre le mouvement'}
+                  <Send className="h-4 w-4" />
+                </button>
+              </form>
+            )}
           </div>
-        </div>
+        </Container>
       </section>
-
-      {/* ── DISPATCH FOOTER META ── */}
-      <div className="border-t border-[#1D3A47]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 flex flex-wrap items-center justify-between gap-3 text-[10px] tracking-[0.2em] text-[#9AA29D]" style={{ fontFamily: MONO }}>
-          <span>MSK NIAGARA · {en ? 'PARTNER NETWORK' : 'RÉSEAU DE PARTENAIRES'}</span>
-          <span>{en ? 'COMMUNITY · ACADEMIC · FUNDING' : 'COMMUNAUTÉ · ACADÉMIQUE · FINANCEMENT'}</span>
-        </div>
-      </div>
     </div>
   );
 }
