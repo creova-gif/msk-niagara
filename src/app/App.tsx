@@ -60,7 +60,7 @@ function AppContent() {
   const { isTransitioning } = useLanguage();
   
   return (
-    <div className={`min-h-screen flex flex-col bg-white transition-opacity duration-150 ${isTransitioning ? 'opacity-70' : 'opacity-100'}`}>
+    <div className={`min-h-screen flex flex-col bg-paper transition-opacity duration-150 ${isTransitioning ? 'opacity-70' : 'opacity-100'}`}>
       {/* Skip to main content — WCAG 2.1 AA accessibility */}
       <a
         href="#main-content"
