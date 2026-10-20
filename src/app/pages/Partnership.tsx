@@ -82,7 +82,7 @@ export function Partnership() {
         'Contribuer au savoir académique.',
         'Offrir de la formation et du mentorat aux chercheurs étudiants et communautaires.',
       ];
-  const goalTile = ['bg-ochre-500', 'bg-sage-500', 'bg-teal-600', 'bg-terra-500'];
+  const goalTile = ['bg-ochre-500 !text-ink', 'bg-sage-500', 'bg-teal-600', 'bg-terra-500'];
 
   const hubs: { key: HubKey; title: string; desc: string }[] = [
     {
@@ -327,7 +327,7 @@ export function Partnership() {
                     {p.logo && <img src={p.logo} alt="" className="max-h-14 max-w-[150px] object-contain" loading="lazy" />}
                     <div>
                       <p className="!mb-0 text-sm font-semibold leading-snug text-ink">{p.name}</p>
-                      <p className="!mb-0 mt-1 text-[11px] font-medium uppercase tracking-wide text-stone-400">{p.type}</p>
+                      <p className="!mb-0 mt-1 text-[11px] font-medium uppercase tracking-wide text-stone-500">{p.type}</p>
                     </div>
                   </div>
                 );
@@ -361,7 +361,7 @@ export function Partnership() {
             >
               {funder.logo && <img src={funder.logo} alt="" className="h-7 object-contain" />}
               {funder.name}
-              <ExternalLink className="h-3.5 w-3.5 text-stone-400" aria-hidden="true" />
+              <ExternalLink className="h-3.5 w-3.5 text-stone-500" aria-hidden="true" />
             </a>
           </Container>
         </section>

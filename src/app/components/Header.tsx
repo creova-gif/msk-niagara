@@ -231,7 +231,7 @@ export function Header() {
                                   <div className="text-sm font-semibold text-ink transition-colors group-hover/item:text-teal-600">
                                     {language === 'en' ? item.nameEn : item.nameFr}
                                   </div>
-                                  <div className="mt-0.5 text-xs text-stone-400">
+                                  <div className="mt-0.5 text-xs text-stone-500">
                                     {language === 'en' ? item.desc : item.descFr}
                                   </div>
                                 </div>
@@ -252,7 +252,7 @@ export function Header() {
             {/* Language toggle */}
             <button
               onClick={toggleLanguage}
-              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-widest text-stone-400 transition-colors duration-200 hover:bg-stone-50 hover:text-ink"
+              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-widest text-stone-500 transition-colors duration-200 hover:bg-stone-50 hover:text-ink"
               aria-label="Toggle language"
             >
               <Globe className="h-3.5 w-3.5" />

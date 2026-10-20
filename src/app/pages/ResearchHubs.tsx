@@ -125,7 +125,7 @@ export function ResearchHubs() {
                   {s.value}
                 </div>
                 <div className="mt-2 text-sm font-semibold text-ink">{s.label}</div>
-                <div className="mt-1 text-xs text-stone-400">{s.sub}</div>
+                <div className="mt-1 text-xs text-stone-500">{s.sub}</div>
               </div>
             ))}
           </Container>

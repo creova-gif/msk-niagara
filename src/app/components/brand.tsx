@@ -28,6 +28,8 @@ export const HUB_STYLE: Record<
     textOnDark: string;
     /** square eyebrow bullet class */
     eyebrow: string;
+    /** readable text colour on the solid fill (white fails AA on Ochre) */
+    onSolid: string;
     /** filled button utility class (theme.css) */
     btn: string;
     /** raw hex, for SVG / inline style / animation props */
@@ -38,10 +40,11 @@ export const HUB_STYLE: Record<
     number: '01',
     href: '/about/hubs/childhood',
     solid: 'bg-ochre-500',
-    chip: 'bg-ochre-50 text-ochre-700',
-    text: 'text-ochre-700',
+    chip: 'bg-ochre-50 text-ochre-800',
+    text: 'text-ochre-800',
     textOnDark: 'text-ochre-300',
     eyebrow: 'eyebrow-ochre',
+    onSolid: 'text-ink',
     btn: 'btn-hub-1',
     hex: '#D6A43A',
   },
@@ -53,6 +56,7 @@ export const HUB_STYLE: Record<
     text: 'text-sage-600',
     textOnDark: 'text-sage-300',
     eyebrow: 'eyebrow-sage',
+    onSolid: 'text-white',
     btn: 'btn-hub-2',
     hex: '#4E8064',
   },
@@ -64,6 +68,7 @@ export const HUB_STYLE: Record<
     text: 'text-terra-600',
     textOnDark: 'text-terra-300',
     eyebrow: 'eyebrow-terra',
+    onSolid: 'text-white',
     btn: 'btn-hub-3',
     hex: '#A85645',
   },
@@ -73,8 +78,8 @@ export const HUB_STYLE: Record<
 export function HubBadge({ hub, label }: { hub: HubKey; label: string }) {
   const s = HUB_STYLE[hub];
   return (
-    <span className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-semibold text-white ${s.solid}`}>
-      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white/25 text-[10px] font-bold">
+    <span className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-semibold ${s.onSolid} ${s.solid}`}>
+      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-black/10 text-[10px] font-bold">
         {s.number}
       </span>
       {label}

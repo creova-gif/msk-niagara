@@ -139,7 +139,7 @@ export function Partners() {
   };
 
   const fieldCls =
-    'h-11 w-full rounded-lg border border-stone-200 bg-white px-4 text-sm text-ink placeholder:text-stone-300 hover:border-teal-300';
+    'h-11 w-full rounded-lg border border-stone-200 bg-white px-4 text-sm text-ink placeholder:text-stone-400 hover:border-teal-300';
   const labelCls = 'mb-1.5 block text-[11px] font-semibold uppercase tracking-wider text-ink';
 
   return (

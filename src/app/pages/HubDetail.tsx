@@ -125,7 +125,7 @@ export function HubDetail() {
             {en ? 'Back to Research Hubs' : 'Retour aux pôles de recherche'}
           </Link>
 
-          <span className={`mb-5 inline-flex rounded-md px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white ${accent.solid}`}>
+          <span className={`mb-5 inline-flex rounded-md px-3 py-1 text-[11px] font-semibold uppercase tracking-wider ${style?.onSolid ?? 'text-white'} ${accent.solid}`}>
             {en ? 'Research Hub' : 'Pôle de recherche'}
             {style ? ` ${style.number}` : ''}
           </span>
@@ -150,7 +150,7 @@ export function HubDetail() {
               {objectives.map((objective, i) => (
                 <li key={i} className="rounded-2xl border border-stone-100 bg-white p-6 shadow-sm">
                   <div className="mb-4 flex items-center justify-between">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-stone-400">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-stone-500">
                       {en ? 'Objective' : 'Objectif'} {String(i + 1).padStart(2, '0')}
                     </span>
                     <span className={`h-1 w-6 rounded-full ${accent.solid}`} aria-hidden="true" />
@@ -231,7 +231,7 @@ export function HubDetail() {
                           <span className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${accent.dot}`} aria-hidden="true" />
                           <div>
                             <div className="text-sm font-semibold text-ink">{m.name}</div>
-                            <div className="text-xs text-stone-400">{[m.role, m.institution].filter(Boolean).join(' • ')}</div>
+                            <div className="text-xs text-stone-500">{[m.role, m.institution].filter(Boolean).join(' • ')}</div>
                           </div>
                         </li>
                       ))}
@@ -250,7 +250,7 @@ export function HubDetail() {
                           <span className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${accent.dot}`} aria-hidden="true" />
                           <div>
                             <div className="text-sm font-semibold text-ink">{m.name}</div>
-                            <div className="text-xs text-stone-400">{m.role || m.institution}</div>
+                            <div className="text-xs text-stone-500">{m.role || m.institution}</div>
                           </div>
                         </li>
                       ))}
@@ -324,7 +324,7 @@ function MemberCard({ member, en, dot }: { member: MemberCardData; en: boolean; 
         </div>
       </div>
 
-      <div className="mt-4 space-y-2 text-sm text-stone-400">
+      <div className="mt-4 space-y-2 text-sm text-stone-500">
         {member.institution && (
           <div className="flex items-center gap-2">
             <Building2 className="h-4 w-4 shrink-0" aria-hidden="true" />

@@ -105,7 +105,7 @@ export function Home() {
         'Contribuer à la recherche',
         'Offrir de la formation et du mentorat aux étudiant.e.s et aux chercheur.e.s communautaires',
       ];
-  const goalTile = ['bg-ochre-500', 'bg-sage-500', 'bg-teal-600', 'bg-terra-500'];
+  const goalTile = ['bg-ochre-500 !text-ink', 'bg-sage-500', 'bg-teal-600', 'bg-terra-500'];
 
   const council = [
     {
@@ -430,7 +430,7 @@ export function Home() {
                         <span />
                       )}
                       {status && (
-                        <span className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wide text-stone-400">
+                        <span className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wide text-stone-500">
                           <span className="h-1.5 w-1.5 rounded-full bg-teal-500" aria-hidden="true" />
                           {en ? status.en : status.fr}
                         </span>

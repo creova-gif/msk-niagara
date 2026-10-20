@@ -136,19 +136,19 @@ export function Community() {
               <label htmlFor="community-search" className="sr-only">
                 {en ? 'Search Organizations' : 'Rechercher des organisations'}
               </label>
-              <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" aria-hidden="true" />
+              <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-500" aria-hidden="true" />
               <input
                 id="community-search"
                 type="text"
                 placeholder={en ? 'Search by name or keyword…' : 'Rechercher par nom ou mot-clé…'}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(sanitizeSearchQuery(e.target.value))}
-                className="h-12 w-full rounded-xl border border-stone-200 bg-white pl-11 pr-10 text-sm text-ink placeholder:text-stone-300 hover:border-teal-300"
+                className="h-12 w-full rounded-xl border border-stone-200 bg-white pl-11 pr-10 text-sm text-ink placeholder:text-stone-400 hover:border-teal-300"
               />
               {searchTerm && (
                 <button
                   onClick={() => setSearchTerm('')}
-                  className="absolute right-3 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full bg-stone-50 text-stone-400 hover:bg-stone-100"
+                  className="absolute right-3 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full bg-stone-50 text-stone-500 hover:bg-stone-100"
                   aria-label={en ? 'Clear search' : 'Effacer la recherche'}
                 >
                   <X className="h-3.5 w-3.5" />
@@ -175,7 +175,7 @@ export function Community() {
 
           {hasFilters && (
             <div className="mt-5 flex flex-wrap items-center gap-2 border-t border-stone-100 pt-5">
-              <span className="text-xs font-semibold uppercase tracking-wider text-stone-400">
+              <span className="text-xs font-semibold uppercase tracking-wider text-stone-500">
                 {en ? 'Active Filters' : 'Filtres actifs'}
               </span>
               {selectedCategory !== 'all' && (
