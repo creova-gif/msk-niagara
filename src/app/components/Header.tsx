@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router';
 import { Link } from './LocalizedLink';
+import { LogoLink } from './Logo';
 import { useLanguage } from '../contexts/LanguageContext';
 import { stripLangPrefix } from '../utils/i18nPath';
 import { ChevronDown, Menu, X, ArrowRight, Users, BookOpen, Building2, Lightbulb, Globe, Handshake, Heart, Calendar, Camera } from 'lucide-react';
@@ -95,6 +96,21 @@ const dropdownItems = {
   ],
 };
 
+type DropdownKey = keyof typeof dropdownItems;
+
+/** Top-level dropdown triggers, in nav order. `match` decides the active state. */
+const NAV_GROUPS: {
+  key: DropdownKey;
+  labelEn: string;
+  labelFr: string;
+  match: string[];
+  width: string;
+}[] = [
+  { key: 'about', labelEn: 'About', labelFr: 'À propos', match: ['/about'], width: 'w-72' },
+  { key: 'research', labelEn: 'Research', labelFr: 'Recherche', match: ['/research'], width: 'w-64' },
+  { key: 'engage', labelEn: 'Engage', labelFr: 'Participer', match: ['/partners', '/community', '/timeline', '/media'], width: 'w-72' },
+];
+
 export function Header() {
   const { language, setLanguage, t } = useLanguage();
   const location = useLocation();
@@ -104,7 +120,7 @@ export function Header() {
   const closeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 40);
+    const handleScroll = () => setScrolled(window.scrollY > 24);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -137,439 +153,190 @@ export function Header() {
   const isActive = (href: string) =>
     href === '/' ? barePath === '/' : barePath.startsWith(href);
 
-  const isDark = !scrolled;
+  const triggerClass = (active: boolean) =>
+    `relative inline-flex items-center gap-1 rounded-full px-3.5 py-2 text-sm font-medium transition-colors duration-200 ${
+      active
+        ? 'bg-teal-50 text-teal-700'
+        : 'text-ink/75 hover:bg-stone-50 hover:text-ink'
+    }`;
 
   return (
-    <header
-      className={`sticky top-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? 'bg-white/95 backdrop-blur-xl border-b border-gray-200/80 shadow-sm'
-          : 'bg-[#132A35]/95 backdrop-blur-md border-b border-white/5'
-      }`}
-    >
-      <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-[68px] items-center justify-between">
+    // Floating pill navigation (Figma page 09 — Component Library). The
+    // wrapper is a transparent sticky strip; only the pill itself is painted.
+    <header className="sticky top-0 z-50 px-3 pt-3 sm:px-6">
+      <nav
+        aria-label={language === 'en' ? 'Main navigation' : 'Navigation principale'}
+        className={`mx-auto max-w-7xl rounded-[28px] border border-stone-100 bg-paper/95 px-3 backdrop-blur-xl transition-shadow duration-300 sm:px-5 lg:rounded-full ${
+          scrolled ? 'shadow-lg' : 'shadow-md'
+        }`}
+      >
+        <div className="flex h-16 items-center justify-between gap-4">
 
-          {/* ── LOGO — circular seal, text ringed around an empty core ── */}
-          <Link
-            to="/"
-            className="relative shrink-0 select-none group"
-            aria-label="MSK Niagara Research Partnership — Home"
-          >
-            <svg
-              className="w-14 h-14 transition-transform duration-700 ease-out group-hover:rotate-[360deg]"
-              viewBox="0 0 120 120"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <defs>
-                <path id="logoRingTop" d="M 12 60 A 48 48 0 0 1 108 60" />
-                <path id="logoRingBottom" d="M 12 60 A 48 48 0 0 0 108 60" />
-              </defs>
-
-              {/* outer rim */}
-              <circle cx="60" cy="60" r="58" stroke="#0B4F5C" strokeWidth="1.5" />
-              {/* inner rim — everything past this is the empty core */}
-              <circle cx="60" cy="60" r="32" stroke="#0B4F5C" strokeOpacity="0.45" strokeWidth="1" />
-              {/* four cardinal ticks marking the hole, like a compass/seal */}
-              <circle cx="60" cy="24" r="1.6" fill="#0B4F5C" />
-              <circle cx="60" cy="96" r="1.6" fill="#0B4F5C" />
-              <circle cx="24" cy="60" r="1.6" fill="#0B4F5C" />
-              <circle cx="96" cy="60" r="1.6" fill="#0B4F5C" />
-
-              <text fill="#0B4F5C">
-                <textPath
-                  href="#logoRingTop"
-                  startOffset="50%"
-                  textAnchor="middle"
-                  style={{
-                    fontFamily: 'var(--font-heading)',
-                    fontWeight: 800,
-                    fontSize: '15px',
-                    letterSpacing: '0.05em',
-                  }}
-                >
-                  MSK NIAGARA
-                </textPath>
-              </text>
-              <text fill="#0B4F5C" fillOpacity="0.75">
-                <textPath
-                  href="#logoRingBottom"
-                  startOffset="50%"
-                  textAnchor="middle"
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontWeight: 600,
-                    fontSize: '8px',
-                    letterSpacing: '0.22em',
-                  }}
-                >
-                  RESEARCH PARTNERSHIP
-                </textPath>
-              </text>
-            </svg>
-          </Link>
+          {/* ── LOGO ── */}
+          <LogoLink size={32} className="pl-2" />
 
           {/* ── DESKTOP NAV ── */}
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden items-center gap-1 lg:flex">
 
             {/* Home */}
-            <Link
-              to="/"
-              className={`relative px-3.5 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
-                isActive('/')
-                  ? isDark
-                    ? 'text-white'
-                    : 'text-[#132A35]'
-                  : isDark
-                  ? 'text-white/65 hover:text-white hover:bg-white/8'
-                  : 'text-gray-500 hover:text-[#132A35] hover:bg-gray-100/70'
-              }`}
-            >
+            <Link to="/" className={triggerClass(isActive('/'))}>
               {t('nav.home')}
-              {isActive('/') && (
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#0B4F5C]" />
-              )}
             </Link>
 
-            {/* About — dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => openDropdown('about')}
-              onMouseLeave={closeDropdown}
-            >
-              <button
-                className={`relative inline-flex items-center gap-1 px-3.5 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
-                  barePath.startsWith('/about')
-                    ? isDark
-                      ? 'text-white'
-                      : 'text-[#132A35]'
-                    : isDark
-                    ? 'text-white/65 hover:text-white hover:bg-white/8'
-                    : 'text-gray-500 hover:text-[#132A35] hover:bg-gray-100/70'
-                }`}
-              >
-                {t('nav.about')}
-                <ChevronDown
-                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                    activeDropdown === 'about' ? 'rotate-180' : ''
-                  }`}
-                />
-                {barePath.startsWith('/about') && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#0B4F5C]" />
-                )}
-              </button>
-
-              {/* About dropdown */}
-              {activeDropdown === 'about' && (
+            {NAV_GROUPS.map((group) => {
+              const groupActive = group.match.some((p) => barePath.startsWith(p));
+              const label = language === 'en' ? group.labelEn : group.labelFr;
+              return (
                 <div
-                  className="absolute left-0 top-full pt-3 w-72"
-                  onMouseEnter={stayOpen}
+                  key={group.key}
+                  className="relative"
+                  onMouseEnter={() => openDropdown(group.key)}
                   onMouseLeave={closeDropdown}
                 >
-                  <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden animate-fade-in-down">
-                    <div className="h-[3px] bg-gradient-to-r from-[#0B4F5C] to-[#177485]" />
-                    <div className="px-4 pt-3 pb-1 text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500" style={{ fontFamily: 'var(--font-mono)' }}>
-                      MSK // {language === 'en' ? 'About' : 'À propos'}
+                  <button
+                    className={triggerClass(groupActive)}
+                    aria-haspopup="true"
+                    aria-expanded={activeDropdown === group.key}
+                  >
+                    {label}
+                    <ChevronDown
+                      className={`h-3.5 w-3.5 transition-transform duration-200 ${
+                        activeDropdown === group.key ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </button>
+
+                  {activeDropdown === group.key && (
+                    <div
+                      className={`absolute left-0 top-full pt-4 ${group.width}`}
+                      onMouseEnter={stayOpen}
+                      onMouseLeave={closeDropdown}
+                    >
+                      <div className="animate-fade-in-down overflow-hidden rounded-2xl border border-stone-100 bg-white shadow-2xl">
+                        <div className="h-[3px] bg-teal-600" />
+                        <div className="eyebrow px-4 pb-1 pt-3">{label}</div>
+                        <div className="p-2 pt-1">
+                          {dropdownItems[group.key].map((item) => {
+                            const Icon = item.icon;
+                            return (
+                              <Link
+                                key={item.href}
+                                to={item.href}
+                                className="group/item flex items-start gap-3 rounded-xl p-3 transition-colors duration-150 hover:bg-paper"
+                              >
+                                <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-teal-50 transition-colors group-hover/item:bg-teal-100">
+                                  <Icon className="h-4 w-4 text-teal-600" />
+                                </div>
+                                <div>
+                                  <div className="text-sm font-semibold text-ink transition-colors group-hover/item:text-teal-600">
+                                    {language === 'en' ? item.nameEn : item.nameFr}
+                                  </div>
+                                  <div className="mt-0.5 text-xs text-stone-400">
+                                    {language === 'en' ? item.desc : item.descFr}
+                                  </div>
+                                </div>
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      </div>
                     </div>
-                    <div className="p-2 pt-1">
-                      {dropdownItems.about.map((item, i) => {
-                        const Icon = item.icon;
-                        return (
-                          <Link
-                            key={item.href}
-                            to={item.href}
-                            className="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 group/item transition-all duration-150"
-                          >
-                            <span className="mt-0.5 text-[10px] font-semibold text-gray-500 tabular-nums" style={{ fontFamily: 'var(--font-mono)' }}>
-                              0{i + 1}
-                            </span>
-                            <div className="mt-0.5 w-8 h-8 rounded-lg bg-[#0B4F5C]/8 flex items-center justify-center shrink-0 group-hover/item:bg-[#0B4F5C]/15 transition-colors">
-                              <Icon className="w-4 h-4 text-[#0B4F5C]" />
-                            </div>
-                            <div>
-                              <div className="text-sm font-semibold text-[#132A35] group-hover/item:text-[#0B4F5C] transition-colors">
-                                {language === 'en' ? item.nameEn : item.nameFr}
-                              </div>
-                              <div className="text-xs text-gray-500 mt-0.5">
-                                {language === 'en' ? item.desc : item.descFr}
-                              </div>
-                            </div>
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  </div>
+                  )}
                 </div>
-              )}
-            </div>
-
-            {/* Research — dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => openDropdown('research')}
-              onMouseLeave={closeDropdown}
-            >
-              <button
-                className={`relative inline-flex items-center gap-1 px-3.5 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
-                  barePath.startsWith('/research')
-                    ? isDark
-                      ? 'text-white'
-                      : 'text-[#132A35]'
-                    : isDark
-                    ? 'text-white/65 hover:text-white hover:bg-white/8'
-                    : 'text-gray-500 hover:text-[#132A35] hover:bg-gray-100/70'
-                }`}
-              >
-                {t('nav.research')}
-                <ChevronDown
-                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                    activeDropdown === 'research' ? 'rotate-180' : ''
-                  }`}
-                />
-                {barePath.startsWith('/research') && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#0B4F5C]" />
-                )}
-              </button>
-
-              {/* Research dropdown */}
-              {activeDropdown === 'research' && (
-                <div
-                  className="absolute left-0 top-full pt-3 w-64"
-                  onMouseEnter={stayOpen}
-                  onMouseLeave={closeDropdown}
-                >
-                  <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden animate-fade-in-down">
-                    <div className="h-[3px] bg-gradient-to-r from-[#0B4F5C] to-[#177485]" />
-                    <div className="px-4 pt-3 pb-1 text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500" style={{ fontFamily: 'var(--font-mono)' }}>
-                      MSK // {language === 'en' ? 'Research' : 'Recherche'}
-                    </div>
-                    <div className="p-2 pt-1">
-                      {dropdownItems.research.map((item, i) => {
-                        const Icon = item.icon;
-                        return (
-                          <Link
-                            key={item.href}
-                            to={item.href}
-                            className="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 group/item transition-all duration-150"
-                          >
-                            <span className="mt-0.5 text-[10px] font-semibold text-gray-500 tabular-nums" style={{ fontFamily: 'var(--font-mono)' }}>
-                              0{i + 1}
-                            </span>
-                            <div className="mt-0.5 w-8 h-8 rounded-lg bg-[#0B4F5C]/8 flex items-center justify-center shrink-0 group-hover/item:bg-[#0B4F5C]/15 transition-colors">
-                              <Icon className="w-4 h-4 text-[#0B4F5C]" />
-                            </div>
-                            <div>
-                              <div className="text-sm font-semibold text-[#132A35] group-hover/item:text-[#0B4F5C] transition-colors">
-                                {language === 'en' ? item.nameEn : item.nameFr}
-                              </div>
-                              <div className="text-xs text-gray-500 mt-0.5">
-                                {language === 'en' ? item.desc : item.descFr}
-                              </div>
-                            </div>
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Engage — dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => openDropdown('engage')}
-              onMouseLeave={closeDropdown}
-            >
-              <button
-                className={`relative inline-flex items-center gap-1 px-3.5 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
-                  ['/partners', '/community', '/timeline', '/media'].some((p) => barePath.startsWith(p))
-                    ? isDark
-                      ? 'text-white'
-                      : 'text-[#132A35]'
-                    : isDark
-                    ? 'text-white/65 hover:text-white hover:bg-white/8'
-                    : 'text-gray-500 hover:text-[#132A35] hover:bg-gray-100/70'
-                }`}
-              >
-                {language === 'en' ? 'Engage' : 'Participer'}
-                <ChevronDown
-                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                    activeDropdown === 'engage' ? 'rotate-180' : ''
-                  }`}
-                />
-                {['/partners', '/community', '/timeline', '/media'].some((p) => barePath.startsWith(p)) && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#0B4F5C]" />
-                )}
-              </button>
-
-              {/* Engage dropdown */}
-              {activeDropdown === 'engage' && (
-                <div
-                  className="absolute left-0 top-full pt-3 w-72"
-                  onMouseEnter={stayOpen}
-                  onMouseLeave={closeDropdown}
-                >
-                  <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden animate-fade-in-down">
-                    <div className="h-[3px] bg-gradient-to-r from-[#0B4F5C] to-[#177485]" />
-                    <div className="px-4 pt-3 pb-1 text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500" style={{ fontFamily: 'var(--font-mono)' }}>
-                      MSK // {language === 'en' ? 'Engage' : 'Participer'}
-                    </div>
-                    <div className="p-2 pt-1">
-                      {dropdownItems.engage.map((item, i) => {
-                        const Icon = item.icon;
-                        return (
-                          <Link
-                            key={item.href}
-                            to={item.href}
-                            className="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 group/item transition-all duration-150"
-                          >
-                            <span className="mt-0.5 text-[10px] font-semibold text-gray-500 tabular-nums" style={{ fontFamily: 'var(--font-mono)' }}>
-                              0{i + 1}
-                            </span>
-                            <div className="mt-0.5 w-8 h-8 rounded-lg bg-[#0B4F5C]/8 flex items-center justify-center shrink-0 group-hover/item:bg-[#0B4F5C]/15 transition-colors">
-                              <Icon className="w-4 h-4 text-[#0B4F5C]" />
-                            </div>
-                            <div>
-                              <div className="text-sm font-semibold text-[#132A35] group-hover/item:text-[#0B4F5C] transition-colors">
-                                {language === 'en' ? item.nameEn : item.nameFr}
-                              </div>
-                              <div className="text-xs text-gray-500 mt-0.5">
-                                {language === 'en' ? item.desc : item.descFr}
-                              </div>
-                            </div>
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
+              );
+            })}
           </div>
 
           {/* ── RIGHT ACTIONS ── */}
-          <div className="hidden lg:flex items-center gap-2">
+          <div className="hidden items-center gap-2 lg:flex">
             {/* Language toggle */}
             <button
               onClick={toggleLanguage}
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold tracking-widest uppercase transition-all duration-200 ${
-                isDark
-                  ? 'text-white/60 hover:text-white hover:bg-white/10'
-                  : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
-              }`}
+              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-widest text-stone-400 transition-colors duration-200 hover:bg-stone-50 hover:text-ink"
               aria-label="Toggle language"
             >
-              <Globe className="w-3.5 h-3.5" />
+              <Globe className="h-3.5 w-3.5" />
               {language.toUpperCase()}
             </button>
 
-            {/* Divider */}
-            <div className={`w-px h-5 ${isDark ? 'bg-white/15' : 'bg-gray-200'}`} />
+            <div className="h-5 w-px bg-stone-100" />
 
             {/* CTA — Support Us */}
             <Link
               to="/donate"
-              className="inline-flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-[#0B4F5C] to-[#177485] text-white text-sm font-semibold rounded-full hover:shadow-[0_4px_16px_rgba(11,79,92,0.4)] hover:-translate-y-px transition-all duration-300 group"
+              className="group inline-flex items-center gap-1.5 rounded-full bg-teal-600 px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-teal-700 hover:shadow-[0_4px_16px_rgba(11,79,92,0.35)]"
             >
               {language === 'en' ? 'Support Us' : 'Nous Soutenir'}
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
             </Link>
           </div>
 
           {/* ── MOBILE CONTROLS ── */}
-          <div className="flex lg:hidden items-center gap-2">
+          <div className="flex items-center gap-1 lg:hidden">
             <button
               onClick={toggleLanguage}
-              className={`p-2 rounded-lg text-xs font-bold tracking-wider uppercase transition-all duration-200 ${
-                isDark ? 'text-white/70 hover:bg-white/10' : 'text-gray-500 hover:bg-gray-100'
-              }`}
+              className="rounded-full p-2 text-xs font-bold uppercase tracking-wider text-stone-500 transition-colors duration-200 hover:bg-stone-50"
               aria-label="Toggle language"
             >
               {language.toUpperCase()}
             </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`p-2 rounded-lg transition-all duration-200 ${
-                isDark
-                  ? 'text-white hover:bg-white/10'
-                  : 'text-[#132A35] hover:bg-gray-100'
-              }`}
+              className="rounded-full p-2 text-ink transition-colors duration-200 hover:bg-stone-50"
               aria-label="Toggle menu"
               aria-expanded={mobileMenuOpen}
             >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
         </div>
 
         {/* ── MOBILE MENU ── */}
         {mobileMenuOpen && (
-          <div className="lg:hidden pb-4 animate-fade-in-down">
-            <div className={`rounded-2xl overflow-hidden border ${
-              isDark ? 'bg-white/5 border-white/10' : 'bg-gray-50 border-gray-200'
-            } p-2 mt-2 space-y-0.5`}>
+          <div className="animate-fade-in-down pb-3 lg:hidden">
+            <div className="mt-1 space-y-0.5 rounded-2xl border border-stone-100 bg-white p-2">
               <Link
                 to="/"
-                className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all duration-150 ${
-                  isActive('/')
-                    ? 'bg-[#0B4F5C] text-white'
-                    : isDark
-                    ? 'text-white/80 hover:bg-white/10 hover:text-white'
-                    : 'text-gray-700 hover:bg-white hover:text-[#132A35]'
+                className={`flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition-colors duration-150 ${
+                  isActive('/') ? 'bg-teal-600 text-white' : 'text-stone-500 hover:bg-paper hover:text-ink'
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {t('nav.home')}
-                {isActive('/') && <ArrowRight className="w-4 h-4 opacity-70" />}
+                {isActive('/') && <ArrowRight className="h-4 w-4 opacity-70" />}
               </Link>
 
-              {(
-                [
-                  { label: language === 'en' ? 'About' : 'À propos', items: dropdownItems.about },
-                  { label: language === 'en' ? 'Research' : 'Recherche', items: dropdownItems.research },
-                  { label: language === 'en' ? 'Engage' : 'Participer', items: dropdownItems.engage },
-                ] as const
-              ).map((group) => (
-                <div key={group.label} className="pt-3 first:pt-0">
-                  <div
-                    className={`px-4 pb-1 text-[10px] font-bold tracking-[0.2em] uppercase ${
-                      isDark ? 'text-white/50' : 'text-gray-500'
-                    }`}
-                    style={{ fontFamily: 'var(--font-mono)' }}
-                  >
-                    {group.label}
+              {NAV_GROUPS.map((group) => (
+                <div key={group.key} className="pt-3">
+                  <div className="eyebrow px-4 pb-1">
+                    {language === 'en' ? group.labelEn : group.labelFr}
                   </div>
-                  {group.items.map((item) => (
+                  {dropdownItems[group.key].map((item) => (
                     <Link
                       key={item.href}
                       to={item.href}
-                      className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all duration-150 ${
+                      className={`flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition-colors duration-150 ${
                         isActive(item.href)
-                          ? 'bg-[#0B4F5C] text-white'
-                          : isDark
-                          ? 'text-white/80 hover:bg-white/10 hover:text-white'
-                          : 'text-gray-700 hover:bg-white hover:text-[#132A35]'
+                          ? 'bg-teal-600 text-white'
+                          : 'text-stone-500 hover:bg-paper hover:text-ink'
                       }`}
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       {language === 'en' ? item.nameEn : item.nameFr}
-                      {isActive(item.href) && <ArrowRight className="w-4 h-4 opacity-70" />}
+                      {isActive(item.href) && <ArrowRight className="h-4 w-4 opacity-70" />}
                     </Link>
                   ))}
                 </div>
               ))}
 
-              <div className="pt-3 px-2">
+              <div className="px-2 pb-1 pt-3">
                 <Link
                   to="/donate"
-                  className="flex items-center justify-center gap-2 w-full py-3 bg-gradient-to-r from-[#0B4F5C] to-[#177485] text-white text-sm font-semibold rounded-xl hover:shadow-lg transition-all"
+                  className="flex w-full items-center justify-center gap-2 rounded-full bg-teal-600 py-3 text-sm font-semibold text-white transition-colors hover:bg-teal-700"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {language === 'en' ? 'Support Us' : 'Nous Soutenir'}
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             </div>

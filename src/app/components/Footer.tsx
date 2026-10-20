@@ -1,4 +1,5 @@
 import { Link } from './LocalizedLink';
+import { Logo } from './Logo';
 import { useLanguage } from '../contexts/LanguageContext';
 import { ArrowUpRight } from 'lucide-react';
 
@@ -15,8 +16,13 @@ export function Footer() {
 
   return (
     <footer className="bg-[#132A35] text-white">
-      {/* Top crimson rule */}
-      <div className="h-px bg-[#0B4F5C]" />
+      {/* Hub colour strip — Teal · Ochre · Sage · Terracotta (Figma cover) */}
+      <div className="flex h-1.5" aria-hidden="true">
+        <div className="flex-1 bg-teal-600" />
+        <div className="flex-1 bg-ochre-500" />
+        <div className="flex-1 bg-sage-500" />
+        <div className="flex-1 bg-terra-500" />
+      </div>
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
 
@@ -25,22 +31,12 @@ export function Footer() {
 
           {/* Brand column */}
           <div className="col-span-12 md:col-span-5">
-            {/* Logo mark */}
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-9 h-9 bg-[#0B4F5C] rounded flex items-center justify-center flex-shrink-0">
-                <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5">
-                  <rect x="4" y="16" width="4" height="4" fill="white" />
-                  <rect x="10" y="10" width="4" height="10" fill="white" />
-                  <rect x="16" y="4" width="4" height="16" fill="white" />
-                </svg>
-              </div>
-              <div>
-                <div className="text-[11px] font-semibold tracking-[0.18em] uppercase text-white/60 leading-none mb-0.5">
-                  MSK · Niagara
-                </div>
-                <div className="text-[11px] font-semibold tracking-[0.12em] uppercase text-white/50 leading-none">
-                  Research Partnership
-                </div>
+            {/* Wordmark (reversed on dark — Figma page 02b) */}
+            <div className="mb-5 flex items-center gap-4">
+              <Logo variant="on-dark" size={36} />
+              <div className="h-8 w-px bg-white/15" aria-hidden="true" />
+              <div className="text-[11px] font-semibold tracking-[0.14em] uppercase text-white/60 leading-snug">
+                Niagara<br />Research Partnership
               </div>
             </div>
 
@@ -121,7 +117,7 @@ export function Footer() {
           {/* Land Acknowledgment */}
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-3 h-px bg-[#0B4F5C]" />
+              <div className="w-2 h-2 bg-ochre-500" />
               <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-white/60">
                 {language === 'en' ? 'Land Acknowledgment' : 'Reconnaissance territoriale'}
               </span>
@@ -136,7 +132,7 @@ export function Footer() {
           {/* Funding Acknowledgment */}
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-3 h-px bg-[#0B4F5C]" />
+              <div className="w-2 h-2 bg-ochre-500" />
               <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-white/60">
                 {language === 'en' ? 'Funding Acknowledgment' : 'Reconnaissance du financement'}
               </span>

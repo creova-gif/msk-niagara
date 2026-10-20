@@ -669,6 +669,28 @@
     color: var(--text-primary);
   }
 
+  /* Hub buttons (Figma "Hub 01/02/03") — filled with the hub accent */
+  .btn-hub-1, .btn-hub-2, .btn-hub-3 {
+    color: var(--color-white);
+    border: 2px solid transparent;
+  }
+  .btn-hub-1 { background-color: var(--color-ochre-500); }
+  .btn-hub-1:hover { background-color: var(--color-ochre-600); transform: translateY(-1px); }
+  .btn-hub-2 { background-color: var(--color-sage-500); }
+  .btn-hub-2:hover { background-color: var(--color-sage-600); transform: translateY(-1px); }
+  .btn-hub-3 { background-color: var(--color-terra-500); }
+  .btn-hub-3:hover { background-color: var(--color-terra-600); transform: translateY(-1px); }
+
+  .btn:disabled,
+  .btn[aria-disabled="true"] {
+    background-color: var(--color-stone-100);
+    color: var(--color-stone-300);
+    border-color: transparent;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+  }
+
   /* ── CARDS ── */
   .card {
     background-color: var(--surface-elevated);
@@ -690,6 +712,11 @@
   .card-brand {
     border-top: 3px solid var(--color-teal-600);
   }
+
+  /* Hub-accented cards (Figma hub cards: 4px accent bar on top) */
+  .card-hub-1 { border-top: 4px solid var(--color-ochre-500); }
+  .card-hub-2 { border-top: 4px solid var(--color-sage-500); }
+  .card-hub-3 { border-top: 4px solid var(--color-terra-500); }
 
   .card-hover {
     transition: transform var(--transition-base), box-shadow var(--transition-base);
@@ -758,6 +785,12 @@
     background-color: var(--color-gray-100);
     color: var(--color-gray-700);
   }
+
+  /* Micro-labels / hub badges (Figma "Micro-Label System", "Hub Badge System") */
+  .badge-hub-1 { background-color: var(--color-ochre-50); color: var(--color-ochre-700); }
+  .badge-hub-2 { background-color: var(--color-sage-50);  color: var(--color-sage-700); }
+  .badge-hub-3 { background-color: var(--color-terra-50); color: var(--color-terra-700); }
+  .badge-info  { background-color: var(--color-info-bg);  color: var(--color-info); }
 
   /* ── SKELETON SHIMMER ── */
   .img-loading,
@@ -838,6 +871,34 @@
     text-transform: uppercase;
     color: var(--color-teal-600);
   }
+
+  /* ── EYEBROW (micro-label with square bullet — Figma homepage mockup) ──
+     Default bullet is brand teal; add .eyebrow-ochre / -sage / -terra for
+     hub-specific contexts. */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    line-height: 1.5;
+    color: var(--color-teal-600);
+  }
+
+  .eyebrow::before {
+    content: '';
+    flex: none;
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: var(--eyebrow-accent, var(--color-teal-600));
+  }
+
+  .eyebrow-ochre { --eyebrow-accent: var(--color-ochre-500); color: var(--color-stone-500); }
+  .eyebrow-sage  { --eyebrow-accent: var(--color-sage-500); }
+  .eyebrow-terra { --eyebrow-accent: var(--color-terra-500); }
 
   /* ── DIVIDER ── */
   .divider {
