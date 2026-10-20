@@ -27,7 +27,7 @@ import { ArrowRight, Download, MapPin } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Link } from '../components/LocalizedLink';
 import { usePageMeta } from '../hooks/usePageMeta';
-import { Container, HUB_STYLE, SectionHeading, type HubKey } from '../components/brand';
+import { Container, HUB_STYLE, SectionHeading, hubKeyFor, type HubKey } from '../components/brand';
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
 import { useSanityQuery } from '../../lib/sanity/useSanityQuery';
 import { pickLocale } from '../../lib/sanity/locale';
@@ -38,13 +38,6 @@ import { researchProjectsQuery, type ResearchProject } from '../../lib/sanity/qu
 import { partnersNetworkQuery, type CommunityPartner } from '../../lib/sanity/queries/communityPartner';
 import { publicationsQuery, type Publication } from '../../lib/sanity/queries/publication';
 import { timelineEventsQuery, type TimelineEvent } from '../../lib/sanity/queries/timelineEvent';
-
-const HUB_KEYS: HubKey[] = ['childhood', 'health', 'identity'];
-
-/** Map a CMS hub slug onto the brand hub system (falls back to teal-neutral). */
-function hubKeyFor(slug?: string): HubKey | null {
-  return slug && (HUB_KEYS as string[]).includes(slug) ? (slug as HubKey) : null;
-}
 
 const STATUS_LABEL: Record<string, { en: string; fr: string }> = {
   active: { en: 'Ongoing', fr: 'En cours' },

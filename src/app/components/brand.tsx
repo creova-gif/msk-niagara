@@ -28,6 +28,8 @@ export const HUB_STYLE: Record<
     textOnDark: string;
     /** square eyebrow bullet class */
     eyebrow: string;
+    /** filled button utility class (theme.css) */
+    btn: string;
     /** raw hex, for SVG / inline style / animation props */
     hex: string;
   }
@@ -40,6 +42,7 @@ export const HUB_STYLE: Record<
     text: 'text-ochre-700',
     textOnDark: 'text-ochre-300',
     eyebrow: 'eyebrow-ochre',
+    btn: 'btn-hub-1',
     hex: '#D6A43A',
   },
   health: {
@@ -50,6 +53,7 @@ export const HUB_STYLE: Record<
     text: 'text-sage-600',
     textOnDark: 'text-sage-300',
     eyebrow: 'eyebrow-sage',
+    btn: 'btn-hub-2',
     hex: '#4E8064',
   },
   identity: {
@@ -60,6 +64,7 @@ export const HUB_STYLE: Record<
     text: 'text-terra-600',
     textOnDark: 'text-terra-300',
     eyebrow: 'eyebrow-terra',
+    btn: 'btn-hub-3',
     hex: '#A85645',
   },
 };
@@ -129,4 +134,9 @@ export function SectionHeading({
 ───────────────────────────────────────────── */
 export function Container({ children, className = '' }: { children: ReactNode; className?: string }) {
   return <div className={`mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ${className}`}>{children}</div>;
+}
+
+/** Resolve a CMS hub slug onto the brand hub system (null for unknown hubs). */
+export function hubKeyFor(slug?: string | null): HubKey | null {
+  return slug === 'childhood' || slug === 'health' || slug === 'identity' ? slug : null;
 }

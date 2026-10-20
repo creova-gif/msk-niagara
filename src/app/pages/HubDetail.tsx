@@ -1,24 +1,32 @@
+/**
+ * Research Hub detail page
+ *
+ * Built to the Figma hub-detail mockups (hub-detail-childhood,
+ * health-literacy-hub, identity-hub-detail — Brand Identity System, page 16).
+ * One template, themed by hub: Ochre (Childhood), Sage (Health Literacy),
+ * Terracotta (Identity, Connections & Belonging).
+ */
+
+import { useMemo } from 'react';
+import { useParams } from 'react-router';
+import { ArrowLeft, ArrowRight, BookOpen, Building2, GraduationCap, Mail, User } from 'lucide-react';
 import { sanitizeEmail } from '../utils/security';
 import { useLanguage } from '../contexts/LanguageContext';
-import { useParams } from 'react-router';
 import { Link } from '../components/LocalizedLink';
-import { Card, CardContent } from '../components/ui/card';
-import { Badge } from '../components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
 import { RisingBubbles, HeartbeatLine, Constellation } from '../components/HeroAnimations';
+import { Container, HUB_STYLE, SectionHeading, hubKeyFor } from '../components/brand';
 import { usePageMeta } from '../hooks/usePageMeta';
-import { Mail, Building2, User, GraduationCap, Users, ArrowLeft, Target, BookOpen, type LucideIcon } from 'lucide-react';
-import { useMemo } from 'react';
 import { PageLoader } from '../components/PageLoader';
 import { useSanityQuery } from '../../lib/sanity/useSanityQuery';
 import { researchHubBySlugQuery, type ResearchHub } from '../../lib/sanity/queries/researchHub';
 import { teamMembersByHubSlugQuery, type TeamMember } from '../../lib/sanity/queries/teamMember';
 import { urlForImage } from '../../lib/sanity/image';
-
-const HUB_ICONS: Record<string, LucideIcon> = { Users, BookOpen, Target, Building2 };
+import { pickLocale } from '../../lib/sanity/locale';
 
 export function HubDetail() {
   const { language } = useLanguage();
+  const en = language === 'en';
   const { hubId } = useParams<{ hubId: string }>();
 
   const { data: rawHub, loading: hubLoading } = useSanityQuery<ResearchHub | null>(
@@ -30,303 +38,310 @@ export function HubDetail() {
     { slug: hubId ?? '' }
   );
 
+  const hubKey = hubKeyFor(hubId);
+  const style = hubKey ? HUB_STYLE[hubKey] : null;
+  // Unknown hub slugs fall back to the core brand teal.
+  const accent = {
+    solid: style?.solid ?? 'bg-teal-600',
+    chip: style?.chip ?? 'bg-teal-50 text-teal-700',
+    btn: style?.btn ?? 'btn-primary',
+    hex: style?.hex ?? '#0B4F5C',
+    dot: style?.solid ?? 'bg-teal-600',
+    textOnDark: style?.textOnDark ?? 'text-teal-200',
+  };
 
-  const currentHub = useMemo(() => {
-    if (!rawHub) return null;
-    return {
-      nameEn: rawHub.name.en,
-      nameFr: rawHub.name.fr,
-      image: urlForImage(rawHub.coverImage)?.width(1600).url() ?? '',
-      descriptionEn: rawHub.description.en,
-      descriptionFr: rawHub.description.fr,
-      color: rawHub.color,
-      icon: (rawHub.icon && HUB_ICONS[rawHub.icon]) || Building2,
-      objectivesEn: rawHub.objectives.map((o) => o.en),
-      objectivesFr: rawHub.objectives.map((o) => o.fr),
-      projectsEn: (rawHub.highlightProjects ?? []).map((p) => ({ title: p.title.en, description: p.description.en })),
-      projectsFr: (rawHub.highlightProjects ?? []).map((p) => ({ title: p.title.fr, description: p.description.fr })),
-    };
-  }, [rawHub]);
+  const hubName = rawHub ? pickLocale(rawHub.name, language) : '';
+  const hubDescription = rawHub ? pickLocale(rawHub.description, language) : '';
 
   usePageMeta(
-    currentHub
-      ? `${language === 'en' ? currentHub.nameEn : currentHub.nameFr} | MSK Niagara`
-      : 'Research Hubs | MSK Niagara',
-    currentHub
-      ? (language === 'en' ? currentHub.descriptionEn : currentHub.descriptionFr).slice(0, 180)
-      : undefined
+    rawHub ? `${hubName} | MSK Niagara` : 'Research Hubs | MSK Niagara',
+    rawHub ? hubDescription.slice(0, 180) : undefined
+  );
+
+  const members = useMemo(
+    () =>
+      (rawMembers ?? []).map((m) => ({
+        id: m._id,
+        name: m.name,
+        role: pickLocale(m.role, language),
+        institution: pickLocale(m.institution, language),
+        email: m.email,
+        type: m.memberType,
+        isHubLeader: m.isHubLeader,
+        image: urlForImage(m.image)?.width(200).height(200).url(),
+        bio: pickLocale(m.bio, language),
+      })),
+    [rawMembers, language]
   );
 
   if (hubLoading || membersLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center">
         <PageLoader />
       </div>
     );
   }
 
-  if (!currentHub) {
+  if (!rawHub) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p>Hub not found</p>
+      <div className="flex min-h-screen items-center justify-center">
+        <p>{en ? 'Hub not found' : 'Pôle introuvable'}</p>
       </div>
     );
   }
 
-  const hubMembers = (rawMembers ?? []).map((m) => ({
-    name: m.name,
-    role: m.role?.en ?? '',
-    roleFr: m.role?.fr ?? '',
-    institution: m.institution?.en ?? '',
-    institutionFr: m.institution?.fr ?? '',
-    email: m.email,
-    type: m.memberType,
-    isHubLeader: m.isHubLeader,
-    image: urlForImage(m.image)?.width(200).height(200).url(),
-    bio: m.bio?.en,
-    bioFr: m.bio?.fr,
+  const cover = urlForImage(rawHub.coverImage)?.width(1600).url();
+  const objectives = rawHub.objectives.map((o) => pickLocale(o, language));
+  const projects = (rawHub.highlightProjects ?? []).map((p) => ({
+    title: pickLocale(p.title, language),
+    description: pickLocale(p.description, language),
   }));
-
-  const HubIcon = currentHub.icon;
+  const faculty = members.filter((m) => m.type === 'faculty');
+  const students = members.filter((m) => m.type === 'student');
+  const community = members.filter((m) => m.type === 'community');
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
-      {/* Hero Section */}
-      <section className="relative text-white overflow-hidden bg-cover bg-center min-h-[420px] flex items-center"
-        style={{ backgroundImage: `url(${currentHub.image})` }}
-      >
-        {/* Deep dark-red multiplier overlay for perfect text contrast (WCAG AAA compliant) */}
-        <div className="absolute inset-0 bg-[#0B4F5C]/85 mix-blend-multiply z-[1]"></div>
-        
-        {/* Dot-grid brand motif */}
-        <div className="absolute inset-0 opacity-[0.06] z-[2]"
-          style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}
-        />
+    <div className="bg-paper">
+      {/* ── HERO ── */}
+      <section className="relative isolate overflow-hidden bg-ink py-16 md:py-24">
+        {cover && (
+          <img src={cover} alt="" aria-hidden="true" className="absolute inset-0 -z-10 h-full w-full object-cover opacity-40" />
+        )}
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/90 via-ink/70 to-ink/40" aria-hidden="true" />
+        <div className={`absolute inset-x-0 top-0 h-1.5 ${accent.solid}`} aria-hidden="true" />
         {/* Hub-specific thematic animation */}
-        <div className="absolute inset-0 z-[2] pointer-events-none">
-          {hubId === 'childhood' && <RisingBubbles color={currentHub.color || '#D6A43A'} />}
-          {hubId === 'health' && <HeartbeatLine color={currentHub.color || '#4E8064'} />}
-          {hubId === 'identity' && <Constellation color={currentHub.color || '#A85645'} />}
+        <div className="pointer-events-none absolute inset-0 -z-[5]" aria-hidden="true">
+          {hubId === 'childhood' && <RisingBubbles color={accent.hex} />}
+          {hubId === 'health' && <HeartbeatLine color={accent.hex} />}
+          {hubId === 'identity' && <Constellation color={accent.hex} />}
         </div>
-        {/* Hub accent color top stripe */}
-        <div className="absolute top-0 left-0 right-0 h-1.5 z-30" style={{ backgroundColor: currentHub.color || '#0B4F5C' }} />
-        {/* Diagonal cut bottom edge */}
-        <div className="absolute bottom-0 left-0 right-0 h-14 bg-white z-[3]"
-          style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 0)' }} />
 
-        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24 pb-28">
+        <Container>
           <Link
             to="/about/hubs"
-            className="inline-flex items-center gap-2 text-white/90 hover:text-white mb-10 transition-colors text-sm"
+            className="mb-10 flex w-fit items-center gap-2 text-sm text-white/80 transition-colors hover:text-white"
           >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            {language === 'en' ? 'Back to Research Hubs' : 'Retour aux pôles de recherche'}
+            <ArrowLeft className="h-3.5 w-3.5" />
+            {en ? 'Back to Research Hubs' : 'Retour aux pôles de recherche'}
           </Link>
 
-          <div className="flex items-start gap-5 mb-6">
-            <div className="p-3.5 rounded-xl flex-shrink-0"
-              style={{ backgroundColor: (currentHub.color || '#0B4F5C') + '30' }}>
-              <HubIcon className="w-10 h-10 text-white" />
-            </div>
-            <div>
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/15 mb-2">
-                <Target className="w-3.5 h-3.5 text-white/90" />
-                <span className="text-xs text-white/90 font-semibold tracking-[0.12em] uppercase">
-                  {language === 'en' ? 'Research Hub' : 'Pôle de recherche'}
-                </span>
-              </div>
-              <h1 className="text-4xl md:text-5xl font-extrabold break-words text-white leading-tight"
-                style={{ fontFamily: 'var(--font-heading)' }}>
-                {language === 'en' ? currentHub.nameEn : currentHub.nameFr}
-              </h1>
-              <p className="text-sm text-white/90 mt-2 font-medium">
-                {hubMembers.length} {language === 'en' ? 'Team Members' : 'Membres de l\'équipe'}
-              </p>
-            </div>
-          </div>
-
-          <p className="text-base md:text-lg leading-relaxed max-w-3xl text-white/90 break-words">
-            {language === 'en' ? currentHub.descriptionEn : currentHub.descriptionFr}
+          <span className={`mb-5 inline-flex rounded-md px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white ${accent.solid}`}>
+            {en ? 'Research Hub' : 'Pôle de recherche'}
+            {style ? ` ${style.number}` : ''}
+          </span>
+          <h1 className="max-w-4xl break-words !text-white">{hubName}</h1>
+          <p className="mt-3 text-sm font-medium text-white/80">
+            {members.length} {en ? 'Team Members' : 'Membres de l’équipe'}
           </p>
-        </div>
+          <p className="mt-5 max-w-3xl text-lg leading-relaxed !text-white/85">{hubDescription}</p>
+        </Container>
       </section>
 
-      {/* Research Objectives */}
-      <section className="py-16 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-[#132A35] mb-8">
-            {language === 'en' ? 'Research Objectives' : 'Objectifs de recherche'}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {(language === 'en' ? currentHub.objectivesEn : currentHub.objectivesFr).map((objective, index) => (
-              <Card key={index} className="border-l-4 border-[#0B4F5C] hover:shadow-lg transition-shadow overflow-hidden">
-                <CardContent className="p-6">
-                  <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#0B4F5C] text-white flex items-center justify-center font-semibold">
-                      {index + 1}
-                    </div>
-                    <p className="text-[#132A35] leading-relaxed pt-1 break-words">{objective}</p>
+      {/* ── OBJECTIVES ── */}
+      {objectives.length > 0 && (
+        <section className="py-16 md:py-20">
+          <Container>
+            <SectionHeading
+              eyebrow={en ? 'Pillar objectives' : 'Objectifs du pôle'}
+              accent={hubKey === 'childhood' ? 'ochre' : hubKey === 'health' ? 'sage' : hubKey === 'identity' ? 'terra' : 'teal'}
+              title={en ? 'Research Objectives' : 'Objectifs de recherche'}
+            />
+            <ol className="mt-10 grid gap-5 md:grid-cols-2">
+              {objectives.map((objective, i) => (
+                <li key={i} className="rounded-2xl border border-stone-100 bg-white p-6 shadow-sm">
+                  <div className="mb-4 flex items-center justify-between">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-stone-400">
+                      {en ? 'Objective' : 'Objectif'} {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span className={`h-1 w-6 rounded-full ${accent.solid}`} aria-hidden="true" />
                   </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+                  <p className="!mb-0 break-words text-lg leading-snug !text-ink" style={{ fontFamily: 'var(--font-heading)' }}>
+                    {objective}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </Container>
+        </section>
+      )}
 
-      {/* Research Projects */}
-      <section className="py-16 bg-gray-50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-[#132A35] mb-8">
-            {language === 'en' ? 'Research Projects' : 'Projets de recherche'}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {(language === 'en' ? currentHub.projectsEn : currentHub.projectsFr).map((project, index) => (
-              <Card key={index} className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-                <CardContent className="p-6">
-                  <div className="mb-4 p-3 bg-[#0B4F5C]/5 rounded-lg inline-block">
-                    <BookOpen className="w-8 h-8 text-[#0B4F5C]" />
+      {/* ── PROJECTS ── */}
+      {projects.length > 0 && (
+        <section className="border-y border-stone-100 bg-stone-50 py-16 md:py-20">
+          <Container>
+            <SectionHeading
+              eyebrow={en ? 'Active initiatives' : 'Initiatives en cours'}
+              title={en ? 'Research Projects' : 'Projets de recherche'}
+            />
+            <div className="mt-10 grid gap-6 md:grid-cols-3">
+              {projects.map((project, i) => (
+                <article key={i} className="rounded-2xl border border-stone-100 bg-white p-7 shadow-sm">
+                  <span className={`mb-5 flex h-10 w-10 items-center justify-center rounded-lg ${accent.chip}`}>
+                    <BookOpen className="h-5 w-5" />
+                  </span>
+                  <h3 className="mb-3 break-words !text-[1.375rem]">{project.title}</h3>
+                  <p className="break-words text-sm leading-relaxed">{project.description}</p>
+                  <Link
+                    to="/research/projects"
+                    className="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-teal-700 hover:text-teal-600"
+                  >
+                    {en ? 'View Project Details' : 'Voir les détails du projet'} <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </Container>
+        </section>
+      )}
+
+      {/* ── TEAM ── */}
+      {members.length > 0 && (
+        <section className="py-16 md:py-20">
+          <Container>
+            <SectionHeading
+              eyebrow={en ? 'Collaborative leadership' : 'Leadership collaboratif'}
+              title={`${en ? 'Hub Team Members' : 'Membres de l’équipe du pôle'} (${members.length})`}
+            />
+
+            {faculty.length > 0 && (
+              <div className="mt-10">
+                <h3 className="mb-5 flex items-center gap-3 !text-[1.25rem]">
+                  <GraduationCap className="h-5 w-5 text-teal-600" aria-hidden="true" />
+                  {en ? 'Faculty Researchers' : 'Professeur.e.s chercheur.e.s'}
+                </h3>
+                <div className="grid gap-5 md:grid-cols-2">
+                  {faculty.map((m) => (
+                    <MemberCard key={m.id} member={m} en={en} dot={accent.dot} />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {(students.length > 0 || community.length > 0) && (
+              <div className="mt-12 grid gap-10 md:grid-cols-2">
+                {students.length > 0 && (
+                  <div>
+                    <h3 className="mb-5 flex items-center gap-3 !text-[1.25rem]">
+                      <User className="h-5 w-5 text-teal-600" aria-hidden="true" />
+                      {en ? 'Student Researchers' : 'Étudiant.e.s chercheur.e.s'}
+                    </h3>
+                    <ul className="space-y-3">
+                      {students.map((m) => (
+                        <li key={m.id} className="flex items-start gap-3 rounded-xl border border-stone-100 bg-white px-4 py-3">
+                          <span className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${accent.dot}`} aria-hidden="true" />
+                          <div>
+                            <div className="text-sm font-semibold text-ink">{m.name}</div>
+                            <div className="text-xs text-stone-400">{[m.role, m.institution].filter(Boolean).join(' • ')}</div>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <h3 className="text-xl font-semibold text-[#132A35] mb-3 break-words">{project.title}</h3>
-                  <p className="text-[#132A35]/80 leading-relaxed break-words">{project.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+                )}
+                {community.length > 0 && (
+                  <div>
+                    <h3 className="mb-5 flex items-center gap-3 !text-[1.25rem]">
+                      <Building2 className="h-5 w-5 text-teal-600" aria-hidden="true" />
+                      {en ? 'Community Partners' : 'Partenaires communautaires'}
+                    </h3>
+                    <ul className="space-y-3">
+                      {community.map((m) => (
+                        <li key={m.id} className="flex items-start gap-3 rounded-xl border border-stone-100 bg-white px-4 py-3">
+                          <span className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${accent.dot}`} aria-hidden="true" />
+                          <div>
+                            <div className="text-sm font-semibold text-ink">{m.name}</div>
+                            <div className="text-xs text-stone-400">{m.role || m.institution}</div>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
+          </Container>
+        </section>
+      )}
+
+      {/* ── CTA ── */}
+      <section className="bg-ink py-20 md:py-24">
+        <Container className="text-center">
+          <div className={`eyebrow mb-4 ${accent.textOnDark} !text-white/70`}>
+            {en ? 'Collaborative inquiry' : 'Recherche collaborative'}
           </div>
-        </div>
-      </section>
-
-      {/* Team Members */}
-      <section className="py-16 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-[#132A35] mb-8">
-            {language === 'en' ? 'Hub Team Members' : 'Membres de l\'équipe du pôle'} ({hubMembers.length})
-          </h2>
-
-          {/* Faculty Members */}
-          {hubMembers.filter(m => m.type === 'faculty').length > 0 && (
-            <div className="mb-12">
-              <h3 className="text-2xl font-semibold text-[#132A35] mb-6 flex items-center gap-3">
-                <GraduationCap className="w-6 h-6 text-[#0B4F5C]" />
-                {language === 'en' ? 'Faculty Members' : 'Membres du corps professoral'}
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {hubMembers.filter(m => m.type === 'faculty').map((member, index) => (
-                  <MemberCard key={index} member={member} language={language} />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Students */}
-          {hubMembers.filter(m => m.type === 'student').length > 0 && (
-            <div className="mb-12">
-              <h3 className="text-2xl font-semibold text-[#132A35] mb-6 flex items-center gap-3">
-                <User className="w-6 h-6 text-[#0B4F5C]" />
-                {language === 'en' ? 'Students & Research Assistants' : 'Étudiants et assistants de recherche'}
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {hubMembers.filter(m => m.type === 'student').map((member, index) => (
-                  <MemberCard key={index} member={member} language={language} />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Community Partners */}
-          {hubMembers.filter(m => m.type === 'community').length > 0 && (
-            <div>
-              <h3 className="text-2xl font-semibold text-[#132A35] mb-6 flex items-center gap-3">
-                <Building2 className="w-6 h-6 text-[#0B4F5C]" />
-                {language === 'en' ? 'Community Partners' : 'Partenaires communautaires'}
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {hubMembers.filter(m => m.type === 'community').map((member, index) => (
-                  <MemberCard key={index} member={member} language={language} />
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 bg-[#0B4F5C] text-white">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 break-words text-[rgb(255,251,251)]">
-            {language === 'en' ? 'Get Involved' : 'Participez'}
-          </h2>
-          <p className="text-xl mb-8 opacity-95 break-words text-[rgb(255,253,253)]">
-            {language === 'en' 
-              ? 'Learn more about our research or explore opportunities to collaborate'
-              : 'En savoir plus sur notre recherche ou explorer les opportunités de collaboration'}
+          <h2 className="!text-white">{en ? 'Get Involved with This Hub' : 'Participez à ce pôle'}</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-lg !text-white/75">
+            {en
+              ? `Our work is fundamentally relational. Explore how community members, researchers, and organizations can join our ${hubName} division.`
+              : `Notre travail est fondamentalement relationnel. Découvrez comment les membres de la communauté, les chercheur.e.s et les organisations peuvent se joindre à notre pôle ${hubName}.`}
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              to="/research/projects"
-              className="px-8 py-4 bg-white text-[#0B4F5C] rounded-lg hover:bg-gray-100 transition-colors font-semibold"
-            >
-              {language === 'en' ? 'View All Projects' : 'Voir tous les projets'}
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Link to="/community" className={`btn ${accent.btn}`}>
+              {en ? 'Partner With Us' : 'Devenez partenaire'}
             </Link>
-            <Link
-              to="/community"
-              className="px-8 py-4 border-2 border-white text-white rounded-lg hover:bg-white/10 transition-colors font-semibold"
-            >
-              {language === 'en' ? 'Partner With Us' : 'Devenez partenaire'}
+            <Link to="/research/projects" className="btn border-2 border-white/30 text-white hover:bg-white/10">
+              {en ? 'View All Projects' : 'Voir tous les projets'}
             </Link>
           </div>
-        </div>
+        </Container>
       </section>
     </div>
   );
 }
 
-// Member Card Component
-function MemberCard({ member, language }: { member: any; language: string }) {
+interface MemberCardData {
+  id: string;
+  name: string;
+  role: string;
+  institution: string;
+  email?: string;
+  isHubLeader?: boolean;
+  image?: string;
+  bio: string;
+}
+
+function MemberCard({ member, en, dot }: { member: MemberCardData; en: boolean; dot: string }) {
   return (
-    <Card className="hover:shadow-lg transition-shadow h-full overflow-hidden">
-      <CardContent className="p-6">
-        <div className="flex items-start gap-4 mb-4">
-          <Avatar className="w-16 h-16 bg-[#0B4F5C] text-white flex-shrink-0">
-            {member.image && <AvatarImage src={member.image} alt={member.name} />}
-            <AvatarFallback className="bg-[#0B4F5C] text-white text-lg font-semibold">
-              {member.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}
-            </AvatarFallback>
-          </Avatar>
-          <div className="flex-1 min-w-0">
-            <h4 className="font-semibold text-[#132A35] mb-1 leading-tight break-words">{member.name}</h4>
-            <p className="text-sm text-[#0B4F5C] font-medium mb-1 break-words">
-              {language === 'en' ? member.role : member.roleFr}
-            </p>
-            {member.isHubLeader && (
-              <Badge className="bg-[#0B4F5C] text-white text-xs mb-2">
-                {language === 'en' ? 'Hub Leader' : 'Responsable du pôle'}
-              </Badge>
-            )}
-          </div>
-        </div>
-        
-        <div className="space-y-2 text-sm text-[#132A35]/70">
-          <div className="flex items-center gap-2">
-            <Building2 className="w-4 h-4 flex-shrink-0 text-[#0B4F5C]" />
-            <span className="truncate">{language === 'en' ? member.institution : member.institutionFr}</span>
-          </div>
-          {member.email && (
-            <div className="flex items-center gap-2">
-              <Mail className="w-4 h-4 flex-shrink-0 text-[#0B4F5C]" />
-              <a href={`mailto:${sanitizeEmail(member.email)}`} className="text-[#0B4F5C] hover:underline truncate">
-                {member.email}
-              </a>
-            </div>
+    <div className="h-full rounded-2xl border border-stone-100 bg-white p-6 shadow-sm">
+      <div className="flex items-start gap-4">
+        <Avatar className="h-14 w-14 shrink-0">
+          {member.image && <AvatarImage src={member.image} alt={member.name} />}
+          <AvatarFallback className="bg-teal-600 text-base font-semibold text-white">
+            {member.name.split(' ').map((n) => n[0]).join('').slice(0, 2)}
+          </AvatarFallback>
+        </Avatar>
+        <div className="min-w-0 flex-1">
+          <h4 className="break-words !font-[family-name:var(--font-heading)] !text-[1.25rem] !font-semibold leading-tight">
+            {member.name}
+          </h4>
+          <p className="!mb-0 mt-1 break-words text-sm font-medium text-teal-700">{member.role}</p>
+          {member.isHubLeader && (
+            <span className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-ink">
+              <span className={`h-1.5 w-1.5 rounded-full ${dot}`} aria-hidden="true" />
+              {en ? 'Hub Leader' : 'Responsable du pôle'}
+            </span>
           )}
         </div>
+      </div>
 
-        {member.bio && (
-          <p className="mt-4 text-sm text-[#132A35]/80 leading-relaxed line-clamp-4 break-words">
-            {language === 'en' ? member.bio : member.bioFr}
-          </p>
+      <div className="mt-4 space-y-2 text-sm text-stone-400">
+        {member.institution && (
+          <div className="flex items-center gap-2">
+            <Building2 className="h-4 w-4 shrink-0" aria-hidden="true" />
+            <span className="truncate">{member.institution}</span>
+          </div>
         )}
-      </CardContent>
-    </Card>
+        {member.email && (
+          <div className="flex items-center gap-2">
+            <Mail className="h-4 w-4 shrink-0" aria-hidden="true" />
+            <a href={`mailto:${sanitizeEmail(member.email)}`} className="truncate text-teal-700 hover:underline">
+              {member.email}
+            </a>
+          </div>
+        )}
+      </div>
+
+      {member.bio && <p className="mt-4 line-clamp-4 break-words text-sm leading-relaxed">{member.bio}</p>}
+    </div>
   );
 }

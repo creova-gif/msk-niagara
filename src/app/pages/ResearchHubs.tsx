@@ -1,455 +1,252 @@
+/**
+ * Research Hubs landing page
+ *
+ * Built to the Figma "research-hubs-landing" mockup (Brand Identity System,
+ * page 16): photographic hero, stat cards, three hub pillar cards, the
+ * community-network band and the research-partner call to action.
+ *
+ * Hub accent colours come from the brand hub system (keyed on the CMS hub
+ * slug) rather than the free-form colour field in Sanity, so every hub is
+ * always Ochre / Sage / Terracotta as specified in the brand guide.
+ */
+
+import { useMemo } from 'react';
+import { ArrowRight, Building2, GraduationCap, Heart, HeartPulse, Shield, UserPlus, Users } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Link } from '../components/LocalizedLink';
-import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
-import { Badge } from '../components/ui/badge';
-import { Button } from '../components/ui/button';
-import { HubBars } from '../components/HeroAnimations';
 import { usePageMeta } from '../hooks/usePageMeta';
-import { Building2, Users, ArrowRight, Target, Lightbulb, Heart, GraduationCap, TrendingUp, Globe, ExternalLink, Handshake, Award, Home, Briefcase, Shield, BookOpen, Activity, UserPlus, HeartPulse, type LucideIcon } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { Container, HUB_STYLE, SectionHeading, hubKeyFor } from '../components/brand';
 import { useSanityQuery } from '../../lib/sanity/useSanityQuery';
 import { researchHubsQuery, type ResearchHub } from '../../lib/sanity/queries/researchHub';
 import { siteStatsQuery, type SiteStats } from '../../lib/sanity/queries/siteStats';
 import { urlForImage } from '../../lib/sanity/image';
 
-const HUB_ICONS: Record<string, LucideIcon> = { Users, BookOpen, Target, Heart, Lightbulb, GraduationCap, HeartPulse, Building2 };
-
 export function ResearchHubs() {
-  const { t, language } = useLanguage();
+  const { language } = useLanguage();
+  const en = language === 'en';
+
   usePageMeta(
-    language === 'en' ? 'Research Hubs | MSK Niagara' : 'Pôles de recherche | MSK Niagara',
-    language === 'en'
+    en ? 'Research Hubs | MSK Niagara' : 'Pôles de recherche | MSK Niagara',
+    en
       ? '3 research hubs across the Niagara region driving community-based participatory research within the MSK partnership.'
       : '3 pôles de recherche à travers la région de Niagara menant une recherche participative communautaire au sein du partenariat MSK.'
   );
-  const [hoveredHub, setHoveredHub] = useState<number | null>(null);
-  const [hoveredPartner, setHoveredPartner] = useState<number | null>(null);
 
   const { data: rawHubs } = useSanityQuery<ResearchHub[]>(researchHubsQuery);
   const { data: siteStats } = useSanityQuery<SiteStats>(siteStatsQuery);
+
   const hubs = useMemo(
     () =>
       (rawHubs ?? []).map((hub) => ({
         id: hub.slug,
-        name: hub.name.en,
-        nameFr: hub.name.fr,
+        key: hubKeyFor(hub.slug),
+        name: language === 'fr' ? hub.name.fr : hub.name.en,
         image: urlForImage(hub.coverImage)?.width(800).height(500).url(),
-        description: hub.description.en,
-        descriptionFr: hub.description.fr,
+        description: language === 'fr' ? hub.description.fr : hub.description.en,
         members: hub.memberCount ?? 0,
         projects: hub.projectCount ?? 0,
-        leader: hub.leaders?.join(' & ') ?? '',
-        leaderFr: hub.leaders?.join(' et ') ?? '',
-        color: hub.color ?? '#0B4F5C',
-        gradient: 'from-[#0B4F5C] to-[#094149]',
-        icon: (hub.icon && HUB_ICONS[hub.icon]) || Building2,
+        leader: hub.leaders?.join(en ? ' & ' : ' et ') ?? '',
       })),
-    [rawHubs]
+    [rawHubs, language, en]
   );
-
-  // Helper function to get category icon and color
-  const getCategoryStyle = (category: string) => {
-    const styles: { [key: string]: { icon: any; gradient: string; color: string } } = {
-      'Housing & Support': { icon: Home, gradient: 'from-[#0B4F5C] to-[#094149]', color: '#0B4F5C' },
-      'Settlement Services': { icon: Users, gradient: 'from-[#3993A4] to-[#177485]', color: '#3993A4' },
-      'Employment Support': { icon: Briefcase, gradient: 'from-[#8E4839] to-[#0B4F5C]', color: '#8E4839' },
-      'Labor Rights': { icon: Shield, gradient: 'from-[#D6A43A] to-[#B88A2E]', color: '#D6A43A' },
-      'Community Education': { icon: BookOpen, gradient: 'from-[#177485] to-[#3993A4]', color: '#177485' },
-      'Cultural Integration': { icon: Globe, gradient: 'from-[#8E4839] to-[#0B4F5C]', color: '#8E4839' },
-      'Healthcare Access': { icon: Activity, gradient: 'from-[#3993A4] to-[#177485]', color: '#3993A4' },
-      'Recreation & Wellness': { icon: Heart, gradient: 'from-[#0B4F5C] to-[#094149]', color: '#0B4F5C' },
-      'Education': { icon: GraduationCap, gradient: 'from-[#D6A43A] to-[#B88A2E]', color: '#D6A43A' },
-      'Public Health': { icon: HeartPulse, gradient: 'from-[#3993A4] to-[#177485]', color: '#3993A4' },
-      'Newcomer Support': { icon: UserPlus, gradient: 'from-[#8E4839] to-[#0B4F5C]', color: '#8E4839' },
-      'Employment Services': { icon: Briefcase, gradient: 'from-[#177485] to-[#3993A4]', color: '#177485' },
-    };
-    return styles[category] || { icon: Building2, gradient: 'from-gray-400 to-gray-600', color: '#666666' };
-  };
 
   const stats = [
     {
-      label: language === 'en' ? 'Research Hubs' : 'Pôles de recherche',
       value: String(siteStats?.researchHubs ?? 3),
-      icon: Target,
-      color: '#0B4F5C'
+      label: en ? 'Research Hubs' : 'Pôles de recherche',
+      sub: en ? 'Thematic pillars of systemic inquiry' : 'Axes thématiques d’enquête systémique',
     },
     {
-      label: language === 'en' ? 'Team Members' : 'Membres d\'équipe',
-      value: String(siteStats?.teamMembers ?? ''),
-      icon: Users,
-      color: '#3993A4'
+      value: siteStats ? `${siteStats.teamMembers}+` : '',
+      label: en ? 'Team Members' : 'Membres de l’équipe',
+      sub: en ? 'Faculty, community partners & students' : 'Professeur.e.s, partenaires et étudiant.e.s',
     },
     {
-      label: language === 'en' ? 'Active Projects' : 'Projets actifs',
-      value: String(siteStats?.researchProjects ?? ''),
-      icon: TrendingUp,
-      color: '#8E4839'
+      value: siteStats ? String(siteStats.researchProjects) : '',
+      label: en ? 'Active Projects' : 'Projets actifs',
+      sub: en ? 'Co-designed community initiatives' : 'Initiatives communautaires co-conçues',
     },
     {
-      label: language === 'en' ? 'Partner Organizations' : 'Organisations partenaires',
-      value: String(siteStats?.communityPartners ?? ''),
-      icon: Handshake,
-      color: '#D6A43A'
+      value: siteStats ? String(siteStats.communityPartners) : '',
+      label: en ? 'Partner Organizations' : 'Organisations partenaires',
+      sub: en ? 'Niagara-wide supportive ecosystem' : 'Écosystème de soutien à l’échelle de Niagara',
     },
+  ].filter((s) => s.value !== '');
+
+  const sectors = [
+    { icon: HeartPulse, label: en ? 'Health Services' : 'Services de santé' },
+    { icon: UserPlus, label: en ? 'Newcomer Services' : 'Services aux nouveaux arrivants' },
+    { icon: GraduationCap, label: en ? 'Education & Libraries' : 'Éducation et bibliothèques' },
+    { icon: Heart, label: en ? 'Social Services' : 'Services sociaux' },
+    { icon: Users, label: en ? 'Youth Empowerment' : 'Autonomisation des jeunes' },
+    { icon: Shield, label: en ? 'Government & Public Health' : 'Gouvernement et santé publique' },
+  ];
+
+  const network = [
+    { value: String(siteStats?.communityPartners ?? 22), label: en ? 'Community Partners' : 'Partenaires communautaires' },
+    { value: '10', label: en ? 'Service Categories' : 'Catégories de services' },
+    { value: String(siteStats?.researchHubs ?? 3), label: en ? 'Research Hubs' : 'Pôles de recherche' },
+    { value: '100%', label: en ? 'Community-Driven' : 'Axé sur la communauté' },
   ];
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <div className="relative bg-[#0B4F5C] overflow-hidden">
-        {/* Dot-grid brand motif */}
-        <div className="absolute inset-0 opacity-[0.06]"
-          style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }} />
-        {/* Three hub color bars rising — research in progress */}
-        <HubBars />
-        {/* Diagonal cut bottom edge */}
-        <div className="absolute bottom-0 left-0 right-0 h-14 bg-white"
-          style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 0)' }} />
-
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10 pt-20 md:pt-24 pb-28 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/15 mb-8"
-            style={{ animation: 'fade-in-down 0.5s cubic-bezier(0.16,1,0.3,1) 0.1s both' }}>
-            <Users className="w-3.5 h-3.5 text-white/90" />
-            <span className="text-xs text-white/90 font-semibold tracking-[0.12em] uppercase">
-              {language === 'en' ? 'Research Hubs' : 'Pôles de recherche'}
-            </span>
+    <div className="bg-paper">
+      {/* ── HERO ── */}
+      <section className="relative isolate overflow-hidden bg-ink py-20 md:py-28">
+        <img
+          src="/community/health-literacy-symposium.jpg"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 h-full w-full object-cover opacity-40"
+        />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/90 via-ink/70 to-ink/30" aria-hidden="true" />
+        <Container>
+          <div className="eyebrow eyebrow-ochre mb-6 !text-white/80">
+            {en ? 'Niagara research ecosystem' : 'Écosystème de recherche de Niagara'}
           </div>
-          <h1 className="text-5xl md:text-7xl text-white mb-5 font-extrabold tracking-tight leading-none"
-            style={{ fontFamily: 'var(--font-heading)', animation: 'fade-in-up 0.7s cubic-bezier(0.16,1,0.3,1) 0.2s both' }}>
-            {t('nav.hubs')}
+          <h1 className="max-w-3xl !text-white">
+            {en ? 'Our Collaborative Research Hubs' : 'Nos pôles de recherche collaboratifs'}
           </h1>
-          <p className="text-base md:text-lg text-white/90 max-w-2xl mx-auto leading-relaxed"
-            style={{ animation: 'fade-in-up 0.6s cubic-bezier(0.16,1,0.3,1) 0.38s both' }}>
-            {language === 'en'
-              ? 'Our research is organized into collaborative hubs, each focusing on specific aspects of community health, youth development, and social well-being.'
-              : 'Notre recherche est organisée en pôles collaboratifs, chacun se concentrant sur des aspects spécifiques de la santé communautaire, du développement des jeunes et du bien-être social.'}
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed !text-white/80">
+            {en
+              ? 'Our research is organized into collaborative hubs, each focusing on specific aspects of community health, youth development, and social well-being in the Niagara region.'
+              : 'Notre recherche est organisée en pôles collaboratifs, chacun axé sur des aspects précis de la santé communautaire, du développement des jeunes et du bien-être social dans la région de Niagara.'}
           </p>
-        </div>
-      </div>
+        </Container>
+      </section>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 relative z-20 mb-20">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {stats.map((stat, index) => (
-            <div key={index} className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-[#0B4F5C]/10 flex items-center justify-center flex-shrink-0">
-                  <stat.icon className="w-6 h-6 text-[#0B4F5C]" />
+      {/* ── STATS ── */}
+      {stats.length > 0 && (
+        <section className="border-b border-stone-100 bg-white py-10">
+          <Container className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {stats.map((s) => (
+              <div key={s.label} className="rounded-xl border border-stone-100 bg-paper p-6">
+                <div className="text-4xl font-bold text-teal-600" style={{ fontFamily: 'var(--font-heading)' }}>
+                  {s.value}
                 </div>
-                <div>
-                  <div className="text-3xl font-bold text-[#132A35] mb-1">{stat.value}</div>
-                  <div className="text-xs text-[#132A35]/60 font-medium">{stat.label}</div>
-                </div>
+                <div className="mt-2 text-sm font-semibold text-ink">{s.label}</div>
+                <div className="mt-1 text-xs text-stone-400">{s.sub}</div>
               </div>
-            </div>
-          ))}
-        </div>
-      </div>
+            ))}
+          </Container>
+        </section>
+      )}
 
-      {/* Main Content */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 relative z-20">
-        
-        {/* Research Hubs Section */}
-        <section className="mb-24">
-          <div className="flex items-center gap-3 mb-12">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#0B4F5C] to-[#094149] flex items-center justify-center shadow-lg">
-              <Target className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h2 className="text-3xl font-bold text-[#132A35]">
-                {language === 'en' ? 'Our Research Hubs' : 'Nos pôles de recherche'}
-              </h2>
-              <p className="text-sm text-[#132A35]/60">
-                {language === 'en' 
-                  ? 'Collaborative teams focused on community-engaged research'
-                  : 'Équipes collaboratives axées sur la recherche communautaire'}
-              </p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {hubs.map((hub, index) => {
-              const IconComponent = hub.icon;
+      {/* ── HUB PILLARS ── */}
+      <section className="py-16 md:py-24">
+        <Container>
+          <SectionHeading
+            eyebrow={en ? 'Systemic inquiry divisions' : 'Divisions d’enquête systémique'}
+            title={en ? 'Active Pillars of Collaboration' : 'Piliers de collaboration actifs'}
+          />
+          <div className="mt-10 grid gap-6 lg:grid-cols-3">
+            {hubs.map((hub) => {
+              const s = hub.key ? HUB_STYLE[hub.key] : null;
               return (
-                <Link 
-                  to={`/about/hubs/${hub.id}`} 
-                  key={index}
-                  onMouseEnter={() => setHoveredHub(index)}
-                  onMouseLeave={() => setHoveredHub(null)}
-                  className="block"
+                <Link
+                  key={hub.id}
+                  to={`/about/hubs/${hub.id}`}
+                  className="group flex flex-col overflow-hidden rounded-2xl border border-stone-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                 >
-                  <div className={`group relative bg-white rounded-3xl overflow-hidden transition-all duration-500 border-2 h-full flex flex-col ${
-                    hoveredHub === index 
-                      ? 'shadow-2xl scale-[1.02] border-white/0' 
-                      : 'shadow-lg border-gray-100'
-                  }`}>
-                    {/* Gradient Border Effect */}
-                    {hoveredHub === index && (
-                      <div className={`absolute inset-0 bg-gradient-to-r ${hub.gradient} opacity-100 transition-opacity duration-500`}></div>
-                    )}
-                    <div className="absolute inset-[2px] bg-white rounded-3xl overflow-hidden flex flex-col">
-                      
-                      {/* Hub Image Banner */}
-                      <div className="h-48 w-full overflow-hidden relative flex-shrink-0">
-                        <img
-                          src={hub.image}
-                          alt={language === 'en' ? hub.name : hub.nameFr}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                        
-                        {/* Floating Icon */}
-                        <div className="absolute bottom-4 right-4 z-20">
-                          <div className={`w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-lg transform transition-all duration-500 ${
-                            hoveredHub === index ? 'scale-110' : ''
-                          }`}>
-                            <IconComponent className="w-6 h-6 text-white" />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="relative z-10 p-6 flex flex-col flex-1">
-
-                      {/* Title */}
-                      <h3 className={`text-2xl font-bold text-[#132A35] mb-4 leading-tight transition-colors duration-300 ${
-                        hoveredHub === index ? 'text-[#0B4F5C]' : ''
-                      }`}>
-                        {language === 'en' ? hub.name : hub.nameFr}
-                      </h3>
-
-                      {/* Leader */}
-                      {hub.leader && (
-                        <div className="mb-4 pb-4 border-b border-gray-100">
-                          <p className="text-sm text-[#132A35]/60 mb-1">
-                            {language === 'en' ? 'Hub Leader' : 'Chef de pôle'}
-                          </p>
-                          <p className="font-semibold text-[#132A35]">
-                            {language === 'en' ? hub.leader : hub.leaderFr}
-                          </p>
-                        </div>
-                      )}
-
-                      {/* Stats */}
-                      <div className="flex gap-2 mb-4">
-                        <Badge 
-                          className="font-semibold text-xs px-3 py-1 border-2"
-                          style={{ 
-                            borderColor: '#0B4F5C',
-                            backgroundColor: '#CC000015',
-                            color: '#0B4F5C'
-                          }}
-                        >
-                          <Users className="w-3 h-3 inline mr-1" />
-                          {hub.members} {language === 'en' ? 'Members' : 'Membres'}
-                        </Badge>
-                        <Badge 
-                          className="font-semibold text-xs px-3 py-1 border-2"
-                          style={{ 
-                            borderColor: '#0B4F5C',
-                            backgroundColor: '#CC000015',
-                            color: '#0B4F5C'
-                          }}
-                        >
-                          {hub.projects} {language === 'en' ? (hub.projects === 1 ? 'Project' : 'Projects') : (hub.projects === 1 ? 'Projet' : 'Projets')}
-                        </Badge>
-                      </div>
-
-                      {/* Description */}
-                      <p className="text-[#132A35]/80 mb-6 leading-relaxed line-clamp-4 flex-1">
-                        {language === 'en' ? hub.description : hub.descriptionFr}
-                      </p>
-
-                      {/* View Details Button */}
-                      <Button
-                        className="w-full bg-gradient-to-r from-[#0B4F5C] to-[#094149] hover:shadow-xl text-white font-semibold rounded-xl transition-all duration-300 group/btn border-0 mt-auto"
-                      >
-                        {language === 'en' ? 'View Hub Details' : 'Voir les détails du pôle'}
-                        <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                      </Button>
+                  {hub.image ? (
+                    <img src={hub.image} alt="" className="h-48 w-full object-cover" loading="lazy" />
+                  ) : (
+                    <div className="h-48 w-full bg-stone-50" aria-hidden="true" />
+                  )}
+                  <div className={`h-1 ${s?.solid ?? 'bg-teal-600'}`} aria-hidden="true" />
+                  <div className="flex flex-1 flex-col p-7">
+                    <div className="mb-4 flex flex-wrap gap-2">
+                      <span className={`rounded-md px-2.5 py-1 text-[11px] font-semibold ${s?.chip ?? 'bg-teal-50 text-teal-700'}`}>
+                        <Users className="mr-1 inline h-3 w-3" />
+                        {hub.members} {en ? 'Researchers' : 'Chercheur.e.s'}
+                      </span>
+                      <span className="rounded-md bg-stone-50 px-2.5 py-1 text-[11px] font-semibold text-stone-500">
+                        {hub.projects} {en ? (hub.projects === 1 ? 'Project' : 'Projects') : hub.projects === 1 ? 'Projet' : 'Projets'}
+                      </span>
                     </div>
+                    <h3 className="mb-2">{hub.name}</h3>
+                    {hub.leader && (
+                      <p className="!mb-3 text-xs font-semibold text-ink">
+                        {en ? 'Hub Leader' : 'Responsable du pôle'}: <span className="font-medium text-stone-500">{hub.leader}</span>
+                      </p>
+                    )}
+                    <p className="line-clamp-4 flex-1 text-sm leading-relaxed">{hub.description}</p>
+                    <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-teal-700">
+                      {en ? 'View Hub Details' : 'Voir les détails du pôle'}
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </span>
                   </div>
-                </div>
-              </Link>
+                </Link>
               );
             })}
           </div>
-        </section>
+        </Container>
+      </section>
 
-        {/* Community Partners Section */}
-        <section className="mb-24">
-          <div className="flex items-center gap-3 mb-12">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#0B4F5C] to-[#073338] flex items-center justify-center shadow-lg">
-              <Handshake className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h2 className="text-3xl font-bold text-[#132A35]">
-                {language === 'en' ? 'Community Partners' : 'Partenaires communautaires'}
-              </h2>
-              <p className="text-sm text-[#132A35]/60">
-                {language === 'en'
-                  ? `Collaborating with ${siteStats?.communityPartners ?? 20} organizations across Niagara`
-                  : `Collaboration avec ${siteStats?.communityPartners ?? 20} organisations à travers Niagara`}
-              </p>
-            </div>
+      {/* ── COMMUNITY NETWORK ── */}
+      <section className="bg-teal-600 py-16 md:py-20">
+        <Container>
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <SectionHeading
+              onDark
+              eyebrow={en ? 'Community partnerships' : 'Partenariats communautaires'}
+              title={en ? 'A Relational, Democratic Network' : 'Un réseau relationnel et démocratique'}
+              lede={
+                en
+                  ? 'Our research is co-led alongside Niagara organizations, ensuring academic inquiry translates directly into grass-roots advocacy and improved local policy.'
+                  : 'Notre recherche est co-dirigée avec des organismes de Niagara afin que l’enquête universitaire se traduise directement en action de terrain et en politiques locales améliorées.'
+              }
+            />
+            <Link to="/community" className="btn bg-ink text-white hover:bg-stone-600">
+              {en ? 'Explore All Community Partners' : 'Découvrir tous les partenaires'}
+            </Link>
           </div>
 
-          <div className="bg-gradient-to-br from-[#0B4F5C] via-[#0B4F5C] to-[#073338] rounded-3xl p-8 md:p-12 border-2 border-[#0B4F5C]/20 shadow-2xl overflow-hidden relative">
-            {/* Background decorative elements */}
-            <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-black/10 rounded-full blur-3xl"></div>
-            
-            <div className="relative z-10">
-              {/* Header with icon */}
-              <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
-                <div className="flex items-center gap-6">
-                  <div className="w-20 h-20 rounded-2xl bg-white/10 backdrop-blur-md border-2 border-white/20 flex items-center justify-center shadow-lg">
-                    <Handshake className="w-10 h-10 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-3xl md:text-4xl text-white mb-2">
-                      {language === 'en' ? 'Community Partnerships' : 'Partenariats communautaires'}
-                    </h3>
-                    <p className="text-white/90 text-lg">
-                      {language === 'en' 
-                        ? 'Building bridges between research and community action'
-                        : 'Construire des ponts entre la recherche et l\'action communautaire'}
-                    </p>
-                  </div>
-                </div>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {network.map((n) => (
+              <div key={n.label} className="rounded-2xl bg-ink p-6">
+                <div className="text-4xl font-bold text-white" style={{ fontFamily: 'var(--font-heading)' }}>{n.value}</div>
+                <div className="mt-3 text-xs font-semibold uppercase tracking-wider text-white/70">{n.label}</div>
               </div>
-
-              <p className="text-lg md:text-xl text-white/90 mb-10 leading-relaxed max-w-4xl">
-                {language === 'en'
-                  ? 'We work closely with community organizations to ensure our research addresses real-world needs and is informed by diverse perspectives. Our partnerships strengthen the impact of our research and create meaningful change in the Niagara community.'
-                  : 'Nous travaillons en étroite collaboration avec les organisations communautaires pour nous assurer que notre recherche répond aux besoins du monde réel et est éclairée par des perspectives diverses. Nos partenariats renforcent l\'impact de notre recherche et créent un changement significatif dans la communauté de Niagara.'}
-              </p>
-
-              {/* Partnership Stats Grid */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
-                <div className="bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-2xl p-6 text-center hover:bg-white/20 transition-all duration-300 hover:scale-105">
-                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">22</div>
-                  <div className="text-white/80 text-sm font-medium">
-                    {language === 'en' ? 'Community Partners' : 'Partenaires communautaires'}
-                  </div>
-                </div>
-                
-                <div className="bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-2xl p-6 text-center hover:bg-white/20 transition-all duration-300 hover:scale-105">
-                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">10</div>
-                  <div className="text-white/80 text-sm font-medium">
-                    {language === 'en' ? 'Service Categories' : 'Catégories de services'}
-                  </div>
-                </div>
-                
-                <div className="bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-2xl p-6 text-center hover:bg-white/20 transition-all duration-300 hover:scale-105">
-                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">3</div>
-                  <div className="text-white/80 text-sm font-medium">
-                    {language === 'en' ? 'Research Hubs' : 'Pôles de recherche'}
-                  </div>
-                </div>
-                
-                <div className="bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-2xl p-6 text-center hover:bg-white/20 transition-all duration-300 hover:scale-105">
-                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">100%</div>
-                  <div className="text-white/80 text-sm font-medium">
-                    {language === 'en' ? 'Community-Driven' : 'Axé sur la communauté'}
-                  </div>
-                </div>
-              </div>
-
-              {/* Partnership Categories */}
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8 mb-10">
-                <h4 className="text-xl md:text-2xl text-white font-semibold mb-6 flex items-center gap-3">
-                  <Building2 className="w-6 h-6" />
-                  {language === 'en' ? 'Our Partner Organizations Include:' : 'Nos organisations partenaires incluent :'}
-                </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {[
-                    { icon: HeartPulse, label: language === 'en' ? 'Health Services' : 'Services de santé' },
-                    { icon: UserPlus, label: language === 'en' ? 'Newcomer Services' : 'Services aux nouveaux arrivants' },
-                    { icon: GraduationCap, label: language === 'en' ? 'Education & Libraries' : 'Éducation et bibliothèques' },
-                    { icon: Heart, label: language === 'en' ? 'Social Services' : 'Services sociaux' },
-                    { icon: Users, label: language === 'en' ? 'Youth Empowerment' : 'Autonomisation des jeunes' },
-                    { icon: Shield, label: language === 'en' ? 'Government & Public Health' : 'Gouvernement et santé publique' },
-                  ].map((item, index) => {
-                    const Icon = item.icon;
-                    return (
-                      <div key={index} className="flex items-center gap-3 text-white/90">
-                        <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
-                          <Icon className="w-5 h-5" />
-                        </div>
-                        <span className="font-medium">{item.label}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Call to Action */}
-              <div className="text-center">
-                <Link to="/community">
-                  <Button
-                    size="lg"
-                    className="gap-3 bg-white text-[#0B4F5C] hover:bg-gray-50 shadow-2xl hover:shadow-white/20 transition-all duration-300 hover:scale-105 text-lg px-10 py-7 rounded-2xl font-bold group"
-                  >
-                    <Building2 className="w-6 h-6 group-hover:rotate-12 transition-transform" />
-                    {language === 'en' ? 'Explore All Community Partners' : 'Découvrir tous les partenaires'}
-                    <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
-                  </Button>
-                </Link>
-                <p className="text-white/90 text-sm mt-4">
-                  {language === 'en' 
-                    ? 'Visit our Community page to learn more about each organization'
-                    : 'Visitez notre page Communauté pour en savoir plus sur chaque organisation'}
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
-        </section>
 
-        {/* Call to Action */}
-        <div className="relative">
-          {/* Background Blur Effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0B4F5C] via-[#094149] to-[#0B4F5C] rounded-[3rem] blur-3xl opacity-20"></div>
-          
-          <div className="relative bg-gradient-to-br from-[#0B4F5C] via-[#094149] to-[#073338] rounded-[3rem] p-12 md:p-16 lg:p-20 overflow-hidden shadow-2xl">
-            {/* Decorative Elements */}
-            <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full -mr-48 -mt-48"></div>
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/10 rounded-full -ml-48 -mb-48"></div>
-            
-            <div className="relative z-10 max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-6 py-3 rounded-full mb-8 shadow-lg">
-                <Globe className="w-5 h-5" />
-                <span className="font-semibold">
-                  {language === 'en' ? 'Join Our Network' : 'Rejoignez notre réseau'}
-                </span>
-              </div>
-              
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                {language === 'en' 
-                  ? 'Become a Research Partner' 
-                  : 'Devenez un partenaire de recherche'}
-              </h2>
-              
-              <p className="text-xl md:text-2xl text-white/90 mb-10 leading-relaxed">
-                {language === 'en' 
-                  ? 'Interested in collaborating with our research hubs? We welcome partnerships with community organizations, researchers, and institutions.'
-                  : 'Intéressé à collaborer avec nos pôles de recherche ? Nous accueillons les partenariats avec les organisations communautaires, les chercheurs et les institutions.'}
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="mailto:contact@msk-niagara.ca">
-                  <Button className="bg-white text-[#0B4F5C] hover:bg-gray-100 font-bold px-10 py-7 rounded-xl text-lg shadow-xl transition-all duration-300 hover:scale-105">
-                    {language === 'en' ? 'Contact Us' : 'Nous contacter'}
-                  </Button>
-                </a>
-                <Link to="/about/partnership">
-                  <Button variant="outline" className="border-2 border-white text-white hover:bg-white/10 font-bold px-10 py-7 rounded-xl text-lg backdrop-blur-sm transition-all duration-300 hover:scale-105">
-                    {language === 'en' ? 'Learn More' : 'En savoir plus'}
-                  </Button>
-                </Link>
-              </div>
+          <div className="mt-10">
+            <div className="text-xs font-semibold uppercase tracking-wider text-white/70">
+              {en ? 'Active sectors & service categories' : 'Secteurs actifs et catégories de services'}
             </div>
+            <ul className="mt-4 flex flex-wrap gap-3">
+              {sectors.map(({ icon: Icon, label }) => (
+                <li key={label} className="inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2 text-sm font-medium text-white">
+                  <Icon className="h-4 w-4 text-ochre-300" aria-hidden="true" />
+                  {label}
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
-      </div>
+        </Container>
+      </section>
+
+      {/* ── PARTNER CTA ── */}
+      <section className="bg-ink py-20 md:py-24">
+        <Container className="text-center">
+          <Building2 className="mx-auto mb-6 h-8 w-8 text-ochre-400" aria-hidden="true" />
+          <h2 className="!text-white">{en ? 'Become a Research Partner' : 'Devenez partenaire de recherche'}</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-lg !text-white/75">
+            {en
+              ? 'Join a multi-sectoral initiative aiming to restructure how community knowledge is safeguarded and utilized. Let’s work together to co-create policy briefs, workshops, and supportive regional projects.'
+              : 'Joignez une initiative multisectorielle qui vise à repenser la façon dont les savoirs communautaires sont protégés et utilisés. Travaillons ensemble à co-créer des notes de politique, des ateliers et des projets régionaux de soutien.'}
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="mailto:contact@msk-niagara.ca" className="btn bg-teal-600 text-white hover:bg-teal-500">
+              {en ? 'Contact Us' : 'Nous contacter'}
+            </a>
+            <Link to="/about/partnership" className="btn border-2 border-white/30 text-white hover:bg-white/10">
+              {en ? 'Learn More' : 'En savoir plus'}
+            </Link>
+          </div>
+        </Container>
+      </section>
     </div>
   );
 }
