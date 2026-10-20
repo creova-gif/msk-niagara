@@ -1,501 +1,309 @@
+/**
+ * Team Members page
+ *
+ * Structure follows the Figma "team-members" mockup (Brand Identity System,
+ * page 16): hero with photo mosaic + stats, hub filter pills, Faculty /
+ * Graduate Students / Community Co-Leaders groups, summary strip.
+ *
+ * NOTE: that mockup still carries the legacy red/black palette; here its
+ * layout is implemented with the brand tokens (teal, ink, hub accents).
+ */
+
+import { useMemo, useState } from 'react';
+import { Building2, GraduationCap, Mail, Target, User } from 'lucide-react';
 import { sanitizeEmail } from '../utils/security';
 import { useLanguage } from '../contexts/LanguageContext';
-import { Card, CardContent } from '../components/ui/card';
-import { Badge } from '../components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
-import { Building2, User, GraduationCap, Mail, Award, Target } from 'lucide-react';
-import { MemberDots } from '../components/HeroAnimations';
-import { usePageMeta } from '../hooks/usePageMeta';
+import { Tabs, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
-import { useMemo, useState } from 'react';
+import { Container, HUB_STYLE, hubKeyFor } from '../components/brand';
 import { PageLoader } from '../components/PageLoader';
+import { usePageMeta } from '../hooks/usePageMeta';
 import { useSanityQuery } from '../../lib/sanity/useSanityQuery';
+import { pickLocale } from '../../lib/sanity/locale';
 import { teamMembersQuery, type TeamMember } from '../../lib/sanity/queries/teamMember';
 import { siteStatsQuery, type SiteStats } from '../../lib/sanity/queries/siteStats';
 import { urlForImage } from '../../lib/sanity/image';
 
+interface MemberView {
+  id: string;
+  name: string;
+  role: string;
+  hubSlug: string;
+  hubName: string;
+  institution: string;
+  email?: string;
+  type: string;
+  isCoDirector?: boolean;
+  isHubLeader?: boolean;
+  isProjectLeader?: boolean;
+  projectLeaderTitle?: string;
+  image?: string;
+  bio: string;
+}
+
+const MOSAIC = [
+  { src: '/community/bilateral-conversation-yellow-glasses.jpg', alt: 'Community participant and researcher in discussion at an MSK event' },
+  { src: '/community/researcher-presenting-brocku.jpg', alt: 'Researcher presenting findings to a community audience at Brock University' },
+  { src: '/community/researcher-networking-postgathering.jpg', alt: 'Researcher in conversation with attendees after an event' },
+  { src: '/community/researcher-greeting-attendees.jpg', alt: 'Researcher welcoming event attendees' },
+];
+
 export function MemberBios() {
   const { language } = useLanguage();
+  const en = language === 'en';
+
   usePageMeta(
-    language === 'en' ? 'Team Members | MSK Niagara' : "Membres de l'équipe | MSK Niagara",
-    language === 'en'
+    en ? 'Team Members | MSK Niagara' : 'Membres de l’équipe | MSK Niagara',
+    en
       ? 'Meet the researchers, students, and community partners driving the MSK Niagara research partnership.'
-      : "Rencontrez les chercheurs, étudiants et partenaires communautaires qui animent le partenariat de recherche MSK Niagara."
+      : 'Rencontrez les chercheurs, étudiants et partenaires communautaires qui animent le partenariat de recherche MSK Niagara.'
   );
   const [selectedHub, setSelectedHub] = useState<string>('All');
-
-  // Hub translation mapping
-  const getHubLabel = (hubName: string) => {
-    const hubTranslations: Record<string, { en: string; fr: string }> = {
-      'All': { en: 'All Members', fr: 'Tous les membres' },
-      'Childhood and Growing Up Hub': { 
-        en: 'Childhood and Growing Up Hub', 
-        fr: 'Pôle Enfance et croissance' 
-      },
-      'Health Literacy Hub': { 
-        en: 'Health Literacy Hub', 
-        fr: 'Pôle Littératie en santé' 
-      },
-      'Identity, Connections and Belonging Hub': { 
-        en: 'Identity, Connections and Belonging Hub', 
-        fr: 'Pôle Identité, connexions et appartenance' 
-      },
-    };
-    
-    return language === 'en' 
-      ? hubTranslations[hubName]?.en || hubName
-      : hubTranslations[hubName]?.fr || hubName;
-  };
 
   const { data: rawMembers, loading } = useSanityQuery<TeamMember[]>(teamMembersQuery);
   const { data: siteStats } = useSanityQuery<SiteStats>(siteStatsQuery);
 
-  // Transform Sanity's nested {en,fr} shape into the flat legacy shape
-  // (roleEn/roleFr-style pairs) this component's render logic already
-  // expects, so nothing below this needs to change.
-  const members = useMemo(
+  const members: MemberView[] = useMemo(
     () =>
       (rawMembers ?? []).map((m) => ({
+        id: m._id,
         name: m.name,
-        role: m.role?.en ?? '',
-        roleFr: m.role?.fr ?? '',
-        hub: m.hub?.name.en ?? '',
-        hubFr: m.hub?.name.fr ?? '',
-        institution: m.institution?.en ?? '',
-        institutionFr: m.institution?.fr ?? '',
+        role: pickLocale(m.role, language),
+        hubSlug: m.hub?.slug ?? '',
+        hubName: pickLocale(m.hub?.name, language),
+        institution: pickLocale(m.institution, language),
         email: m.email,
         type: m.memberType ?? '',
-        isPostDoc: m.isPostDoc,
         isCoDirector: m.isCoDirector,
         isHubLeader: m.isHubLeader,
         isProjectLeader: m.isProjectLeader,
-        projectLeaderTitle: m.projectLeaderTitle?.en,
-        projectLeaderTitleFr: m.projectLeaderTitle?.fr,
+        projectLeaderTitle: pickLocale(m.projectLeaderTitle, language),
         image: urlForImage(m.image)?.width(400).url(),
-        bio: m.bio?.en ?? '',
-        bioFr: m.bio?.fr ?? '',
+        bio: pickLocale(m.bio, language),
       })),
-    [rawMembers]
+    [rawMembers, language]
   );
 
-  const hubs = ['All', ...Array.from(new Set(members.map(m => m.hub)))];
+  // Filter pills are built from the hubs that actually have members.
+  const hubOptions = useMemo(() => {
+    const seen = new Map<string, string>();
+    for (const m of members) if (m.hubName && !seen.has(m.hubName)) seen.set(m.hubName, m.hubName);
+    return ['All', ...seen.keys()];
+  }, [members]);
 
-  const getMemberTypeLabel = (type: string) => {
-    const labels: Record<string, { en: string; fr: string }> = {
-      faculty: { en: 'Faculty', fr: 'Corps professoral' },
-      student: { en: 'Graduate Student', fr: 'Étudiant diplômé' },
-      community: { en: 'Community Partner', fr: 'Partenaire communautaire' },
-    };
-    return language === 'en' ? labels[type]?.en : labels[type]?.fr;
-  };
-
-  const getMemberTypeColor = (type: string) => {
-    switch (type) {
-      case 'faculty': return 'bg-dark-red text-white';
-      case 'student': return 'bg-primary text-white';
-      case 'community': return 'bg-dark-red/80 text-white';
-      default: return 'bg-gray-500 text-white';
-    }
-  };
-
-  const getMemberTypeIcon = (type: string) => {
-    switch (type) {
-      case 'faculty': return <GraduationCap className="w-4 h-4" />;
-      case 'student': return <User className="w-4 h-4" />;
-      case 'community': return <Building2 className="w-4 h-4" />;
-      default: return <User className="w-4 h-4" />;
-    }
-  };
-
-  const filteredMembers = selectedHub === 'All'
-    ? members
-    : members.filter(m => m.hub === selectedHub);
-
-  // Group members by type
-  const groupedMembers = {
-    faculty: filteredMembers.filter(m => m.type === 'faculty'),
-    student: filteredMembers.filter(m => m.type === 'student'),
-    community: filteredMembers.filter(m => m.type === 'community'),
+  const filtered = selectedHub === 'All' ? members : members.filter((m) => m.hubName === selectedHub);
+  const groups = {
+    faculty: filtered.filter((m) => m.type === 'faculty'),
+    student: filtered.filter((m) => m.type === 'student'),
+    community: filtered.filter((m) => m.type === 'community'),
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center bg-paper">
         <PageLoader />
       </div>
     );
   }
 
+  const mosaicStats = [
+    { value: String(siteStats?.teamMembers ?? members.length), label: en ? 'Team Members' : 'Membres' },
+    { value: String(siteStats?.researchHubs ?? 3), label: en ? 'Research Hubs' : 'Pôles' },
+    { value: siteStats ? `${siteStats.institutions}+` : '', label: en ? 'Institutions' : 'Institutions' },
+    { value: String(siteStats?.communityPartners ?? ''), label: en ? 'Community Partners' : 'Partenaires' },
+  ];
+
+  const sections = [
+    {
+      key: 'faculty' as const,
+      icon: GraduationCap,
+      title: en ? 'Faculty Researchers' : 'Professeur.e.s chercheur.e.s',
+      list: groups.faculty,
+    },
+    {
+      key: 'student' as const,
+      icon: User,
+      title: en ? 'Graduate Students & Research Assistants' : 'Étudiant.e.s diplômé.e.s et assistant.e.s de recherche',
+      list: groups.student,
+    },
+    {
+      key: 'community' as const,
+      icon: Building2,
+      title: en ? 'Community Co-Leaders' : 'Co-responsables communautaires',
+      list: groups.community,
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section — left-aligned, split layout, distinct from other pages */}
-      <div className="relative overflow-hidden bg-[#132A35] py-20 md:py-28">
-        {/* Dot-grid brand motif */}
-        <div className="absolute inset-0 opacity-[0.04]"
-          style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '28px 28px' }}
-        />
-        {/* Cascading member dots — representing the team */}
-        <MemberDots />
-        {/* Crimson accent gradient — right side */}
-        <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-[#0B4F5C]/20 to-transparent pointer-events-none" />
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+    <div className="bg-paper">
+      {/* ── HERO ── */}
+      <section className="bg-ink py-16 md:py-24">
+        <Container className="grid items-center gap-12 lg:grid-cols-2">
+          <div>
+            <div className="eyebrow eyebrow-ochre mb-6 !text-white/80">{en ? 'Our people' : 'Notre équipe'}</div>
+            <h1 className="!text-white">
+              {en ? (
+                <>
+                  The People <span className="text-ochre-400">Behind</span> the Research
+                </>
+              ) : (
+                <>
+                  L’équipe <span className="text-ochre-400">derrière</span> la recherche
+                </>
+              )}
+            </h1>
+            <p className="mt-6 max-w-lg text-lg leading-relaxed !text-white/75">
+              {en
+                ? 'Our multidisciplinary team brings together dedicated university faculty researchers, passionate graduate students, and trusted community co-leaders across Niagara to co-create knowledge for systemic change.'
+                : 'Notre équipe multidisciplinaire réunit des professeur.e.s chercheur.e.s, des étudiant.e.s diplômé.e.s passionné.e.s et des co-responsables communautaires de confiance de toute la région de Niagara pour co-créer des savoirs au service du changement systémique.'}
+            </p>
+          </div>
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left: text */}
-            <div>
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/15 mb-6">
-                <User className="w-3.5 h-3.5 text-white/90" />
-                <span className="text-xs text-white/90 font-semibold tracking-[0.12em] uppercase">
-                  {language === 'en' ? 'Our People' : 'Notre équipe'}
-                </span>
-              </div>
-              <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-[1.05] tracking-tight mb-6"
-                style={{ fontFamily: 'var(--font-heading)' }}>
-                {language === 'en' ? (
-                  <>The People<br /><span className="text-[#0B4F5C]">Behind</span><br />the Research</>
-                ) : (
-                  <>L'équipe<br /><span className="text-[#0B4F5C]">derrière</span><br />la recherche</>
+          <div className="grid grid-cols-2 gap-3">
+            {MOSAIC.map((photo, i) => (
+              <div key={photo.src} className="relative h-44 overflow-hidden rounded-2xl">
+                <img src={photo.src} alt={photo.alt} className="h-full w-full object-cover" loading="lazy" />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/80 to-transparent" aria-hidden="true" />
+                {mosaicStats[i]?.value && (
+                  <div className="absolute bottom-3 left-3">
+                    <div className="text-2xl font-bold leading-none text-white" style={{ fontFamily: 'var(--font-heading)' }}>
+                      {mosaicStats[i].value}
+                    </div>
+                    <div className="mt-0.5 text-[11px] font-medium text-white/80">{mosaicStats[i].label}</div>
+                  </div>
                 )}
-              </h1>
-              <p className="text-lg text-white/60 leading-relaxed max-w-lg">
-                {language === 'en'
-                  ? 'Faculty researchers, graduate students, and community co-leaders working together across three hubs to mobilize knowledge for a more just Niagara.'
-                  : 'Chercheurs, étudiants et co-responsables communautaires travaillant ensemble dans trois pôles pour mobiliser les connaissances pour un Niagara plus juste.'}
-              </p>
-            </div>
-
-            {/* Right: photo mosaic with stat overlays */}
-            <div className="grid grid-cols-2 gap-3 relative">
-              {/* Photo 1 — discussion */}
-              <div className="relative overflow-hidden rounded-2xl h-44 group">
-                <img
-                  src="/community/bilateral-conversation-yellow-glasses.jpg"
-                  alt="Community participant Julie and researcher in discussion at MSK event"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                <div className="absolute bottom-3 left-3">
-                  <div className="text-2xl font-extrabold text-white leading-none" style={{ fontFamily: 'var(--font-heading)' }}>{siteStats?.teamMembers ?? members.length}</div>
-                  <div className="text-[10px] text-white/70 font-medium mt-0.5">{language === 'en' ? 'Team Members' : 'Membres'}</div>
-                </div>
               </div>
-              {/* Photo 2 — presenter */}
-              <div className="relative overflow-hidden rounded-2xl h-44 group">
-                <img
-                  src="/community/researcher-presenting-brocku.jpg"
-                  alt="Researcher presenting research findings to a community audience at Brock University"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                <div className="absolute bottom-3 left-3">
-                  <div className="text-2xl font-extrabold text-white leading-none" style={{ fontFamily: 'var(--font-heading)' }}>{siteStats?.researchHubs ?? 3}</div>
-                  <div className="text-[10px] text-white/70 font-medium mt-0.5">{language === 'en' ? 'Research Hubs' : 'Pôles'}</div>
-                </div>
-              </div>
-              {/* Photo 3 — networking */}
-              <div className="relative overflow-hidden rounded-2xl h-44 group">
-                <img
-                  src="/community/researcher-networking-postgathering.jpg"
-                  alt="Researcher engaging in post-event conversations with attendees"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                <div className="absolute bottom-3 left-3">
-                  <div className="text-2xl font-extrabold text-white leading-none" style={{ fontFamily: 'var(--font-heading)' }}>{siteStats ? `${siteStats.institutions}+` : ''}</div>
-                  <div className="text-[10px] text-white/70 font-medium mt-0.5">{language === 'en' ? 'Institutions' : 'Institutions'}</div>
-                </div>
-              </div>
-              {/* Photo 4 — greeting */}
-              <div className="relative overflow-hidden rounded-2xl h-44 group">
-                <img
-                  src="/community/researcher-greeting-attendees.jpg"
-                  alt="Researcher greeting and welcoming event attendees"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                <div className="absolute bottom-3 left-3">
-                  <div className="text-2xl font-extrabold text-white leading-none" style={{ fontFamily: 'var(--font-heading)' }}>{siteStats?.communityPartners ?? ''}</div>
-                  <div className="text-[10px] text-white/70 font-medium mt-0.5">{language === 'en' ? 'Community Partners' : 'Partenaires'}</div>
-                </div>
-              </div>
-              {/* Crimson corner accent */}
-              <div className="absolute -bottom-3 -right-3 w-16 h-16 rounded-full bg-[#0B4F5C]/30 blur-xl pointer-events-none" />
-            </div>
+            ))}
           </div>
-        </div>
+        </Container>
+      </section>
+
+      {/* ── HUB FILTER ── */}
+      <div className="border-b border-stone-100 bg-white">
+        <Container className="py-5">
+          <Tabs value={selectedHub} onValueChange={setSelectedHub}>
+            <div className="-mx-1 overflow-x-auto px-1 scrollbar-hide">
+              <TabsList
+                aria-label={en ? 'Filter by hub' : 'Filtrer par pôle'}
+                className="inline-flex h-auto min-w-min gap-2 bg-transparent p-0"
+              >
+                {hubOptions.map((hub) => (
+                  <TabsTrigger
+                    key={hub}
+                    value={hub}
+                    className="whitespace-nowrap rounded-full border border-stone-200 bg-white px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-stone-50 data-[state=active]:border-teal-600 data-[state=active]:bg-teal-600 data-[state=active]:text-white"
+                  >
+                    {hub === 'All' ? (en ? 'All Members' : 'Tous les membres') : hub}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </div>
+          </Tabs>
+        </Container>
       </div>
 
-
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 -mt-16 pb-20 relative z-20">
-
-        {/* Tabs by Hub */}
-        <Tabs value={selectedHub} onValueChange={setSelectedHub} className="w-full">
-          <div className="flex justify-center mb-8 overflow-x-auto scrollbar-hide px-4">
-            <TabsList className="h-auto bg-white/95 sm:bg-white shadow-lg border-2 border-[#0B4F5C]/20 rounded-xl p-2 inline-flex gap-2 min-w-min transition-all backdrop-blur-sm">
-              {hubs.map((hub) => (
-                <TabsTrigger 
-                  key={hub} 
-                  value={hub}
-                  className="data-[state=active]:bg-[#0B4F5C] data-[state=active]:text-white data-[state=inactive]:text-[#132A35] data-[state=inactive]:hover:bg-gray-100 transition-all rounded-lg px-4 sm:px-6 py-3 font-medium text-sm sm:text-base whitespace-nowrap"
-                >
-                  {getHubLabel(hub)}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </div>
-
-          <TabsContent value={selectedHub} className="mt-0">
-            {/* Faculty Section */}
-            {groupedMembers.faculty.length > 0 && (
-              <div className="mb-12">
-                <h2 className="text-xl sm:text-2xl font-semibold text-primary mb-6 flex items-center gap-2">
-                  <GraduationCap className="w-6 h-6 sm:w-7 sm:h-7 text-dark-red flex-shrink-0" />
-                  <span>{language === 'en' ? 'Faculty Researchers' : 'Chercheurs du corps professoral'}</span>
+      {/* ── MEMBER GROUPS ── */}
+      <Container className="py-14 md:py-20">
+        {sections.map(
+          ({ key, icon: Icon, title, list }) =>
+            list.length > 0 && (
+              <section key={key} className="mb-14 last:mb-0">
+                <h2 className="mb-6 flex items-center gap-3 !text-[1.625rem]">
+                  <Icon className="h-6 w-6 text-teal-600" aria-hidden="true" />
+                  {title}
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {groupedMembers.faculty.map((member, index) => (
-                    <Card 
-                      key={index} 
-                      className={`hover:shadow-xl transition-all duration-300 border-l-4 ${
-                        member.isHubLeader ? 'border-[#0B4F5C] bg-gradient-to-br from-[#0B4F5C]/5 to-white' : 'border-[#0B4F5C]/60'
-                      } animate-fade-in-up`}
-                      style={{ animationDelay: `${index * 100}ms` }}
-                    >
-                      <CardContent className="p-4 sm:p-6">
-                        <div className="flex items-start gap-3 sm:gap-4 mb-4">
-                          <Avatar className="w-14 h-14 sm:w-16 sm:h-16 border-2 border-[#0B4F5C]/20 flex-shrink-0">
-                            {member.image && <AvatarImage src={member.image} alt={member.name} />}
-                            <AvatarFallback className="text-base sm:text-lg bg-[#0B4F5C] text-white font-semibold">
-                              {member.name.split(' ').map(n => n[0]).slice(0, 2).join('')}
-                            </AvatarFallback>
-                          </Avatar>
-                          <div className="flex-1 min-w-0">
-                            <h3 className="text-lg sm:text-xl font-semibold text-[#132A35] mb-1 break-words">
-                              {member.name}
-                            </h3>
-                            
-                            {/* Position/Role Tags */}
-                            <div className="flex flex-wrap gap-2 mb-3">
-                              {/* Display ALL roles from the role field as separate badges */}
-                              {(language === 'en' ? member.role : member.roleFr).split(',').map((roleItem, idx) => (
-                                <Badge key={idx} className="bg-[#132A35] text-white text-xs">
-                                  <span className="flex items-center gap-1">
-                                    {idx === 0 && getMemberTypeIcon(member.type)}
-                                    {roleItem.trim()}
-                                  </span>
-                                </Badge>
-                              ))}
-                              
-                              {/* Project Leader Badge */}
-                              {member.isProjectLeader && member.projectLeaderTitle && (
-                                <Badge className="bg-[#0B4F5C] text-white text-xs">
-                                  <Target className="w-3 h-3 mr-1" />
-                                  {language === 'en' ? member.projectLeaderTitle : member.projectLeaderTitleFr}
-                                </Badge>
-                              )}
-                            </div>
-                            
-                            {/* Institution */}
-                            <p className="text-xs sm:text-sm text-[#434C49] flex items-center gap-1 break-words">
-                              <Building2 className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
-                              <span>{language === 'en' ? member.institution : member.institutionFr}</span>
-                            </p>
-                          </div>
-                        </div>
-                        
-                        {/* Bio - Selectable Text */}
-                        <p className="text-sm sm:text-base text-[#434C49] leading-relaxed select-text cursor-text mb-4">
-                          {language === 'en' ? member.bio : member.bioFr}
-                        </p>
-                        
-                        {/* Contact Button for Hub Leaders and Co-Directors */}
-                        {(member.isHubLeader || member.isCoDirector) && member.email && (
-                          <a
-                            href={`mailto:${sanitizeEmail(member.email)}`}
-                            className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-gradient-to-r from-[#0B4F5C] to-[#073338] text-white hover:from-[#094149] hover:to-[#0B4F5C] rounded-lg transition-all duration-300 shadow-md hover:shadow-lg font-medium text-sm sm:text-base"
-                          >
-                            <Mail className="w-4 h-4" />
-                            <span>{language === 'en' ? 'Contact' : 'Contacter'}</span>
-                          </a>
-                        )}
-                      </CardContent>
-                    </Card>
+                <div className="grid gap-5 md:grid-cols-2">
+                  {list.map((m, i) => (
+                    <MemberCard key={m.id} member={m} en={en} index={i} />
                   ))}
                 </div>
-              </div>
-            )}
+              </section>
+            )
+        )}
 
-            {/* Graduate Students Section */}
-            {groupedMembers.student.length > 0 && (
-              <div className="mb-12">
-                <h2 className="text-xl sm:text-2xl font-semibold text-[#132A35] mb-6 flex items-center gap-2">
-                  <User className="w-6 h-6 sm:w-7 sm:h-7 text-[#132A35] flex-shrink-0" />
-                  <span>{language === 'en' ? 'Graduate Students' : 'Étudiants diplômés'}</span>
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {groupedMembers.student.map((member, index) => (
-                    <Card 
-                      key={index} 
-                      className="hover:shadow-xl transition-all duration-300 border-l-4 border-[#132A35] animate-fade-in-up"
-                      style={{ animationDelay: `${index * 100}ms` }}
-                    >
-                      <CardContent className="p-4 sm:p-6">
-                        <div className="flex items-start gap-3 sm:gap-4 mb-4">
-                          <Avatar className="w-14 h-14 sm:w-16 sm:h-16 border-2 border-primary/20 flex-shrink-0">
-                            {member.image && <AvatarImage src={member.image} alt={member.name} />}
-                            <AvatarFallback className="text-base sm:text-lg bg-[#132A35] text-white font-semibold">
-                              {member.name.split(' ').map(n => n[0]).slice(0, 2).join('')}
-                            </AvatarFallback>
-                          </Avatar>
-                          <div className="flex-1 min-w-0">
-                            <h3 className="text-lg sm:text-xl font-semibold text-[#132A35] mb-1 break-words">
-                              {member.name}
-                            </h3>
-                            
-                            {/* Position/Role Tags */}
-                            <div className="flex flex-wrap gap-2 mb-3">
-                              {/* Display ALL roles from the role field as separate badges */}
-                              {(language === 'en' ? member.role : member.roleFr).split(',').map((roleItem, idx) => (
-                                <Badge key={idx} className="bg-[#132A35] text-white text-xs">
-                                  <span className="flex items-center gap-1">
-                                    {idx === 0 && getMemberTypeIcon(member.type)}
-                                    {roleItem.trim()}
-                                  </span>
-                                </Badge>
-                              ))}
-                            </div>
-                            
-                            {/* Institution */}
-                            <p className="text-xs sm:text-sm text-[#434C49] flex items-center gap-1 break-words">
-                              <Building2 className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
-                              <span>{language === 'en' ? member.institution : member.institutionFr}</span>
-                            </p>
-                          </div>
-                        </div>
-                        
-                        {/* Bio - Selectable Text */}
-                        <p className="text-sm sm:text-base text-[#434C49] leading-relaxed select-text cursor-text">
-                          {language === 'en' ? member.bio : member.bioFr}
-                        </p>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
+        {/* Summary strip */}
+        <div className="mt-16 grid gap-4 md:grid-cols-3">
+          {[
+            { icon: GraduationCap, value: groups.faculty.length, label: en ? 'Faculty Researchers' : 'Professeur.e.s chercheur.e.s' },
+            { icon: User, value: groups.student.length, label: en ? 'Graduate Students' : 'Étudiant.e.s diplômé.e.s' },
+            { icon: Building2, value: groups.community.length, label: en ? 'Community Partners' : 'Partenaires communautaires' },
+          ].map(({ icon: Icon, value, label }) => (
+            <div key={label} className="flex items-center gap-4 rounded-2xl border border-stone-100 bg-white p-5">
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-teal-600 text-white">
+                <Icon className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <div>
+                <div className="text-2xl font-bold text-ink" style={{ fontFamily: 'var(--font-heading)' }}>{value}</div>
+                <div className="text-xs text-stone-500">{label}</div>
               </div>
-            )}
-
-            {/* Community Partners Section */}
-            {groupedMembers.community.length > 0 && (
-              <div className="mb-12">
-                <h2 className="text-xl sm:text-2xl font-semibold text-[#132A35] mb-6 flex items-center gap-2">
-                  <Building2 className="w-6 h-6 sm:w-7 sm:h-7 text-[#0B4F5C]/80 flex-shrink-0" />
-                  <span>{language === 'en' ? 'Community Partners' : 'Partenaires communautaires'}</span>
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {groupedMembers.community.map((member, index) => (
-                    <Card 
-                      key={index} 
-                      className="hover:shadow-xl transition-all duration-300 border-l-4 border-[#0B4F5C]/80 animate-fade-in-up"
-                      style={{ animationDelay: `${index * 100}ms` }}
-                    >
-                      <CardContent className="p-4 sm:p-6">
-                        <div className="flex items-start gap-3 sm:gap-4 mb-4">
-                          <Avatar className="w-14 h-14 sm:w-16 sm:h-16 border-2 border-[#0B4F5C]/20 flex-shrink-0">
-                            {member.image && <AvatarImage src={member.image} alt={member.name} />}
-                            <AvatarFallback className="text-base sm:text-lg bg-[#0B4F5C]/80 text-white font-semibold">
-                              {member.name.split(' ').map(n => n[0]).slice(0, 2).join('')}
-                            </AvatarFallback>
-                          </Avatar>
-                          <div className="flex-1 min-w-0">
-                            <h3 className="text-lg sm:text-xl font-semibold text-[#132A35] mb-1 break-words">
-                              {member.name}
-                            </h3>
-                            
-                            {/* Position/Role Tags */}
-                            <div className="flex flex-wrap gap-2 mb-3">
-                              {/* Display ALL roles from the role field as separate badges */}
-                              {(language === 'en' ? member.role : member.roleFr).split(',').map((roleItem, idx) => (
-                                <Badge key={idx} className="bg-[#132A35] text-white text-xs">
-                                  <span className="flex items-center gap-1">
-                                    {idx === 0 && getMemberTypeIcon(member.type)}
-                                    {roleItem.trim()}
-                                  </span>
-                                </Badge>
-                              ))}
-                            </div>
-                            
-                            {/* Institution */}
-                            <p className="text-xs sm:text-sm text-[#434C49] flex items-center gap-1 break-words">
-                              <Building2 className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
-                              <span>{language === 'en' ? member.institution : member.institutionFr}</span>
-                            </p>
-                          </div>
-                        </div>
-                        
-                        {/* Bio - Selectable Text */}
-                        <p className="text-sm sm:text-base text-[#434C49] leading-relaxed select-text cursor-text mb-4">
-                          {language === 'en' ? member.bio : member.bioFr}
-                        </p>
-                        
-                        {/* Contact Button for Community Hub Leaders */}
-                        {member.isHubLeader && member.email && (
-                          <a
-                            href={`mailto:${sanitizeEmail(member.email)}`}
-                            className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-gradient-to-r from-[#0B4F5C] to-[#073338] text-white hover:from-[#094149] hover:to-[#0B4F5C] rounded-lg transition-all duration-300 shadow-md hover:shadow-lg font-medium text-sm sm:text-base"
-                          >
-                            <Mail className="w-4 h-4" />
-                            <span>{language === 'en' ? 'Contact' : 'Contacter'}</span>
-                          </a>
-                        )}
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            )}
-          </TabsContent>
-        </Tabs>
-
-        {/* Stats Summary */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="border-t-4 border-dark-red bg-gradient-to-br from-dark-red/5 to-white">
-            <CardContent className="p-6 text-center">
-              <GraduationCap className="w-12 h-12 text-dark-red mx-auto mb-3" />
-              <div className="text-3xl font-bold text-primary mb-2">
-                {groupedMembers.faculty.length}
-              </div>
-              <div className="text-primary/70 text-sm sm:text-base">
-                {language === 'en' ? 'Faculty Researchers' : 'Chercheurs du corps professoral'}
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-t-4 border-primary bg-gradient-to-br from-primary/5 to-white">
-            <CardContent className="p-6 text-center">
-              <User className="w-12 h-12 text-primary mx-auto mb-3" />
-              <div className="text-3xl font-bold text-primary mb-2">
-                {groupedMembers.student.length}
-              </div>
-              <div className="text-primary/70 text-sm sm:text-base">
-                {language === 'en' ? 'Graduate Students' : 'Étudiants diplômés'}
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-t-4 border-dark-red/80 bg-gradient-to-br from-dark-red/5 to-white">
-            <CardContent className="p-6 text-center">
-              <Building2 className="w-12 h-12 text-dark-red/80 mx-auto mb-3" />
-              <div className="text-3xl font-bold text-primary mb-2">
-                {groupedMembers.community.length}
-              </div>
-              <div className="text-primary/70 text-sm sm:text-base">
-                {language === 'en' ? 'Community Partners' : 'Partenaires communautaires'}
-              </div>
-            </CardContent>
-          </Card>
+            </div>
+          ))}
         </div>
-      </div>
+      </Container>
     </div>
+  );
+}
+
+function MemberCard({ member, en, index }: { member: MemberView; en: boolean; index: number }) {
+  const hubKey = hubKeyFor(member.hubSlug);
+  const accent = hubKey ? HUB_STYLE[hubKey].solid : 'bg-teal-600';
+  const roles = member.role ? member.role.split(',').map((r) => r.trim()).filter(Boolean) : [];
+  const canContact = member.email && (member.isHubLeader || member.isCoDirector);
+
+  return (
+    <article
+      className="animate-fade-in-up flex flex-col overflow-hidden rounded-2xl border border-stone-100 bg-white shadow-sm transition-shadow duration-300 hover:shadow-lg"
+      style={{ animationDelay: `${Math.min(index, 6) * 60}ms` }}
+    >
+      <div className={`h-1 ${accent}`} aria-hidden="true" />
+      <div className="flex flex-1 flex-col p-6">
+        <div className="flex items-start gap-4">
+          <Avatar className="h-14 w-14 shrink-0">
+            {member.image && <AvatarImage src={member.image} alt={member.name} />}
+            <AvatarFallback className="bg-teal-600 text-base font-semibold text-white">
+              {member.name.split(' ').map((n) => n[0]).slice(0, 2).join('')}
+            </AvatarFallback>
+          </Avatar>
+          <div className="min-w-0 flex-1">
+            <h3 className="break-words !text-[1.25rem] leading-tight">{member.name}</h3>
+            {roles[0] && <p className="!mb-0 mt-1 text-sm font-semibold text-teal-700">{roles[0]}</p>}
+          </div>
+        </div>
+
+        <div className="mt-4 flex flex-wrap gap-2">
+          {roles.slice(1).map((r) => (
+            <span key={r} className="rounded-md bg-stone-50 px-2.5 py-1 text-[11px] font-medium text-stone-500">{r}</span>
+          ))}
+          {member.hubName && (
+            <span className="rounded-md bg-stone-50 px-2.5 py-1 text-[11px] font-medium text-stone-500">{member.hubName}</span>
+          )}
+          {member.isProjectLeader && member.projectLeaderTitle && (
+            <span className="inline-flex items-center gap-1 rounded-md bg-teal-50 px-2.5 py-1 text-[11px] font-semibold text-teal-700">
+              <Target className="h-3 w-3" aria-hidden="true" />
+              {member.projectLeaderTitle}
+            </span>
+          )}
+        </div>
+
+        {member.institution && (
+          <p className="!mb-0 mt-4 flex items-center gap-2 text-xs">
+            <Building2 className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+            {member.institution}
+          </p>
+        )}
+
+        {member.bio && <p className="mt-4 flex-1 select-text break-words text-sm leading-relaxed">{member.bio}</p>}
+
+        {canContact && (
+          <a
+            href={`mailto:${sanitizeEmail(member.email!)}`}
+            className="btn btn-primary mt-2 w-fit !min-h-0 !px-5 !py-2 text-sm"
+          >
+            <Mail className="h-4 w-4" aria-hidden="true" />
+            {member.isCoDirector ? (en ? 'Contact' : 'Contacter') : en ? 'Contact Hub Leader' : 'Contacter le responsable'}
+          </a>
+        )}
+      </div>
+    </article>
   );
 }
