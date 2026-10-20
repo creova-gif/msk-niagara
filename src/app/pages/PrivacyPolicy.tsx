@@ -21,12 +21,12 @@ export function PrivacyPolicy() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-br from-[#0A0A0A] via-[#1A1A1A] to-[#CC0000] text-white py-16 md:py-24">
+      <div className="relative bg-gradient-to-br from-[#132A35] via-[#132A35] to-[#0B4F5C] text-white py-16 md:py-24">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNiIgc3Ryb2tlPSIjOEIwMDAwIiBzdHJva2Utb3BhY2l0eT0iLjEiLz48L2c+PC9zdmc+')] opacity-20"></div>
         
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row items-start lg:items-center gap-6 mb-8">
-            <div className="w-16 h-16 lg:w-20 lg:h-20 rounded-2xl bg-[#CC0000] flex items-center justify-center shadow-xl flex-shrink-0">
+            <div className="w-16 h-16 lg:w-20 lg:h-20 rounded-2xl bg-[#0B4F5C] flex items-center justify-center shadow-xl flex-shrink-0">
               <Shield className="w-8 h-8 lg:w-10 lg:h-10 text-white" />
             </div>
             <div className="flex-1">
@@ -132,11 +132,11 @@ export function PrivacyPolicy() {
             {/* Introduction */}
             <section className="mb-12">
               <div className="flex items-start gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-[#CC0000]/10 flex items-center justify-center flex-shrink-0">
-                  <FileText className="w-6 h-6 text-[#CC0000]" />
+                <div className="w-12 h-12 rounded-xl bg-[#0B4F5C]/10 flex items-center justify-center flex-shrink-0">
+                  <FileText className="w-6 h-6 text-[#0B4F5C]" />
                 </div>
                 <div>
-                  <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">Introduction</h2>
+                  <h2 className="text-3xl font-bold text-[#132A35] mb-4">Introduction</h2>
                   <p className="text-gray-700 leading-relaxed mb-4">
                     Mobilizing Subjugated Knowledges for a Just and Inclusive Niagara ("MSK Niagara," "we," "our," or "us") is committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website.
                   </p>
@@ -150,43 +150,43 @@ export function PrivacyPolicy() {
             {/* Information We Collect */}
             <section className="mb-12">
               <div className="flex items-start gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-[#CC0000]/10 flex items-center justify-center flex-shrink-0">
-                  <Eye className="w-6 h-6 text-[#CC0000]" />
+                <div className="w-12 h-12 rounded-xl bg-[#0B4F5C]/10 flex items-center justify-center flex-shrink-0">
+                  <Eye className="w-6 h-6 text-[#0B4F5C]" />
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">Information We Collect</h2>
+                  <h2 className="text-3xl font-bold text-[#132A35] mb-4">Information We Collect</h2>
                   
-                  <h3 className="text-xl font-bold text-[#0A0A0A] mb-3">1. Information You Provide</h3>
+                  <h3 className="text-xl font-bold text-[#132A35] mb-3">1. Information You Provide</h3>
                   <div className="bg-gray-50 rounded-xl p-6 mb-6 border border-gray-200">
                     <ul className="space-y-3 text-gray-700">
                       <li className="flex items-start gap-2">
-                        <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                        <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                         <span><strong>Contact Information:</strong> When you reach out via email or contact forms (name, email address, phone number, institutional affiliation)</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                        <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                         <span><strong>Partnership Inquiries:</strong> Information about your organization and areas of interest</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                        <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                         <span><strong>Research Participation:</strong> Any information you voluntarily provide when expressing interest in research participation (collected under separate research ethics protocols)</span>
                       </li>
                     </ul>
                   </div>
 
-                  <h3 className="text-xl font-bold text-[#0A0A0A] mb-3">2. Information Automatically Collected</h3>
+                  <h3 className="text-xl font-bold text-[#132A35] mb-3">2. Information Automatically Collected</h3>
                   <div className="bg-gray-50 rounded-xl p-6 mb-6 border border-gray-200">
                     <ul className="space-y-3 text-gray-700">
                       <li className="flex items-start gap-2">
-                        <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                        <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                         <span><strong>Usage Data:</strong> Browser type, device information, IP address, pages visited, time spent on pages</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                        <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                         <span><strong>Cookies:</strong> We use essential cookies for language preferences and website functionality</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                        <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                         <span><strong>Chatbot Interactions:</strong> Conversations with our MSK Chat assistant (anonymized, used only for improving service)</span>
                       </li>
                     </ul>
@@ -198,36 +198,36 @@ export function PrivacyPolicy() {
             {/* How We Use Your Information */}
             <section className="mb-12">
               <div className="flex items-start gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-[#CC0000]/10 flex items-center justify-center flex-shrink-0">
-                  <Lock className="w-6 h-6 text-[#CC0000]" />
+                <div className="w-12 h-12 rounded-xl bg-[#0B4F5C]/10 flex items-center justify-center flex-shrink-0">
+                  <Lock className="w-6 h-6 text-[#0B4F5C]" />
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">How We Use Your Information</h2>
+                  <h2 className="text-3xl font-bold text-[#132A35] mb-4">How We Use Your Information</h2>
                   <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                     <p className="text-gray-700 mb-4">We use the information we collect to:</p>
                     <ul className="space-y-3 text-gray-700">
                       <li className="flex items-start gap-2">
-                        <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                        <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                         <span>Respond to your inquiries and provide information about our research partnership</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                        <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                         <span>Process partnership applications and collaboration requests</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                        <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                         <span>Improve our website functionality and user experience</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                        <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                         <span>Send updates about partnership activities, events, and research findings (with your consent)</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                        <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                         <span>Analyze website usage to improve content and accessibility</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                        <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                         <span>Comply with legal obligations and protect rights</span>
                       </li>
                     </ul>
@@ -238,26 +238,26 @@ export function PrivacyPolicy() {
 
             {/* Information Sharing */}
             <section className="mb-12">
-              <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">Information Sharing and Disclosure</h2>
+              <h2 className="text-3xl font-bold text-[#132A35] mb-4">Information Sharing and Disclosure</h2>
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 mb-4">
                 <p className="text-gray-700 mb-4">
                   <strong>We do not sell, rent, or trade your personal information.</strong> We may share your information only in the following circumstances:
                 </p>
                 <ul className="space-y-3 text-gray-700">
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                    <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                     <span><strong>With Partnership Members:</strong> Information may be shared with our research hub leaders and team members to respond to partnership inquiries</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                    <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                     <span><strong>With Brock University:</strong> As our host institution, certain administrative information may be shared</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                    <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                     <span><strong>Service Providers:</strong> With third-party service providers who assist with website hosting and maintenance (under strict confidentiality agreements)</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                    <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                     <span><strong>Legal Requirements:</strong> When required by law or to protect rights and safety</span>
                   </li>
                 </ul>
@@ -266,26 +266,26 @@ export function PrivacyPolicy() {
 
             {/* Data Security */}
             <section className="mb-12">
-              <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">Data Security</h2>
+              <h2 className="text-3xl font-bold text-[#132A35] mb-4">Data Security</h2>
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                 <p className="text-gray-700 leading-relaxed mb-4">
                   We implement appropriate technical and organizational security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. These measures include:
                 </p>
                 <ul className="space-y-2 text-gray-700">
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                    <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                     <span>Secure server infrastructure</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                    <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                     <span>Encrypted data transmission (HTTPS)</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                    <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                     <span>Regular security assessments</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                    <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                     <span>Limited access to personal information by authorized personnel only</span>
                   </li>
                 </ul>
@@ -294,48 +294,48 @@ export function PrivacyPolicy() {
 
             {/* Your Rights */}
             <section className="mb-12">
-              <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">Your Privacy Rights</h2>
-              <div className="bg-gradient-to-br from-[#CC0000]/5 to-[#CC0000]/10 rounded-xl p-6 border-2 border-[#CC0000]/20">
+              <h2 className="text-3xl font-bold text-[#132A35] mb-4">Your Privacy Rights</h2>
+              <div className="bg-gradient-to-br from-[#0B4F5C]/5 to-[#0B4F5C]/10 rounded-xl p-6 border-2 border-[#0B4F5C]/20">
                 <p className="text-gray-700 mb-4">Under Canadian privacy legislation, you have the right to:</p>
                 <ul className="space-y-3 text-gray-700">
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                    <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                     <span><strong>Access:</strong> Request access to your personal information we hold</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                    <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                     <span><strong>Correction:</strong> Request correction of inaccurate or incomplete information</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                    <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                     <span><strong>Deletion:</strong> Request deletion of your personal information (subject to legal obligations)</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                    <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                     <span><strong>Withdraw Consent:</strong> Withdraw consent for communications at any time</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                    <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                     <span><strong>Object:</strong> Object to certain processing of your information</span>
                   </li>
                 </ul>
                 <p className="text-gray-700 mt-4">
-                  To exercise these rights, please contact us at: <a href="mailto:contact@msk-niagara.ca" className="text-[#CC0000] hover:underline font-medium">contact@msk-niagara.ca</a>
+                  To exercise these rights, please contact us at: <a href="mailto:contact@msk-niagara.ca" className="text-[#0B4F5C] hover:underline font-medium">contact@msk-niagara.ca</a>
                 </p>
               </div>
             </section>
 
             {/* Cookies */}
             <section className="mb-12">
-              <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">Cookies and Tracking Technologies</h2>
+              <h2 className="text-3xl font-bold text-[#132A35] mb-4">Cookies and Tracking Technologies</h2>
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                 <p className="text-gray-700 leading-relaxed mb-4">
                   We use cookies and similar technologies to enhance your experience on our website. Cookies are small text files stored on your device.
                 </p>
-                <h3 className="font-bold text-[#0A0A0A] mb-2">Types of Cookies We Use:</h3>
+                <h3 className="font-bold text-[#132A35] mb-2">Types of Cookies We Use:</h3>
                 <ul className="space-y-2 text-gray-700 mb-4">
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                    <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                     <span><strong>Essential Cookies:</strong> Required for website functionality (language preferences, session management)</span>
                   </li>
                 </ul>
@@ -350,22 +350,22 @@ export function PrivacyPolicy() {
 
             {/* Research Participation */}
             <section className="mb-12">
-              <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">Research Participation Privacy</h2>
-              <div className="bg-gradient-to-br from-[#CC0000]/5 to-[#CC0000]/10 rounded-xl p-6 border-2 border-[#CC0000]/20">
+              <h2 className="text-3xl font-bold text-[#132A35] mb-4">Research Participation Privacy</h2>
+              <div className="bg-gradient-to-br from-[#0B4F5C]/5 to-[#0B4F5C]/10 rounded-xl p-6 border-2 border-[#0B4F5C]/20">
                 <p className="text-gray-700 leading-relaxed mb-4">
                   <strong>Important:</strong> If you are interested in participating in our research studies, separate informed consent processes apply. Research participation is governed by:
                 </p>
                 <ul className="space-y-2 text-gray-700">
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                    <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                     <span>Brock University Research Ethics Board approval</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                    <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                     <span>Tri-Council Policy Statement (TCPS 2) ethical guidelines</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                    <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                     <span>Separate informed consent procedures for each research project</span>
                   </li>
                 </ul>
@@ -377,7 +377,7 @@ export function PrivacyPolicy() {
 
             {/* Third-Party Links */}
             <section className="mb-12">
-              <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">Third-Party Links</h2>
+              <h2 className="text-3xl font-bold text-[#132A35] mb-4">Third-Party Links</h2>
               <p className="text-gray-700 leading-relaxed">
                 Our website may contain links to third-party websites (e.g., partner organizations, funding agencies). We are not responsible for the privacy practices of these external sites. We encourage you to review their privacy policies before providing any personal information.
               </p>
@@ -385,7 +385,7 @@ export function PrivacyPolicy() {
 
             {/* Children's Privacy */}
             <section className="mb-12">
-              <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">Children's Privacy</h2>
+              <h2 className="text-3xl font-bold text-[#132A35] mb-4">Children's Privacy</h2>
               <p className="text-gray-700 leading-relaxed">
                 Our website is not intended for children under 13 years of age. We do not knowingly collect personal information from children. If you believe we have inadvertently collected information from a child, please contact us immediately.
               </p>
@@ -393,7 +393,7 @@ export function PrivacyPolicy() {
 
             {/* Data Retention */}
             <section className="mb-12">
-              <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">Data Retention</h2>
+              <h2 className="text-3xl font-bold text-[#132A35] mb-4">Data Retention</h2>
               <p className="text-gray-700 leading-relaxed">
                 We retain your personal information only as long as necessary to fulfill the purposes outlined in this Privacy Policy, comply with legal obligations, resolve disputes, and enforce agreements. Website usage data is typically retained for 2 years; contact information is retained as long as there is an active partnership relationship or ongoing communication.
               </p>
@@ -401,7 +401,7 @@ export function PrivacyPolicy() {
 
             {/* International Users */}
             <section className="mb-12">
-              <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">International Users</h2>
+              <h2 className="text-3xl font-bold text-[#132A35] mb-4">International Users</h2>
               <p className="text-gray-700 leading-relaxed">
                 Our website is hosted in Canada and governed by Canadian privacy laws. If you access our website from outside Canada, please be aware that your information may be transferred to, stored, and processed in Canada where our servers are located and our central database is operated.
               </p>
@@ -409,7 +409,7 @@ export function PrivacyPolicy() {
 
             {/* Changes to Privacy Policy */}
             <section className="mb-12">
-              <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">Changes to This Privacy Policy</h2>
+              <h2 className="text-3xl font-bold text-[#132A35] mb-4">Changes to This Privacy Policy</h2>
               <p className="text-gray-700 leading-relaxed">
                 We may update this Privacy Policy from time to time to reflect changes in our practices or legal requirements. We will notify you of any material changes by posting the new Privacy Policy on this page and updating the "Last Updated" date. We encourage you to review this Privacy Policy periodically.
               </p>
@@ -417,7 +417,7 @@ export function PrivacyPolicy() {
 
             {/* Contact Section */}
             <section className="mb-12">
-              <div className="bg-gradient-to-br from-[#CC0000] to-[#6B0000] text-white rounded-2xl p-8">
+              <div className="bg-gradient-to-br from-[#0B4F5C] to-[#073338] text-white rounded-2xl p-8">
                 <div className="flex items-start gap-4 mb-6">
                   <Mail className="w-8 h-8 flex-shrink-0" />
                   <div>
@@ -454,7 +454,7 @@ export function PrivacyPolicy() {
             {/* Acknowledgment */}
             <section>
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                <h2 className="text-xl font-bold text-[#0A0A0A] mb-3">Acknowledgment</h2>
+                <h2 className="text-xl font-bold text-[#132A35] mb-3">Acknowledgment</h2>
                 <p className="text-gray-700 leading-relaxed">
                   By using our website, you acknowledge that you have read and understood this Privacy Policy and agree to its terms. If you do not agree with this Privacy Policy, please do not use our website.
                 </p>
@@ -467,11 +467,11 @@ export function PrivacyPolicy() {
             {/* Introduction */}
             <section className="mb-12">
               <div className="flex items-start gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-[#CC0000]/10 flex items-center justify-center flex-shrink-0">
-                  <FileText className="w-6 h-6 text-[#CC0000]" />
+                <div className="w-12 h-12 rounded-xl bg-[#0B4F5C]/10 flex items-center justify-center flex-shrink-0">
+                  <FileText className="w-6 h-6 text-[#0B4F5C]" />
                 </div>
                 <div>
-                  <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">Introduction</h2>
+                  <h2 className="text-3xl font-bold text-[#132A35] mb-4">Introduction</h2>
                   <p className="text-gray-700 leading-relaxed mb-4">
                     Mobiliser les savoirs marginalisés pour un Niagara juste et inclusif (« MSK Niagara », « nous », « notre » ou « nos ») s'engage à protéger votre vie privée et à assurer la sécurité de vos informations personnelles. Cette politique de confidentialité explique comment nous recueillons, utilisons, divulguons et protégeons vos informations lorsque vous visitez notre site Web.
                   </p>
@@ -485,43 +485,43 @@ export function PrivacyPolicy() {
             {/* Information We Collect */}
             <section className="mb-12">
               <div className="flex items-start gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-[#CC0000]/10 flex items-center justify-center flex-shrink-0">
-                  <Eye className="w-6 h-6 text-[#CC0000]" />
+                <div className="w-12 h-12 rounded-xl bg-[#0B4F5C]/10 flex items-center justify-center flex-shrink-0">
+                  <Eye className="w-6 h-6 text-[#0B4F5C]" />
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">Informations que nous recueillons</h2>
+                  <h2 className="text-3xl font-bold text-[#132A35] mb-4">Informations que nous recueillons</h2>
                   
-                  <h3 className="text-xl font-bold text-[#0A0A0A] mb-3">1. Informations que vous fournissez</h3>
+                  <h3 className="text-xl font-bold text-[#132A35] mb-3">1. Informations que vous fournissez</h3>
                   <div className="bg-gray-50 rounded-xl p-6 mb-6 border border-gray-200">
                     <ul className="space-y-3 text-gray-700">
                       <li className="flex items-start gap-2">
-                        <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                        <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                         <span><strong>Informations de contact :</strong> Lorsque vous nous contactez par courriel ou formulaire (nom, adresse courriel, numéro de téléphone, affiliation institutionnelle)</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                        <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                         <span><strong>Demandes de partenariat :</strong> Informations sur votre organisation et domaines d'intérêt</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                        <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                         <span><strong>Participation à la recherche :</strong> Toute information fournie volontairement lors d'expression d'intérêt (collectée selon des protocoles d'éthique de recherche séparés)</span>
                       </li>
                     </ul>
                   </div>
 
-                  <h3 className="text-xl font-bold text-[#0A0A0A] mb-3">2. Informations collectées automatiquement</h3>
+                  <h3 className="text-xl font-bold text-[#132A35] mb-3">2. Informations collectées automatiquement</h3>
                   <div className="bg-gray-50 rounded-xl p-6 mb-6 border border-gray-200">
                     <ul className="space-y-3 text-gray-700">
                       <li className="flex items-start gap-2">
-                        <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                        <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                         <span><strong>Données d'utilisation :</strong> Type de navigateur, informations sur l'appareil, adresse IP, pages visitées, temps passé</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                        <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                         <span><strong>Cookies :</strong> Nous utilisons des cookies essentiels pour les préférences linguistiques et la fonctionnalité</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                        <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                         <span><strong>Interactions chatbot :</strong> Conversations avec notre assistant MSK Chat (anonymisées, utilisées uniquement pour améliorer le service)</span>
                       </li>
                     </ul>
@@ -533,36 +533,36 @@ export function PrivacyPolicy() {
             {/* How We Use Your Information */}
             <section className="mb-12">
               <div className="flex items-start gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-[#CC0000]/10 flex items-center justify-center flex-shrink-0">
-                  <Lock className="w-6 h-6 text-[#CC0000]" />
+                <div className="w-12 h-12 rounded-xl bg-[#0B4F5C]/10 flex items-center justify-center flex-shrink-0">
+                  <Lock className="w-6 h-6 text-[#0B4F5C]" />
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">Comment nous utilisons vos informations</h2>
+                  <h2 className="text-3xl font-bold text-[#132A35] mb-4">Comment nous utilisons vos informations</h2>
                   <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                     <p className="text-gray-700 mb-4">Nous utilisons les informations collectées pour :</p>
                     <ul className="space-y-3 text-gray-700">
                       <li className="flex items-start gap-2">
-                        <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                        <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                         <span>Répondre à vos demandes et fournir des informations sur notre partenariat</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                        <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                         <span>Traiter les demandes de partenariat et de collaboration</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                        <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                         <span>Améliorer la fonctionnalité du site Web et l'expérience utilisateur</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                        <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                         <span>Envoyer des mises à jour sur les activités, événements et résultats (avec votre consentement)</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                        <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                         <span>Analyser l'utilisation du site pour améliorer le contenu et l'accessibilité</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                        <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                         <span>Se conformer aux obligations légales et protéger les droits</span>
                       </li>
                     </ul>
@@ -573,26 +573,26 @@ export function PrivacyPolicy() {
 
             {/* Information Sharing */}
             <section className="mb-12">
-              <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">Partage et divulgation d'informations</h2>
+              <h2 className="text-3xl font-bold text-[#132A35] mb-4">Partage et divulgation d'informations</h2>
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 mb-4">
                 <p className="text-gray-700 mb-4">
                   <strong>Nous ne vendons, ne louons ni n'échangeons vos informations personnelles.</strong> Nous pouvons partager vos informations uniquement dans les circonstances suivantes :
                 </p>
                 <ul className="space-y-3 text-gray-700">
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                    <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                     <span><strong>Avec les membres du partenariat :</strong> Pour répondre aux demandes de partenariat</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                    <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                     <span><strong>Avec l'Université Brock :</strong> En tant qu'institution hôte</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                    <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                     <span><strong>Fournisseurs de services :</strong> Pour l'hébergement et la maintenance du site (accords de confidentialité stricts)</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                    <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                     <span><strong>Exigences légales :</strong> Lorsque requis par la loi</span>
                   </li>
                 </ul>
@@ -601,26 +601,26 @@ export function PrivacyPolicy() {
 
             {/* Data Security */}
             <section className="mb-12">
-              <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">Sécurité des données</h2>
+              <h2 className="text-3xl font-bold text-[#132A35] mb-4">Sécurité des données</h2>
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                 <p className="text-gray-700 leading-relaxed mb-4">
                   Nous mettons en œuvre des mesures de sécurité techniques et organisationnelles appropriées pour protéger vos informations personnelles. Ces mesures comprennent :
                 </p>
                 <ul className="space-y-2 text-gray-700">
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                    <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                     <span>Infrastructure de serveur sécurisée</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                    <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                     <span>Transmission de données cryptée (HTTPS)</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                    <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                     <span>Évaluations de sécurité régulières</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                    <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                     <span>Accès limité aux informations personnelles</span>
                   </li>
                 </ul>
@@ -629,48 +629,48 @@ export function PrivacyPolicy() {
 
             {/* Your Rights */}
             <section className="mb-12">
-              <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">Vos droits à la vie privée</h2>
-              <div className="bg-gradient-to-br from-[#CC0000]/5 to-[#CC0000]/10 rounded-xl p-6 border-2 border-[#CC0000]/20">
+              <h2 className="text-3xl font-bold text-[#132A35] mb-4">Vos droits à la vie privée</h2>
+              <div className="bg-gradient-to-br from-[#0B4F5C]/5 to-[#0B4F5C]/10 rounded-xl p-6 border-2 border-[#0B4F5C]/20">
                 <p className="text-gray-700 mb-4">Selon la législation canadienne sur la protection de la vie privée, vous avez le droit de :</p>
                 <ul className="space-y-3 text-gray-700">
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                    <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                     <span><strong>Accès :</strong> Demander l'accès à vos informations personnelles</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                    <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                     <span><strong>Correction :</strong> Demander la correction d'informations inexactes</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                    <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                     <span><strong>Suppression :</strong> Demander la suppression de vos informations</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                    <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                     <span><strong>Retrait du consentement :</strong> Retirer le consentement aux communications</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                    <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                     <span><strong>Opposition :</strong> S'opposer à certains traitements</span>
                   </li>
                 </ul>
                 <p className="text-gray-700 mt-4">
-                  Pour exercer ces droits, contactez-nous à : <a href="mailto:contact@msk-niagara.ca" className="text-[#CC0000] hover:underline font-medium">contact@msk-niagara.ca</a>
+                  Pour exercer ces droits, contactez-nous à : <a href="mailto:contact@msk-niagara.ca" className="text-[#0B4F5C] hover:underline font-medium">contact@msk-niagara.ca</a>
                 </p>
               </div>
             </section>
 
             {/* Cookies */}
             <section className="mb-12">
-              <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">Cookies et technologies de suivi</h2>
+              <h2 className="text-3xl font-bold text-[#132A35] mb-4">Cookies et technologies de suivi</h2>
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                 <p className="text-gray-700 leading-relaxed mb-4">
                   Nous utilisons des cookies et des technologies similaires pour améliorer votre expérience sur notre site Web.
                 </p>
-                <h3 className="font-bold text-[#0A0A0A] mb-2">Types de cookies que nous utilisons :</h3>
+                <h3 className="font-bold text-[#132A35] mb-2">Types de cookies que nous utilisons :</h3>
                 <ul className="space-y-2 text-gray-700 mb-4">
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-[#CC0000] rounded-full flex-shrink-0 mt-2"></span>
+                    <span className="w-2 h-2 bg-[#0B4F5C] rounded-full flex-shrink-0 mt-2"></span>
                     <span><strong>Cookies essentiels :</strong> Requis pour la fonctionnalité (préférences linguistiques)</span>
                   </li>
                 </ul>
@@ -685,22 +685,22 @@ export function PrivacyPolicy() {
 
             {/* Research Participation */}
             <section className="mb-12">
-              <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">Confidentialité de la participation à la recherche</h2>
-              <div className="bg-gradient-to-br from-[#CC0000]/5 to-[#CC0000]/10 rounded-xl p-6 border-2 border-[#CC0000]/20">
+              <h2 className="text-3xl font-bold text-[#132A35] mb-4">Confidentialité de la participation à la recherche</h2>
+              <div className="bg-gradient-to-br from-[#0B4F5C]/5 to-[#0B4F5C]/10 rounded-xl p-6 border-2 border-[#0B4F5C]/20">
                 <p className="text-gray-700 leading-relaxed mb-4">
                   <strong>Important :</strong> Si vous êtes intéressé à participer à nos études de recherche, des processus de consentement éclairé séparés s'appliquent. La participation à la recherche est régie par :
                 </p>
                 <ul className="space-y-2 text-gray-700">
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                    <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                     <span>Approbation du Comité d'éthique de la recherche de l'Université Brock</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                    <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                     <span>Directives éthiques de l'EPTC 2</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
+                    <CheckCircle className="w-5 h-5 text-[#0B4F5C] flex-shrink-0 mt-0.5" />
                     <span>Procédures de consentement éclairé séparées pour chaque projet</span>
                   </li>
                 </ul>
@@ -712,7 +712,7 @@ export function PrivacyPolicy() {
 
             {/* Third-Party Links */}
             <section className="mb-12">
-              <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">Liens tiers</h2>
+              <h2 className="text-3xl font-bold text-[#132A35] mb-4">Liens tiers</h2>
               <p className="text-gray-700 leading-relaxed">
                 Notre site Web peut contenir des liens vers des sites Web tiers. Nous ne sommes pas responsables des pratiques de confidentialité de ces sites externes. Nous vous encourageons à consulter leurs politiques de confidentialité.
               </p>
@@ -720,7 +720,7 @@ export function PrivacyPolicy() {
 
             {/* Children's Privacy */}
             <section className="mb-12">
-              <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">Confidentialité des enfants</h2>
+              <h2 className="text-3xl font-bold text-[#132A35] mb-4">Confidentialité des enfants</h2>
               <p className="text-gray-700 leading-relaxed">
                 Notre site Web n'est pas destiné aux enfants de moins de 13 ans. Nous ne collectons pas sciemment d'informations personnelles auprès d'enfants. Si vous pensez que nous avons par inadvertance collecté des informations d'un enfant, veuillez nous contacter immédiatement.
               </p>
@@ -728,7 +728,7 @@ export function PrivacyPolicy() {
 
             {/* Data Retention */}
             <section className="mb-12">
-              <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">Conservation des données</h2>
+              <h2 className="text-3xl font-bold text-[#132A35] mb-4">Conservation des données</h2>
               <p className="text-gray-700 leading-relaxed">
                 Nous conservons vos informations personnelles uniquement aussi longtemps que nécessaire pour remplir les objectifs décrits dans cette politique. Les données d'utilisation du site Web sont généralement conservées pendant 2 ans ; les informations de contact sont conservées tant qu'il existe une relation de partenariat active.
               </p>
@@ -736,7 +736,7 @@ export function PrivacyPolicy() {
 
             {/* International Users */}
             <section className="mb-12">
-              <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">Utilisateurs internationaux</h2>
+              <h2 className="text-3xl font-bold text-[#132A35] mb-4">Utilisateurs internationaux</h2>
               <p className="text-gray-700 leading-relaxed">
                 Notre site Web est hébergé au Canada et régi par les lois canadiennes sur la protection de la vie privée. Si vous accédez à notre site Web de l'extérieur du Canada, veuillez noter que vos informations peuvent être transférées, stockées et traitées au Canada.
               </p>
@@ -744,7 +744,7 @@ export function PrivacyPolicy() {
 
             {/* Changes to Privacy Policy */}
             <section className="mb-12">
-              <h2 className="text-3xl font-bold text-[#0A0A0A] mb-4">Modifications de cette politique</h2>
+              <h2 className="text-3xl font-bold text-[#132A35] mb-4">Modifications de cette politique</h2>
               <p className="text-gray-700 leading-relaxed">
                 Nous pouvons mettre à jour cette politique de confidentialité de temps à autre. Nous vous informerons de tout changement important en publiant la nouvelle politique sur cette page et en mettant à jour la date de « Dernière mise à jour ». Nous vous encourageons à consulter cette politique périodiquement.
               </p>
@@ -752,7 +752,7 @@ export function PrivacyPolicy() {
 
             {/* Contact Section */}
             <section className="mb-12">
-              <div className="bg-gradient-to-br from-[#CC0000] to-[#6B0000] text-white rounded-2xl p-8">
+              <div className="bg-gradient-to-br from-[#0B4F5C] to-[#073338] text-white rounded-2xl p-8">
                 <div className="flex items-start gap-4 mb-6">
                   <Mail className="w-8 h-8 flex-shrink-0" />
                   <div>
@@ -789,7 +789,7 @@ export function PrivacyPolicy() {
             {/* Acknowledgment */}
             <section>
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                <h2 className="text-xl font-bold text-[#0A0A0A] mb-3">Reconnaissance</h2>
+                <h2 className="text-xl font-bold text-[#132A35] mb-3">Reconnaissance</h2>
                 <p className="text-gray-700 leading-relaxed">
                   En utilisant notre site Web, vous reconnaissez avoir lu et compris cette politique de confidentialité et acceptez ses conditions. Si vous n'êtes pas d'accord avec cette politique, veuillez ne pas utiliser notre site Web.
                 </p>

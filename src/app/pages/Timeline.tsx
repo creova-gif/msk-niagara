@@ -178,7 +178,7 @@ export function Timeline() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <header className="relative overflow-hidden bg-[#CC0000]">
+      <header className="relative overflow-hidden bg-[#0B4F5C]">
         <div className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }} />
         <TimelineBeam />
@@ -210,10 +210,10 @@ export function Timeline() {
       {/* Symposium Feature Banner */}
       {!isEventPast(new Date('2026-06-19')) && (
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8 relative z-20">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#CC0000] via-[#A40000] to-[#CC0000] p-0.5 shadow-2xl">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#0B4F5C] via-[#094149] to-[#0B4F5C] p-0.5 shadow-2xl">
             <div className="relative bg-white rounded-[calc(1.5rem-2px)] overflow-hidden">
               {/* Animated pulse border */}
-              <div className="absolute inset-0 rounded-[calc(1.5rem-2px)] border-4 border-[#CC0000]/20 animate-pulse" aria-hidden="true" />
+              <div className="absolute inset-0 rounded-[calc(1.5rem-2px)] border-4 border-[#0B4F5C]/20 animate-pulse" aria-hidden="true" />
 
               <div className="flex flex-col lg:flex-row items-stretch gap-0 overflow-hidden rounded-[calc(1.5rem-2px)]">
                 {/* Photo panel — real symposium image */}
@@ -233,45 +233,45 @@ export function Timeline() {
                 <div className="flex flex-col lg:flex-row items-start lg:items-center gap-6 p-7 md:p-8 flex-1">
                 {/* Icon cluster */}
                 <div className="relative flex-shrink-0">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#CC0000] to-[#A40000] flex items-center justify-center shadow-xl">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#0B4F5C] to-[#094149] flex items-center justify-center shadow-xl">
                     <Star className="w-8 h-8 text-white fill-white" />
                   </div>
                   {/* Pulsing live dot */}
                   <span className="absolute -top-1 -right-1 flex h-4 w-4">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FFC956] opacity-75" />
-                    <span className="relative inline-flex rounded-full h-4 w-4 bg-[#FFC956]" />
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D6A43A] opacity-75" />
+                    <span className="relative inline-flex rounded-full h-4 w-4 bg-[#D6A43A]" />
                   </span>
                 </div>
 
                 {/* Content */}
                 <div className="flex-1">
                   <div className="flex flex-wrap items-center gap-2 mb-2">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#CC0000] text-white text-xs font-bold uppercase tracking-wider">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0B4F5C] text-white text-xs font-bold uppercase tracking-wider">
                       <Star className="w-3 h-3 fill-white" />
                       {language === 'en' ? 'Featured Event' : 'Événement vedette'}
                     </span>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFC956]/20 text-[#CC0000] text-xs font-bold uppercase tracking-wider border border-[#FFC956]/40">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#FFC956] animate-pulse" />
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#D6A43A]/20 text-[#0B4F5C] text-xs font-bold uppercase tracking-wider border border-[#D6A43A]/40">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#D6A43A] animate-pulse" />
                       {language === 'en' ? 'Registration Open' : 'Inscription ouverte'}
                     </span>
                   </div>
-                  <h2 className="text-xl md:text-2xl font-extrabold text-[#0A0A0A] mb-1.5" style={{ fontFamily: 'var(--font-heading)' }}>
+                  <h2 className="text-xl md:text-2xl font-extrabold text-[#132A35] mb-1.5" style={{ fontFamily: 'var(--font-heading)' }}>
                     {language === 'en'
                       ? 'Community-University Symposium — MSK/MSM 2026'
                       : 'Symposium communautaire-universitaire — MSK/MSM 2026'}
                   </h2>
-                  <div className="flex flex-wrap items-center gap-4 text-sm text-[#0A0A0A]/60 font-medium">
+                  <div className="flex flex-wrap items-center gap-4 text-sm text-[#132A35]/60 font-medium">
                     <span className="flex items-center gap-1.5">
-                      <Calendar className="w-4 h-4 text-[#CC0000]" />
+                      <Calendar className="w-4 h-4 text-[#0B4F5C]" />
                       {language === 'en' ? 'Friday, June 19, 2026 · 9:00 AM – 1:00 PM' : 'Vendredi 19 juin 2026 · 9 h – 13 h'}
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <MapPin className="w-4 h-4 text-[#CC0000]" />
+                      <MapPin className="w-4 h-4 text-[#0B4F5C]" />
                       <a
                         href={sanitizeUrl('https://maps.app.goo.gl/nEzwTCaAiYCJ43Kn9')}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#CC0000] hover:underline font-semibold"
+                        className="text-[#0B4F5C] hover:underline font-semibold"
                       >
                         {language === 'en' ? 'Civic Square, Welland, ON' : 'Civic Square, Welland, ON'}
                       </a>
@@ -285,7 +285,7 @@ export function Timeline() {
                     href={sanitizeUrl('https://doodle.com/sign-up-sheet/participate/070efb40-abeb-4fb8-8d7e-7fba14025436/select')}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#CC0000] text-white font-bold rounded-xl hover:bg-[#A40000] transition-all duration-300 hover:scale-105 shadow-lg text-sm"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#0B4F5C] text-white font-bold rounded-xl hover:bg-[#094149] transition-all duration-300 hover:scale-105 shadow-lg text-sm"
                     aria-label={language === 'en' ? 'Register for the symposium' : 'S\'inscrire au symposium'}
                   >
                     <ExternalLink className="w-4 h-4" />
@@ -303,7 +303,7 @@ export function Timeline() {
                       });
                       downloadICS('msk-symposium-2026.ics', ics);
                     }}
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-[#CC0000]/30 text-[#CC0000] font-bold rounded-xl hover:border-[#CC0000] hover:bg-[#CC0000]/5 transition-all duration-300 text-sm"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-[#0B4F5C]/30 text-[#0B4F5C] font-bold rounded-xl hover:border-[#0B4F5C] hover:bg-[#0B4F5C]/5 transition-all duration-300 text-sm"
                     aria-label={language === 'en' ? 'Add event to calendar' : 'Ajouter l\'événement au calendrier'}
                   >
                     <Download className="w-4 h-4" />
@@ -322,13 +322,13 @@ export function Timeline() {
           <Tabs defaultValue="upcoming" className="w-full">
             <div className="bg-gradient-to-r from-gray-50 to-white px-4 sm:px-6 py-4 border-b border-gray-200">
               <TabsList className="w-full md:w-auto bg-gray-100 p-1 rounded-full gap-2">
-                <TabsTrigger value="timeline" className="flex-1 md:flex-none data-[state=active]:bg-[#CC0000] data-[state=active]:text-white data-[state=inactive]:hover:bg-gray-200 rounded-full px-4 sm:px-6 py-2.5 transition-all duration-200 font-medium text-sm sm:text-base">
+                <TabsTrigger value="timeline" className="flex-1 md:flex-none data-[state=active]:bg-[#0B4F5C] data-[state=active]:text-white data-[state=inactive]:hover:bg-gray-200 rounded-full px-4 sm:px-6 py-2.5 transition-all duration-200 font-medium text-sm sm:text-base">
                   {t('timeline.partnership')}
                 </TabsTrigger>
-                <TabsTrigger value="upcoming" className="flex-1 md:flex-none data-[state=active]:bg-[#CC0000] data-[state=active]:text-white data-[state=inactive]:hover:bg-gray-200 rounded-full px-4 sm:px-6 py-2.5 transition-all duration-200 font-medium text-sm sm:text-base">
+                <TabsTrigger value="upcoming" className="flex-1 md:flex-none data-[state=active]:bg-[#0B4F5C] data-[state=active]:text-white data-[state=inactive]:hover:bg-gray-200 rounded-full px-4 sm:px-6 py-2.5 transition-all duration-200 font-medium text-sm sm:text-base">
                   {t('timeline.upcoming')}
                   {upcomingEvents.length > 0 && (
-                    <span className="ml-2 inline-flex items-center justify-center w-5 h-5 text-[10px] font-bold bg-white text-[#CC0000] rounded-full">
+                    <span className="ml-2 inline-flex items-center justify-center w-5 h-5 text-[10px] font-bold bg-white text-[#0B4F5C] rounded-full">
                       {upcomingEvents.length}
                     </span>
                   )}
@@ -340,8 +340,8 @@ export function Timeline() {
               {/* Partnership Timeline Tab */}
               <TabsContent value="timeline" className="mt-0">
                 <div className="relative">
-                  <div className="absolute left-7 top-0 bottom-0 w-px bg-gradient-to-b from-[#CC0000]/0 via-[#CC0000]/40 to-[#CC0000]/0" />
-                  <div className="absolute left-[27px] top-0 bottom-0 w-0.5 bg-[#CC0000]/20" />
+                  <div className="absolute left-7 top-0 bottom-0 w-px bg-gradient-to-b from-[#0B4F5C]/0 via-[#0B4F5C]/40 to-[#0B4F5C]/0" />
+                  <div className="absolute left-[27px] top-0 bottom-0 w-0.5 bg-[#0B4F5C]/20" />
 
                   <div className="space-y-6">
                     {timelineEvents.map((event, index) => {
@@ -352,10 +352,10 @@ export function Timeline() {
                           <div className="absolute left-0 top-5 flex items-center gap-2">
                             <div className={`w-14 h-8 rounded-full flex items-center justify-center text-[10px] font-bold tracking-wider border transition-all duration-300 ${
                               isFeatured
-                                ? 'bg-[#FFC956] border-[#FFC956] text-[#0A0A0A] shadow-lg shadow-[#FFC956]/30'
+                                ? 'bg-[#D6A43A] border-[#D6A43A] text-[#132A35] shadow-lg shadow-[#D6A43A]/30'
                                 : isPast
-                                  ? 'bg-[#CC0000] border-[#CC0000] text-white group-hover:shadow-lg group-hover:shadow-[#CC0000]/30'
-                                  : 'bg-white border-dashed border-[#CC0000]/60 text-[#CC0000]'
+                                  ? 'bg-[#0B4F5C] border-[#0B4F5C] text-white group-hover:shadow-lg group-hover:shadow-[#0B4F5C]/30'
+                                  : 'bg-white border-dashed border-[#0B4F5C]/60 text-[#0B4F5C]'
                             }`}>
                               {isFeatured ? '★' : isPast ? '✓' : '→'}
                             </div>
@@ -363,21 +363,21 @@ export function Timeline() {
 
                           <div className={`rounded-2xl border transition-all duration-300 group-hover:shadow-md overflow-hidden ${
                             isFeatured
-                              ? 'bg-gradient-to-r from-[#CC0000]/5 to-[#FFC956]/5 border-[#CC0000]/30 group-hover:border-[#CC0000]/60 ring-2 ring-[#CC0000]/10'
+                              ? 'bg-gradient-to-r from-[#0B4F5C]/5 to-[#D6A43A]/5 border-[#0B4F5C]/30 group-hover:border-[#0B4F5C]/60 ring-2 ring-[#0B4F5C]/10'
                               : isPast
-                                ? 'bg-white border-gray-100 group-hover:border-[#CC0000]/20'
-                                : 'bg-[#CC0000]/5 border-dashed border-[#CC0000]/30'
+                                ? 'bg-white border-gray-100 group-hover:border-[#0B4F5C]/20'
+                                : 'bg-[#0B4F5C]/5 border-dashed border-[#0B4F5C]/30'
                           }`}>
                             <div className="p-5 md:p-6">
                               {isFeatured && (
                                 <div className="flex items-center gap-2 mb-3">
-                                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#CC0000] text-white text-xs font-bold uppercase tracking-wider">
+                                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0B4F5C] text-white text-xs font-bold uppercase tracking-wider">
                                     <Star className="w-3 h-3 fill-white" />
                                     {language === 'en' ? 'Upcoming Symposium' : 'Symposium à venir'}
                                   </span>
                                   <span className="flex h-3 w-3">
-                                    <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-[#FFC956] opacity-75" />
-                                    <span className="relative inline-flex rounded-full h-3 w-3 bg-[#FFC956]" />
+                                    <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-[#D6A43A] opacity-75" />
+                                    <span className="relative inline-flex rounded-full h-3 w-3 bg-[#D6A43A]" />
                                   </span>
                                 </div>
                               )}
@@ -385,22 +385,22 @@ export function Timeline() {
                                 <div className="flex items-center gap-3">
                                   <span className={`text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full ${
                                     isFeatured
-                                      ? 'bg-[#CC0000]/10 text-[#CC0000] border border-[#CC0000]/20'
+                                      ? 'bg-[#0B4F5C]/10 text-[#0B4F5C] border border-[#0B4F5C]/20'
                                       : isPast
-                                        ? 'bg-[#CC0000]/8 text-[#CC0000]'
+                                        ? 'bg-[#0B4F5C]/8 text-[#0B4F5C]'
                                         : 'bg-amber-50 text-amber-700 border border-amber-200'
                                   }`}>
                                     {event.date}
                                   </span>
                                   <span className={`text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded ${
-                                    isFeatured ? 'text-[#CC0000]' : isPast ? 'text-gray-500' : 'text-amber-600'
+                                    isFeatured ? 'text-[#0B4F5C]' : isPast ? 'text-gray-500' : 'text-amber-600'
                                   }`}>
                                     {isFeatured ? (language === 'en' ? 'Featured' : 'Vedette') : isPast ? t('timeline.past') : t('common.upcoming')}
                                   </span>
                                 </div>
                               </div>
 
-                              <h3 className={`text-lg font-bold mb-2 leading-snug ${isFeatured ? 'text-[#CC0000]' : 'text-[#0A0A0A]'}`}
+                              <h3 className={`text-lg font-bold mb-2 leading-snug ${isFeatured ? 'text-[#0B4F5C]' : 'text-[#132A35]'}`}
                                 style={{ fontFamily: 'var(--font-heading)' }}>
                                 {event.title}
                               </h3>
@@ -414,7 +414,7 @@ export function Timeline() {
                                   href={sanitizeUrl(event.locationUrl)}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="flex items-center gap-1.5 text-xs text-[#CC0000] hover:underline font-semibold"
+                                  className="flex items-center gap-1.5 text-xs text-[#0B4F5C] hover:underline font-semibold"
                                 >
                                   <MapPin className="w-3.5 h-3.5" />
                                   {language === 'en' ? 'View on Map' : 'Voir sur la carte'}
@@ -436,8 +436,8 @@ export function Timeline() {
                 {/* Upcoming events */}
                 <div>
                   <div className="flex items-center gap-2 mb-5">
-                    <Calendar className="w-4 h-4 text-[#CC0000]" />
-                    <h2 className="text-sm font-bold tracking-[0.12em] uppercase text-[#CC0000]">
+                    <Calendar className="w-4 h-4 text-[#0B4F5C]" />
+                    <h2 className="text-sm font-bold tracking-[0.12em] uppercase text-[#0B4F5C]">
                       {language === 'en' ? 'Upcoming' : 'À venir'}
                     </h2>
                   </div>
@@ -516,24 +516,24 @@ function EventCard({ event, isPast, language, t }: {
   return (
     <article className={`transition-all duration-300 rounded-2xl overflow-hidden ${
       featured
-        ? 'ring-2 ring-[#CC0000] shadow-2xl'
+        ? 'ring-2 ring-[#0B4F5C] shadow-2xl'
         : isPast
           ? 'opacity-70'
           : 'hover:shadow-lg'
     }`}>
       {featured && (
-        <div className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#CC0000] to-[#A40000]">
-          <Star className="w-4 h-4 text-[#FFC956] fill-[#FFC956]" />
+        <div className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#0B4F5C] to-[#094149]">
+          <Star className="w-4 h-4 text-[#D6A43A] fill-[#D6A43A]" />
           <span className="text-xs font-bold text-white uppercase tracking-wider">
             {language === 'en' ? 'Featured Event — Registration Open' : 'Événement vedette — Inscription ouverte'}
           </span>
           <span className="ml-auto flex h-3 w-3">
-            <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-[#FFC956] opacity-75" />
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#FFC956]" />
+            <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-[#D6A43A] opacity-75" />
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#D6A43A]" />
           </span>
         </div>
       )}
-      <Card className={`rounded-none border-0 shadow-none ${featured ? 'bg-gradient-to-br from-white to-[#CC0000]/5' : ''}`}>
+      <Card className={`rounded-none border-0 shadow-none ${featured ? 'bg-gradient-to-br from-white to-[#0B4F5C]/5' : ''}`}>
         <CardHeader>
           <div className="flex flex-wrap items-center gap-2 mb-2">
             {isPast ? (
@@ -542,26 +542,26 @@ function EventCard({ event, isPast, language, t }: {
                 {language === 'en' ? 'Past Event' : 'Événement passé'}
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#CC0000]/10 text-[#CC0000] text-xs font-semibold">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0B4F5C]/10 text-[#0B4F5C] text-xs font-semibold">
                 <Calendar className="w-3 h-3" />
                 {language === 'en' ? 'Upcoming' : 'À venir'}
               </span>
             )}
-            <span className={`font-semibold text-sm ${isPast ? 'text-gray-500' : 'text-[#CC0000]'}`}>
+            <span className={`font-semibold text-sm ${isPast ? 'text-gray-500' : 'text-[#0B4F5C]'}`}>
               {event.date}
             </span>
             <span className="text-gray-300">•</span>
-            <span className="text-[#0A0A0A]/50 text-sm">{event.time}</span>
+            <span className="text-[#132A35]/50 text-sm">{event.time}</span>
           </div>
-          <h3 className={`text-xl leading-none ${isPast ? 'text-gray-500' : 'text-[#0A0A0A]'}`} data-slot="card-title">{event.title}</h3>
+          <h3 className={`text-xl leading-none ${isPast ? 'text-gray-500' : 'text-[#132A35]'}`} data-slot="card-title">{event.title}</h3>
         </CardHeader>
         <CardContent className="space-y-4">
-          <p className={isPast ? 'text-gray-500' : 'text-[#0A0A0A]/70'}>{event.description}</p>
+          <p className={isPast ? 'text-gray-500' : 'text-[#132A35]/70'}>{event.description}</p>
 
-          <div className="flex items-center gap-2 text-[#0A0A0A]/60">
+          <div className="flex items-center gap-2 text-[#132A35]/60">
             <MapPin className="w-4 h-4 shrink-0" />
             {event.locationUrl ? (
-              <a href={sanitizeUrl(event.locationUrl)} target="_blank" rel="noopener noreferrer" className="text-sm text-[#CC0000] hover:underline flex items-center gap-1">
+              <a href={sanitizeUrl(event.locationUrl)} target="_blank" rel="noopener noreferrer" className="text-sm text-[#0B4F5C] hover:underline flex items-center gap-1">
                 {event.location}
                 <ExternalLink className="w-3 h-3" />
               </a>
@@ -572,10 +572,10 @@ function EventCard({ event, isPast, language, t }: {
 
           <div className="flex items-center justify-between pt-2 flex-wrap gap-3">
             <div className="flex items-center gap-2">
-              <span className="text-sm text-[#0A0A0A]/50">{t('timeline.registration')}:</span>
+              <span className="text-sm text-[#132A35]/50">{t('timeline.registration')}:</span>
               <Badge
                 variant={event.registration === 'Closed' || event.registration === 'Fermée' ? 'secondary' : 'default'}
-                className={event.registration !== 'Closed' && event.registration !== 'Fermée' ? 'bg-[#089EA5] hover:bg-[#067A80]' : ''}
+                className={event.registration !== 'Closed' && event.registration !== 'Fermée' ? 'bg-[#3993A4] hover:bg-[#067A80]' : ''}
               >
                 {event.registration}
               </Badge>
@@ -586,7 +586,7 @@ function EventCard({ event, isPast, language, t }: {
                   href={sanitizeUrl(event.registrationUrl)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 bg-[#CC0000] text-white text-sm font-medium rounded-lg hover:bg-[#A40000] transition-colors inline-flex items-center gap-2"
+                  className="px-4 py-2 bg-[#0B4F5C] text-white text-sm font-medium rounded-lg hover:bg-[#094149] transition-colors inline-flex items-center gap-2"
                   aria-label={language === 'en' ? `Register for ${event.title}` : `S'inscrire à ${event.title}`}
                 >
                   {t('timeline.register')}
@@ -606,7 +606,7 @@ function EventCard({ event, isPast, language, t }: {
                     });
                     downloadICS('msk-symposium-2026.ics', ics);
                   }}
-                  className="px-4 py-2 border-2 border-[#CC0000]/30 text-[#CC0000] text-sm font-semibold rounded-lg hover:border-[#CC0000] hover:bg-[#CC0000]/5 transition-colors inline-flex items-center gap-2"
+                  className="px-4 py-2 border-2 border-[#0B4F5C]/30 text-[#0B4F5C] text-sm font-semibold rounded-lg hover:border-[#0B4F5C] hover:bg-[#0B4F5C]/5 transition-colors inline-flex items-center gap-2"
                   aria-label={language === 'en' ? 'Add event to calendar' : 'Ajouter au calendrier'}
                 >
                   <Download className="w-4 h-4" />

@@ -74,7 +74,7 @@ function CiteButton({ pub, language }: { pub: Publication; language: string }) {
         variant="outline"
         size="sm"
         onClick={() => setOpen(o => !o)}
-        className="border-2 border-[#CC0000]/30 text-[#CC0000] hover:border-[#CC0000] hover:bg-[#CC0000] hover:text-white rounded-xl font-semibold transition-all duration-300 gap-2"
+        className="border-2 border-[#0B4F5C]/30 text-[#0B4F5C] hover:border-[#0B4F5C] hover:bg-[#0B4F5C] hover:text-white rounded-xl font-semibold transition-all duration-300 gap-2"
         aria-label={language === 'en' ? 'Cite this publication' : 'Citer cette publication'}
         aria-expanded={open}
       >
@@ -89,7 +89,7 @@ function CiteButton({ pub, language }: { pub: Publication; language: string }) {
           className="absolute bottom-full left-0 mb-2 w-[340px] sm:w-[420px] bg-white rounded-2xl shadow-2xl border-2 border-gray-100 z-50 p-5 space-y-4"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#0A0A0A]/50">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#132A35]/50">
               {language === 'en' ? 'Citation Formats' : 'Formats de citation'}
             </span>
             <button onClick={() => setOpen(false)} aria-label="Close" className="text-gray-500 hover:text-gray-600">
@@ -100,10 +100,10 @@ function CiteButton({ pub, language }: { pub: Publication; language: string }) {
           {/* APA */}
           <div>
             <div className="flex items-center justify-between mb-1.5">
-              <span className="text-xs font-bold text-[#CC0000] uppercase tracking-wider">APA 7th</span>
+              <span className="text-xs font-bold text-[#0B4F5C] uppercase tracking-wider">APA 7th</span>
               <button
                 onClick={() => copy(buildAPA(pub, language), 'apa')}
-                className="flex items-center gap-1 text-xs text-gray-500 hover:text-[#CC0000] font-semibold transition-colors"
+                className="flex items-center gap-1 text-xs text-gray-500 hover:text-[#0B4F5C] font-semibold transition-colors"
                 aria-label="Copy APA citation"
               >
                 {copied === 'apa' ? <Check className="w-3.5 h-3.5 text-green-600" /> : <Copy className="w-3.5 h-3.5" />}
@@ -118,10 +118,10 @@ function CiteButton({ pub, language }: { pub: Publication; language: string }) {
           {/* BibTeX */}
           <div>
             <div className="flex items-center justify-between mb-1.5">
-              <span className="text-xs font-bold text-[#CC0000] uppercase tracking-wider">BibTeX</span>
+              <span className="text-xs font-bold text-[#0B4F5C] uppercase tracking-wider">BibTeX</span>
               <button
                 onClick={() => copy(buildBibTeX(pub, language), 'bib')}
-                className="flex items-center gap-1 text-xs text-gray-500 hover:text-[#CC0000] font-semibold transition-colors"
+                className="flex items-center gap-1 text-xs text-gray-500 hover:text-[#0B4F5C] font-semibold transition-colors"
                 aria-label="Copy BibTeX citation"
               >
                 {copied === 'bib' ? <Check className="w-3.5 h-3.5 text-green-600" /> : <Copy className="w-3.5 h-3.5" />}
@@ -138,7 +138,7 @@ function CiteButton({ pub, language }: { pub: Publication; language: string }) {
               href={`https://doi.org/${pub.doi}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-xs text-[#CC0000] hover:underline font-semibold"
+              className="flex items-center gap-2 text-xs text-[#0B4F5C] hover:underline font-semibold"
             >
               <ExternalLink className="w-3.5 h-3.5" />
               DOI: {pub.doi}
@@ -185,7 +185,7 @@ export function KnowledgeDissemination() {
         abstractFr: p.abstract?.fr ?? '',
         link: p.link ?? '#',
         doi: p.doi,
-        color: p.color ?? '#CC0000',
+        color: p.color ?? '#0B4F5C',
       })),
     [rawPublications]
   );
@@ -216,10 +216,10 @@ export function KnowledgeDissemination() {
   };
 
   const stats = [
-    { label: language === 'en' ? 'Publications' : 'Publications', value: String(siteStats?.publications ?? publications.length), icon: BookOpen, color: '#089EA5' },
-    { label: language === 'en' ? 'Research Areas' : 'Domaines de recherche', value: String(siteStats?.researchHubs ?? 3), icon: Tag, color: '#6635B1' },
-    { label: language === 'en' ? 'Community Impact' : 'Impact communautaire', value: '24+', icon: Users, color: '#FFC956' },
-    { label: language === 'en' ? 'Resources Shared' : 'Ressources partagées', value: '15+', icon: Share2, color: '#CC0000' },
+    { label: language === 'en' ? 'Publications' : 'Publications', value: String(siteStats?.publications ?? publications.length), icon: BookOpen, color: '#3993A4' },
+    { label: language === 'en' ? 'Research Areas' : 'Domaines de recherche', value: String(siteStats?.researchHubs ?? 3), icon: Tag, color: '#8E4839' },
+    { label: language === 'en' ? 'Community Impact' : 'Impact communautaire', value: '24+', icon: Users, color: '#D6A43A' },
+    { label: language === 'en' ? 'Resources Shared' : 'Ressources partagées', value: '15+', icon: Share2, color: '#0B4F5C' },
   ];
 
   const activeFilters = filterType !== 'all' || searchQuery.trim() !== '';
@@ -227,12 +227,12 @@ export function KnowledgeDissemination() {
   return (
     <div className="min-h-screen bg-white relative overflow-hidden">
       {/* Skip to main content — accessibility */}
-      <a href="#publications-grid" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-[#CC0000] focus:text-white focus:rounded-lg focus:font-semibold">
+      <a href="#publications-grid" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-[#0B4F5C] focus:text-white focus:rounded-lg focus:font-semibold">
         {language === 'en' ? 'Skip to publications' : 'Aller aux publications'}
       </a>
 
       {/* Hero Section */}
-      <header className="relative bg-[#CC0000] overflow-hidden" role="banner">
+      <header className="relative bg-[#0B4F5C] overflow-hidden" role="banner">
         <div className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }} />
         <KnowledgeFlow />
@@ -266,12 +266,12 @@ export function KnowledgeDissemination() {
           {stats.map((stat, index) => (
             <div key={index} role="listitem" className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-[#CC0000]/10 flex items-center justify-center flex-shrink-0" aria-hidden="true">
-                  <stat.icon className="w-6 h-6 text-[#CC0000]" />
+                <div className="w-12 h-12 rounded-xl bg-[#0B4F5C]/10 flex items-center justify-center flex-shrink-0" aria-hidden="true">
+                  <stat.icon className="w-6 h-6 text-[#0B4F5C]" />
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-[#0A0A0A] mb-1">{stat.value}</div>
-                  <div className="text-xs text-[#0A0A0A]/60 font-medium">{stat.label}</div>
+                  <div className="text-3xl font-bold text-[#132A35] mb-1">{stat.value}</div>
+                  <div className="text-xs text-[#132A35]/60 font-medium">{stat.label}</div>
                 </div>
               </div>
             </div>
@@ -280,7 +280,7 @@ export function KnowledgeDissemination() {
       </div>
 
       {/* Knowledge in Action — editorial photo feature */}
-      <div className="bg-[#0A0A0A] py-0">
+      <div className="bg-[#132A35] py-0">
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] overflow-hidden">
 
@@ -291,20 +291,20 @@ export function KnowledgeDissemination() {
                 alt="MSK researcher presenting research findings on anti-racism and inclusion to a diverse community audience at Brock University"
                 className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent lg:to-[#0A0A0A] to-transparent" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/60 to-transparent lg:hidden" />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent lg:to-[#132A35] to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#132A35]/60 to-transparent lg:hidden" />
               {/* Event badge */}
               <div className="absolute top-5 left-5">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#CC0000] text-white text-[10px] font-bold uppercase tracking-wider shadow-lg">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFC956] animate-pulse" />
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0B4F5C] text-white text-[10px] font-bold uppercase tracking-wider shadow-lg">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#D6A43A] animate-pulse" />
                   {language === 'en' ? 'Research Presentation' : 'Présentation de recherche'}
                 </span>
               </div>
             </div>
 
             {/* Quote panel */}
-            <div className="flex flex-col justify-center px-8 md:px-12 py-10 bg-[#0A0A0A]">
-              <div className="w-8 h-px bg-[#CC0000] mb-6" />
+            <div className="flex flex-col justify-center px-8 md:px-12 py-10 bg-[#132A35]">
+              <div className="w-8 h-px bg-[#0B4F5C] mb-6" />
               <blockquote className="text-white text-xl md:text-2xl font-semibold leading-snug mb-5" style={{ fontFamily: 'var(--font-heading)' }}>
                 {language === 'en'
                   ? '"Knowledge becomes powerful when it leaves the lab and reaches the people it was always about."'
@@ -328,14 +328,14 @@ export function KnowledgeDissemination() {
         <section aria-label={language === 'en' ? 'Search and filter publications' : 'Rechercher et filtrer les publications'} className="mb-16">
           <div className="bg-gradient-to-br from-white to-gray-50 rounded-3xl shadow-xl border-2 border-gray-100 p-8 md:p-10">
             <div className="flex items-center gap-4 mb-8">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#CC0000] to-[#A40000] flex items-center justify-center shadow-lg" aria-hidden="true">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#0B4F5C] to-[#094149] flex items-center justify-center shadow-lg" aria-hidden="true">
                 <Filter className="w-7 h-7 text-white" />
               </div>
               <div className="flex-1">
-                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] mb-1">
+                <h2 className="text-2xl md:text-3xl font-bold text-[#132A35] mb-1">
                   {language === 'en' ? 'Search & Filter Resources' : 'Rechercher et filtrer les ressources'}
                 </h2>
-                <p className="text-sm text-[#0A0A0A]/60">
+                <p className="text-sm text-[#132A35]/60">
                   {language === 'en'
                     ? 'Discover publications, presentations, and knowledge translation materials'
                     : 'Découvrez les publications, présentations et matériaux de transfert de connaissances'}
@@ -344,7 +344,7 @@ export function KnowledgeDissemination() {
               {activeFilters && (
                 <button
                   onClick={() => { setFilterType('all'); setSearchQuery(''); }}
-                  className="flex items-center gap-2 px-5 py-3 rounded-xl font-semibold bg-white border-2 border-[#CC0000]/20 text-[#CC0000] hover:border-[#CC0000] hover:bg-[#CC0000] hover:text-white transition-all duration-300 shadow-md hover:shadow-lg"
+                  className="flex items-center gap-2 px-5 py-3 rounded-xl font-semibold bg-white border-2 border-[#0B4F5C]/20 text-[#0B4F5C] hover:border-[#0B4F5C] hover:bg-[#0B4F5C] hover:text-white transition-all duration-300 shadow-md hover:shadow-lg"
                   aria-label={language === 'en' ? 'Clear all filters' : 'Effacer tous les filtres'}
                 >
                   <X className="w-4 h-4" />
@@ -356,9 +356,9 @@ export function KnowledgeDissemination() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Search Bar */}
               <div>
-                <label htmlFor="pub-search" className="block text-xs font-bold text-[#0A0A0A]/50 uppercase tracking-wider mb-3">
+                <label htmlFor="pub-search" className="block text-xs font-bold text-[#132A35]/50 uppercase tracking-wider mb-3">
                   <span className="flex items-center gap-2">
-                    <Search className="w-4 h-4 text-[#CC0000]" />
+                    <Search className="w-4 h-4 text-[#0B4F5C]" />
                     {language === 'en' ? 'Search by Title or Author' : 'Rechercher par titre ou auteur'}
                   </span>
                 </label>
@@ -370,7 +370,7 @@ export function KnowledgeDissemination() {
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.target.value)}
                     placeholder={language === 'en' ? 'e.g. health literacy, Ntakirutimana...' : 'p. ex. littératie en santé, Ntakirutimana...'}
-                    className="w-full h-14 pl-12 pr-4 text-base font-medium border-2 border-gray-200 hover:border-[#CC0000]/50 focus:border-[#CC0000] focus:outline-none bg-white rounded-xl shadow-sm transition-all duration-300"
+                    className="w-full h-14 pl-12 pr-4 text-base font-medium border-2 border-gray-200 hover:border-[#0B4F5C]/50 focus:border-[#0B4F5C] focus:outline-none bg-white rounded-xl shadow-sm transition-all duration-300"
                     aria-label={language === 'en' ? 'Search publications' : 'Rechercher des publications'}
                   />
                 </div>
@@ -378,28 +378,28 @@ export function KnowledgeDissemination() {
 
               {/* Dropdown Filter */}
               <div>
-                <label className="block text-xs font-bold text-[#0A0A0A]/50 uppercase tracking-wider mb-3">
+                <label className="block text-xs font-bold text-[#132A35]/50 uppercase tracking-wider mb-3">
                   <span className="flex items-center gap-2">
-                    <Tag className="w-4 h-4 text-[#CC0000]" />
+                    <Tag className="w-4 h-4 text-[#0B4F5C]" />
                     {language === 'en' ? 'Resource Type' : 'Type de ressource'}
                   </span>
                 </label>
                 <Select value={filterType} onValueChange={setFilterType}>
                   <SelectTrigger
                     aria-label={language === 'en' ? 'Resource Type' : 'Type de ressource'}
-                    className="w-full h-14 text-base font-semibold border-2 border-gray-200 hover:border-[#CC0000]/50 focus:border-[#CC0000] bg-white rounded-xl shadow-sm transition-all duration-300"
+                    className="w-full h-14 text-base font-semibold border-2 border-gray-200 hover:border-[#0B4F5C]/50 focus:border-[#0B4F5C] bg-white rounded-xl shadow-sm transition-all duration-300"
                   >
                     <SelectValue placeholder={language === 'en' ? 'Select a type...' : 'Sélectionner un type...'} />
                   </SelectTrigger>
                   <SelectContent className="bg-white border-2 border-gray-200 rounded-xl shadow-2xl">
                     {[
-                      { value: 'all', label: language === 'en' ? 'All Types' : 'Tous les types', icon: Globe, color: '#0A0A0A' },
-                      { value: 'article', label: language === 'en' ? 'Articles' : 'Articles', icon: FileText, color: '#089EA5' },
-                      { value: 'report', label: language === 'en' ? 'Reports' : 'Rapports', icon: BookOpen, color: '#6635B1' },
-                      { value: 'presentation', label: language === 'en' ? 'Presentations' : 'Présentations', icon: Presentation, color: '#FFC956' },
-                      { value: 'video', label: language === 'en' ? 'Videos' : 'Vidéos', icon: Video, color: '#CC0000' },
-                      { value: 'policy', label: language === 'en' ? 'Policy Briefs' : 'Notes politiques', icon: FileText, color: '#12647F' },
-                      { value: 'toolkit', label: language === 'en' ? 'Toolkits' : 'Boîtes à outils', icon: Lightbulb, color: '#CC0000' },
+                      { value: 'all', label: language === 'en' ? 'All Types' : 'Tous les types', icon: Globe, color: '#132A35' },
+                      { value: 'article', label: language === 'en' ? 'Articles' : 'Articles', icon: FileText, color: '#3993A4' },
+                      { value: 'report', label: language === 'en' ? 'Reports' : 'Rapports', icon: BookOpen, color: '#8E4839' },
+                      { value: 'presentation', label: language === 'en' ? 'Presentations' : 'Présentations', icon: Presentation, color: '#D6A43A' },
+                      { value: 'video', label: language === 'en' ? 'Videos' : 'Vidéos', icon: Video, color: '#0B4F5C' },
+                      { value: 'policy', label: language === 'en' ? 'Policy Briefs' : 'Notes politiques', icon: FileText, color: '#177485' },
+                      { value: 'toolkit', label: language === 'en' ? 'Toolkits' : 'Boîtes à outils', icon: Lightbulb, color: '#0B4F5C' },
                     ].map(({ value, label, icon: Icon, color }) => (
                       <SelectItem key={value} value={value} className="text-base font-semibold py-3 cursor-pointer hover:bg-gray-50">
                         <span className="flex items-center gap-3">
@@ -415,7 +415,7 @@ export function KnowledgeDissemination() {
             </div>
 
             {/* Results count */}
-            <p className="mt-5 text-sm text-[#0A0A0A]/50 font-medium" aria-live="polite" aria-atomic="true">
+            <p className="mt-5 text-sm text-[#132A35]/50 font-medium" aria-live="polite" aria-atomic="true">
               {language === 'en'
                 ? `Showing ${filteredPublications.length} of ${publications.length} resource${publications.length !== 1 ? 's' : ''}`
                 : `Affichage de ${filteredPublications.length} sur ${publications.length} ressource${publications.length !== 1 ? 's' : ''}`}
@@ -468,30 +468,30 @@ export function KnowledgeDissemination() {
                   </div>
 
                   {/* Title */}
-                  <h3 className={`text-2xl font-bold text-[#0A0A0A] mb-4 leading-tight transition-colors duration-300 ${
-                    hoveredCard === index ? 'text-[#CC0000]' : ''
+                  <h3 className={`text-2xl font-bold text-[#132A35] mb-4 leading-tight transition-colors duration-300 ${
+                    hoveredCard === index ? 'text-[#0B4F5C]' : ''
                   }`}>
                     {language === 'en' ? pub.title : pub.titleFr}
                   </h3>
 
                   {/* Metadata */}
                   <div className="space-y-2 mb-4">
-                    <div className="flex items-center gap-2 text-sm text-[#0A0A0A]/70">
+                    <div className="flex items-center gap-2 text-sm text-[#132A35]/70">
                       <Users className="w-4 h-4" style={{ color: pub.color }} aria-hidden="true" />
                       <span className="font-medium">{language === 'en' ? pub.authors : pub.authorsFr}</span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-[#0A0A0A]/70">
+                    <div className="flex items-center gap-2 text-sm text-[#132A35]/70">
                       <Calendar className="w-4 h-4" style={{ color: pub.color }} aria-hidden="true" />
                       <span className="font-medium">{language === 'en' ? pub.date : pub.dateFr}</span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-[#0A0A0A]/70">
+                    <div className="flex items-center gap-2 text-sm text-[#132A35]/70">
                       <Tag className="w-4 h-4" style={{ color: pub.color }} aria-hidden="true" />
                       <span className="font-medium">{language === 'en' ? pub.hub : pub.hubFr}</span>
                     </div>
                   </div>
 
                   {/* Abstract */}
-                  <p className="text-[#0A0A0A]/80 mb-6 leading-relaxed">
+                  <p className="text-[#132A35]/80 mb-6 leading-relaxed">
                     {language === 'en' ? pub.abstract : pub.abstractFr}
                   </p>
 
@@ -509,7 +509,7 @@ export function KnowledgeDissemination() {
                     <Button
                       asChild
                       variant="outline"
-                      className="border-2 border-[#089EA5]/30 text-[#089EA5] hover:border-[#089EA5] hover:bg-[#089EA5] hover:text-white rounded-xl font-semibold text-xs transition-all duration-300 gap-1.5"
+                      className="border-2 border-[#3993A4]/30 text-[#3993A4] hover:border-[#3993A4] hover:bg-[#3993A4] hover:text-white rounded-xl font-semibold text-xs transition-all duration-300 gap-1.5"
                     >
                       <a href={`mailto:jntakirutimana@brocku.ca?subject=Collaboration Inquiry: ${encodeURIComponent(pub.title)}`}>
                         <Users className="w-3.5 h-3.5" />
@@ -526,18 +526,18 @@ export function KnowledgeDissemination() {
         {/* No Results State */}
         {filteredPublications.length === 0 && (
           <div className="text-center py-24 bg-gray-50 rounded-3xl" role="status" aria-live="polite">
-            <div className="w-32 h-32 rounded-full bg-gradient-to-br from-[#CC0000] to-[#A40000] flex items-center justify-center mx-auto mb-8 shadow-xl" aria-hidden="true">
+            <div className="w-32 h-32 rounded-full bg-gradient-to-br from-[#0B4F5C] to-[#094149] flex items-center justify-center mx-auto mb-8 shadow-xl" aria-hidden="true">
               <Search className="w-16 h-16 text-white" />
             </div>
-            <h3 className="text-3xl font-bold text-[#0A0A0A] mb-3">
+            <h3 className="text-3xl font-bold text-[#132A35] mb-3">
               {language === 'en' ? 'No resources found' : 'Aucune ressource trouvée'}
             </h3>
-            <p className="text-lg text-[#0A0A0A]/60 mb-8">
+            <p className="text-lg text-[#132A35]/60 mb-8">
               {language === 'en' ? 'Try a different search query or resource type' : 'Essayez une autre requête de recherche ou un autre type de ressource'}
             </p>
             <Button
               onClick={() => { setFilterType('all'); setSearchQuery(''); }}
-              className="bg-[#CC0000] hover:bg-[#A40000] text-white font-semibold px-8 py-6 rounded-xl"
+              className="bg-[#0B4F5C] hover:bg-[#094149] text-white font-semibold px-8 py-6 rounded-xl"
             >
               {language === 'en' ? 'Show All Resources' : 'Afficher toutes les ressources'}
             </Button>
@@ -546,9 +546,9 @@ export function KnowledgeDissemination() {
 
         {/* Call to Action Section */}
         <div className="mt-24 mb-16 relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#CC0000] via-[#A40000] to-[#CC0000] rounded-[3rem] blur-3xl opacity-20" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0B4F5C] via-[#094149] to-[#0B4F5C] rounded-[3rem] blur-3xl opacity-20" aria-hidden="true" />
 
-          <div className="relative bg-gradient-to-br from-[#CC0000] via-[#A40000] to-[#6B0000] rounded-[3rem] p-12 md:p-16 lg:p-20 overflow-hidden shadow-2xl">
+          <div className="relative bg-gradient-to-br from-[#0B4F5C] via-[#094149] to-[#073338] rounded-[3rem] p-12 md:p-16 lg:p-20 overflow-hidden shadow-2xl">
             <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full -mr-48 -mt-48" aria-hidden="true" />
             <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/10 rounded-full -ml-48 -mb-48" aria-hidden="true" />
 
@@ -590,7 +590,7 @@ export function KnowledgeDissemination() {
                   ) : (
                     <>
                       <div className="relative group">
-                        <div className="absolute -inset-1 bg-gradient-to-r from-white/40 via-[#CC0000]/40 to-white/40 rounded-2xl blur-lg opacity-60 group-hover:opacity-100 transition-all duration-500" aria-hidden="true" />
+                        <div className="absolute -inset-1 bg-gradient-to-r from-white/40 via-[#0B4F5C]/40 to-white/40 rounded-2xl blur-lg opacity-60 group-hover:opacity-100 transition-all duration-500" aria-hidden="true" />
                         <form onSubmit={(e) => { e.preventDefault(); setIsSubscribed(true); }} className="relative flex flex-col sm:flex-row gap-3 mb-4 bg-white/10 backdrop-blur-md p-2 rounded-2xl border border-white/30 shadow-2xl">
                           <div className="flex-1 relative">
                             <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/90" aria-hidden="true">
@@ -606,7 +606,7 @@ export function KnowledgeDissemination() {
                               aria-label={language === 'en' ? 'Your email address' : 'Votre adresse courriel'}
                             />
                           </div>
-                          <Button type="submit" className="relative bg-gradient-to-r from-white via-gray-100 to-white text-[#CC0000] hover:from-gray-100 hover:via-white hover:to-gray-100 font-bold px-8 py-4 rounded-xl text-base shadow-2xl transition-all duration-300 hover:scale-105 whitespace-nowrap">
+                          <Button type="submit" className="relative bg-gradient-to-r from-white via-gray-100 to-white text-[#0B4F5C] hover:from-gray-100 hover:via-white hover:to-gray-100 font-bold px-8 py-4 rounded-xl text-base shadow-2xl transition-all duration-300 hover:scale-105 whitespace-nowrap">
                             {language === 'en' ? 'Subscribe Now' : 'S\'abonner'}
                             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />

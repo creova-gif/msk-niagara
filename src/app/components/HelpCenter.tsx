@@ -231,10 +231,10 @@ export function HelpCenter() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[#CC0000] to-[#6B0000] rounded-2xl mb-6 shadow-xl">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[#0B4F5C] to-[#073338] rounded-2xl mb-6 shadow-xl">
             <HelpCircle className="w-10 h-10 text-white" />
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#0A0A0A] mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#132A35] mb-4">
             {language === 'en' ? 'Help Center & FAQ' : 'Centre d\'aide et FAQ'}
           </h1>
           <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-4">
@@ -259,12 +259,12 @@ export function HelpCenter() {
               placeholder={language === 'en' ? 'Search for answers...' : 'Rechercher des réponses...'}
               value={searchQuery}
               onChange={(e) => setSearchQuery(sanitizeSearchInput(e.target.value))}
-              className="w-full pl-12 pr-12 py-4 border-2 border-gray-200 rounded-2xl focus:outline-none focus:border-[#CC0000] focus:ring-4 focus:ring-[#CC0000]/10 transition-all text-lg"
+              className="w-full pl-12 pr-12 py-4 border-2 border-gray-200 rounded-2xl focus:outline-none focus:border-[#0B4F5C] focus:ring-4 focus:ring-[#0B4F5C]/10 transition-all text-lg"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full bg-gray-200 hover:bg-[#CC0000] text-gray-600 hover:text-white transition-all duration-300"
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full bg-gray-200 hover:bg-[#0B4F5C] text-gray-600 hover:text-white transition-all duration-300"
                 aria-label={language === 'en' ? 'Clear search' : 'Effacer la recherche'}
               >
                 <X className="w-4 h-4" />
@@ -282,14 +282,14 @@ export function HelpCenter() {
         >
           <div className="bg-gradient-to-br from-white via-gray-50 to-white rounded-3xl shadow-2xl border-2 border-gray-100 p-6 md:p-8">
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#CC0000] to-[#A40000] flex items-center justify-center shadow-lg">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#0B4F5C] to-[#094149] flex items-center justify-center shadow-lg">
                 <Filter className="w-6 h-6 text-white" />
               </div>
               <div className="flex-1">
-                <h2 className="text-xl md:text-2xl font-bold text-[#0A0A0A] mb-1">
+                <h2 className="text-xl md:text-2xl font-bold text-[#132A35] mb-1">
                   {language === 'en' ? 'Filter by Topic' : 'Filtrer par sujet'}
                 </h2>
-                <p className="text-xs md:text-sm text-[#0A0A0A]/60">
+                <p className="text-xs md:text-sm text-[#132A35]/60">
                   {language === 'en' 
                     ? `Showing ${filteredFAQs.length} of ${faqData.length} questions`
                     : `Affichage de ${filteredFAQs.length} sur ${faqData.length} questions`}
@@ -298,7 +298,7 @@ export function HelpCenter() {
               {selectedCategory !== 'all' && (
                 <button
                   onClick={() => setSelectedCategory('all')}
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold bg-white border-2 border-[#CC0000]/20 text-[#CC0000] hover:border-[#CC0000] hover:bg-[#CC0000] hover:text-white transition-all duration-300 shadow-md hover:shadow-lg"
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold bg-white border-2 border-[#0B4F5C]/20 text-[#0B4F5C] hover:border-[#0B4F5C] hover:bg-[#0B4F5C] hover:text-white transition-all duration-300 shadow-md hover:shadow-lg"
                 >
                   <X className="w-4 h-4" />
                   <span className="hidden sm:inline text-sm">{language === 'en' ? 'Clear' : 'Effacer'}</span>
@@ -308,16 +308,16 @@ export function HelpCenter() {
             
             {/* Dropdown Select */}
             <div className="max-w-md">
-              <label className="block text-xs font-bold text-[#0A0A0A]/50 uppercase tracking-wider mb-3">
+              <label className="block text-xs font-bold text-[#132A35]/50 uppercase tracking-wider mb-3">
                 <span className="flex items-center gap-2">
-                  <Tag className="w-4 h-4 text-[#CC0000]" />
+                  <Tag className="w-4 h-4 text-[#0B4F5C]" />
                   {language === 'en' ? 'Topic Category' : 'Catégorie de sujet'}
                 </span>
               </label>
               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
                 <SelectTrigger
                   aria-label={language === 'en' ? 'Topic Category' : 'Catégorie de sujet'}
-                  className="w-full h-14 text-base font-semibold border-2 border-gray-200 hover:border-[#CC0000]/50 focus:border-[#CC0000] bg-white rounded-xl shadow-sm transition-all duration-300"
+                  className="w-full h-14 text-base font-semibold border-2 border-gray-200 hover:border-[#0B4F5C]/50 focus:border-[#0B4F5C] bg-white rounded-xl shadow-sm transition-all duration-300"
                 >
                   <SelectValue placeholder={language === 'en' ? 'Select a topic...' : 'Sélectionner un sujet...'} />
                 </SelectTrigger>
@@ -329,8 +329,8 @@ export function HelpCenter() {
                       className="text-base font-semibold py-3 cursor-pointer hover:bg-gray-50"
                     >
                       <span className="flex items-center gap-3">
-                        <div className="w-2 h-2 rounded-full bg-[#CC0000]"></div>
-                        <span className="text-[#CC0000]">{category.icon}</span>
+                        <div className="w-2 h-2 rounded-full bg-[#0B4F5C]"></div>
+                        <span className="text-[#0B4F5C]">{category.icon}</span>
                         {category.name}
                       </span>
                     </SelectItem>
@@ -342,18 +342,18 @@ export function HelpCenter() {
             {/* Active Filter Display */}
             {selectedCategory !== 'all' && (
               <div className="mt-6 pt-6 border-t-2 border-gray-200">
-                <p className="text-xs font-bold text-[#0A0A0A]/50 uppercase tracking-wider mb-3">
+                <p className="text-xs font-bold text-[#132A35]/50 uppercase tracking-wider mb-3">
                   {language === 'en' ? 'Active Filter' : 'Filtre actif'}
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-[#CC0000]/10 to-[#A40000]/10 border-2 border-[#CC0000]/30 text-[#CC0000] font-semibold shadow-sm">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-[#0B4F5C]/10 to-[#094149]/10 border-2 border-[#0B4F5C]/30 text-[#0B4F5C] font-semibold shadow-sm">
                     <Tag className="w-4 h-4" />
                     <span className="text-sm">
                       {categories.find(cat => cat.id === selectedCategory)?.name}
                     </span>
                     <button 
                       onClick={() => setSelectedCategory('all')} 
-                      className="hover:bg-[#CC0000] hover:text-white rounded-full p-0.5 transition-colors"
+                      className="hover:bg-[#0B4F5C] hover:text-white rounded-full p-0.5 transition-colors"
                     >
                       <X className="w-3.5 h-3.5" />
                     </button>
@@ -384,17 +384,17 @@ export function HelpCenter() {
                   onClick={() => toggleFAQ(faq.id)}
                   className="w-full px-4 sm:px-6 py-4 sm:py-5 flex items-start gap-3 sm:gap-4 text-left hover:bg-gray-50 transition-colors"
                 >
-                  <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-[#CC0000]/10 rounded-xl flex items-center justify-center text-[#CC0000] mt-1">
+                  <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-[#0B4F5C]/10 rounded-xl flex items-center justify-center text-[#0B4F5C] mt-1">
                     {faq.icon}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-base sm:text-lg font-bold text-[#0A0A0A] mb-1 break-words">
+                    <h3 className="text-base sm:text-lg font-bold text-[#132A35] mb-1 break-words">
                       {faq.question}
                     </h3>
                   </div>
                   <div className="flex-shrink-0">
                     {openFAQs.includes(faq.id) ? (
-                      <ChevronUp className="w-5 h-5 sm:w-6 sm:h-6 text-[#CC0000]" />
+                      <ChevronUp className="w-5 h-5 sm:w-6 sm:h-6 text-[#0B4F5C]" />
                     ) : (
                       <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 text-gray-500" />
                     )}
@@ -443,7 +443,7 @@ export function HelpCenter() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="mt-16 bg-gradient-to-br from-[#CC0000] to-[#6B0000] rounded-3xl p-8 md:p-12 text-white text-center"
+          className="mt-16 bg-gradient-to-br from-[#0B4F5C] to-[#073338] rounded-3xl p-8 md:p-12 text-white text-center"
         >
           <h2 className="text-3xl font-bold mb-4 text-[rgb(255,247,247)]">
             {language === 'en' ? 'Still have questions?' : 'Vous avez encore des questions?'}
@@ -456,7 +456,7 @@ export function HelpCenter() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="mailto:contact@msk-niagara.ca"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#CC0000] rounded-xl font-bold hover:bg-gray-100 transition-all transform hover:scale-105 shadow-lg"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#0B4F5C] rounded-xl font-bold hover:bg-gray-100 transition-all transform hover:scale-105 shadow-lg"
             >
               <Mail className="w-5 h-5" />
               {language === 'en' ? 'Email Us' : 'Nous écrire'}

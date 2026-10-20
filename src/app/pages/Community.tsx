@@ -67,7 +67,7 @@ export function Community() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-[#CC0000]">
+      <div className="relative overflow-hidden bg-[#0B4F5C]">
         {/* Dot-grid brand motif */}
         <div className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}
@@ -108,14 +108,14 @@ export function Community() {
         <div className="mb-12">
           <div className="bg-gradient-to-br from-white to-gray-50 rounded-3xl shadow-xl border-2 border-gray-100 p-8 md:p-10">
             <div className="flex items-center gap-4 mb-8">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#CC0000] to-[#A40000] flex items-center justify-center shadow-lg">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#0B4F5C] to-[#094149] flex items-center justify-center shadow-lg">
                 <Filter className="w-7 h-7 text-white" />
               </div>
               <div className="flex-1">
-                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] mb-1">
+                <h2 className="text-2xl md:text-3xl font-bold text-[#132A35] mb-1">
                   {language === 'en' ? 'Find Organizations' : 'Trouver des organisations'}
                 </h2>
-                <p className="text-sm text-[#0A0A0A]/60">
+                <p className="text-sm text-[#132A35]/60">
                   {language === 'en' 
                     ? `Showing ${filteredOrganizations.length} of ${organizations.length} community partners`
                     : `Affichage de ${filteredOrganizations.length} sur ${organizations.length} partenaires communautaires`}
@@ -127,7 +127,7 @@ export function Community() {
                     setSelectedCategory('all');
                     setSearchTerm('');
                   }}
-                  className="flex items-center gap-2 px-5 py-3 rounded-xl font-semibold bg-white border-2 border-[#CC0000]/20 text-[#CC0000] hover:border-[#CC0000] hover:bg-[#CC0000] hover:text-white transition-all duration-300 shadow-md hover:shadow-lg"
+                  className="flex items-center gap-2 px-5 py-3 rounded-xl font-semibold bg-white border-2 border-[#0B4F5C]/20 text-[#0B4F5C] hover:border-[#0B4F5C] hover:bg-[#0B4F5C] hover:text-white transition-all duration-300 shadow-md hover:shadow-lg"
                 >
                   <X className="w-4 h-4" />
                   <span className="hidden sm:inline">{language === 'en' ? 'Clear All' : 'Tout effacer'}</span>
@@ -139,9 +139,9 @@ export function Community() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               {/* Search */}
               <div>
-                <label htmlFor="community-search" className="block text-xs font-bold text-[#0A0A0A]/50 uppercase tracking-wider mb-3">
+                <label htmlFor="community-search" className="block text-xs font-bold text-[#132A35]/50 uppercase tracking-wider mb-3">
                   <span className="flex items-center gap-2">
-                    <Search className="w-4 h-4 text-[#CC0000]" />
+                    <Search className="w-4 h-4 text-[#0B4F5C]" />
                     {language === 'en' ? 'Search Organizations' : 'Rechercher des organisations'}
                   </span>
                 </label>
@@ -153,12 +153,12 @@ export function Community() {
                     placeholder={language === 'en' ? 'Enter organization name...' : 'Entrez le nom de l\'organisation...'}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(sanitizeSearchQuery(e.target.value))}
-                    className="w-full h-14 pl-12 pr-12 text-base font-semibold border-2 border-gray-200 hover:border-[#CC0000]/50 focus:border-[#CC0000] focus:outline-none focus:ring-4 focus:ring-[#CC0000]/10 bg-white rounded-xl shadow-sm transition-all duration-300"
+                    className="w-full h-14 pl-12 pr-12 text-base font-semibold border-2 border-gray-200 hover:border-[#0B4F5C]/50 focus:border-[#0B4F5C] focus:outline-none focus:ring-4 focus:ring-[#0B4F5C]/10 bg-white rounded-xl shadow-sm transition-all duration-300"
                   />
                   {searchTerm && (
                     <button
                       onClick={() => setSearchTerm('')}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full bg-gray-200 hover:bg-[#CC0000] text-gray-600 hover:text-white transition-all duration-300"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full bg-gray-200 hover:bg-[#0B4F5C] text-gray-600 hover:text-white transition-all duration-300"
                       aria-label={language === 'en' ? 'Clear search' : 'Effacer la recherche'}
                     >
                       <X className="w-4 h-4" />
@@ -169,16 +169,16 @@ export function Community() {
 
               {/* Category Dropdown */}
               <div>
-                <label className="block text-xs font-bold text-[#0A0A0A]/50 uppercase tracking-wider mb-3">
+                <label className="block text-xs font-bold text-[#132A35]/50 uppercase tracking-wider mb-3">
                   <span className="flex items-center gap-2">
-                    <Tag className="w-4 h-4 text-[#CC0000]" />
+                    <Tag className="w-4 h-4 text-[#0B4F5C]" />
                     {language === 'en' ? 'Category' : 'Catégorie'}
                   </span>
                 </label>
                 <Select value={selectedCategory} onValueChange={setSelectedCategory}>
                   <SelectTrigger
                     aria-label={language === 'en' ? 'Category' : 'Catégorie'}
-                    className="w-full h-14 text-base font-semibold border-2 border-gray-200 hover:border-[#CC0000]/50 focus:border-[#CC0000] bg-white rounded-xl shadow-sm transition-all duration-300"
+                    className="w-full h-14 text-base font-semibold border-2 border-gray-200 hover:border-[#0B4F5C]/50 focus:border-[#0B4F5C] bg-white rounded-xl shadow-sm transition-all duration-300"
                   >
                     <SelectValue placeholder={language === 'en' ? 'Select category...' : 'Sélectionner la catégorie...'} />
                   </SelectTrigger>
@@ -192,8 +192,8 @@ export function Community() {
                           className="text-base font-semibold py-3 cursor-pointer hover:bg-gray-50"
                         >
                           <span className="flex items-center gap-3">
-                            <div className="w-2 h-2 rounded-full bg-[#CC0000]"></div>
-                            <Icon className="w-4 h-4 text-[#CC0000]" />
+                            <div className="w-2 h-2 rounded-full bg-[#0B4F5C]"></div>
+                            <Icon className="w-4 h-4 text-[#0B4F5C]" />
                             {category.label}
                           </span>
                         </SelectItem>
@@ -207,33 +207,33 @@ export function Community() {
             {/* Active Filters Display */}
             {(selectedCategory !== 'all' || searchTerm !== '') && (
               <div className="pt-6 border-t-2 border-gray-200">
-                <p className="text-xs font-bold text-[#0A0A0A]/50 uppercase tracking-wider mb-3">
+                <p className="text-xs font-bold text-[#132A35]/50 uppercase tracking-wider mb-3">
                   {language === 'en' ? 'Active Filters' : 'Filtres actifs'}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {selectedCategory !== 'all' && (
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#CC0000]/10 border-2 border-[#CC0000]/30 text-[#CC0000] font-semibold">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#0B4F5C]/10 border-2 border-[#0B4F5C]/30 text-[#0B4F5C] font-semibold">
                       <Tag className="w-4 h-4" />
                       <span className="text-sm">
                         {categories.find(cat => cat.value === selectedCategory)?.label}
                       </span>
                       <button 
                         onClick={() => setSelectedCategory('all')} 
-                        className="hover:bg-[#CC0000] hover:text-white rounded-full p-0.5 transition-colors"
+                        className="hover:bg-[#0B4F5C] hover:text-white rounded-full p-0.5 transition-colors"
                       >
                         <X className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   )}
                   {searchTerm !== '' && (
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#CC0000]/10 border-2 border-[#CC0000]/30 text-[#CC0000] font-semibold">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#0B4F5C]/10 border-2 border-[#0B4F5C]/30 text-[#0B4F5C] font-semibold">
                       <Search className="w-4 h-4" />
                       <span className="text-sm">
                         "{searchTerm}"
                       </span>
                       <button 
                         onClick={() => setSearchTerm('')} 
-                        className="hover:bg-[#CC0000] hover:text-white rounded-full p-0.5 transition-colors"
+                        className="hover:bg-[#0B4F5C] hover:text-white rounded-full p-0.5 transition-colors"
                       >
                         <X className="w-3.5 h-3.5" />
                       </button>
@@ -259,7 +259,7 @@ export function Community() {
                 {/* Accent Bar — uses each org's own brand color */}
                 <div
                   className="absolute top-0 left-0 right-0 h-1 transition-all duration-500 group-hover:h-1.5"
-                  style={{ backgroundColor: org.color || '#CC0000' }}
+                  style={{ backgroundColor: org.color || '#0B4F5C' }}
                 />
 
                 <CardContent className="p-6 md:p-8">
@@ -276,7 +276,7 @@ export function Community() {
 
                   {/* Organization Name */}
                   <h3
-                    className="text-lg md:text-xl font-bold mb-1.5 text-[#0A0A0A] leading-snug transition-colors duration-300"
+                    className="text-lg md:text-xl font-bold mb-1.5 text-[#132A35] leading-snug transition-colors duration-300"
                     style={{ fontFamily: 'var(--font-heading)' }}
                   >
                     {language === 'fr' ? org.nameFr : org.name}
@@ -303,8 +303,8 @@ export function Community() {
                           key={i}
                           className="px-2.5 py-1 rounded-full text-[11px] font-semibold"
                           style={{
-                            backgroundColor: (org.color || '#CC0000') + '15',
-                            color: org.color || '#CC0000',
+                            backgroundColor: (org.color || '#0B4F5C') + '15',
+                            color: org.color || '#0B4F5C',
                           }}
                         >
                           {service}
@@ -318,7 +318,7 @@ export function Community() {
                     <Button
                       variant="default"
                       size="lg"
-                      className="flex-1 gap-2 bg-[#CC0000] hover:bg-[#800000] text-white group/btn transition-all duration-300 text-sm md:text-base"
+                      className="flex-1 gap-2 bg-[#0B4F5C] hover:bg-[#094149] text-white group/btn transition-all duration-300 text-sm md:text-base"
                       onClick={() => window.open(sanitizeUrl(org.website), '_blank')}
                     >
                       <ExternalLink className="w-4 h-4 flex-shrink-0 transition-transform group-hover/btn:rotate-12" />
@@ -343,7 +343,7 @@ export function Community() {
             <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gray-100 mb-6">
               <Search className="w-12 h-12 text-gray-500" />
             </div>
-            <h3 className="text-2xl text-[#0A0A0A] mb-3">
+            <h3 className="text-2xl text-[#132A35] mb-3">
               {language === 'en' ? 'No organizations found' : 'Aucune organisation trouvée'}
             </h3>
             <p className="text-gray-600 mb-6">
@@ -356,7 +356,7 @@ export function Community() {
                 setSearchTerm('');
                 setSelectedCategory('all');
               }}
-              className="bg-[#CC0000] hover:bg-[#800000]"
+              className="bg-[#0B4F5C] hover:bg-[#094149]"
             >
               {language === 'en' ? 'Clear Filters' : 'Effacer les filtres'}
             </Button>
@@ -364,7 +364,7 @@ export function Community() {
         )}
 
         {/* CTA Section */}
-        <section className="mt-16 relative overflow-hidden rounded-3xl bg-[#CC0000] p-12 md:p-16 text-center shadow-2xl">
+        <section className="mt-16 relative overflow-hidden rounded-3xl bg-[#0B4F5C] p-12 md:p-16 text-center shadow-2xl">
           <div className="relative z-10">
             <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/20 backdrop-blur-sm mb-8 shadow-lg">
               <Users className="w-10 h-10 text-white" />
@@ -379,7 +379,7 @@ export function Community() {
             </p>
             <Button
               size="lg"
-              className="gap-3 bg-white text-[#CC0000] hover:bg-gray-50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 text-lg px-8 py-6"
+              className="gap-3 bg-white text-[#0B4F5C] hover:bg-gray-50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 text-lg px-8 py-6"
             >
               <Mail className="w-6 h-6" />
               {language === 'en' ? 'Get in Touch' : 'Contactez-nous'}

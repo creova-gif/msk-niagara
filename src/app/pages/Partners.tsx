@@ -14,8 +14,8 @@ const COLUMNS = [
   {
     key: 'community',
     code: 'C',
-    color: '#089EA5',
-    glow: '#19C3CB',
+    color: '#3993A4',
+    glow: '#6AB3C1',
     icon: Users,
     titleEn: 'Community Partners',
     titleFr: 'Partenaires Communautaires',
@@ -25,8 +25,8 @@ const COLUMNS = [
   {
     key: 'academic',
     code: 'A',
-    color: '#CC0000',
-    glow: '#E2515E',
+    color: '#0B4F5C',
+    glow: '#6AB3C1',
     icon: BookOpen,
     titleEn: 'Academic Partners',
     titleFr: 'Partenaires Académiques',
@@ -36,8 +36,8 @@ const COLUMNS = [
   {
     key: 'funding',
     code: 'F',
-    color: '#C97B2E',
-    glow: '#E0973F',
+    color: '#4E8064',
+    glow: '#E1B449',
     icon: Landmark,
     titleEn: 'Funding Partners',
     titleFr: 'Partenaires Financiers',
@@ -51,11 +51,11 @@ type Partner = { name: string; url: string; logo: string | null };
 function Marker({ index, label }: { index: string; label: string }) {
   return (
     <div className="flex items-center gap-4 mb-7">
-      <span className="text-[#E2515E] text-sm font-semibold tracking-[0.18em]" style={{ fontFamily: MONO }}>
+      <span className="text-[#6AB3C1] text-sm font-semibold tracking-[0.18em]" style={{ fontFamily: MONO }}>
         {index}
       </span>
       <span className="h-px w-10 bg-[#33333D]" />
-      <span className="text-[11px] tracking-[0.34em] uppercase text-[#8B8B93]" style={{ fontFamily: MONO }}>
+      <span className="text-[11px] tracking-[0.34em] uppercase text-[#69736F]" style={{ fontFamily: MONO }}>
         {label}
       </span>
     </div>
@@ -93,10 +93,10 @@ export function Partners() {
   const academicCount = partnersData.academic.length;
 
   const stats = [
-    { value: '03', label: en ? 'Research Hubs' : 'Pôles de recherche', color: '#7B5EA7' },
-    { value: String(totalOrgs).padStart(2, '0'), label: en ? 'Partner Orgs' : 'Organisations', color: '#19C3CB' },
-    { value: String(academicCount).padStart(2, '0'), label: en ? 'Institutions' : 'Institutions', color: '#E0973F' },
-    { value: '01', label: en ? 'Shared Mission' : 'Mission commune', color: '#E2515E' },
+    { value: '03', label: en ? 'Research Hubs' : 'Pôles de recherche', color: '#A85645' },
+    { value: String(totalOrgs).padStart(2, '0'), label: en ? 'Partner Orgs' : 'Organisations', color: '#6AB3C1' },
+    { value: String(academicCount).padStart(2, '0'), label: en ? 'Institutions' : 'Institutions', color: '#E1B449' },
+    { value: '01', label: en ? 'Shared Mission' : 'Mission commune', color: '#6AB3C1' },
   ];
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -115,19 +115,19 @@ export function Partners() {
   };
 
   const inputCls =
-    'w-full bg-[#0E0E11] border border-[#2A2A33] rounded-lg px-4 py-3 text-white placeholder-[#6B6B73] focus:outline-none focus:border-[#C97B2E] focus:ring-1 focus:ring-[#C97B2E] transition-all text-sm';
+    'w-full bg-[#0E202A] border border-[#21404E] rounded-lg px-4 py-3 text-white placeholder-[#525C58] focus:outline-none focus:border-[#4E8064] focus:ring-1 focus:ring-[#4E8064] transition-all text-sm';
 
   return (
-    <div className="min-h-screen bg-[#0E0E11] text-[#ECECEE]">
+    <div className="min-h-screen bg-[#0E202A] text-[#E1E4E0]">
       {/* ── MASTHEAD HERO ── */}
-      <header className="relative overflow-hidden bg-[#CC0000]">
+      <header className="relative overflow-hidden bg-[#0B4F5C]">
         <div
           className="absolute inset-0 opacity-[0.06] pointer-events-none"
           style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}
         />
         <NetworkNodes />
         <div
-          className="absolute bottom-0 left-0 right-0 h-24 bg-[#0E0E11]"
+          className="absolute bottom-0 left-0 right-0 h-24 bg-[#0E202A]"
           style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 0)' }}
         />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-12 pb-36 md:pt-16 md:pb-44">
@@ -138,7 +138,7 @@ export function Partners() {
             </div>
             <div className="text-right text-[10px] leading-relaxed text-white/90 tracking-[0.18em]" style={{ fontFamily: MONO }}>
               <span className="inline-flex items-center gap-1.5 text-white/90">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#19C3CB] animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#6AB3C1] animate-pulse" />
                 {en ? 'LIVE COALITION' : 'COALITION ACTIVE'}
               </span>
               <br />
@@ -165,15 +165,15 @@ export function Partners() {
       </header>
 
       {/* ── DATA STRIP ── */}
-      <div className="border-y border-[#26262E] bg-[#16161B]">
+      <div className="border-y border-[#1D3A47] bg-[#162F3B]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-stretch divide-x divide-[#26262E] overflow-x-auto">
+          <div className="flex items-stretch divide-x divide-[#1D3A47] overflow-x-auto">
             {stats.map((s) => (
               <div key={s.label} className="flex items-baseline gap-3 py-5 pr-8 pl-0 first:pl-0 sm:pl-8 shrink-0">
                 <span className="text-2xl md:text-3xl font-semibold" style={{ fontFamily: MONO, color: s.color }}>
                   {s.value}
                 </span>
-                <span className="text-[11px] tracking-[0.2em] uppercase text-[#8B8B93]" style={{ fontFamily: MONO }}>
+                <span className="text-[11px] tracking-[0.2em] uppercase text-[#69736F]" style={{ fontFamily: MONO }}>
                   {s.label}
                 </span>
               </div>
@@ -190,7 +190,7 @@ export function Partners() {
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-5 tracking-tight" style={{ fontFamily: 'var(--font-heading)' }}>
               {en ? 'The Circle of Care' : 'Le Cercle de Bienveillance'}
             </h2>
-            <p className="text-[#A8A8B0] leading-relaxed">
+            <p className="text-[#9AA29D] leading-relaxed">
               {en
                 ? 'No partner sits above another. Community knowledge, academic rigour, and sustained funding overlap to drive systemic change — and where all three meet is where the work truly lives.'
                 : 'Aucun partenaire n’est au-dessus d’un autre. Savoirs communautaires, rigueur académique et financement durable se rejoignent au cœur du changement.'}
@@ -202,21 +202,21 @@ export function Partners() {
               return (
                 <div
                   key={c.key}
-                  className="relative bg-[#16161B] border border-[#26262E] rounded-xl p-5 overflow-hidden transition-colors hover:border-[#3A3A45]"
+                  className="relative bg-[#162F3B] border border-[#1D3A47] rounded-xl p-5 overflow-hidden transition-colors hover:border-[#3A3A45]"
                 >
                   <div className="absolute top-0 left-0 h-full w-[3px]" style={{ backgroundColor: c.color }} />
                   <div className="flex items-center justify-between mb-5">
                     <div className="p-2 rounded-lg" style={{ backgroundColor: `${c.color}1F` }}>
                       <Icon className="w-5 h-5" style={{ color: c.glow }} />
                     </div>
-                    <span className="text-xs tracking-[0.2em]" style={{ fontFamily: MONO, color: '#9A9AA3' }}>
+                    <span className="text-xs tracking-[0.2em]" style={{ fontFamily: MONO, color: '#9AA29D' }}>
                       {c.code}-00
                     </span>
                   </div>
                   <h3 className="text-base font-bold text-white leading-snug mb-1.5" style={{ fontFamily: 'var(--font-heading)' }}>
                     {en ? c.titleEn : c.titleFr}
                   </h3>
-                  <p className="text-xs text-[#8E8E97] leading-relaxed">
+                  <p className="text-xs text-[#69736F] leading-relaxed">
                     {en ? c.blurbEn : c.blurbFr}
                   </p>
                 </div>
@@ -234,9 +234,9 @@ export function Partners() {
             const Icon = col.icon;
             const list = partnersData[col.key];
             return (
-              <div key={col.key} className="bg-[#16161B] border border-[#26262E] rounded-2xl overflow-hidden">
+              <div key={col.key} className="bg-[#162F3B] border border-[#1D3A47] rounded-2xl overflow-hidden">
                 {/* category header */}
-                <div className="flex items-center gap-3 p-5 border-b border-[#26262E]">
+                <div className="flex items-center gap-3 p-5 border-b border-[#1D3A47]">
                   <div className="p-2.5 rounded-xl shrink-0" style={{ backgroundColor: `${col.color}1F` }}>
                     <Icon className="w-5 h-5" style={{ color: col.glow }} />
                   </div>
@@ -244,7 +244,7 @@ export function Partners() {
                     <h3 className="text-base font-bold text-white leading-tight truncate" style={{ fontFamily: 'var(--font-heading)' }}>
                       {en ? col.titleEn : col.titleFr}
                     </h3>
-                    <p className="text-[11px] text-[#8E8E97] mt-0.5 truncate">
+                    <p className="text-[11px] text-[#69736F] mt-0.5 truncate">
                       {en ? col.blurbEn : col.blurbFr}
                     </p>
                   </div>
@@ -260,7 +260,7 @@ export function Partners() {
                     const idx = `${col.code}-${String(i + 1).padStart(2, '0')}`;
                     const inner = (
                       <div className="flex items-center gap-3 px-5 py-4">
-                        <span className="text-[10px] tracking-[0.1em] shrink-0 w-9" style={{ fontFamily: MONO, color: '#9A9AA3' }}>
+                        <span className="text-[10px] tracking-[0.1em] shrink-0 w-9" style={{ fontFamily: MONO, color: '#9AA29D' }}>
                           {idx}
                         </span>
                         {partner.logo ? (
@@ -268,7 +268,7 @@ export function Partners() {
                             <img src={partner.logo} alt={partner.name} className="h-6 object-contain max-w-[120px]" />
                           </span>
                         ) : (
-                          <span className="font-medium text-[#D4D4DA] text-sm leading-snug flex-1">{partner.name}</span>
+                          <span className="font-medium text-[#C7CCC7] text-sm leading-snug flex-1">{partner.name}</span>
                         )}
                         {partner.logo && <span className="flex-1" />}
                         {isLink && (
@@ -303,31 +303,31 @@ export function Partners() {
       {/* ── 03 · JOIN THE COALITION ── */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-24 md:pb-32">
         <Marker index="03" label={en ? 'Join the Coalition' : 'Rejoindre la Coalition'} />
-        <div className="relative bg-[#141418] border border-[#26262E] rounded-3xl p-8 md:p-12 lg:p-14 overflow-hidden">
+        <div className="relative bg-[#132A35] border border-[#1D3A47] rounded-3xl p-8 md:p-12 lg:p-14 overflow-hidden">
           <div
             className="absolute inset-0 opacity-[0.05] pointer-events-none"
             style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '28px 28px' }}
           />
-          <div className="absolute -top-24 -right-24 w-72 h-72 bg-[#CC0000]/35 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-[#089EA5]/15 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -top-24 -right-24 w-72 h-72 bg-[#0B4F5C]/35 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-[#3993A4]/15 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight" style={{ fontFamily: 'var(--font-heading)' }}>
                 {en ? 'Partner With Us' : 'Devenez Partenaire'}
               </h2>
-              <p className="text-[#A8A8B0] text-sm leading-relaxed mb-8 max-w-md">
+              <p className="text-[#9AA29D] text-sm leading-relaxed mb-8 max-w-md">
                 {en
                   ? 'Community organization, research institution, or funder — if you believe in evidence-based, culturally-sensitive change in Niagara, we want to hear from you.'
                   : 'Organisation communautaire, institution de recherche ou bailleur de fonds — si vous croyez au changement fondé sur des données probantes, contactez-nous.'}
               </p>
               <div className="flex items-center gap-4">
                 <div className="flex -space-x-2.5">
-                  <div className="w-9 h-9 rounded-full bg-[#CC0000] border-2 border-[#141418] flex items-center justify-center"><BookOpen className="w-4 h-4 text-white" /></div>
-                  <div className="w-9 h-9 rounded-full bg-[#089EA5] border-2 border-[#141418] flex items-center justify-center"><Users className="w-4 h-4 text-white" /></div>
-                  <div className="w-9 h-9 rounded-full bg-[#C97B2E] border-2 border-[#141418] flex items-center justify-center"><Landmark className="w-4 h-4 text-white" /></div>
+                  <div className="w-9 h-9 rounded-full bg-[#0B4F5C] border-2 border-[#132A35] flex items-center justify-center"><BookOpen className="w-4 h-4 text-white" /></div>
+                  <div className="w-9 h-9 rounded-full bg-[#3993A4] border-2 border-[#132A35] flex items-center justify-center"><Users className="w-4 h-4 text-white" /></div>
+                  <div className="w-9 h-9 rounded-full bg-[#4E8064] border-2 border-[#132A35] flex items-center justify-center"><Landmark className="w-4 h-4 text-white" /></div>
                 </div>
-                <span className="text-[#8B8B93] text-xs tracking-[0.12em]" style={{ fontFamily: MONO }}>
+                <span className="text-[#69736F] text-xs tracking-[0.12em]" style={{ fontFamily: MONO }}>
                   {en ? `JOIN ${totalOrgs}+ ORGANIZATIONS` : `${totalOrgs}+ ORGANISATIONS`}
                 </span>
               </div>
@@ -335,20 +335,20 @@ export function Partners() {
 
             <div className="w-full">
               {formStatus === 'success' ? (
-                <div className="bg-[#0E0E11] border border-[#2A2A33] rounded-2xl p-8 text-center animate-fade-in-up">
-                  <div className="w-16 h-16 bg-[#089EA5]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg className="w-8 h-8 text-[#19C3CB]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                <div className="bg-[#0E202A] border border-[#21404E] rounded-2xl p-8 text-center animate-fade-in-up">
+                  <div className="w-16 h-16 bg-[#3993A4]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-8 h-8 text-[#6AB3C1]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                   </div>
                   <h3 className="text-xl font-bold text-white mb-2">{en ? 'Message Sent' : 'Message Envoyé'}</h3>
-                  <p className="text-sm text-[#8B8B93]">
+                  <p className="text-sm text-[#69736F]">
                     {en ? 'Thank you. Our coordination team will reach out shortly.' : 'Merci. Notre équipe vous contactera sous peu.'}
                   </p>
-                  <button onClick={() => setFormStatus('idle')} className="mt-6 text-sm text-[#E0973F] hover:text-white transition-colors">
+                  <button onClick={() => setFormStatus('idle')} className="mt-6 text-sm text-[#E1B449] hover:text-white transition-colors">
                     {en ? 'Submit another' : 'Envoyer un autre'}
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="bg-[#0E0E11] border border-[#2A2A33] p-6 rounded-2xl space-y-3.5">
+                <form onSubmit={handleSubmit} className="bg-[#0E202A] border border-[#21404E] p-6 rounded-2xl space-y-3.5">
                   <input
                     required
                     type="text"
@@ -381,7 +381,7 @@ export function Partners() {
                   <button
                     type="submit"
                     disabled={formStatus === 'submitting'}
-                    className="w-full bg-[#CC0000] hover:bg-[#DA0C0C] text-white font-semibold py-3.5 px-6 rounded-lg flex items-center justify-center gap-2 transition-all shadow-lg disabled:opacity-70"
+                    className="w-full bg-[#0B4F5C] hover:bg-[#177485] text-white font-semibold py-3.5 px-6 rounded-lg flex items-center justify-center gap-2 transition-all shadow-lg disabled:opacity-70"
                   >
                     {formStatus === 'submitting' ? (
                       <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -400,8 +400,8 @@ export function Partners() {
       </section>
 
       {/* ── DISPATCH FOOTER META ── */}
-      <div className="border-t border-[#26262E]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 flex flex-wrap items-center justify-between gap-3 text-[10px] tracking-[0.2em] text-[#9A9AA3]" style={{ fontFamily: MONO }}>
+      <div className="border-t border-[#1D3A47]">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 flex flex-wrap items-center justify-between gap-3 text-[10px] tracking-[0.2em] text-[#9AA29D]" style={{ fontFamily: MONO }}>
           <span>MSK NIAGARA · {en ? 'PARTNER NETWORK' : 'RÉSEAU DE PARTENAIRES'}</span>
           <span>{en ? 'COMMUNITY · ACADEMIC · FUNDING' : 'COMMUNAUTÉ · ACADÉMIQUE · FINANCEMENT'}</span>
         </div>

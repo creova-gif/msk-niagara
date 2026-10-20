@@ -40,8 +40,8 @@ export function ResearchHubs() {
         projects: hub.projectCount ?? 0,
         leader: hub.leaders?.join(' & ') ?? '',
         leaderFr: hub.leaders?.join(' et ') ?? '',
-        color: hub.color ?? '#CC0000',
-        gradient: 'from-[#CC0000] to-[#A40000]',
+        color: hub.color ?? '#0B4F5C',
+        gradient: 'from-[#0B4F5C] to-[#094149]',
         icon: (hub.icon && HUB_ICONS[hub.icon]) || Building2,
       })),
     [rawHubs]
@@ -50,18 +50,18 @@ export function ResearchHubs() {
   // Helper function to get category icon and color
   const getCategoryStyle = (category: string) => {
     const styles: { [key: string]: { icon: any; gradient: string; color: string } } = {
-      'Housing & Support': { icon: Home, gradient: 'from-[#CC0000] to-[#A40000]', color: '#CC0000' },
-      'Settlement Services': { icon: Users, gradient: 'from-[#089EA5] to-[#12647F]', color: '#089EA5' },
-      'Employment Support': { icon: Briefcase, gradient: 'from-[#6635B1] to-[#CC0000]', color: '#6635B1' },
-      'Labor Rights': { icon: Shield, gradient: 'from-[#FFC956] to-[#FF9A3C]', color: '#FFC956' },
-      'Community Education': { icon: BookOpen, gradient: 'from-[#12647F] to-[#089EA5]', color: '#12647F' },
-      'Cultural Integration': { icon: Globe, gradient: 'from-[#6635B1] to-[#CC0000]', color: '#6635B1' },
-      'Healthcare Access': { icon: Activity, gradient: 'from-[#089EA5] to-[#12647F]', color: '#089EA5' },
-      'Recreation & Wellness': { icon: Heart, gradient: 'from-[#CC0000] to-[#A40000]', color: '#CC0000' },
-      'Education': { icon: GraduationCap, gradient: 'from-[#FFC956] to-[#FF9A3C]', color: '#FFC956' },
-      'Public Health': { icon: HeartPulse, gradient: 'from-[#089EA5] to-[#12647F]', color: '#089EA5' },
-      'Newcomer Support': { icon: UserPlus, gradient: 'from-[#6635B1] to-[#CC0000]', color: '#6635B1' },
-      'Employment Services': { icon: Briefcase, gradient: 'from-[#12647F] to-[#089EA5]', color: '#12647F' },
+      'Housing & Support': { icon: Home, gradient: 'from-[#0B4F5C] to-[#094149]', color: '#0B4F5C' },
+      'Settlement Services': { icon: Users, gradient: 'from-[#3993A4] to-[#177485]', color: '#3993A4' },
+      'Employment Support': { icon: Briefcase, gradient: 'from-[#8E4839] to-[#0B4F5C]', color: '#8E4839' },
+      'Labor Rights': { icon: Shield, gradient: 'from-[#D6A43A] to-[#B88A2E]', color: '#D6A43A' },
+      'Community Education': { icon: BookOpen, gradient: 'from-[#177485] to-[#3993A4]', color: '#177485' },
+      'Cultural Integration': { icon: Globe, gradient: 'from-[#8E4839] to-[#0B4F5C]', color: '#8E4839' },
+      'Healthcare Access': { icon: Activity, gradient: 'from-[#3993A4] to-[#177485]', color: '#3993A4' },
+      'Recreation & Wellness': { icon: Heart, gradient: 'from-[#0B4F5C] to-[#094149]', color: '#0B4F5C' },
+      'Education': { icon: GraduationCap, gradient: 'from-[#D6A43A] to-[#B88A2E]', color: '#D6A43A' },
+      'Public Health': { icon: HeartPulse, gradient: 'from-[#3993A4] to-[#177485]', color: '#3993A4' },
+      'Newcomer Support': { icon: UserPlus, gradient: 'from-[#8E4839] to-[#0B4F5C]', color: '#8E4839' },
+      'Employment Services': { icon: Briefcase, gradient: 'from-[#177485] to-[#3993A4]', color: '#177485' },
     };
     return styles[category] || { icon: Building2, gradient: 'from-gray-400 to-gray-600', color: '#666666' };
   };
@@ -71,32 +71,32 @@ export function ResearchHubs() {
       label: language === 'en' ? 'Research Hubs' : 'Pôles de recherche',
       value: String(siteStats?.researchHubs ?? 3),
       icon: Target,
-      color: '#CC0000'
+      color: '#0B4F5C'
     },
     {
       label: language === 'en' ? 'Team Members' : 'Membres d\'équipe',
       value: String(siteStats?.teamMembers ?? ''),
       icon: Users,
-      color: '#089EA5'
+      color: '#3993A4'
     },
     {
       label: language === 'en' ? 'Active Projects' : 'Projets actifs',
       value: String(siteStats?.researchProjects ?? ''),
       icon: TrendingUp,
-      color: '#6635B1'
+      color: '#8E4839'
     },
     {
       label: language === 'en' ? 'Partner Organizations' : 'Organisations partenaires',
       value: String(siteStats?.communityPartners ?? ''),
       icon: Handshake,
-      color: '#FFC956'
+      color: '#D6A43A'
     },
   ];
 
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="relative bg-[#CC0000] overflow-hidden">
+      <div className="relative bg-[#0B4F5C] overflow-hidden">
         {/* Dot-grid brand motif */}
         <div className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }} />
@@ -132,12 +132,12 @@ export function ResearchHubs() {
           {stats.map((stat, index) => (
             <div key={index} className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-[#CC0000]/10 flex items-center justify-center flex-shrink-0">
-                  <stat.icon className="w-6 h-6 text-[#CC0000]" />
+                <div className="w-12 h-12 rounded-xl bg-[#0B4F5C]/10 flex items-center justify-center flex-shrink-0">
+                  <stat.icon className="w-6 h-6 text-[#0B4F5C]" />
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-[#0A0A0A] mb-1">{stat.value}</div>
-                  <div className="text-xs text-[#0A0A0A]/60 font-medium">{stat.label}</div>
+                  <div className="text-3xl font-bold text-[#132A35] mb-1">{stat.value}</div>
+                  <div className="text-xs text-[#132A35]/60 font-medium">{stat.label}</div>
                 </div>
               </div>
             </div>
@@ -151,14 +151,14 @@ export function ResearchHubs() {
         {/* Research Hubs Section */}
         <section className="mb-24">
           <div className="flex items-center gap-3 mb-12">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#CC0000] to-[#A40000] flex items-center justify-center shadow-lg">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#0B4F5C] to-[#094149] flex items-center justify-center shadow-lg">
               <Target className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h2 className="text-3xl font-bold text-[#0A0A0A]">
+              <h2 className="text-3xl font-bold text-[#132A35]">
                 {language === 'en' ? 'Our Research Hubs' : 'Nos pôles de recherche'}
               </h2>
-              <p className="text-sm text-[#0A0A0A]/60">
+              <p className="text-sm text-[#132A35]/60">
                 {language === 'en' 
                   ? 'Collaborative teams focused on community-engaged research'
                   : 'Équipes collaboratives axées sur la recherche communautaire'}
@@ -210,8 +210,8 @@ export function ResearchHubs() {
                       <div className="relative z-10 p-6 flex flex-col flex-1">
 
                       {/* Title */}
-                      <h3 className={`text-2xl font-bold text-[#0A0A0A] mb-4 leading-tight transition-colors duration-300 ${
-                        hoveredHub === index ? 'text-[#CC0000]' : ''
+                      <h3 className={`text-2xl font-bold text-[#132A35] mb-4 leading-tight transition-colors duration-300 ${
+                        hoveredHub === index ? 'text-[#0B4F5C]' : ''
                       }`}>
                         {language === 'en' ? hub.name : hub.nameFr}
                       </h3>
@@ -219,10 +219,10 @@ export function ResearchHubs() {
                       {/* Leader */}
                       {hub.leader && (
                         <div className="mb-4 pb-4 border-b border-gray-100">
-                          <p className="text-sm text-[#0A0A0A]/60 mb-1">
+                          <p className="text-sm text-[#132A35]/60 mb-1">
                             {language === 'en' ? 'Hub Leader' : 'Chef de pôle'}
                           </p>
-                          <p className="font-semibold text-[#0A0A0A]">
+                          <p className="font-semibold text-[#132A35]">
                             {language === 'en' ? hub.leader : hub.leaderFr}
                           </p>
                         </div>
@@ -233,9 +233,9 @@ export function ResearchHubs() {
                         <Badge 
                           className="font-semibold text-xs px-3 py-1 border-2"
                           style={{ 
-                            borderColor: '#CC0000',
+                            borderColor: '#0B4F5C',
                             backgroundColor: '#CC000015',
-                            color: '#CC0000'
+                            color: '#0B4F5C'
                           }}
                         >
                           <Users className="w-3 h-3 inline mr-1" />
@@ -244,9 +244,9 @@ export function ResearchHubs() {
                         <Badge 
                           className="font-semibold text-xs px-3 py-1 border-2"
                           style={{ 
-                            borderColor: '#CC0000',
+                            borderColor: '#0B4F5C',
                             backgroundColor: '#CC000015',
-                            color: '#CC0000'
+                            color: '#0B4F5C'
                           }}
                         >
                           {hub.projects} {language === 'en' ? (hub.projects === 1 ? 'Project' : 'Projects') : (hub.projects === 1 ? 'Projet' : 'Projets')}
@@ -254,13 +254,13 @@ export function ResearchHubs() {
                       </div>
 
                       {/* Description */}
-                      <p className="text-[#0A0A0A]/80 mb-6 leading-relaxed line-clamp-4 flex-1">
+                      <p className="text-[#132A35]/80 mb-6 leading-relaxed line-clamp-4 flex-1">
                         {language === 'en' ? hub.description : hub.descriptionFr}
                       </p>
 
                       {/* View Details Button */}
                       <Button
-                        className="w-full bg-gradient-to-r from-[#CC0000] to-[#A40000] hover:shadow-xl text-white font-semibold rounded-xl transition-all duration-300 group/btn border-0 mt-auto"
+                        className="w-full bg-gradient-to-r from-[#0B4F5C] to-[#094149] hover:shadow-xl text-white font-semibold rounded-xl transition-all duration-300 group/btn border-0 mt-auto"
                       >
                         {language === 'en' ? 'View Hub Details' : 'Voir les détails du pôle'}
                         <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
@@ -277,14 +277,14 @@ export function ResearchHubs() {
         {/* Community Partners Section */}
         <section className="mb-24">
           <div className="flex items-center gap-3 mb-12">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#CC0000] to-[#6B0000] flex items-center justify-center shadow-lg">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#0B4F5C] to-[#073338] flex items-center justify-center shadow-lg">
               <Handshake className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h2 className="text-3xl font-bold text-[#0A0A0A]">
+              <h2 className="text-3xl font-bold text-[#132A35]">
                 {language === 'en' ? 'Community Partners' : 'Partenaires communautaires'}
               </h2>
-              <p className="text-sm text-[#0A0A0A]/60">
+              <p className="text-sm text-[#132A35]/60">
                 {language === 'en'
                   ? `Collaborating with ${siteStats?.communityPartners ?? 20} organizations across Niagara`
                   : `Collaboration avec ${siteStats?.communityPartners ?? 20} organisations à travers Niagara`}
@@ -292,7 +292,7 @@ export function ResearchHubs() {
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-[#CC0000] via-[#CC0000] to-[#6B0000] rounded-3xl p-8 md:p-12 border-2 border-[#CC0000]/20 shadow-2xl overflow-hidden relative">
+          <div className="bg-gradient-to-br from-[#0B4F5C] via-[#0B4F5C] to-[#073338] rounded-3xl p-8 md:p-12 border-2 border-[#0B4F5C]/20 shadow-2xl overflow-hidden relative">
             {/* Background decorative elements */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
             <div className="absolute bottom-0 left-0 w-96 h-96 bg-black/10 rounded-full blur-3xl"></div>
@@ -387,7 +387,7 @@ export function ResearchHubs() {
                 <Link to="/community">
                   <Button
                     size="lg"
-                    className="gap-3 bg-white text-[#CC0000] hover:bg-gray-50 shadow-2xl hover:shadow-white/20 transition-all duration-300 hover:scale-105 text-lg px-10 py-7 rounded-2xl font-bold group"
+                    className="gap-3 bg-white text-[#0B4F5C] hover:bg-gray-50 shadow-2xl hover:shadow-white/20 transition-all duration-300 hover:scale-105 text-lg px-10 py-7 rounded-2xl font-bold group"
                   >
                     <Building2 className="w-6 h-6 group-hover:rotate-12 transition-transform" />
                     {language === 'en' ? 'Explore All Community Partners' : 'Découvrir tous les partenaires'}
@@ -407,9 +407,9 @@ export function ResearchHubs() {
         {/* Call to Action */}
         <div className="relative">
           {/* Background Blur Effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#CC0000] via-[#A40000] to-[#CC0000] rounded-[3rem] blur-3xl opacity-20"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0B4F5C] via-[#094149] to-[#0B4F5C] rounded-[3rem] blur-3xl opacity-20"></div>
           
-          <div className="relative bg-gradient-to-br from-[#CC0000] via-[#A40000] to-[#6B0000] rounded-[3rem] p-12 md:p-16 lg:p-20 overflow-hidden shadow-2xl">
+          <div className="relative bg-gradient-to-br from-[#0B4F5C] via-[#094149] to-[#073338] rounded-[3rem] p-12 md:p-16 lg:p-20 overflow-hidden shadow-2xl">
             {/* Decorative Elements */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full -mr-48 -mt-48"></div>
             <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/10 rounded-full -ml-48 -mb-48"></div>
@@ -436,7 +436,7 @@ export function ResearchHubs() {
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="mailto:contact@msk-niagara.ca">
-                  <Button className="bg-white text-[#CC0000] hover:bg-gray-100 font-bold px-10 py-7 rounded-xl text-lg shadow-xl transition-all duration-300 hover:scale-105">
+                  <Button className="bg-white text-[#0B4F5C] hover:bg-gray-100 font-bold px-10 py-7 rounded-xl text-lg shadow-xl transition-all duration-300 hover:scale-105">
                     {language === 'en' ? 'Contact Us' : 'Nous contacter'}
                   </Button>
                 </a>

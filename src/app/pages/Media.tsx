@@ -126,7 +126,7 @@ export function Media() {
         publishDateFr: r.publishDate?.fr ?? '',
         stats: (r.stats ?? []).map((s) => ({ value: s.value, label: s.label.en, labelFr: s.label.fr })),
         downloadUrl: r.file?.asset?.url ?? '#',
-        color: '#CC0000',
+        color: '#0B4F5C',
       })),
     [rawReports]
   );
@@ -160,7 +160,7 @@ export function Media() {
     <div className="min-h-screen bg-white">
 
       {/* ── HERO ─────────────────────────────────────── */}
-      <section className="relative bg-[#CC0000] text-white overflow-hidden">
+      <section className="relative bg-[#0B4F5C] text-white overflow-hidden">
         {/* Subtle texture */}
         <div className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}
@@ -229,14 +229,14 @@ export function Media() {
                   onClick={() => setActiveTab(tab.key as typeof activeTab)}
                   className={`relative flex items-center gap-2 px-6 py-4 text-sm font-semibold transition-all duration-200 ${
                     active
-                      ? 'text-[#CC0000]'
+                      ? 'text-[#0B4F5C]'
                       : 'text-gray-500 hover:text-gray-700'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
                   <span className="hidden sm:inline">{language === 'en' ? tab.en : tab.fr}</span>
                   {active && (
-                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#CC0000]" />
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#0B4F5C]" />
                   )}
                 </button>
               );
@@ -259,8 +259,8 @@ export function Media() {
                   onClick={() => setCategoryFilter(cat.key)}
                   className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
                     categoryFilter === cat.key
-                      ? 'bg-[#CC0000] text-white shadow-sm'
-                      : 'bg-white text-gray-600 border border-gray-200 hover:border-[#CC0000]/40 hover:text-[#CC0000]'
+                      ? 'bg-[#0B4F5C] text-white shadow-sm'
+                      : 'bg-white text-gray-600 border border-gray-200 hover:border-[#0B4F5C]/40 hover:text-[#0B4F5C]'
                   }`}
                 >
                   {language === 'en' ? cat.en : cat.fr}
@@ -292,7 +292,7 @@ export function Media() {
                   {/* Hover overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-5">
                     <div className="translate-y-3 group-hover:translate-y-0 transition-transform duration-300">
-                      <span className="inline-block px-2 py-0.5 rounded-full bg-[#CC0000] text-white text-[10px] font-semibold tracking-wider uppercase mb-2">
+                      <span className="inline-block px-2 py-0.5 rounded-full bg-[#0B4F5C] text-white text-[10px] font-semibold tracking-wider uppercase mb-2">
                         {language === 'en' ? photo.hub : photo.hubFr}
                       </span>
                       <h3 className="text-white font-bold text-base leading-snug mb-1">
@@ -337,7 +337,7 @@ export function Media() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
             <div className="mb-8">
-              <h2 className="text-2xl font-bold text-[#0A0A0A]" style={{ fontFamily: 'var(--font-heading)' }}>
+              <h2 className="text-2xl font-bold text-[#132A35]" style={{ fontFamily: 'var(--font-heading)' }}>
                 {l('Video Stories', 'Témoignages vidéo')}
               </h2>
               <p className="text-gray-500 mt-1">
@@ -369,7 +369,7 @@ export function Media() {
               </div>
 
               <div className="absolute bottom-0 left-0 right-0 p-8">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#CC0000] text-white text-xs font-semibold mb-3">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0B4F5C] text-white text-xs font-semibold mb-3">
                   <Video className="w-3 h-3" />
                   {l('Featured', 'À la une')}
                 </span>
@@ -453,12 +453,12 @@ export function Media() {
             <div className="flex items-end justify-between mb-12">
               <div>
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="w-5 h-px bg-[#CC0000]" />
-                  <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#CC0000]">
+                  <div className="w-5 h-px bg-[#0B4F5C]" />
+                  <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#0B4F5C]">
                     {l('Documentation', 'Documentation')}
                   </span>
                 </div>
-                <h2 className="text-4xl md:text-5xl font-extrabold text-[#0A0A0A] leading-tight" style={{ fontFamily: 'var(--font-heading)' }}>
+                <h2 className="text-4xl md:text-5xl font-extrabold text-[#132A35] leading-tight" style={{ fontFamily: 'var(--font-heading)' }}>
                   {l('Annual Reports', 'Rapports annuels')}
                 </h2>
                 <p className="text-gray-500 mt-2 text-sm max-w-md">
@@ -483,7 +483,7 @@ export function Media() {
                     {/* Left: cover panel */}
                     <div
                       className="relative flex flex-col justify-between p-8 overflow-hidden"
-                      style={{ backgroundColor: i === 0 ? '#CC0000' : '#0A0A0A' }}
+                      style={{ backgroundColor: i === 0 ? '#0B4F5C' : '#132A35' }}
                     >
                       {/* Dot-grid texture */}
                       <div className="absolute inset-0 opacity-[0.07]"
@@ -503,7 +503,7 @@ export function Media() {
                           {report.year}
                         </span>
                         {i === 0 && (
-                          <span className="text-[10px] font-bold tracking-[0.15em] uppercase px-2.5 py-1 rounded-full bg-white text-[#CC0000]">
+                          <span className="text-[10px] font-bold tracking-[0.15em] uppercase px-2.5 py-1 rounded-full bg-white text-[#0B4F5C]">
                             {l('Latest', 'Dernier')}
                           </span>
                         )}
@@ -535,7 +535,7 @@ export function Media() {
                             <div key={si} className="px-4 py-3 bg-gray-50/60 text-center">
                               <div
                                 className="text-xl font-extrabold leading-none mb-0.5"
-                                style={{ fontFamily: 'var(--font-heading)', color: i === 0 ? '#CC0000' : '#0A0A0A' }}
+                                style={{ fontFamily: 'var(--font-heading)', color: i === 0 ? '#0B4F5C' : '#132A35' }}
                               >
                                 {stat.value}
                               </div>
@@ -571,7 +571,7 @@ export function Media() {
                           <a
                             href={report.downloadUrl}
                             className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold text-white transition-all hover:opacity-90"
-                            style={{ backgroundColor: i === 0 ? '#CC0000' : '#0A0A0A' }}
+                            style={{ backgroundColor: i === 0 ? '#0B4F5C' : '#132A35' }}
                           >
                             <Download className="w-3.5 h-3.5" />
                             {l('Download PDF', 'Télécharger PDF')}
@@ -586,7 +586,7 @@ export function Media() {
             </div>
 
             {/* Bottom CTA — dark editorial strip */}
-            <div className="mt-10 rounded-2xl bg-[#0A0A0A] overflow-hidden">
+            <div className="mt-10 rounded-2xl bg-[#132A35] overflow-hidden">
               <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] items-center gap-6 px-10 py-8">
                 <div>
                   <p className="text-xs font-bold tracking-[0.2em] uppercase text-white/50 mb-2">
@@ -601,7 +601,7 @@ export function Media() {
                 </div>
                 <a
                   href="mailto:contact@msk-niagara.ca"
-                  className="flex-shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-white text-[#0A0A0A] text-sm font-bold rounded-xl hover:bg-gray-100 transition-colors"
+                  className="flex-shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-white text-[#132A35] text-sm font-bold rounded-xl hover:bg-gray-100 transition-colors"
                 >
                   {l('Contact Us', 'Nous contacter')}
                   <ArrowRight className="w-4 h-4" />
@@ -634,10 +634,10 @@ export function Media() {
             <div className="bg-white p-5">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <span className="text-xs font-semibold text-[#CC0000] uppercase tracking-wider">
+                  <span className="text-xs font-semibold text-[#0B4F5C] uppercase tracking-wider">
                     {language === 'en' ? lightboxPhoto.hub : lightboxPhoto.hubFr}
                   </span>
-                  <h3 className="text-lg font-bold text-[#0A0A0A] mt-0.5" style={{ fontFamily: 'var(--font-heading)' }}>
+                  <h3 className="text-lg font-bold text-[#132A35] mt-0.5" style={{ fontFamily: 'var(--font-heading)' }}>
                     {language === 'en' ? lightboxPhoto.title : lightboxPhoto.titleFr}
                   </h3>
                   <div className="flex items-center gap-4 text-sm text-gray-500 mt-1">
@@ -708,7 +708,7 @@ export function Media() {
             <div className="bg-white p-5">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <h3 className="font-bold text-[#0A0A0A] mb-1" style={{ fontFamily: 'var(--font-heading)' }}>
+                  <h3 className="font-bold text-[#132A35] mb-1" style={{ fontFamily: 'var(--font-heading)' }}>
                     {language === 'en' ? lightboxVideo.title : lightboxVideo.titleFr}
                   </h3>
                   <p className="text-sm text-gray-500 mb-1">{lightboxVideo.speaker} · {language === 'en' ? lightboxVideo.role : lightboxVideo.roleFr}</p>

@@ -144,7 +144,7 @@ export function Header() {
       className={`sticky top-0 z-50 transition-all duration-500 ${
         scrolled
           ? 'bg-white/95 backdrop-blur-xl border-b border-gray-200/80 shadow-sm'
-          : 'bg-[#0A0A0A]/95 backdrop-blur-md border-b border-white/5'
+          : 'bg-[#132A35]/95 backdrop-blur-md border-b border-white/5'
       }`}
     >
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -169,16 +169,16 @@ export function Header() {
               </defs>
 
               {/* outer rim */}
-              <circle cx="60" cy="60" r="58" stroke="#CC0000" strokeWidth="1.5" />
+              <circle cx="60" cy="60" r="58" stroke="#0B4F5C" strokeWidth="1.5" />
               {/* inner rim — everything past this is the empty core */}
-              <circle cx="60" cy="60" r="32" stroke="#CC0000" strokeOpacity="0.45" strokeWidth="1" />
+              <circle cx="60" cy="60" r="32" stroke="#0B4F5C" strokeOpacity="0.45" strokeWidth="1" />
               {/* four cardinal ticks marking the hole, like a compass/seal */}
-              <circle cx="60" cy="24" r="1.6" fill="#CC0000" />
-              <circle cx="60" cy="96" r="1.6" fill="#CC0000" />
-              <circle cx="24" cy="60" r="1.6" fill="#CC0000" />
-              <circle cx="96" cy="60" r="1.6" fill="#CC0000" />
+              <circle cx="60" cy="24" r="1.6" fill="#0B4F5C" />
+              <circle cx="60" cy="96" r="1.6" fill="#0B4F5C" />
+              <circle cx="24" cy="60" r="1.6" fill="#0B4F5C" />
+              <circle cx="96" cy="60" r="1.6" fill="#0B4F5C" />
 
-              <text fill="#CC0000">
+              <text fill="#0B4F5C">
                 <textPath
                   href="#logoRingTop"
                   startOffset="50%"
@@ -193,7 +193,7 @@ export function Header() {
                   MSK NIAGARA
                 </textPath>
               </text>
-              <text fill="#CC0000" fillOpacity="0.75">
+              <text fill="#0B4F5C" fillOpacity="0.75">
                 <textPath
                   href="#logoRingBottom"
                   startOffset="50%"
@@ -221,15 +221,15 @@ export function Header() {
                 isActive('/')
                   ? isDark
                     ? 'text-white'
-                    : 'text-[#0A0A0A]'
+                    : 'text-[#132A35]'
                   : isDark
                   ? 'text-white/65 hover:text-white hover:bg-white/8'
-                  : 'text-gray-500 hover:text-[#0A0A0A] hover:bg-gray-100/70'
+                  : 'text-gray-500 hover:text-[#132A35] hover:bg-gray-100/70'
               }`}
             >
               {t('nav.home')}
               {isActive('/') && (
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#CC0000]" />
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#0B4F5C]" />
               )}
             </Link>
 
@@ -244,10 +244,10 @@ export function Header() {
                   barePath.startsWith('/about')
                     ? isDark
                       ? 'text-white'
-                      : 'text-[#0A0A0A]'
+                      : 'text-[#132A35]'
                     : isDark
                     ? 'text-white/65 hover:text-white hover:bg-white/8'
-                    : 'text-gray-500 hover:text-[#0A0A0A] hover:bg-gray-100/70'
+                    : 'text-gray-500 hover:text-[#132A35] hover:bg-gray-100/70'
                 }`}
               >
                 {t('nav.about')}
@@ -257,7 +257,7 @@ export function Header() {
                   }`}
                 />
                 {barePath.startsWith('/about') && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#CC0000]" />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#0B4F5C]" />
                 )}
               </button>
 
@@ -269,7 +269,7 @@ export function Header() {
                   onMouseLeave={closeDropdown}
                 >
                   <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden animate-fade-in-down">
-                    <div className="h-[3px] bg-gradient-to-r from-[#CC0000] to-[#DA0C0C]" />
+                    <div className="h-[3px] bg-gradient-to-r from-[#0B4F5C] to-[#177485]" />
                     <div className="px-4 pt-3 pb-1 text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500" style={{ fontFamily: 'var(--font-mono)' }}>
                       MSK // {language === 'en' ? 'About' : 'À propos'}
                     </div>
@@ -285,11 +285,11 @@ export function Header() {
                             <span className="mt-0.5 text-[10px] font-semibold text-gray-500 tabular-nums" style={{ fontFamily: 'var(--font-mono)' }}>
                               0{i + 1}
                             </span>
-                            <div className="mt-0.5 w-8 h-8 rounded-lg bg-[#CC0000]/8 flex items-center justify-center shrink-0 group-hover/item:bg-[#CC0000]/15 transition-colors">
-                              <Icon className="w-4 h-4 text-[#CC0000]" />
+                            <div className="mt-0.5 w-8 h-8 rounded-lg bg-[#0B4F5C]/8 flex items-center justify-center shrink-0 group-hover/item:bg-[#0B4F5C]/15 transition-colors">
+                              <Icon className="w-4 h-4 text-[#0B4F5C]" />
                             </div>
                             <div>
-                              <div className="text-sm font-semibold text-[#0A0A0A] group-hover/item:text-[#CC0000] transition-colors">
+                              <div className="text-sm font-semibold text-[#132A35] group-hover/item:text-[#0B4F5C] transition-colors">
                                 {language === 'en' ? item.nameEn : item.nameFr}
                               </div>
                               <div className="text-xs text-gray-500 mt-0.5">
@@ -316,10 +316,10 @@ export function Header() {
                   barePath.startsWith('/research')
                     ? isDark
                       ? 'text-white'
-                      : 'text-[#0A0A0A]'
+                      : 'text-[#132A35]'
                     : isDark
                     ? 'text-white/65 hover:text-white hover:bg-white/8'
-                    : 'text-gray-500 hover:text-[#0A0A0A] hover:bg-gray-100/70'
+                    : 'text-gray-500 hover:text-[#132A35] hover:bg-gray-100/70'
                 }`}
               >
                 {t('nav.research')}
@@ -329,7 +329,7 @@ export function Header() {
                   }`}
                 />
                 {barePath.startsWith('/research') && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#CC0000]" />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#0B4F5C]" />
                 )}
               </button>
 
@@ -341,7 +341,7 @@ export function Header() {
                   onMouseLeave={closeDropdown}
                 >
                   <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden animate-fade-in-down">
-                    <div className="h-[3px] bg-gradient-to-r from-[#CC0000] to-[#DA0C0C]" />
+                    <div className="h-[3px] bg-gradient-to-r from-[#0B4F5C] to-[#177485]" />
                     <div className="px-4 pt-3 pb-1 text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500" style={{ fontFamily: 'var(--font-mono)' }}>
                       MSK // {language === 'en' ? 'Research' : 'Recherche'}
                     </div>
@@ -357,11 +357,11 @@ export function Header() {
                             <span className="mt-0.5 text-[10px] font-semibold text-gray-500 tabular-nums" style={{ fontFamily: 'var(--font-mono)' }}>
                               0{i + 1}
                             </span>
-                            <div className="mt-0.5 w-8 h-8 rounded-lg bg-[#CC0000]/8 flex items-center justify-center shrink-0 group-hover/item:bg-[#CC0000]/15 transition-colors">
-                              <Icon className="w-4 h-4 text-[#CC0000]" />
+                            <div className="mt-0.5 w-8 h-8 rounded-lg bg-[#0B4F5C]/8 flex items-center justify-center shrink-0 group-hover/item:bg-[#0B4F5C]/15 transition-colors">
+                              <Icon className="w-4 h-4 text-[#0B4F5C]" />
                             </div>
                             <div>
-                              <div className="text-sm font-semibold text-[#0A0A0A] group-hover/item:text-[#CC0000] transition-colors">
+                              <div className="text-sm font-semibold text-[#132A35] group-hover/item:text-[#0B4F5C] transition-colors">
                                 {language === 'en' ? item.nameEn : item.nameFr}
                               </div>
                               <div className="text-xs text-gray-500 mt-0.5">
@@ -388,10 +388,10 @@ export function Header() {
                   ['/partners', '/community', '/timeline', '/media'].some((p) => barePath.startsWith(p))
                     ? isDark
                       ? 'text-white'
-                      : 'text-[#0A0A0A]'
+                      : 'text-[#132A35]'
                     : isDark
                     ? 'text-white/65 hover:text-white hover:bg-white/8'
-                    : 'text-gray-500 hover:text-[#0A0A0A] hover:bg-gray-100/70'
+                    : 'text-gray-500 hover:text-[#132A35] hover:bg-gray-100/70'
                 }`}
               >
                 {language === 'en' ? 'Engage' : 'Participer'}
@@ -401,7 +401,7 @@ export function Header() {
                   }`}
                 />
                 {['/partners', '/community', '/timeline', '/media'].some((p) => barePath.startsWith(p)) && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#CC0000]" />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#0B4F5C]" />
                 )}
               </button>
 
@@ -413,7 +413,7 @@ export function Header() {
                   onMouseLeave={closeDropdown}
                 >
                   <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden animate-fade-in-down">
-                    <div className="h-[3px] bg-gradient-to-r from-[#CC0000] to-[#DA0C0C]" />
+                    <div className="h-[3px] bg-gradient-to-r from-[#0B4F5C] to-[#177485]" />
                     <div className="px-4 pt-3 pb-1 text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500" style={{ fontFamily: 'var(--font-mono)' }}>
                       MSK // {language === 'en' ? 'Engage' : 'Participer'}
                     </div>
@@ -429,11 +429,11 @@ export function Header() {
                             <span className="mt-0.5 text-[10px] font-semibold text-gray-500 tabular-nums" style={{ fontFamily: 'var(--font-mono)' }}>
                               0{i + 1}
                             </span>
-                            <div className="mt-0.5 w-8 h-8 rounded-lg bg-[#CC0000]/8 flex items-center justify-center shrink-0 group-hover/item:bg-[#CC0000]/15 transition-colors">
-                              <Icon className="w-4 h-4 text-[#CC0000]" />
+                            <div className="mt-0.5 w-8 h-8 rounded-lg bg-[#0B4F5C]/8 flex items-center justify-center shrink-0 group-hover/item:bg-[#0B4F5C]/15 transition-colors">
+                              <Icon className="w-4 h-4 text-[#0B4F5C]" />
                             </div>
                             <div>
-                              <div className="text-sm font-semibold text-[#0A0A0A] group-hover/item:text-[#CC0000] transition-colors">
+                              <div className="text-sm font-semibold text-[#132A35] group-hover/item:text-[#0B4F5C] transition-colors">
                                 {language === 'en' ? item.nameEn : item.nameFr}
                               </div>
                               <div className="text-xs text-gray-500 mt-0.5">
@@ -472,7 +472,7 @@ export function Header() {
             {/* CTA — Support Us */}
             <Link
               to="/donate"
-              className="inline-flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-[#CC0000] to-[#DA0C0C] text-white text-sm font-semibold rounded-full hover:shadow-[0_4px_16px_rgba(204,0,0,0.4)] hover:-translate-y-px transition-all duration-300 group"
+              className="inline-flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-[#0B4F5C] to-[#177485] text-white text-sm font-semibold rounded-full hover:shadow-[0_4px_16px_rgba(11,79,92,0.4)] hover:-translate-y-px transition-all duration-300 group"
             >
               {language === 'en' ? 'Support Us' : 'Nous Soutenir'}
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
@@ -495,7 +495,7 @@ export function Header() {
               className={`p-2 rounded-lg transition-all duration-200 ${
                 isDark
                   ? 'text-white hover:bg-white/10'
-                  : 'text-[#0A0A0A] hover:bg-gray-100'
+                  : 'text-[#132A35] hover:bg-gray-100'
               }`}
               aria-label="Toggle menu"
               aria-expanded={mobileMenuOpen}
@@ -515,10 +515,10 @@ export function Header() {
                 to="/"
                 className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all duration-150 ${
                   isActive('/')
-                    ? 'bg-[#CC0000] text-white'
+                    ? 'bg-[#0B4F5C] text-white'
                     : isDark
                     ? 'text-white/80 hover:bg-white/10 hover:text-white'
-                    : 'text-gray-700 hover:bg-white hover:text-[#0A0A0A]'
+                    : 'text-gray-700 hover:bg-white hover:text-[#132A35]'
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
@@ -548,10 +548,10 @@ export function Header() {
                       to={item.href}
                       className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all duration-150 ${
                         isActive(item.href)
-                          ? 'bg-[#CC0000] text-white'
+                          ? 'bg-[#0B4F5C] text-white'
                           : isDark
                           ? 'text-white/80 hover:bg-white/10 hover:text-white'
-                          : 'text-gray-700 hover:bg-white hover:text-[#0A0A0A]'
+                          : 'text-gray-700 hover:bg-white hover:text-[#132A35]'
                       }`}
                       onClick={() => setMobileMenuOpen(false)}
                     >
@@ -565,7 +565,7 @@ export function Header() {
               <div className="pt-3 px-2">
                 <Link
                   to="/donate"
-                  className="flex items-center justify-center gap-2 w-full py-3 bg-gradient-to-r from-[#CC0000] to-[#DA0C0C] text-white text-sm font-semibold rounded-xl hover:shadow-lg transition-all"
+                  className="flex items-center justify-center gap-2 w-full py-3 bg-gradient-to-r from-[#0B4F5C] to-[#177485] text-white text-sm font-semibold rounded-xl hover:shadow-lg transition-all"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {language === 'en' ? 'Support Us' : 'Nous Soutenir'}

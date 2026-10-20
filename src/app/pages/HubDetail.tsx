@@ -96,7 +96,7 @@ export function HubDetail() {
         style={{ backgroundImage: `url(${currentHub.image})` }}
       >
         {/* Deep dark-red multiplier overlay for perfect text contrast (WCAG AAA compliant) */}
-        <div className="absolute inset-0 bg-[#CC0000]/85 mix-blend-multiply z-[1]"></div>
+        <div className="absolute inset-0 bg-[#0B4F5C]/85 mix-blend-multiply z-[1]"></div>
         
         {/* Dot-grid brand motif */}
         <div className="absolute inset-0 opacity-[0.06] z-[2]"
@@ -104,12 +104,12 @@ export function HubDetail() {
         />
         {/* Hub-specific thematic animation */}
         <div className="absolute inset-0 z-[2] pointer-events-none">
-          {hubId === 'childhood' && <RisingBubbles color={currentHub.color || '#089EA5'} />}
-          {hubId === 'health' && <HeartbeatLine color={currentHub.color || '#C97B2E'} />}
-          {hubId === 'identity' && <Constellation color={currentHub.color || '#7B5EA7'} />}
+          {hubId === 'childhood' && <RisingBubbles color={currentHub.color || '#D6A43A'} />}
+          {hubId === 'health' && <HeartbeatLine color={currentHub.color || '#4E8064'} />}
+          {hubId === 'identity' && <Constellation color={currentHub.color || '#A85645'} />}
         </div>
         {/* Hub accent color top stripe */}
-        <div className="absolute top-0 left-0 right-0 h-1.5 z-30" style={{ backgroundColor: currentHub.color || '#CC0000' }} />
+        <div className="absolute top-0 left-0 right-0 h-1.5 z-30" style={{ backgroundColor: currentHub.color || '#0B4F5C' }} />
         {/* Diagonal cut bottom edge */}
         <div className="absolute bottom-0 left-0 right-0 h-14 bg-white z-[3]"
           style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 0)' }} />
@@ -125,7 +125,7 @@ export function HubDetail() {
 
           <div className="flex items-start gap-5 mb-6">
             <div className="p-3.5 rounded-xl flex-shrink-0"
-              style={{ backgroundColor: (currentHub.color || '#CC0000') + '30' }}>
+              style={{ backgroundColor: (currentHub.color || '#0B4F5C') + '30' }}>
               <HubIcon className="w-10 h-10 text-white" />
             </div>
             <div>
@@ -154,18 +154,18 @@ export function HubDetail() {
       {/* Research Objectives */}
       <section className="py-16 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-[#0A0A0A] mb-8">
+          <h2 className="text-3xl font-bold text-[#132A35] mb-8">
             {language === 'en' ? 'Research Objectives' : 'Objectifs de recherche'}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {(language === 'en' ? currentHub.objectivesEn : currentHub.objectivesFr).map((objective, index) => (
-              <Card key={index} className="border-l-4 border-[#CC0000] hover:shadow-lg transition-shadow overflow-hidden">
+              <Card key={index} className="border-l-4 border-[#0B4F5C] hover:shadow-lg transition-shadow overflow-hidden">
                 <CardContent className="p-6">
                   <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#CC0000] text-white flex items-center justify-center font-semibold">
+                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#0B4F5C] text-white flex items-center justify-center font-semibold">
                       {index + 1}
                     </div>
-                    <p className="text-[#0A0A0A] leading-relaxed pt-1 break-words">{objective}</p>
+                    <p className="text-[#132A35] leading-relaxed pt-1 break-words">{objective}</p>
                   </div>
                 </CardContent>
               </Card>
@@ -177,18 +177,18 @@ export function HubDetail() {
       {/* Research Projects */}
       <section className="py-16 bg-gray-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-[#0A0A0A] mb-8">
+          <h2 className="text-3xl font-bold text-[#132A35] mb-8">
             {language === 'en' ? 'Research Projects' : 'Projets de recherche'}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {(language === 'en' ? currentHub.projectsEn : currentHub.projectsFr).map((project, index) => (
               <Card key={index} className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
                 <CardContent className="p-6">
-                  <div className="mb-4 p-3 bg-[#CC0000]/5 rounded-lg inline-block">
-                    <BookOpen className="w-8 h-8 text-[#CC0000]" />
+                  <div className="mb-4 p-3 bg-[#0B4F5C]/5 rounded-lg inline-block">
+                    <BookOpen className="w-8 h-8 text-[#0B4F5C]" />
                   </div>
-                  <h3 className="text-xl font-semibold text-[#0A0A0A] mb-3 break-words">{project.title}</h3>
-                  <p className="text-[#0A0A0A]/80 leading-relaxed break-words">{project.description}</p>
+                  <h3 className="text-xl font-semibold text-[#132A35] mb-3 break-words">{project.title}</h3>
+                  <p className="text-[#132A35]/80 leading-relaxed break-words">{project.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -199,15 +199,15 @@ export function HubDetail() {
       {/* Team Members */}
       <section className="py-16 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-[#0A0A0A] mb-8">
+          <h2 className="text-3xl font-bold text-[#132A35] mb-8">
             {language === 'en' ? 'Hub Team Members' : 'Membres de l\'équipe du pôle'} ({hubMembers.length})
           </h2>
 
           {/* Faculty Members */}
           {hubMembers.filter(m => m.type === 'faculty').length > 0 && (
             <div className="mb-12">
-              <h3 className="text-2xl font-semibold text-[#0A0A0A] mb-6 flex items-center gap-3">
-                <GraduationCap className="w-6 h-6 text-[#CC0000]" />
+              <h3 className="text-2xl font-semibold text-[#132A35] mb-6 flex items-center gap-3">
+                <GraduationCap className="w-6 h-6 text-[#0B4F5C]" />
                 {language === 'en' ? 'Faculty Members' : 'Membres du corps professoral'}
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -221,8 +221,8 @@ export function HubDetail() {
           {/* Students */}
           {hubMembers.filter(m => m.type === 'student').length > 0 && (
             <div className="mb-12">
-              <h3 className="text-2xl font-semibold text-[#0A0A0A] mb-6 flex items-center gap-3">
-                <User className="w-6 h-6 text-[#CC0000]" />
+              <h3 className="text-2xl font-semibold text-[#132A35] mb-6 flex items-center gap-3">
+                <User className="w-6 h-6 text-[#0B4F5C]" />
                 {language === 'en' ? 'Students & Research Assistants' : 'Étudiants et assistants de recherche'}
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -236,8 +236,8 @@ export function HubDetail() {
           {/* Community Partners */}
           {hubMembers.filter(m => m.type === 'community').length > 0 && (
             <div>
-              <h3 className="text-2xl font-semibold text-[#0A0A0A] mb-6 flex items-center gap-3">
-                <Building2 className="w-6 h-6 text-[#CC0000]" />
+              <h3 className="text-2xl font-semibold text-[#132A35] mb-6 flex items-center gap-3">
+                <Building2 className="w-6 h-6 text-[#0B4F5C]" />
                 {language === 'en' ? 'Community Partners' : 'Partenaires communautaires'}
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -251,7 +251,7 @@ export function HubDetail() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-[#CC0000] text-white">
+      <section className="py-16 bg-[#0B4F5C] text-white">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 break-words text-[rgb(255,251,251)]">
             {language === 'en' ? 'Get Involved' : 'Participez'}
@@ -264,7 +264,7 @@ export function HubDetail() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/research/projects"
-              className="px-8 py-4 bg-white text-[#CC0000] rounded-lg hover:bg-gray-100 transition-colors font-semibold"
+              className="px-8 py-4 bg-white text-[#0B4F5C] rounded-lg hover:bg-gray-100 transition-colors font-semibold"
             >
               {language === 'en' ? 'View All Projects' : 'Voir tous les projets'}
             </Link>
@@ -287,34 +287,34 @@ function MemberCard({ member, language }: { member: any; language: string }) {
     <Card className="hover:shadow-lg transition-shadow h-full overflow-hidden">
       <CardContent className="p-6">
         <div className="flex items-start gap-4 mb-4">
-          <Avatar className="w-16 h-16 bg-[#CC0000] text-white flex-shrink-0">
+          <Avatar className="w-16 h-16 bg-[#0B4F5C] text-white flex-shrink-0">
             {member.image && <AvatarImage src={member.image} alt={member.name} />}
-            <AvatarFallback className="bg-[#CC0000] text-white text-lg font-semibold">
+            <AvatarFallback className="bg-[#0B4F5C] text-white text-lg font-semibold">
               {member.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}
             </AvatarFallback>
           </Avatar>
           <div className="flex-1 min-w-0">
-            <h4 className="font-semibold text-[#0A0A0A] mb-1 leading-tight break-words">{member.name}</h4>
-            <p className="text-sm text-[#CC0000] font-medium mb-1 break-words">
+            <h4 className="font-semibold text-[#132A35] mb-1 leading-tight break-words">{member.name}</h4>
+            <p className="text-sm text-[#0B4F5C] font-medium mb-1 break-words">
               {language === 'en' ? member.role : member.roleFr}
             </p>
             {member.isHubLeader && (
-              <Badge className="bg-[#CC0000] text-white text-xs mb-2">
+              <Badge className="bg-[#0B4F5C] text-white text-xs mb-2">
                 {language === 'en' ? 'Hub Leader' : 'Responsable du pôle'}
               </Badge>
             )}
           </div>
         </div>
         
-        <div className="space-y-2 text-sm text-[#0A0A0A]/70">
+        <div className="space-y-2 text-sm text-[#132A35]/70">
           <div className="flex items-center gap-2">
-            <Building2 className="w-4 h-4 flex-shrink-0 text-[#CC0000]" />
+            <Building2 className="w-4 h-4 flex-shrink-0 text-[#0B4F5C]" />
             <span className="truncate">{language === 'en' ? member.institution : member.institutionFr}</span>
           </div>
           {member.email && (
             <div className="flex items-center gap-2">
-              <Mail className="w-4 h-4 flex-shrink-0 text-[#CC0000]" />
-              <a href={`mailto:${sanitizeEmail(member.email)}`} className="text-[#CC0000] hover:underline truncate">
+              <Mail className="w-4 h-4 flex-shrink-0 text-[#0B4F5C]" />
+              <a href={`mailto:${sanitizeEmail(member.email)}`} className="text-[#0B4F5C] hover:underline truncate">
                 {member.email}
               </a>
             </div>
@@ -322,7 +322,7 @@ function MemberCard({ member, language }: { member: any; language: string }) {
         </div>
 
         {member.bio && (
-          <p className="mt-4 text-sm text-[#0A0A0A]/80 leading-relaxed line-clamp-4 break-words">
+          <p className="mt-4 text-sm text-[#132A35]/80 leading-relaxed line-clamp-4 break-words">
             {language === 'en' ? member.bio : member.bioFr}
           </p>
         )}

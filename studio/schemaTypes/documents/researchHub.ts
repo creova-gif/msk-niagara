@@ -19,7 +19,7 @@ export const researchHub = defineType({
       name: 'color',
       title: 'Accent Color',
       type: 'string',
-      description: 'Hex color used for this hub\'s icon/accent throughout the site, e.g. #089EA5',
+      description: 'Hex color used for this hub\'s icon/accent throughout the site, e.g. #D6A43A (Ochre), #4E8064 (Sage), #A85645 (Terracotta)',
       validation: (Rule) => Rule.regex(/^#([0-9A-Fa-f]{3}){1,2}$/, {name: 'hex color'}),
     }),
     defineField({

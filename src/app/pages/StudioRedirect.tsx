@@ -30,7 +30,7 @@ export function StudioRedirect() {
   return (
     <div className="min-h-[60vh] flex items-center justify-center text-center px-4">
       <div className="max-w-md">
-        <h1 className="text-2xl font-bold text-[#0A0A0A] mb-3">
+        <h1 className="text-2xl font-bold text-[#132A35] mb-3">
           {language === 'en' ? 'Content editor not yet configured' : "Éditeur de contenu pas encore configuré"}
         </h1>
         <p className="text-gray-500">

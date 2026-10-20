@@ -20,8 +20,8 @@ export function Section({
 }: SectionProps) {
   const bgClasses = {
     white: 'bg-white',
-    muted: 'bg-[#F9F9F9]',
-    dark: 'bg-[#0A0A0A] text-white',
+    muted: 'bg-[#F7F7F5]',
+    dark: 'bg-[#132A35] text-white',
     gradient: 'bg-gradient-to-br from-gray-50 via-white to-gray-50',
   };
 

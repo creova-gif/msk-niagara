@@ -78,9 +78,9 @@ export function NetworkNodes() {
 export function HubBars() {
   const { pop } = useHeroMotion();
   const bars = [
-    { color: '#089EA5', height: '55%', delay: 0.1 },
-    { color: '#C97B2E', height: '80%', delay: 0.25 },
-    { color: '#7B5EA7', height: '65%', delay: 0.4 },
+    { color: '#D6A43A', height: '55%', delay: 0.1 },
+    { color: '#4E8064', height: '80%', delay: 0.25 },
+    { color: '#A85645', height: '65%', delay: 0.4 },
   ];
 
   return (
@@ -100,7 +100,7 @@ export function HubBars() {
 }
 
 /* ── RISING BUBBLES (Childhood hub) ── */
-export function RisingBubbles({ color = '#089EA5' }: { color?: string }) {
+export function RisingBubbles({ color = '#D6A43A' }: { color?: string }) {
   const { loop } = useHeroMotion();
   const bubbles = Array.from({ length: 12 }, (_, i) => ({
     id: i,
@@ -128,7 +128,7 @@ export function RisingBubbles({ color = '#089EA5' }: { color?: string }) {
 }
 
 /* ── HEARTBEAT LINE (Health hub) ── */
-export function HeartbeatLine({ color = '#C97B2E' }: { color?: string }) {
+export function HeartbeatLine({ color = '#4E8064' }: { color?: string }) {
   const { draw, loop } = useHeroMotion();
   const points = '0,20 20,20 30,20 38,5 44,35 50,20 60,20 70,20 78,8 82,32 88,20 100,20 120,20 130,20 138,4 144,36 150,20 160,20 180,20 200,20';
 
@@ -150,7 +150,7 @@ export function HeartbeatLine({ color = '#C97B2E' }: { color?: string }) {
 }
 
 /* ── CONSTELLATION (Identity hub) ── */
-export function Constellation({ color = '#7B5EA7' }: { color?: string }) {
+export function Constellation({ color = '#A85645' }: { color?: string }) {
   const { draw, pop } = useHeroMotion();
   const stars = [
     { x: 10, y: 30 }, { x: 25, y: 15 }, { x: 40, y: 40 },

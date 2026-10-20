@@ -23,7 +23,7 @@ export function NotFound() {
 
   return (
     <div className="min-h-screen bg-white">
-      <section className="relative bg-[#CC0000] text-white overflow-hidden">
+      <section className="relative bg-[#0B4F5C] text-white overflow-hidden">
         <div
           className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}
@@ -51,7 +51,7 @@ export function NotFound() {
       </section>
 
       <section className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16 text-center">
-        <p className="text-sm font-semibold tracking-[0.12em] uppercase text-[#6B6B73] mb-6">
+        <p className="text-sm font-semibold tracking-[0.12em] uppercase text-[#525C58] mb-6">
           {en ? 'Try one of these instead' : 'Essayez plutôt l’une de ces pages'}
         </p>
         <div className="flex flex-wrap justify-center gap-3">
@@ -59,7 +59,7 @@ export function NotFound() {
             <Link
               key={link.to}
               to={link.to}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 text-[#0A0A0A] font-semibold text-sm hover:border-[#CC0000] hover:text-[#CC0000] transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 text-[#132A35] font-semibold text-sm hover:border-[#0B4F5C] hover:text-[#0B4F5C] transition-colors"
             >
               {link.label}
               <ArrowRight className="w-3.5 h-3.5" />

@@ -49,7 +49,7 @@ export function Breadcrumbs() {
           <li>
             <Link 
               to="/" 
-              className="flex items-center gap-1.5 text-[#0A0A0A]/70 hover:text-[#CC0000] transition-colors group"
+              className="flex items-center gap-1.5 text-[#132A35]/70 hover:text-[#0B4F5C] transition-colors group"
             >
               <Home className="w-4 h-4 group-hover:scale-110 transition-transform" />
               <span className="hidden sm:inline">{language === 'en' ? 'Home' : 'Accueil'}</span>
@@ -65,17 +65,17 @@ export function Breadcrumbs() {
               <li key={to} className="flex items-center gap-2">
                 <ChevronRight className="w-4 h-4 text-gray-500" />
                 {isLast ? (
-                  <span className="font-medium text-[#CC0000]">
+                  <span className="font-medium text-[#0B4F5C]">
                     {getBreadcrumbName(value)}
                   </span>
                 ) : isCategory ? (
-                  <span className="text-[#0A0A0A]/70">
+                  <span className="text-[#132A35]/70">
                     {getBreadcrumbName(value)}
                   </span>
                 ) : (
                   <Link 
                     to={to} 
-                    className="text-[#0A0A0A]/70 hover:text-[#CC0000] transition-colors hover:underline"
+                    className="text-[#132A35]/70 hover:text-[#0B4F5C] transition-colors hover:underline"
                   >
                     {getBreadcrumbName(value)}
                   </Link>
