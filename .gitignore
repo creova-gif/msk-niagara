@@ -32,4 +32,7 @@ env/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Except gstack pregate config (must be on origin/main for gstack-pregate to read)
+!.gstack/pregate.json
 .claude/skills/gstack/
