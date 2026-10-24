@@ -1,7 +1,6 @@
 {
-  "schema_version": 1,
   "strays": {
-    "allow": ["pnpm-workspace.yaml"]
+    "allow": ["pnpm-workspace.yaml", ".gitignore"]
   },
-  "empty_lanes": true
+  "empty_lanes": ["browse-*.jsonl", "*.log", "claude-available.json", "tmp/**"]
 }
