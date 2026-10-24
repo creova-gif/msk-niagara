@@ -1,7 +1,6 @@
 {
-  "schema_version": 1,
   "strays": {
     "allow": ["pnpm-workspace.yaml"]
   },
-  "empty_lanes": true
+  "empty_lanes": []
 }
